@@ -1,0 +1,11 @@
+[
+    {
+        "id": "${project.parent.artifactId}.printSummaryLink",
+        "extensionPointId": "patientDashboard.overallActions",
+        "type": "link",
+        "label": "Print Patient Summary",
+        "url": "module/mksreports/renderSummary.form?patientId={{patient.patientId}}&print=true",
+        "icon": "icon-print",
+        "order": 14
+    }
+]
