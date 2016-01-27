@@ -1,4 +1,4 @@
-package org.openmrs.module.mksreports.patientsummary;
+package org.openmrs.module.mksreports.common;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;

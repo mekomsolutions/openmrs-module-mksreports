@@ -1,4 +1,4 @@
-package org.openmrs.module.mksreports.patientsummary;
+package org.openmrs.module.mksreports.common;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -8,6 +8,7 @@ import java.util.Properties;
 
 import org.apache.poi.util.IOUtils;
 import org.openmrs.api.context.Context;
+import org.openmrs.module.mksreports.renderer.XlsReportRenderer2;
 import org.openmrs.module.reporting.definition.service.SerializedDefinitionService;
 import org.openmrs.module.reporting.report.ReportDesign;
 import org.openmrs.module.reporting.report.ReportDesignResource;
