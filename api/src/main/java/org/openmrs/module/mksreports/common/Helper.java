@@ -15,10 +15,12 @@ import org.openmrs.module.reporting.report.ReportDesignResource;
 import org.openmrs.module.reporting.report.definition.ReportDefinition;
 import org.openmrs.module.reporting.report.definition.service.ReportDefinitionService;
 import org.openmrs.module.reporting.report.renderer.CsvReportRenderer;
-import org.openmrs.module.reporting.report.renderer.ExcelTemplateRenderer;
 import org.openmrs.module.reporting.report.service.ReportService;
 import org.openmrs.util.OpenmrsClassLoader;
 
+/**
+ * This class contains the logic necessary to set-up and tear down a report definitions
+ */
 public class Helper {
 	
 	public static void purgeReportDefinition(String name) {
@@ -83,7 +85,7 @@ public class Helper {
 		final ReportDesign design = new ReportDesign();
 		design.setName(name);
 		design.setReportDefinition(rd);
-		design.setRendererType(ExcelTemplateRenderer.class);
+		design.setRendererType(XlsReportRenderer2.class);
 		design.addResource(resource);
 		if (properties != null) {
 			design.getProperties().putAll(properties);
@@ -120,6 +122,7 @@ public class Helper {
 		ReportDesign design = new ReportDesign();
 		design.setName(reportDesignName);
 		design.setReportDefinition(reportDefinition);
+		
 		design.setRendererType(XlsReportRenderer2.class);
 		if(includeParameters)
 		   design.addPropertyValue(XlsReportRenderer2.INCLUDE_DATASET_NAME_AND_PARAMETERS_PROPERTY, "true");

@@ -1,5 +1,12 @@
 package org.openmrs.module.mksreports.renderer;
 
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.List;
+import java.util.Map;
+
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -20,41 +27,37 @@ import org.openmrs.module.reporting.report.ReportDesignResource;
 import org.openmrs.module.reporting.report.ReportRequest;
 import org.openmrs.module.reporting.report.renderer.ExcelTemplateRenderer;
 import org.openmrs.module.reporting.report.renderer.RenderingException;
+import org.openmrs.module.reporting.report.renderer.ReportRenderer;
 import org.openmrs.module.reporting.report.renderer.ReportTemplateRenderer;
-import org.openmrs.util.OpenmrsClassLoader;
-
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.util.List;
-import java.util.Map;
 
 /**
- * Report renderer that produces an Excel pre-2007 workbook with one sheet per dataset in the report.
+ * Report renderer that produces an Excel pre-2007 workbook with one sheet per dataset in the
+ * report.
  */
 @Handler
 @Localized("reporting.XlsReportRenderer")
 public class XlsReportRenderer2 extends ReportTemplateRenderer {
-
-	private Log log = LogFactory.getLog(this.getClass());
-
-	public static String INCLUDE_DATASET_NAME_AND_PARAMETERS_PROPERTY = "includeDataSetNameAndParameters";
-    public static String PASSWORD_PROPERTY = "password";
 	
-	public XlsReportRenderer2() { }
-    
-    /**
-     * @see ReportRenderer#getRenderedContentType(org.openmrs.module.reporting.report.ReportRequest)
-     */
-    public String getRenderedContentType(ReportRequest request) {
-        return "application/vnd.ms-excel";
-    }
-
+	private Log log = LogFactory.getLog(this.getClass());
+	
+	public static String INCLUDE_DATASET_NAME_AND_PARAMETERS_PROPERTY = "includeDataSetNameAndParameters";
+	
+	public static String PASSWORD_PROPERTY = "password";
+	
+	public XlsReportRenderer2() {
+	}
+	
+	/**
+	 * @see ReportRenderer#getRenderedContentType(org.openmrs.module.reporting.report.ReportRequest)
+	 */
+	public String getRenderedContentType(ReportRequest request) {
+		return "application/vnd.ms-excel";
+	}
+	
 	/**
 	 * @see ReportRenderer#getFilename(org.openmrs.module.reporting.report.ReportRequest)
 	 */
-    @Override
+	@Override
 	public String getFilename(ReportRequest request) {
 		String fileName = super.getFilename(request);
 		if (!fileName.endsWith(".xls")) {
@@ -62,25 +65,29 @@ public class XlsReportRenderer2 extends ReportTemplateRenderer {
 		}
 		return fileName;
 	}
-
-    /**
-     * @see ReportRenderer#render(ReportData, String, OutputStream)
-     * @should render ReportData to an xls file
-     */
-    public void render(ReportData reportData, String argument, OutputStream out) throws IOException, RenderingException {
-        ReportDesign design = getDesign(argument);
-    	Workbook wb = getExcelTemplate(design);
-        
-        if (wb != null) {
-        	ExcelTemplateRenderer templateRenderer = new ExcelTemplateRenderer();
+	
+	/**
+	 * @see ReportRenderer#render(ReportData, String, OutputStream)
+	 * @should render ReportData to an xls file
+	 */
+	public void render(ReportData reportData, String argument, OutputStream out) throws IOException, RenderingException {
+		ReportDesign design = getDesign(argument);
+		Workbook wb = getExcelTemplate(design);
+		String renderToTemplate = design.getProperties().getProperty("renderToTemplate");
+		if (wb != null && "true".equals(renderToTemplate)) {
+			ExcelTemplateRenderer templateRenderer = new ExcelTemplateRenderer();
 			templateRenderer.render(reportData, argument, out);
-        }
-		else {
-			ExcelBuilder2 excelBuilder = new ExcelBuilder2(OpenmrsClassLoader.getInstance().getResourceAsStream("MekomePatientSummary.xls"));
-            for (Map.Entry<String, DataSet> e : reportData.getDataSets().entrySet()) {
-                DataSet dataset = e.getValue();
-				excelBuilder.useSheet(excelBuilder.getWorkbook().getSheetAt(0).getSheetName(),0,9);
-
+		} else {
+			ExcelBuilder2 excelBuilder = new ExcelBuilder2();
+			for (Map.Entry<String, DataSet> e : reportData.getDataSets().entrySet()) {
+				DataSet dataset = e.getValue();
+				if(wb != null){
+					excelBuilder.setWorkbook(wb);
+					excelBuilder.goToPosition(design.getProperties());
+				}else{
+					excelBuilder.newSheet(e.getKey());
+				}
+				
 				if (getIncludeDataSetNameAndParameters(design)) {
 					String displayName = ObjectUtil.nvlStr(dataset.getDefinition().getName(), e.getKey());
 					excelBuilder.addCell(displayName, "bold");
@@ -95,38 +102,39 @@ public class XlsReportRenderer2 extends ReportTemplateRenderer {
 					}
 					excelBuilder.nextRow();
 				}
-
-                List<DataSetColumn> columnList = dataset.getMetaData().getColumns();
-                for (DataSetColumn column : columnList) {
+				
+				List<DataSetColumn> columnList = dataset.getMetaData().getColumns();
+				for (DataSetColumn column : columnList) {
 					excelBuilder.addCell(column.getLabel(), "bold,border=bottom");
-                }
-                for (DataSetRow row : dataset ) {
+				}
+				for (DataSetRow row : dataset) {
 					excelBuilder.nextRow();
-                    for (DataSetColumn column : columnList) {
-                    	Object cellValue = row.getColumnValue(column);
-                        excelBuilder.addCell(cellValue);
-                    }
-                }
-            }
-
+					for (DataSetColumn column : columnList) {
+						Object cellValue = row.getColumnValue(column);
+						excelBuilder.addCell(cellValue);
+					}
+				}
+			}
+			
 			excelBuilder.write(out, getPassword(design));
-        }
-    }
-
-    /**
-     * @return a password configured for this spreadsheet, or an empty string if none configured
-     */
-    public String getPassword(ReportDesign design) {
-        return design.getPropertyValue(PASSWORD_PROPERTY, "");
-    }
-
+		}
+	}
+	
 	/**
-	 * @return true if the Excel output should include the data set name and parameters in the top rows
+	 * @return a password configured for this spreadsheet, or an empty string if none configured
+	 */
+	public String getPassword(ReportDesign design) {
+		return design.getPropertyValue(PASSWORD_PROPERTY, "");
+	}
+	
+	/**
+	 * @return true if the Excel output should include the data set name and parameters in the top
+	 *         rows
 	 */
 	public boolean getIncludeDataSetNameAndParameters(ReportDesign design) {
 		return "true".equalsIgnoreCase(design.getPropertyValue(INCLUDE_DATASET_NAME_AND_PARAMETERS_PROPERTY, ""));
 	}
-
+	
 	/**
 	 * @return an Excel Workbook for the given argument
 	 */

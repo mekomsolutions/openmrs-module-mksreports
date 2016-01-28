@@ -18,6 +18,8 @@ package org.openmrs.module.mksreports.patientsummary;
 import java.util.HashMap;
 import java.util.Properties;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.mksreports.common.Helper;
 import org.openmrs.module.reporting.dataset.definition.EncounterAndObsDataSetDefinition;
@@ -30,18 +32,21 @@ import org.openmrs.module.reporting.report.service.ReportService;
  */
 //@Component
 public class GenericPatientSummary {
+	
+	protected static Log log = LogFactory.getLog(GenericPatientSummary.class);
 
 	public void setup() throws Exception {
-
+		
 		ReportDefinition rd = constructReportDefinition();	
 		
-	    ReportDesign design = Helper.createExcelDesign(rd, "mekomPatientSummary.xls_", false);
-
-		Properties props = new Properties();
-		props.put("repeatingSections", "sheet:1,row:9,dataset:patient");
-		props.put("sortWeight","5000");
-		design.setProperties(props);
-
+		ReportDesign design = Helper.createRowPerPatientXlsOverviewReportDesign(rd,"MekomePatientSummary.xls","mekomPatientSummary.xls_",null);
+		
+		Properties props = new Properties();				
+		props.put("renderToTemplate","false");
+		props.put("renderToTemplateSheet","0");
+		props.put("renderToTemplateRow","9");
+		props.put("renderToTemplateColumn","0");		
+		design.setProperties(props);		
 		Helper.saveReportDesign(design);
 	}
 

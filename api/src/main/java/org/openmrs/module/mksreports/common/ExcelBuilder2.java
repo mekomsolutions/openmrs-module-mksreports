@@ -1,9 +1,20 @@
 package org.openmrs.module.mksreports.common;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Properties;
+
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
-import org.apache.poi.EncryptedDocumentException;
-import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.poi.openxml4j.opc.OPCPackage;
 import org.apache.poi.poifs.crypt.EncryptionInfo;
 import org.apache.poi.poifs.crypt.EncryptionMode;
@@ -14,7 +25,6 @@ import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.openmrs.Cohort;
 import org.openmrs.module.reporting.common.ExcelUtil;
@@ -22,22 +32,12 @@ import org.openmrs.module.reporting.common.ObjectUtil;
 import org.openmrs.module.reporting.indicator.CohortIndicatorResult;
 import org.openmrs.module.reporting.indicator.dimension.CohortIndicatorAndDimensionResult;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 /**
  * Excel Helper class that facilitates creating rows and columns in a workbook
  */
 public class ExcelBuilder2 {
 
+	protected static Log log = LogFactory.getLog(ExcelBuilder2.class);
 	private Workbook workbook;
 	private Sheet currentSheet = null;
 	private List<String> sheetNames = new ArrayList<String>();
@@ -49,18 +49,6 @@ public class ExcelBuilder2 {
 
 	public ExcelBuilder2() {
 		workbook = new XSSFWorkbook();
-	}
-
-	public ExcelBuilder2(InputStream is) throws IOException {
-		try {
-			workbook = WorkbookFactory.create(is);
-		} catch (EncryptedDocumentException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (InvalidFormatException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 
 	/**
@@ -83,16 +71,11 @@ public class ExcelBuilder2 {
 		return this;
 	}
 
-	/**
-	 * Create a new sheet with the given name, and switch to this sheet
-	 */
-	public ExcelBuilder2 useSheet(String name, int position,int currentRowNumx) {
-		name = ExcelUtil.formatSheetTitle(name, sheetNames);
-		currentSheet = workbook.getSheetAt(position);
-		sheetNames.add(name);
-		currentRow = null;
-		currentRowNum = currentRowNumx;
-		currentColNum = 0;
+
+	public ExcelBuilder2 goToPosition(Properties properties) {
+		this.currentSheet = workbook.getSheetAt(getRenderToTemplateSheet(properties));
+		this.currentRowNum = getRenderToTemplateRow(properties);
+		this.currentColNum = getRenderToTemplateColumn(properties);
 		return this;
 	}
 
@@ -210,6 +193,10 @@ public class ExcelBuilder2 {
 			fs.writeFilesystem(out);
 		}
 	}
+	
+	public void setWorkbook(Workbook workbook){
+		this.workbook = workbook;
+	}
 
 	public Workbook getWorkbook() {
 		return workbook;
@@ -222,4 +209,36 @@ public class ExcelBuilder2 {
 	public Row getCurrentRow() {
 		return currentRow;
 	}
+	
+	public int getRenderToTemplateSheet(Properties properties){
+		try {
+	       return Integer.parseInt(properties.getProperty("renderToTemplateSheet"));
+        }
+        catch (NumberFormatException e) {
+	        log.error("Invalid value for property renderToTemplateSheet. Property value should be an integer "+e);
+	        }
+		return 0;
+	}
+	
+	public int getRenderToTemplateRow(Properties properties){
+		try {
+		       return Integer.parseInt(properties.getProperty("renderToTemplateRow"));
+	        }
+	        catch (NumberFormatException e) {
+		        log.error("Invalid value for property renderToTemplateRow. Property value should be an integer "+e);
+		        }
+		return 0;
+	}
+	
+	public int getRenderToTemplateColumn(Properties properties){
+		try {
+		       return Integer.parseInt(properties.getProperty("renderToTemplateColumn"));
+	        }
+	        catch (NumberFormatException e) {
+		        log.error("Invalid value for property renderToTemplateColumn. Property value should be an integer "+e);
+		        }
+		return 0;
+	}
+	
+	
 }
