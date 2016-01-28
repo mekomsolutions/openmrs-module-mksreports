@@ -73,9 +73,9 @@ public class ExcelBuilder2 {
 
 
 	public ExcelBuilder2 goToPosition(Properties properties) {
-		this.currentSheet = workbook.getSheetAt(getRenderToTemplateSheet(properties));
-		this.currentRowNum = getRenderToTemplateRow(properties);
-		this.currentColNum = getRenderToTemplateColumn(properties);
+		this.currentSheet = workbook.getSheetAt(getDesginProperty(properties.getProperty("renderToTemplateSheet")));
+		this.currentRowNum = getDesginProperty(properties.getProperty("renderToTemplateRow"));
+		this.currentColNum = getDesginProperty(properties.getProperty("renderToTemplateColumn"));
 		return this;
 	}
 
@@ -210,35 +210,13 @@ public class ExcelBuilder2 {
 		return currentRow;
 	}
 	
-	public int getRenderToTemplateSheet(Properties properties){
+	public int getDesginProperty(String property){
 		try {
-	       return Integer.parseInt(properties.getProperty("renderToTemplateSheet"));
+	       return Integer.parseInt(property);
         }
         catch (NumberFormatException e) {
-	        log.error("Invalid value for property renderToTemplateSheet. Property value should be an integer "+e);
+	        log.error("Invalid value for property "+property+" : "+e);
 	        }
 		return 0;
-	}
-	
-	public int getRenderToTemplateRow(Properties properties){
-		try {
-		       return Integer.parseInt(properties.getProperty("renderToTemplateRow"));
-	        }
-	        catch (NumberFormatException e) {
-		        log.error("Invalid value for property renderToTemplateRow. Property value should be an integer "+e);
-		        }
-		return 0;
-	}
-	
-	public int getRenderToTemplateColumn(Properties properties){
-		try {
-		       return Integer.parseInt(properties.getProperty("renderToTemplateColumn"));
-	        }
-	        catch (NumberFormatException e) {
-		        log.error("Invalid value for property renderToTemplateColumn. Property value should be an integer "+e);
-		        }
-		return 0;
-	}
-	
-	
+	}	
 }
