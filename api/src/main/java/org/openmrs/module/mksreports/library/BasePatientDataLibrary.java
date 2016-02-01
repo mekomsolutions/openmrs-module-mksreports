@@ -24,17 +24,16 @@ import org.openmrs.module.reporting.data.person.definition.PreferredAddressDataD
 import org.openmrs.module.reporting.data.person.definition.PreferredNameDataDefinition;
 import org.openmrs.module.reporting.definition.library.BaseDefinitionLibrary;
 import org.openmrs.module.reporting.definition.library.DocumentedDefinition;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
 public class BasePatientDataLibrary extends BaseDefinitionLibrary<PatientDataDefinition> {
 
-	@Autowired
-	private DataFactory df;
+	//@Autowired
+	private DataFactory df = new DataFactory();
 
-	@Autowired
-	private BuiltInPatientDataLibrary builtInPatientData;
+	//@Autowired
+	private BuiltInPatientDataLibrary builtInPatientData = new BuiltInPatientDataLibrary();
 
     @Override
     public String getKeyPrefix() {

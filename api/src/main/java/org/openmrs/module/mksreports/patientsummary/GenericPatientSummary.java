@@ -29,20 +29,19 @@ import org.openmrs.module.reporting.dataset.definition.PatientDataSetDefinition;
 import org.openmrs.module.reporting.report.ReportDesign;
 import org.openmrs.module.reporting.report.definition.ReportDefinition;
 import org.openmrs.module.reporting.report.service.ReportService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
 public class GenericPatientSummary extends MksReportManager{
 	
-	@Autowired
-	private DataFactory df;
+	//@Autowired TODO Reconfigure this annotation after
+	private DataFactory df = new DataFactory();
 	
-	@Autowired
-	private BuiltInPatientDataLibrary builtInPatientData;
+	//@Autowired TODO Reconfigure this annotation after
+	private BuiltInPatientDataLibrary builtInPatientData = new BuiltInPatientDataLibrary();
 	
-	@Autowired
-	private BasePatientDataLibrary basePatientData;
+	//@Autowired TODO Reconfigure this annotation after
+	private BasePatientDataLibrary basePatientData = new BasePatientDataLibrary();
 	
 	public void setup() throws Exception {
 		
@@ -71,13 +70,12 @@ public class GenericPatientSummary extends MksReportManager{
 		PatientDataSetDefinition dsd = new PatientDataSetDefinition();
 		Map<String, Object> mappings = new HashMap<String, Object>();
 
-		
+
 		addColumn(dsd, "PID", builtInPatientData.getPatientId());
 		addColumn(dsd, "Given name", builtInPatientData.getPreferredGivenName());
 		addColumn(dsd, "Last name", builtInPatientData.getPreferredFamilyName());
 		addColumn(dsd, "Birthdate", basePatientData.getBirthdate());
 		addColumn(dsd, "Current Age (yr)", basePatientData.getAgeAtEndInYears());
-		addColumn(dsd, "Current Age (mth)", basePatientData.getAgeAtEndInMonths());
 		addColumn(dsd, "M/F", builtInPatientData.getGender());
 		
 		
