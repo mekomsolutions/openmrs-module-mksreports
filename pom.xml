@@ -49,8 +49,9 @@
 
 	<properties>
 		<openMRSVersion>1.8.2</openMRSVersion>
-		<reportingVersion>0.9.8-SNAPSHOT</reportingVersion>
-		<patientsummaryVersion>2.2-SNAPSHOT</patientsummaryVersion>
+		<reportingVersion>0.9.7</reportingVersion>
+		<patientsummaryVersion>2.1</patientsummaryVersion>
+		<uiframeworkVersion>3.3.1</uiframeworkVersion>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 
@@ -59,7 +60,7 @@
 		<dependency>
 			<groupId>org.openmrs.module</groupId>
 			<artifactId>uiframework-api</artifactId>
-			<version>3.5-SNAPSHOT</version>
+			<version>${uiframeworkVersion}</version>
 			<type>jar</type>
 			<scope>provided</scope>
 		</dependency>
