@@ -62,7 +62,7 @@ public class  MekomSolutionsReportsManageController {
 			ReportService rs = Context.getService(ReportService.class);
 			ReportDesign psrd = null;
 			for (ReportDesign rd : rs.getAllReportDesigns(false)) {
-				if ("mekomPatientSummary.xls_".equals(rd.getName())) {
+				if ("mekomPatientSummary.xml_".equals(rd.getName())) {
 					psrd = rd;
 				}
 			}
@@ -76,8 +76,8 @@ public class  MekomSolutionsReportsManageController {
 				result.getErrorDetails().printStackTrace(response.getWriter());
 			} 
 			else {
-				response.setContentType("application/vnd.ms-excel");
-		        response.addHeader("content-disposition","attachment; filename=summary.xls");
+				response.setContentType("text/xml");			      
+				response.addHeader("Content-Disposition","attachment; filename=PatientHistory.xml" );
 				response.getOutputStream().write(result.getRawContents());
 			}
 		}

@@ -16,7 +16,6 @@ package org.openmrs.module.mksreports.patientsummary;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Properties;
 
 import org.openmrs.api.context.Context;
 import org.openmrs.module.mksreports.common.Helper;
@@ -45,15 +44,8 @@ public class GenericPatientSummary extends MksReportManager{
 	
 	public void setup() throws Exception {
 		
-		ReportDefinition rd = constructReportDefinition();
-		
-		ReportDesign design = Helper.createRowPerPatientXlsOverviewReportDesign(rd, "MekomePatientSummary.xls",
-		    "mekomPatientSummary.xls_", null);
-		
-		Properties props = new Properties();
-		props.put("repeatingSections", "Sheet:1,row:10,dataset:patient");
-		props.put("sortWeight", "5000");
-		design.setProperties(props);
+		ReportDefinition rd = constructReportDefinition();		
+		ReportDesign design = Helper.createXMLReportDesign(rd, "mekomPatientSummary.xml_");
 		Helper.saveReportDesign(design);
 	}
 	
@@ -71,12 +63,12 @@ public class GenericPatientSummary extends MksReportManager{
 		Map<String, Object> mappings = new HashMap<String, Object>();
 
 
-		addColumn(dsd, "PID", builtInPatientData.getPatientId());
-		addColumn(dsd, "Given name", builtInPatientData.getPreferredGivenName());
-		addColumn(dsd, "Last name", builtInPatientData.getPreferredFamilyName());
-		addColumn(dsd, "Birthdate", basePatientData.getBirthdate());
-		addColumn(dsd, "Current Age (yr)", basePatientData.getAgeAtEndInYears());
-		addColumn(dsd, "M/F", builtInPatientData.getGender());
+		addColumn(dsd, "patient_id", builtInPatientData.getPatientId());
+		addColumn(dsd, "given_name", builtInPatientData.getPreferredGivenName());
+		addColumn(dsd, "last_name", builtInPatientData.getPreferredFamilyName());
+		addColumn(dsd, "birthdate", basePatientData.getBirthdate());
+		addColumn(dsd, "current_age_yr", basePatientData.getAgeAtEndInYears());
+		addColumn(dsd, "gender", builtInPatientData.getGender());
 		
 		
 		reportDefinition.addDataSetDefinition("patient2", dsd, mappings);
@@ -89,7 +81,7 @@ public class GenericPatientSummary extends MksReportManager{
 	public void delete() {
 		ReportService rs = Context.getService(ReportService.class);
 		for (ReportDesign rd : rs.getAllReportDesigns(false)) {
-			if ("mekomPatientSummary.xls_".equals(rd.getName())) {
+			if ("mekomPatientSummary.xml_".equals(rd.getName())) {
 				rs.purgeReportDesign(rd);
 			}
 		}
