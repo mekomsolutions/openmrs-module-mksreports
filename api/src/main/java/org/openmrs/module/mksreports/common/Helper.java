@@ -9,6 +9,7 @@ import java.util.Properties;
 import org.apache.poi.util.IOUtils;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.mksreports.renderer.MksExcelTemplateRenderer;
+import org.openmrs.module.mksreports.renderer.MksXmlReportRenderer;
 import org.openmrs.module.reporting.definition.service.SerializedDefinitionService;
 import org.openmrs.module.reporting.report.ReportDesign;
 import org.openmrs.module.reporting.report.ReportDesignResource;
@@ -138,6 +139,17 @@ public class Helper {
 		design.setName(reportDesignName);
 		design.setReportDefinition(reportDefinition);
 		design.setRendererType(CsvReportRenderer.class);
+		return design;
+	}
+	
+	/**
+	 * @return a new ReportDesign for a standard XML output
+	 */
+	public static ReportDesign createXMLReportDesign(ReportDefinition reportDefinition, String reportDesignName) {
+		ReportDesign design = new ReportDesign();
+		design.setName(reportDesignName);
+		design.setReportDefinition(reportDefinition);
+		design.setRendererType(MksXmlReportRenderer.class);
 		return design;
 	}
 	
