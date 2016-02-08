@@ -71,8 +71,8 @@ public class GenericPatientSummary extends MksReportManager{
 		addColumn(dsd, "gender", builtInPatientData.getGender());
 		
 		
-		reportDefinition.addDataSetDefinition("patient2", dsd, mappings);
-		reportDefinition.addDataSetDefinition("patient", dataSetDefinition, new HashMap<String, Object>());
+		reportDefinition.addDataSetDefinition("demographics", dsd, mappings);
+		reportDefinition.addDataSetDefinition("encounters", dataSetDefinition, new HashMap<String, Object>());
 		
 		Helper.saveReportDefinition(reportDefinition);
 		
