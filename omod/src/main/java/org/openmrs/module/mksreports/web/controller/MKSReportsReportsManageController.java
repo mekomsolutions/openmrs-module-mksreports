@@ -23,7 +23,6 @@ import javax.xml.transform.Result;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerException;
-import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.TransformerFactoryConfigurationError;
 import javax.xml.transform.sax.SAXResult;
 import javax.xml.transform.stream.StreamSource;
@@ -85,7 +84,6 @@ public class MKSReportsReportsManageController {
 		System.setProperty("javax.xml.transform.TransformerFactory", "net.sf.saxon.TransformerFactoryImpl");
 		
 		FopFactory fopFactory = FopFactory.newInstance();
-		TransformerFactory tFactory = TransformerFactory.newInstance();
 		
 		try {
 			PatientSummaryService pss = Context.getService(PatientSummaryService.class);
@@ -106,36 +104,27 @@ public class MKSReportsReportsManageController {
 			if (result.getErrorDetails() != null) {
 				result.getErrorDetails().printStackTrace(response.getWriter());
 			} else {
-
-				// the XML file from which we take the name
-				//StreamSource src = new StreamSource(new ByteArrayInputStream(result.getRawContents()));
+				
+				
+				/*We shouldn't be getting this from a file! We'll use 
+				 * StreamSource src = new StreamSource(new ByteArrayInputStream(result.getRawContents())); instead 
+				 * to get the content from the datasets rows. This should be done once we finish building a suitable
+				 * xsl style (...this file will replace sampleStylesheet.xsl in the api's resource folder) 
+				 * that can correctly work with the xml containing the datasets*/
 				StreamSource source = new StreamSource(OpenmrsClassLoader.getInstance().getResourceAsStream("sample.xml"));
-				// creation of transform source
 				StreamSource transformSource = new StreamSource(OpenmrsClassLoader.getInstance().getResourceAsStream("sampleStylesheet.xsl"));
-				// create an instance of fop factory
-				// FopFactory fopFactory = FopFactory.newInstance();
-				// a user agent is needed for transformation
 				FOUserAgent foUserAgent = fopFactory.newFOUserAgent();
-				// to store output
 				ByteArrayOutputStream outStream = new ByteArrayOutputStream();
 				
 				Transformer xslfoTransformer;
 				try {
 					xslfoTransformer = getTransformer(transformSource);
-					// Construct fop with desired output format
 					Fop fop;
 					try {
 						fop = fopFactory.newFop(MimeConstants.MIME_PDF, foUserAgent, outStream);
-						// Resulting SAX events (the generated FO)
-						// must be piped through to FOP
 						Result res = new SAXResult(fop.getDefaultHandler());
-						
-						// Start XSLT transformation and FOP processing
 						try {
-							// everything will happen here..
 							xslfoTransformer.transform(source, res);
-										
-							// to write the content to out put stream
 							byte[] pdfBytes = outStream.toByteArray();
 							response.setContentLength(pdfBytes.length);
 							response.setContentType("application/pdf");
