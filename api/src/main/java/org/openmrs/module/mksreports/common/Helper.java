@@ -8,8 +8,8 @@ import java.util.Properties;
 
 import org.apache.poi.util.IOUtils;
 import org.openmrs.api.context.Context;
-import org.openmrs.module.mksreports.renderer.MksExcelTemplateRenderer;
-import org.openmrs.module.mksreports.renderer.MksXmlReportRenderer;
+import org.openmrs.module.mksreports.renderer.PatientHistoryExcelTemplateRenderer;
+import org.openmrs.module.mksreports.renderer.PatientHistoryXmlReportRenderer;
 import org.openmrs.module.reporting.definition.service.SerializedDefinitionService;
 import org.openmrs.module.reporting.report.ReportDesign;
 import org.openmrs.module.reporting.report.ReportDesignResource;
@@ -87,7 +87,7 @@ public class Helper {
 		final ReportDesign design = new ReportDesign();
 		design.setName(name);
 		design.setReportDefinition(rd);
-		design.setRendererType(MksExcelTemplateRenderer.class);
+		design.setRendererType(PatientHistoryExcelTemplateRenderer.class);
 		design.addResource(resource);
 		if (properties != null) {
 			design.getProperties().putAll(properties);
@@ -101,7 +101,7 @@ public class Helper {
 	        ReportDesign design = new ReportDesign();
 	        design.setName(name);
 	        design.setReportDefinition(reportDefinition);
-	        design.setRendererType(MksExcelTemplateRenderer.class);
+	        design.setRendererType(PatientHistoryExcelTemplateRenderer.class);
 	        if (excelTemplate != null) {
 	            ReportDesignResource resource = new ReportDesignResource();
 	            resource.setName("template");
@@ -149,7 +149,7 @@ public class Helper {
 		ReportDesign design = new ReportDesign();
 		design.setName(reportDesignName);
 		design.setReportDefinition(reportDefinition);
-		design.setRendererType(MksXmlReportRenderer.class);
+		design.setRendererType(PatientHistoryXmlReportRenderer.class);
 		return design;
 	}
 	

@@ -25,6 +25,6 @@ public class  MekomSolutionsReportsServiceTest extends BaseModuleContextSensitiv
 	
 	@Test
 	public void shouldSetupContext() {
-		assertNotNull(Context.getService(MekomSolutionsReportsService.class));
+		assertNotNull(Context.getService(MKSReportsService.class));
 	}
 }

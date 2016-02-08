@@ -35,7 +35,7 @@ import org.openmrs.module.reporting.report.util.ReportUtil;
 /**
  * Base implementation of ReportManager that provides some common method implementations
  */
-public abstract class MksReportManager {
+public abstract class MKSReportsReportManager {
 
 	protected void addColumn(PatientDataSetDefinition dsd, String columnName, PatientDataDefinition pdd) {
 		dsd.addColumn(columnName, pdd, Mapped.straightThroughMappings(pdd));

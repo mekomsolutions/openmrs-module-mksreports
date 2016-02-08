@@ -25,7 +25,7 @@
 
 	
 	<!-- Module Activator -->
-	<activator>${project.parent.groupId}.${project.parent.artifactId}.MekomSolutionsReportsActivator</activator>
+	<activator>${project.parent.groupId}.${project.parent.artifactId}.MKSReportsActivator</activator>
 	
 	
 	<!-- Adds link to admin page -->
@@ -37,7 +37,7 @@
 	<!-- Maps hibernate file's, if present -->
 	<mappingFiles>
 				
-		MekomSolutionsReports.hbm.xml
+		MKSReports.hbm.xml
 				
 	</mappingFiles>
 

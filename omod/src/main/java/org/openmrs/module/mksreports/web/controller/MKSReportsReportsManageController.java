@@ -37,7 +37,7 @@ import org.springframework.web.bind.annotation.RequestParam;
  * The main controller.
  */
 @Controller
-public class  MekomSolutionsReportsManageController {
+public class  MKSReportsReportsManageController {
 	
 	protected final Log log = LogFactory.getLog(getClass());
 	

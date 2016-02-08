@@ -19,7 +19,7 @@ import java.util.Map;
 
 import org.openmrs.api.context.Context;
 import org.openmrs.module.mksreports.common.Helper;
-import org.openmrs.module.mksreports.dataset.definition.MksEncounterAndObsDataSetDefinition;
+import org.openmrs.module.mksreports.dataset.definition.PatientHistoryEncounterAndObsDataSetDefinition;
 import org.openmrs.module.mksreports.library.BasePatientDataLibrary;
 import org.openmrs.module.mksreports.library.DataFactory;
 import org.openmrs.module.reporting.common.SortCriteria;
@@ -31,7 +31,7 @@ import org.openmrs.module.reporting.report.service.ReportService;
 import org.springframework.stereotype.Component;
 
 @Component
-public class GenericPatientSummary extends MksReportManager{
+public class GenericPatientSummary extends MKSReportsReportManager{
 	
 	//@Autowired TODO Reconfigure this annotation after
 	private DataFactory df = new DataFactory();
@@ -54,7 +54,7 @@ public class GenericPatientSummary extends MksReportManager{
 		reportDefinition.setName("Mekom Patient Summary");
 		
 		// Create new dataset definition 
-		MksEncounterAndObsDataSetDefinition dataSetDefinition = new MksEncounterAndObsDataSetDefinition();
+		PatientHistoryEncounterAndObsDataSetDefinition dataSetDefinition = new PatientHistoryEncounterAndObsDataSetDefinition();
 		dataSetDefinition.setName("Mks Data Set");
 		dataSetDefinition.addSortCriteria("encounterDate", SortCriteria.SortDirection.ASC);
 		

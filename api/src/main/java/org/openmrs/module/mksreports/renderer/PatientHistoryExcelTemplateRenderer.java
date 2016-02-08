@@ -61,11 +61,11 @@ import java.util.Set;
  */
 @Handler
 @Localized("reporting.ExcelTemplateRenderer")
-public class MksExcelTemplateRenderer extends ReportTemplateRenderer {
+public class PatientHistoryExcelTemplateRenderer extends ReportTemplateRenderer {
 	
 	private Log log = LogFactory.getLog(this.getClass());
 	
-	public MksExcelTemplateRenderer() {
+	public PatientHistoryExcelTemplateRenderer() {
 		super();
 	}
 

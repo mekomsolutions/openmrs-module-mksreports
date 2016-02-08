@@ -23,7 +23,7 @@ import org.openmrs.module.reporting.evaluation.caching.Caching;
  */
 @Caching(strategy=ConfigurationPropertyCachingStrategy.class)
 @Localized("reporting.EncounterAndObsDataSetDefinition")
-public class MksEncounterAndObsDataSetDefinition extends EncounterDataSetDefinition {
+public class PatientHistoryEncounterAndObsDataSetDefinition extends EncounterDataSetDefinition {
 	
-	public MksEncounterAndObsDataSetDefinition() {}
+	public PatientHistoryEncounterAndObsDataSetDefinition() {}
 }

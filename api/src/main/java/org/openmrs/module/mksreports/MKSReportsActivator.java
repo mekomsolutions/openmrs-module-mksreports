@@ -22,7 +22,7 @@ import org.openmrs.module.mksreports.patientsummary.GenericPatientSummary;
 /**
  * This class contains the logic that is run every time this module is either started or stopped.
  */
-public class MekomSolutionsReportsActivator implements ModuleActivator {
+public class MKSReportsActivator implements ModuleActivator {
 	
 	protected Log log = LogFactory.getLog(getClass());
 		

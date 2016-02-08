@@ -23,7 +23,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.openmrs.Obs;
 import org.openmrs.annotation.Handler;
-import org.openmrs.module.mksreports.dataset.definition.MksEncounterAndObsDataSetDefinition;
+import org.openmrs.module.mksreports.dataset.definition.PatientHistoryEncounterAndObsDataSetDefinition;
 import org.openmrs.module.reporting.common.BeanPropertyComparator;
 import org.openmrs.module.reporting.common.ObjectCounter;
 import org.openmrs.module.reporting.common.ObjectUtil;
@@ -42,13 +42,13 @@ import org.openmrs.module.reporting.evaluation.EvaluationException;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
- * The logic that evaluates a {@link MksEncounterAndObsDataSetDefinition} and produces an {@link DataSet}
- * @see MksEncounterAndObsDataSetDefinition
+ * The logic that evaluates a {@link PatientHistoryEncounterAndObsDataSetDefinition} and produces an {@link DataSet}
+ * @see PatientHistoryEncounterAndObsDataSetDefinition
  */
-@Handler(supports = { MksEncounterAndObsDataSetDefinition.class }, order = 25)
-public class MksEncounterAndObsDataSetEvaluator extends EncounterDataSetEvaluator {
+@Handler(supports = { PatientHistoryEncounterAndObsDataSetDefinition.class }, order = 25)
+public class PatientHistoryEncounterAndObsDataSetEvaluator extends EncounterDataSetEvaluator {
 
-	protected static final Log log = LogFactory.getLog(MksEncounterAndObsDataSetEvaluator.class);
+	protected static final Log log = LogFactory.getLog(PatientHistoryEncounterAndObsDataSetEvaluator.class);
 
 	@Autowired
 	BuiltInEncounterDataLibrary encounterData;
@@ -59,7 +59,7 @@ public class MksEncounterAndObsDataSetEvaluator extends EncounterDataSetEvaluato
 	 */
 	public DataSet evaluate(DataSetDefinition dataSetDefinition, EvaluationContext context) throws EvaluationException {
 
-		MksEncounterAndObsDataSetDefinition dsd = (MksEncounterAndObsDataSetDefinition) dataSetDefinition;
+		PatientHistoryEncounterAndObsDataSetDefinition dsd = (PatientHistoryEncounterAndObsDataSetDefinition) dataSetDefinition;
 
 		// If no specific columns definitions are specified, use some defaults
 		if (dsd.getColumnDefinitions().isEmpty()) {

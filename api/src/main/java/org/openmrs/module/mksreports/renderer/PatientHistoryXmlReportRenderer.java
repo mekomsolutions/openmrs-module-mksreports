@@ -35,7 +35,7 @@ import java.util.List;
  */
 @Handler
 @Localized("reporting.XmlReportRenderer")
-public class MksXmlReportRenderer extends ReportDesignRenderer {
+public class PatientHistoryXmlReportRenderer extends ReportDesignRenderer {
 	
 	/**
 	 * @see ReportRenderer#getFilename(org.openmrs.module.reporting.report.ReportRequest)

@@ -27,7 +27,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @see org.openmrs.api.context.Context
  */
 @Transactional
-public interface MekomSolutionsReportsService extends OpenmrsService {
+public interface MKSReportsService extends OpenmrsService {
      
 	/*
 	 * Add service methods here
