@@ -57,7 +57,7 @@ public class GenericPatientSummary extends MksReportManager{
 		MksEncounterAndObsDataSetDefinition dataSetDefinition = new MksEncounterAndObsDataSetDefinition();
 		dataSetDefinition.setName("Mks Data Set");
 		dataSetDefinition.addSortCriteria("encounterDate", SortCriteria.SortDirection.ASC);
-		reportDefinition.addDataSetDefinition("patient", dataSetDefinition, new HashMap<String, Object>());
+		
 		
 		PatientDataSetDefinition dsd = new PatientDataSetDefinition();
 		Map<String, Object> mappings = new HashMap<String, Object>();
@@ -72,6 +72,7 @@ public class GenericPatientSummary extends MksReportManager{
 		
 		
 		reportDefinition.addDataSetDefinition("patient2", dsd, mappings);
+		reportDefinition.addDataSetDefinition("patient", dataSetDefinition, new HashMap<String, Object>());
 		
 		Helper.saveReportDefinition(reportDefinition);
 		

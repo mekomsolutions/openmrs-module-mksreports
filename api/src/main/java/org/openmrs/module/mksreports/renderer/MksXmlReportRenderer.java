@@ -58,8 +58,9 @@ public class MksXmlReportRenderer extends ReportDesignRenderer {
 	public void render(ReportData results, String argument, OutputStream out) throws IOException, RenderingException {
 		
 		Writer w = new OutputStreamWriter(out, "UTF-8");
-
+        
 		w.write("<?xml version=\"1.0\"?>\n");
+        w.write("<report name=\"" + results.getDefinition().getName() + "\">\n");
 		for (String dsKey : results.getDataSets().keySet()) {
 			DataSet dataset = results.getDataSets().get(dsKey);
 			List<DataSetColumn> columns = dataset.getMetaData().getColumns();
@@ -82,9 +83,10 @@ public class MksXmlReportRenderer extends ReportDesignRenderer {
 				}
 				w.write("</row>\n");
 			}
-		}
-		w.write("\t</rows>\n");
-		w.write("</dataset>\n");
+			w.write("\t</rows>\n");
+			w.write("</dataset>\n");
+		}		
+		w.write("</report>\n");
 		w.flush();
 	}
 }
