@@ -8,13 +8,15 @@ import java.util.Properties;
 
 import org.apache.poi.util.IOUtils;
 import org.openmrs.api.context.Context;
-import org.openmrs.module.mksreports.renderer.XlsReportRenderer2;
+import org.openmrs.module.mksreports.renderer.PatientHistoryExcelTemplateRenderer;
+import org.openmrs.module.mksreports.renderer.PatientHistoryXmlReportRenderer;
 import org.openmrs.module.reporting.definition.service.SerializedDefinitionService;
 import org.openmrs.module.reporting.report.ReportDesign;
 import org.openmrs.module.reporting.report.ReportDesignResource;
 import org.openmrs.module.reporting.report.definition.ReportDefinition;
 import org.openmrs.module.reporting.report.definition.service.ReportDefinitionService;
 import org.openmrs.module.reporting.report.renderer.CsvReportRenderer;
+import org.openmrs.module.reporting.report.renderer.XlsReportRenderer;
 import org.openmrs.module.reporting.report.service.ReportService;
 import org.openmrs.util.OpenmrsClassLoader;
 
@@ -85,7 +87,7 @@ public class Helper {
 		final ReportDesign design = new ReportDesign();
 		design.setName(name);
 		design.setReportDefinition(rd);
-		design.setRendererType(XlsReportRenderer2.class);
+		design.setRendererType(PatientHistoryExcelTemplateRenderer.class);
 		design.addResource(resource);
 		if (properties != null) {
 			design.getProperties().putAll(properties);
@@ -99,7 +101,7 @@ public class Helper {
 	        ReportDesign design = new ReportDesign();
 	        design.setName(name);
 	        design.setReportDefinition(reportDefinition);
-	        design.setRendererType(XlsReportRenderer2.class);
+	        design.setRendererType(PatientHistoryExcelTemplateRenderer.class);
 	        if (excelTemplate != null) {
 	            ReportDesignResource resource = new ReportDesignResource();
 	            resource.setName("template");
@@ -123,9 +125,9 @@ public class Helper {
 		design.setName(reportDesignName);
 		design.setReportDefinition(reportDefinition);
 		
-		design.setRendererType(XlsReportRenderer2.class);
+		design.setRendererType(XlsReportRenderer.class);
 		if(includeParameters)
-		   design.addPropertyValue(XlsReportRenderer2.INCLUDE_DATASET_NAME_AND_PARAMETERS_PROPERTY, "true");
+		   design.addPropertyValue(XlsReportRenderer.INCLUDE_DATASET_NAME_AND_PARAMETERS_PROPERTY, "true");
 		return design;
 	}
 
@@ -137,6 +139,17 @@ public class Helper {
 		design.setName(reportDesignName);
 		design.setReportDefinition(reportDefinition);
 		design.setRendererType(CsvReportRenderer.class);
+		return design;
+	}
+	
+	/**
+	 * @return a new ReportDesign for a standard XML output
+	 */
+	public static ReportDesign createXMLReportDesign(ReportDefinition reportDefinition, String reportDesignName) {
+		ReportDesign design = new ReportDesign();
+		design.setName(reportDesignName);
+		design.setReportDefinition(reportDefinition);
+		design.setRendererType(PatientHistoryXmlReportRenderer.class);
 		return design;
 	}
 	

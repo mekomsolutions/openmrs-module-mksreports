@@ -12,62 +12,77 @@
  * Copyright (C) OpenMRS, LLC.  All Rights Reserved.
  */
 
-
 package org.openmrs.module.mksreports.patientsummary;
 
 import java.util.HashMap;
-import java.util.Properties;
+import java.util.Map;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.mksreports.common.Helper;
-import org.openmrs.module.reporting.dataset.definition.EncounterAndObsDataSetDefinition;
+import org.openmrs.module.mksreports.dataset.definition.PatientHistoryEncounterAndObsDataSetDefinition;
+import org.openmrs.module.mksreports.library.BasePatientDataLibrary;
+import org.openmrs.module.mksreports.library.DataFactory;
+import org.openmrs.module.reporting.common.SortCriteria;
+import org.openmrs.module.reporting.data.patient.library.BuiltInPatientDataLibrary;
+import org.openmrs.module.reporting.dataset.definition.PatientDataSetDefinition;
 import org.openmrs.module.reporting.report.ReportDesign;
 import org.openmrs.module.reporting.report.definition.ReportDefinition;
 import org.openmrs.module.reporting.report.service.ReportService;
+import org.springframework.stereotype.Component;
 
-/**
- * Base implementation of ReportManager that provides some common method implementations
- */
-//@Component
-public class GenericPatientSummary {
+@Component
+public class GenericPatientSummary extends MKSReportsReportManager{
 	
-	protected static Log log = LogFactory.getLog(GenericPatientSummary.class);
-
+	//@Autowired TODO Reconfigure this annotation after
+	private DataFactory df = new DataFactory();
+	
+	//@Autowired TODO Reconfigure this annotation after
+	private BuiltInPatientDataLibrary builtInPatientData = new BuiltInPatientDataLibrary();
+	
+	//@Autowired TODO Reconfigure this annotation after
+	private BasePatientDataLibrary basePatientData = new BasePatientDataLibrary();
+	
 	public void setup() throws Exception {
 		
-		ReportDefinition rd = constructReportDefinition();	
-		
-		ReportDesign design = Helper.createRowPerPatientXlsOverviewReportDesign(rd,"MekomePatientSummary.xls","mekomPatientSummary.xls_",null);
-		
-		Properties props = new Properties();				
-		props.put("renderToTemplate","false");
-		props.put("renderToTemplateSheet","0");
-		props.put("renderToTemplateRow","9");
-		props.put("renderToTemplateColumn","0");		
-		design.setProperties(props);		
+		ReportDefinition rd = constructReportDefinition();		
+		ReportDesign design = Helper.createXMLReportDesign(rd, "mekomPatientSummary.xml_");
 		Helper.saveReportDesign(design);
 	}
-
+	
 	public ReportDefinition constructReportDefinition() {
 		ReportDefinition reportDefinition = new ReportDefinition();
 		reportDefinition.setName("Mekom Patient Summary");
-
+		
 		// Create new dataset definition 
-		EncounterAndObsDataSetDefinition dataSetDefinition = new EncounterAndObsDataSetDefinition();
+		PatientHistoryEncounterAndObsDataSetDefinition dataSetDefinition = new PatientHistoryEncounterAndObsDataSetDefinition();
 		dataSetDefinition.setName("Mks Data Set");
+		dataSetDefinition.addSortCriteria("encounterDate", SortCriteria.SortDirection.ASC);
+		
+		
+		PatientDataSetDefinition dsd = new PatientDataSetDefinition();
+		Map<String, Object> mappings = new HashMap<String, Object>();
 
-		reportDefinition.addDataSetDefinition("patient", dataSetDefinition, new HashMap<String, Object>());		
+
+		addColumn(dsd, "patient_id", builtInPatientData.getPatientId());
+		addColumn(dsd, "given_name", builtInPatientData.getPreferredGivenName());
+		addColumn(dsd, "last_name", builtInPatientData.getPreferredFamilyName());
+		addColumn(dsd, "birthdate", basePatientData.getBirthdate());
+		addColumn(dsd, "current_age_yr", basePatientData.getAgeAtEndInYears());
+		addColumn(dsd, "gender", builtInPatientData.getGender());
+		
+		
+		reportDefinition.addDataSetDefinition("demographics", dsd, mappings);
+		reportDefinition.addDataSetDefinition("encounters", dataSetDefinition, new HashMap<String, Object>());
+		
 		Helper.saveReportDefinition(reportDefinition);
-
+		
 		return reportDefinition;
 	}
-
+	
 	public void delete() {
 		ReportService rs = Context.getService(ReportService.class);
 		for (ReportDesign rd : rs.getAllReportDesigns(false)) {
-			if ("mekomPatientSummary.xls_".equals(rd.getName())) {
+			if ("mekomPatientSummary.xml_".equals(rd.getName())) {
 				rs.purgeReportDesign(rd);
 			}
 		}
