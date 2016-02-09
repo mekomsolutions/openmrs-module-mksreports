@@ -48,9 +48,12 @@
 	</modules>
 
 	<properties>
-		<openMRSVersion>1.8.2</openMRSVersion>
-		<reportingVersion>0.9.8-SNAPSHOT</reportingVersion>
-		<patientsummaryVersion>2.2-SNAPSHOT</patientsummaryVersion>
+		<openMRSVersion>1.10.4</openMRSVersion>
+		<reportingVersion>0.9.8.1</reportingVersion>
+		<patientsummaryVersion>2.1</patientsummaryVersion>
+		<uiframeworkVersion>3.4</uiframeworkVersion>
+		<calculationVersion>1.1</calculationVersion>
+		<serialization.xstreamVersion>0.2.7</serialization.xstreamVersion>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 
@@ -59,7 +62,7 @@
 		<dependency>
 			<groupId>org.openmrs.module</groupId>
 			<artifactId>uiframework-api</artifactId>
-			<version>3.5-SNAPSHOT</version>
+			<version>${uiframeworkVersion}</version>
 			<type>jar</type>
 			<scope>provided</scope>
 		</dependency>
@@ -78,6 +81,20 @@
 			<version>${patientsummaryVersion}</version>
 			<type>jar</type>
 			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.openmrs.module</groupId>
+			<artifactId>calculation-api</artifactId>
+			<version>${calculationVersion}</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.openmrs.module</groupId>
+			<artifactId>serialization.xstream-api</artifactId>
+			<version>${serialization.xstreamVersion}</version>
+			<scope>test</scope>
 		</dependency>
 
 		<!-- Begin OpenMRS core -->

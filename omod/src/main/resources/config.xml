@@ -11,7 +11,7 @@
 	<description>
 		${project.parent.description}
 	</description>
-	<updateURL>https://dev.openmrs.org/modules/download/${project.parent.artifactId}/update.rdf</updateURL>
+<!-- 	<updateURL>https://dev.openmrs.org/modules/download/${project.parent.artifactId}/update.rdf</updateURL> -->
 	<require_version>${openMRSVersion}</require_version>
 	
 	<!-- / Module Properties -->
@@ -22,10 +22,9 @@
 		<require_module>org.openmrs.module.patientsummary</require_module>
 	</require_modules>
 	
-
 	
 	<!-- Module Activator -->
-	<activator>${project.parent.groupId}.${project.parent.artifactId}.MekomSolutionsReportsActivator</activator>
+	<activator>${project.parent.groupId}.${project.parent.artifactId}.MKSReportsActivator</activator>
 	
 	
 	<!-- Adds link to admin page -->
@@ -37,7 +36,7 @@
 	<!-- Maps hibernate file's, if present -->
 	<mappingFiles>
 				
-		MekomSolutionsReports.hbm.xml
+		MKSReports.hbm.xml
 				
 	</mappingFiles>
 

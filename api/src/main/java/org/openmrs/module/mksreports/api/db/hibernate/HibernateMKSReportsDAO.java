@@ -11,34 +11,32 @@
  *
  * Copyright (C) OpenMRS, LLC.  All Rights Reserved.
  */
-package org.openmrs.module.mksreports.api.impl;
+package org.openmrs.module.mksreports.api.db.hibernate;
 
-import org.openmrs.api.impl.BaseOpenmrsService;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.openmrs.module.mksreports.api.MekomSolutionsReportsService;
-import org.openmrs.module.mksreports.api.db.MekomSolutionsReportsDAO;
+import org.hibernate.SessionFactory;
+import org.openmrs.module.mksreports.api.db.MKSReportsDAO;
 
 /**
- * It is a default implementation of {@link MekomSolutionsReportsService}.
+ * It is a default implementation of  {@link MKSReportsDAO}.
  */
-public class MekomSolutionsReportsServiceImpl extends BaseOpenmrsService implements MekomSolutionsReportsService {
-	
+public class HibernateMKSReportsDAO implements MKSReportsDAO {
 	protected final Log log = LogFactory.getLog(this.getClass());
 	
-	private MekomSolutionsReportsDAO dao;
+	private SessionFactory sessionFactory;
 	
 	/**
-     * @param dao the dao to set
+     * @param sessionFactory the sessionFactory to set
      */
-    public void setDao(MekomSolutionsReportsDAO dao) {
-	    this.dao = dao;
+    public void setSessionFactory(SessionFactory sessionFactory) {
+	    this.sessionFactory = sessionFactory;
     }
     
-    /**
-     * @return the dao
+	/**
+     * @return the sessionFactory
      */
-    public MekomSolutionsReportsDAO getDao() {
-	    return dao;
+    public SessionFactory getSessionFactory() {
+	    return sessionFactory;
     }
 }

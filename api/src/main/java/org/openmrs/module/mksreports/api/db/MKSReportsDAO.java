@@ -13,12 +13,12 @@
  */
 package org.openmrs.module.mksreports.api.db;
 
-import org.openmrs.module.mksreports.api.MekomSolutionsReportsService;
+import org.openmrs.module.mksreports.api.MKSReportsService;
 
 /**
- *  Database methods for {@link MekomSolutionsReportsService}.
+ *  Database methods for {@link MKSReportsService}.
  */
-public interface MekomSolutionsReportsDAO {
+public interface MKSReportsDAO {
 	
 	/*
 	 * Add DAO methods here

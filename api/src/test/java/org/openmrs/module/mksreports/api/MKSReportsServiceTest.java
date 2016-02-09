@@ -14,6 +14,7 @@
 package org.openmrs.module.mksreports.api;
 
 import static org.junit.Assert.*;
+
 import org.junit.Test;
 import org.openmrs.api.context.Context;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
@@ -21,10 +22,10 @@ import org.openmrs.test.BaseModuleContextSensitiveTest;
 /**
  * Tests {@link ${MekomSolutionsReportsService}}.
  */
-public class  MekomSolutionsReportsServiceTest extends BaseModuleContextSensitiveTest {
+public class  MKSReportsServiceTest extends BaseModuleContextSensitiveTest {
 	
 	@Test
 	public void shouldSetupContext() {
-		assertNotNull(Context.getService(MekomSolutionsReportsService.class));
+		assertNotNull(Context.getService(MKSReportsService.class));
 	}
 }
