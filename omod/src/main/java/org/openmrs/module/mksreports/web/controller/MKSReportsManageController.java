@@ -13,6 +13,7 @@
  */
 package org.openmrs.module.mksreports.web.controller;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -96,12 +97,8 @@ public class MKSReportsManageController {
 			else
 			{
 				
-				/*We shouldn't be getting this from a file! We'll use 
-				 * StreamSource src = new StreamSource(new ByteArrayInputStream(result.getRawContents())); instead 
-				 * to get the content from the datasets rows. This should be done once we finish building a suitable
-				 * xsl style (...this file will replace sampleStylesheet.xsl in the api's resource folder) 
-				 * that can correctly work with the xml containing the datasets*/
-				StreamSource xmlSourceStream = new StreamSource(OpenmrsClassLoader.getInstance().getResourceAsStream("sample.xml"));
+				//Get the content from the datasets rows.
+				StreamSource xmlSourceStream = new StreamSource(new ByteArrayInputStream(result.getRawContents()));
 				StreamSource xslTransformStream = new StreamSource(OpenmrsClassLoader.getInstance().getResourceAsStream(PATIENT_HISTORY_XSL_PATH));
 				ByteArrayOutputStream outStream = new ByteArrayOutputStream();
 				
