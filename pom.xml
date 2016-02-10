@@ -22,13 +22,6 @@
 		<url>http://openmrs.org</url>
 	</organization>
 
-	<scm>
-		<connection>scm:git:https://github.com/rubailly/openmrs-module-mksreports.git</connection>
-		<developerConnection>scm:git:https://github.com/rubailly/openmrs-module-mksreports.git</developerConnection>
-		<url>https://github.com/rubailly/openmrs-module-mksreports.git</url>
-		<tag>HEAD</tag>
-	</scm>
-
 	<distributionManagement>
 		<repository>
 			<id>openmrs-repo-modules</id>

@@ -15,24 +15,23 @@ package org.openmrs.module.mksreports.web.controller;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.xml.transform.Result;
 import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerConfigurationException;
-import javax.xml.transform.TransformerException;
-import javax.xml.transform.TransformerFactoryConfigurationError;
+import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.sax.SAXResult;
 import javax.xml.transform.stream.StreamSource;
 
-import org.apache.fop.apps.FOPException;
 import org.apache.fop.apps.FOUserAgent;
 import org.apache.fop.apps.Fop;
 import org.apache.fop.apps.FopFactory;
 import org.apache.fop.apps.MimeConstants;
 import org.openmrs.api.context.Context;
+import org.openmrs.module.mksreports.patientsummary.PatientHistoryReportManager;
 import org.openmrs.module.patientsummary.PatientSummaryResult;
 import org.openmrs.module.patientsummary.PatientSummaryTemplate;
 import org.openmrs.module.patientsummary.api.PatientSummaryService;
@@ -49,26 +48,17 @@ import org.springframework.web.bind.annotation.RequestParam;
  * The main controller.
  */
 @Controller
-public class MKSReportsReportsManageController {
+public class MKSReportsManageController {
 	
 	@RequestMapping(value = "/module/mksreports/manage", method = RequestMethod.GET)
 	public void manage(ModelMap model) {
 		model.addAttribute("user", Context.getAuthenticatedUser());
 	}
 	
-	public Transformer getTransformer(StreamSource streamSource) {
-		// setup the xslt transformer
-		net.sf.saxon.TransformerFactoryImpl impl = new net.sf.saxon.TransformerFactoryImpl();
-		
-		try {
-			return impl.newTransformer(streamSource);
-			
-		}
-		catch (TransformerConfigurationException e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
+	/**
+	 * The path to the style sheet for Patient History reports.
+	 */
+	public static final String PATIENT_HISTORY_XSL_PATH = "patientHistoryFopStylesheet.xsl";
 	
 	/**
 	 * Receives requests to run a patient summary.
@@ -83,74 +73,80 @@ public class MKSReportsReportsManageController {
 	                          @RequestParam(value = "print", required = false) boolean print) throws IOException {
 		System.setProperty("javax.xml.transform.TransformerFactory", "net.sf.saxon.TransformerFactoryImpl");
 		
-		FopFactory fopFactory = FopFactory.newInstance();
-		
 		try {
-			PatientSummaryService pss = Context.getService(PatientSummaryService.class);
 			
-			ReportService rs = Context.getService(ReportService.class);
-			ReportDesign psrd = null;
-			for (ReportDesign rd : rs.getAllReportDesigns(false)) {
-				if ("mekomPatientSummary.xml_".equals(rd.getName())) {
-					psrd = rd;
+			PatientSummaryService patientSummaryService = Context.getService(PatientSummaryService.class);
+			ReportService reportService = Context.getService(ReportService.class);
+
+			ReportDesign reportDesign = null;
+			for (ReportDesign rd : reportService.getAllReportDesigns(false)) {
+				if (rd.getName().equals(PatientHistoryReportManager.REPORT_DESIGN_NAME)) {
+					reportDesign = rd;
 				}
 			}
 			
-			PatientSummaryTemplate ps = pss.getPatientSummaryTemplate(psrd.getId());
+			PatientSummaryTemplate patientSummaryTemplate = patientSummaryService.getPatientSummaryTemplate(reportDesign.getId());
 			
 			HashMap<String, Object> parameters = new HashMap<String, Object>();
 			parameters.put("patientSummaryMode", print ? "print" : "download");
-			PatientSummaryResult result = pss.evaluatePatientSummaryTemplate(ps, patientId, parameters);
+			PatientSummaryResult result = patientSummaryService.evaluatePatientSummaryTemplate(patientSummaryTemplate, patientId, parameters);
 			if (result.getErrorDetails() != null) {
 				result.getErrorDetails().printStackTrace(response.getWriter());
-			} else {
-				
+			}
+			else
+			{
 				
 				/*We shouldn't be getting this from a file! We'll use 
 				 * StreamSource src = new StreamSource(new ByteArrayInputStream(result.getRawContents())); instead 
 				 * to get the content from the datasets rows. This should be done once we finish building a suitable
 				 * xsl style (...this file will replace sampleStylesheet.xsl in the api's resource folder) 
 				 * that can correctly work with the xml containing the datasets*/
-				StreamSource source = new StreamSource(OpenmrsClassLoader.getInstance().getResourceAsStream("sample.xml"));
-				StreamSource transformSource = new StreamSource(OpenmrsClassLoader.getInstance().getResourceAsStream("sampleStylesheet.xsl"));
-				FOUserAgent foUserAgent = fopFactory.newFOUserAgent();
+				StreamSource xmlSourceStream = new StreamSource(OpenmrsClassLoader.getInstance().getResourceAsStream("sample.xml"));
+				StreamSource xslTransformStream = new StreamSource(OpenmrsClassLoader.getInstance().getResourceAsStream(PATIENT_HISTORY_XSL_PATH));
 				ByteArrayOutputStream outStream = new ByteArrayOutputStream();
 				
-				Transformer xslfoTransformer;
-				try {
-					xslfoTransformer = getTransformer(transformSource);
-					Fop fop;
-					try {
-						fop = fopFactory.newFop(MimeConstants.MIME_PDF, foUserAgent, outStream);
-						Result res = new SAXResult(fop.getDefaultHandler());
-						try {
-							xslfoTransformer.transform(source, res);
-							byte[] pdfBytes = outStream.toByteArray();
-							response.setContentLength(pdfBytes.length);
-							response.setContentType("application/pdf");
-							response.addHeader("Content-Disposition", "attachment;filename=patientHistory.pdf");
-							response.getOutputStream().write(pdfBytes);
-							response.getOutputStream().flush();
-						}
-						catch (TransformerException e) {
-							throw e;
-						}
-					}
-					catch (FOPException e) {
-						throw e;
-					}
-				}
-				catch (TransformerConfigurationException e) {
-					throw e;
-				}
-				catch (TransformerFactoryConfigurationError e) {
-					throw e;
-				}
+				writeToOutputStream(xmlSourceStream, xslTransformStream, outStream);
 				
+				byte[] pdfBytes = outStream.toByteArray();
+				response.setContentLength(pdfBytes.length);
+				response.setContentType("application/pdf");
+				response.addHeader("Content-Disposition", "attachment;filename=patientHistory.pdf");
+				response.getOutputStream().write(pdfBytes);
+				response.getOutputStream().flush();
 			}
 		}
 		catch (Exception e) {
 			e.printStackTrace(response.getWriter());
 		}
 	}
+
+	/**
+	 * XML --> XSL --> output stream.
+	 * This is the method processing the XML according to the style sheet.
+	 * @param xmlSourceStream A {@link StreamSource} built on the input XML.
+	 * @param xslTransformStream A {@link StreamSource} built on the XSL style sheet.
+	 * @param outStream 
+	 * @throws Exception
+	 */
+	protected void writeToOutputStream(StreamSource xmlSourceStream, StreamSource xslTransformStream, OutputStream outStream) throws Exception {
+		
+		// Step 1: Construct a FopFactory
+		FopFactory fopFactory = FopFactory.newInstance();
+		FOUserAgent foUserAgent = fopFactory.newFOUserAgent();
+		
+		// Step 2: Construct fop with desired output format
+		Fop fop = fopFactory.newFop(MimeConstants.MIME_PDF, foUserAgent, outStream);
+		
+		// Step 3: Setup JAXP using identity transformer
+        TransformerFactory factory = TransformerFactory.newInstance();
+        Transformer transformer = factory.newTransformer(xslTransformStream); // identity transformer
+        //transformer.setParameter("imgPath", imgFileName);
+        
+        // Resulting SAX events (the generated FO) must be piped through to FOP
+        Result res = new SAXResult(fop.getDefaultHandler());
+        
+        // Step 4: Start XSLT transformation and FOP processing
+        transformer.transform(xmlSourceStream, res);
+	}
+	
 }

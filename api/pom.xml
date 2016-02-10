@@ -11,6 +11,6 @@
 	<artifactId>mksreports-api</artifactId>
 	<packaging>jar</packaging>
 	<name>Mekom Solutions Reports Module API</name>
-	<description>API project for MekomSolutionsReports</description>
+	<description>API project for MKSReports</description>
 
 </project>

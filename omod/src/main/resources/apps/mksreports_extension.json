@@ -1,10 +1,10 @@
 [
     {
-        "id": "${project.parent.artifactId}.printSummaryLink",
+        "id": "${project.parent.artifactId}.downloadPatientHistory",
         "extensionPointId": "patientDashboard.overallActions",
         "type": "link",
-        "label": "Print Patient Summary",
-        "url": "module/mksreports/renderSummary.form?patientId={{patient.patientId}}&print=true",
+        "label": "mksreports.patienthistory.linklabel",
+        "url": "module/mksreports/renderSummary.form?patientId={{patient.patientId}}&download=true",
         "icon": "icon-print",
         "order": 14
     }

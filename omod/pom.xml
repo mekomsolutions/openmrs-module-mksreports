@@ -11,7 +11,7 @@
 	<artifactId>mksreports-omod</artifactId>
 	<packaging>jar</packaging>
 	<name>Mekom Solutions Reports Module OMOD</name>
-	<description>OMOD project for MekomSolutionsReports</description>
+	<description>OMOD project for MKSReports</description>
 
 	<dependencies>
 		<dependency>
@@ -46,6 +46,13 @@
 				<targetPath>web/module</targetPath>
 			</resource>
 		</resources>
+		
+		<testResources>
+			<testResource>
+				<directory>src/test/resources</directory>
+				<filtering>true</filtering>
+			</testResource>
+		</testResources>
 
 		<plugins>
 			<plugin>

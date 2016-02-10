@@ -31,7 +31,10 @@ import org.openmrs.module.reporting.report.service.ReportService;
 import org.springframework.stereotype.Component;
 
 @Component
-public class GenericPatientSummary extends MKSReportsReportManager{
+public class PatientHistoryReportManager extends MKSReportsReportManager {
+	
+	public final static String REPORT_DESIGN_NAME = "mksPatientHistory.xml_";
+	protected final static String REPORT_DEFINITION_NAME = "Patient History";
 	
 	//@Autowired TODO Reconfigure this annotation after
 	private DataFactory df = new DataFactory();
@@ -45,23 +48,21 @@ public class GenericPatientSummary extends MKSReportsReportManager{
 	public void setup() throws Exception {
 		
 		ReportDefinition rd = constructReportDefinition();		
-		ReportDesign design = Helper.createXMLReportDesign(rd, "mekomPatientSummary.xml_");
+		ReportDesign design = Helper.createXMLReportDesign(rd, REPORT_DESIGN_NAME);
 		Helper.saveReportDesign(design);
 	}
 	
 	public ReportDefinition constructReportDefinition() {
 		ReportDefinition reportDefinition = new ReportDefinition();
-		reportDefinition.setName("Mekom Patient Summary");
+		reportDefinition.setName(REPORT_DEFINITION_NAME);
 		
 		// Create new dataset definition 
 		PatientHistoryEncounterAndObsDataSetDefinition dataSetDefinition = new PatientHistoryEncounterAndObsDataSetDefinition();
-		dataSetDefinition.setName("Mks Data Set");
+		dataSetDefinition.setName("Patient History data set");
 		dataSetDefinition.addSortCriteria("encounterDate", SortCriteria.SortDirection.ASC);
-		
 		
 		PatientDataSetDefinition dsd = new PatientDataSetDefinition();
 		Map<String, Object> mappings = new HashMap<String, Object>();
-
 
 		addColumn(dsd, "patient_id", builtInPatientData.getPatientId());
 		addColumn(dsd, "given_name", builtInPatientData.getPreferredGivenName());
@@ -69,7 +70,6 @@ public class GenericPatientSummary extends MKSReportsReportManager{
 		addColumn(dsd, "birthdate", basePatientData.getBirthdate());
 		addColumn(dsd, "current_age_yr", basePatientData.getAgeAtEndInYears());
 		addColumn(dsd, "gender", builtInPatientData.getGender());
-		
 		
 		reportDefinition.addDataSetDefinition("demographics", dsd, mappings);
 		reportDefinition.addDataSetDefinition("encounters", dataSetDefinition, new HashMap<String, Object>());
@@ -82,10 +82,10 @@ public class GenericPatientSummary extends MKSReportsReportManager{
 	public void delete() {
 		ReportService rs = Context.getService(ReportService.class);
 		for (ReportDesign rd : rs.getAllReportDesigns(false)) {
-			if ("mekomPatientSummary.xml_".equals(rd.getName())) {
+			if (rd.getName().equals(PatientHistoryReportManager.REPORT_DESIGN_NAME)) {
 				rs.purgeReportDesign(rd);
 			}
 		}
-		Helper.purgeReportDefinition("Mekome Patient Summary");
+		Helper.purgeReportDefinition(REPORT_DEFINITION_NAME);
 	}
 }

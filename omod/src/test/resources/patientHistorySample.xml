@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+
+<employees>
+	<companyname>Mekom Solutions</companyname>
+	<employee>
+		<id>101</id>
+		<name>Employee1</name>
+		<designation>Manager</designation>
+	</employee>
+
+	<employee>
+		<id>102</id>
+		<name>Employee2</name>
+		<designation>Executive</designation>
+	</employee>
+
+	<employee>
+		<id>103</id>
+		<name>Employee3</name>
+		<designation>Executive</designation>
+	</employee>
+</employees>

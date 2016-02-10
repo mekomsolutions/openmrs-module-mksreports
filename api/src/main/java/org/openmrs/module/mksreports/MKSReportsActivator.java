@@ -17,7 +17,7 @@ package org.openmrs.module.mksreports;
 import org.apache.commons.logging.Log; 
 import org.apache.commons.logging.LogFactory;
 import org.openmrs.module.ModuleActivator;
-import org.openmrs.module.mksreports.patientsummary.GenericPatientSummary;
+import org.openmrs.module.mksreports.patientsummary.PatientHistoryReportManager;
 
 /**
  * This class contains the logic that is run every time this module is either started or stopped.
@@ -82,7 +82,7 @@ public class MKSReportsActivator implements ModuleActivator {
      * @throws Exception
      */
     public void registerReports() throws Exception{
-    	GenericPatientSummary ps = new GenericPatientSummary();
+    	PatientHistoryReportManager ps = new PatientHistoryReportManager();
     	ps.delete();
     	ps.setup();
     }
