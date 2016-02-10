@@ -1,2 +1,2 @@
 # openmrs-module-mksreports
-Helps to register reports and patient summaries
+Mekom Solutions reports and reporting tools for the OpenMRS Reference Application.

@@ -9,17 +9,10 @@
 	<packaging>pom</packaging>
 	<name>Mekom Solutions Reports Module</name>
 	<description>Helps to register reports and patient summaries</description>
-	<url>https://wiki.openmrs.org/display/docs/Mekom+Solutions+Reports+Module+Module</url>
-
-	<developers>
-		<developer>
-			<name>Mekom Solutions</name>
-		</developer>
-	</developers>
 
 	<organization>
-		<name>OpenMRS</name>
-		<url>http://openmrs.org</url>
+		<name>Mekom Solutions</name>
+		<url>http://www.mekomsolutions.com</url>
 	</organization>
 
 	<distributionManagement>
