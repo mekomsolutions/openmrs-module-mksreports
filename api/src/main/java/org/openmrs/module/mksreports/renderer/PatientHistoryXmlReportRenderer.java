@@ -70,7 +70,8 @@ public class PatientHistoryXmlReportRenderer extends ReportDesignRenderer {
 				w.write("\t\t<row>");
 				for (DataSetColumn column : columns) {			
 					Object colValue = row.getColumnValue(column);
-					w.write("<" + column.getLabel() + ">");
+					String label = toCamelCase(column.getLabel());
+					w.write("<" + label + ">");
 					if (colValue != null) { 
 						if (colValue instanceof Cohort) {
 							w.write(Integer.toString(((Cohort) colValue).size()));
@@ -79,7 +80,7 @@ public class PatientHistoryXmlReportRenderer extends ReportDesignRenderer {
 							w.write(colValue.toString());
 						}
 					}
-					w.write("</" + column.getLabel() + ">");
+					w.write("</" + label + ">");
 				}
 				w.write("</row>\n");
 			}
@@ -88,5 +89,24 @@ public class PatientHistoryXmlReportRenderer extends ReportDesignRenderer {
 		}		
 		w.write("</report>\n");
 		w.flush();
+	}
+	
+	/**
+	 * @param s the string to conver to camelcase
+	 * @return should return the passed in string in the camelcase format
+	 */
+	public static String toCamelCase(String s) {
+		StringBuffer sb = new StringBuffer();
+		String[] words = s.replaceAll("[^A-Za-z]", " ").replaceAll("\\s+", " ").trim().split(" ");
+
+		for (int i = 0; i < words.length; i++) {
+			if (i == 0) 
+				words[i] = words[i].toLowerCase();
+			else 
+				words[i] = String.valueOf(words[i].charAt(0)).toUpperCase() + words[i].substring(1);
+
+			sb.append(words[i]);
+		}
+		return sb.toString();
 	}
 }
