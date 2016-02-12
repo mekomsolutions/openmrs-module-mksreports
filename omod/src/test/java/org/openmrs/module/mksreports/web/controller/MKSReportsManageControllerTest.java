@@ -13,7 +13,8 @@ import org.junit.Test;
 
 public class MKSReportsManageControllerTest {
 
-	private static String SAMPLE_PDF_OUTPUT_PATH = "target/samplePatientHistory.pdf"; 
+	private static String OUTPUT_PDF_OUTPUT_DIR = "target/test/";
+	private static String OUTPUT_PDF_OUTPUT_PATH = OUTPUT_PDF_OUTPUT_DIR + "out_samplePatientHistory.pdf"; 
 	
 	private MKSReportsManageController ctrl;
 	
@@ -21,9 +22,11 @@ public class MKSReportsManageControllerTest {
 	public void setUp() {
 		ctrl = new MKSReportsManageController();
 		
+		File file = new File(OUTPUT_PDF_OUTPUT_PATH);
+		file.mkdirs();
+		
 		/* The below code deleting the output PDF should in fact even
-			eventually moved in the tear down routine. */
-		File file = new File(SAMPLE_PDF_OUTPUT_PATH);
+		eventually moved in the tear down routine after tests are performed. */
 		try {
 			Files.deleteIfExists(file.toPath());
 		} catch (IOException e) {
@@ -38,10 +41,10 @@ public class MKSReportsManageControllerTest {
 	@Test
 	public void shouldProducePdf() throws Exception {
 		
-		StreamSource xmlSourceStream = new StreamSource(getClass().getClassLoader().getResourceAsStream("patientHistorySample.xml"));
+		StreamSource xmlSourceStream = new StreamSource(getClass().getClassLoader().getResourceAsStream("samplePatientHistory.xml"));
 		StreamSource xslTransformStream = new StreamSource(getClass().getClassLoader().getResourceAsStream(MKSReportsManageController.PATIENT_HISTORY_XSL_PATH));
 		
-		FileOutputStream outStream = new FileOutputStream(new File(SAMPLE_PDF_OUTPUT_PATH));
+		FileOutputStream outStream = new FileOutputStream(new File(OUTPUT_PDF_OUTPUT_PATH));
 		ctrl.writeToOutputStream(xmlSourceStream, xslTransformStream, outStream);
 		outStream.close();
 		

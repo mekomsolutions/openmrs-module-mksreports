@@ -13,6 +13,12 @@
  */
 package org.openmrs.module.mksreports.renderer;
 
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
+import java.util.List;
+
 import org.openmrs.Cohort;
 import org.openmrs.annotation.Handler;
 import org.openmrs.module.reporting.common.Localized;
@@ -23,12 +29,7 @@ import org.openmrs.module.reporting.report.ReportData;
 import org.openmrs.module.reporting.report.ReportRequest;
 import org.openmrs.module.reporting.report.renderer.RenderingException;
 import org.openmrs.module.reporting.report.renderer.ReportDesignRenderer;
-
-import java.io.IOException;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.io.Writer;
-import java.util.List;
+import org.openmrs.report.ReportRenderer;
 
 /**
  * ReportRenderer that renders to a default XML format
