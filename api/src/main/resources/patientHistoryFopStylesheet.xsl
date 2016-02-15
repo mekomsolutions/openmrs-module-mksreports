@@ -39,9 +39,20 @@
 			</xsl:for-each>
 		</xsl:for-each>
 	</xsl:template>
-	
-	
+
+
 	<xsl:template match="report/dataset[@name='encounters']">
+		<xsl:for-each select="rows/row[1]">
+			<fo:table-row>
+				<xsl:for-each select="./*">
+					<fo:table-cell>
+						<fo:block font-weight="bold">
+							<xsl:value-of select="@name" />
+						</fo:block>
+					</fo:table-cell>
+				</xsl:for-each>
+			</fo:table-row>
+		</xsl:for-each>
 		<xsl:for-each select="rows/row">
 			<fo:table-row>
 				<xsl:for-each select="./*">
