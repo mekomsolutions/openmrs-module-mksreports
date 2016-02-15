@@ -24,6 +24,7 @@ import org.apache.commons.logging.LogFactory;
 import org.openmrs.Obs;
 import org.openmrs.annotation.Handler;
 import org.openmrs.module.mksreports.dataset.definition.PatientHistoryEncounterAndObsDataSetDefinition;
+import org.openmrs.module.mksreports.library.EncounterDataLibrary;
 import org.openmrs.module.reporting.common.BeanPropertyComparator;
 import org.openmrs.module.reporting.common.ObjectCounter;
 import org.openmrs.module.reporting.common.ObjectUtil;
@@ -52,6 +53,9 @@ public class PatientHistoryEncounterAndObsDataSetEvaluator extends EncounterData
 
 	@Autowired
 	BuiltInEncounterDataLibrary encounterData;
+	
+	//@Autowired
+	EncounterDataLibrary encounterDataLibrary = new EncounterDataLibrary();
 
 	/**
 	 * @see DataSetEvaluator#evaluate(DataSetDefinition, EvaluationContext)
@@ -63,7 +67,7 @@ public class PatientHistoryEncounterAndObsDataSetEvaluator extends EncounterData
 
 		// If no specific columns definitions are specified, use some defaults
 		if (dsd.getColumnDefinitions().isEmpty()) {
-			dsd.addColumn("Visit", encounterData.getEncounterVisit(), "");
+			dsd.addColumn("Visit ID", encounterDataLibrary.getVisitId(), "");
 			dsd.addColumn("Type", encounterData.getEncounterTypeName(), "");
 			dsd.addColumn("Location", encounterData.getLocationName(), "");
 			dsd.addColumn("Date", encounterData.getEncounterDatetime(), "");

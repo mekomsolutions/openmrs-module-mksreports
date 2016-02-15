@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
-import org.apache.poi.util.IOUtils;
+import org.apache.commons.io.IOUtils;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.mksreports.renderer.PatientHistoryExcelTemplateRenderer;
 import org.openmrs.module.mksreports.renderer.PatientHistoryXmlReportRenderer;
@@ -156,6 +156,23 @@ public class Helper {
 	public static void saveReportDesign(ReportDesign design) {
 		ReportService rs = Context.getService(ReportService.class);
 		rs.saveReportDesign(design);
+	}
+	
+	/**
+	 * Given a location on the classpath, return the contents of this resource as a String
+	 */
+	public static String getStringFromResource(String resourceName) {
+		InputStream is = null;
+		try {
+			is = OpenmrsClassLoader.getInstance().getResourceAsStream(resourceName);
+			return IOUtils.toString(is, "UTF-8");
+		}
+		catch (Exception e) {
+			throw new IllegalArgumentException("Unable to load resource: " + resourceName, e);
+		}
+		finally {
+			IOUtils.closeQuietly(is);
+		}
 	}
 	
 }
