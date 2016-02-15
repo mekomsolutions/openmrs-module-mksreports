@@ -51,6 +51,16 @@ public class EncounterDataLibrary extends BaseDefinitionLibrary<EncounterDataDef
 		return sqlEncounterDataDefinition("visitId.sql", null);
 	}
 	
+	@DocumentedDefinition("visit.startDatetime")
+	public EncounterDataDefinition getVisitStartDatetime() {
+		return sqlEncounterDataDefinition("visitStartDate.sql", null);
+	}
+	
+	@DocumentedDefinition("visit.stopDatetime")
+	public EncounterDataDefinition getVisitStopDatetime() {
+		return sqlEncounterDataDefinition("visitStopDate.sql", null);
+	}
+	
 	private EncounterDataDefinition sqlEncounterDataDefinition(String resourceName, Replacements replacements) {
 		String sql = Helper.getStringFromResource("org/openmrs/module/mksreports/sql/encounterData/" + resourceName);
 		if (replacements != null) {

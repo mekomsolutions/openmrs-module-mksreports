@@ -68,6 +68,8 @@ public class PatientHistoryEncounterAndObsDataSetEvaluator extends EncounterData
 		// If no specific columns definitions are specified, use some defaults
 		if (dsd.getColumnDefinitions().isEmpty()) {
 			dsd.addColumn("Visit ID", encounterDataLibrary.getVisitId(), "");
+			dsd.addColumn("Visit Start Date", encounterDataLibrary.getVisitStartDatetime(), "");
+			dsd.addColumn("Visit Stop Date", encounterDataLibrary.getVisitStopDatetime(), "");
 			dsd.addColumn("Type", encounterData.getEncounterTypeName(), "");
 			dsd.addColumn("Location", encounterData.getLocationName(), "");
 			dsd.addColumn("Date", encounterData.getEncounterDatetime(), "");
