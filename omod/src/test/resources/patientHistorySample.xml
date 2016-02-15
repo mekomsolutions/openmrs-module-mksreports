@@ -1,22 +1,645 @@
 <?xml version="1.0"?>
-
-<employees>
-	<companyname>Mekom Solutions</companyname>
-	<employee>
-		<id>101</id>
-		<name>Employee1</name>
-		<designation>Manager</designation>
-	</employee>
-
-	<employee>
-		<id>102</id>
-		<name>Employee2</name>
-		<designation>Executive</designation>
-	</employee>
-
-	<employee>
-		<id>103</id>
-		<name>Employee3</name>
-		<designation>Executive</designation>
-	</employee>
-</employees>
+<report name="Mekom Patient Summary">
+	<dataset name="demographics">
+		<rows>
+			<row>
+				<patientId>6680</patientId>
+				<givenName>Helen</givenName>
+				<lastName>Serrano</lastName>
+				<birthdate>2006-06-13 00:00:00.0</birthdate>
+				<currentAgeYr>9</currentAgeYr>
+				<gender>F</gender>
+			</row>
+		</rows>
+	</dataset>
+	<dataset name="encounters">
+		<rows>
+			<row>
+				<obs key="visitID" name="Visit ID">1</obs>
+				<obs key="visitStartDate" name="Visit Start Date">2016-01-19 10:06:18.0</obs>
+				<obs key="visitStopDate" name="Visit Stop Date"></obs>
+				<obs key="type" name="Type">Discharge</obs>
+				<obs key="location" name="Location">KITEBI HC III</obs>
+				<obs key="date" name="Date">2016-02-13 16:00:43.0</obs>
+				<obs key="adherenceTOCOTRIMOXZOLE" name="ADHERENCE TO COTRIMOXZOLE"></obs>
+				<obs key="artDURATION" name="ART DURATION"></obs>
+				<obs key="baselineCD" name="BASELINE CD4"></obs>
+				<obs key="baselineREGIMEN" name="BASELINE REGIMEN"></obs>
+				<obs key="baselineREGIMENSTARTDATE" name="BASELINE REGIMEN START DATE"></obs>
+				<obs key="baselineSTAGE" name="BASELINE STAGE"></obs>
+				<obs key="baselineWEIGHT" name="BASELINE WEIGHT"></obs>
+				<obs key="bodyWEIGHT" name="BODY WEIGHT"></obs>
+				<obs key="dateDETERMINEDMEDICALLYELIGIBLEANDREADYTOSTARTART"
+					name="DATE DETERMINED MEDICALLY ELIGIBLE AND READY TO START ART"></obs>
+				<obs key="dateDETERMINEDMEDICALLYELIGIBLETOSTARTART" name="DATE DETERMINED MEDICALLY ELIGIBLE TO START ART"></obs>
+				<obs key="datePOSITIVEHIVTESTCONFIRMED" name="DATE POSITIVE HIV TEST CONFIRMED"></obs>
+				<obs key="diagnosisCERTAINTY" name="DIAGNOSIS CERTAINTY"></obs>
+				<obs key="diagnosisORDER" name="DIAGNOSIS ORDER"></obs>
+				<obs key="eligibleFORARTCD" name="ELIGIBLE FOR ART CD4"></obs>
+				<obs key="eligibleFORARTSTAGE" name="ELIGIBLE FOR ART STAGE"></obs>
+				<obs key="entryPOINTINTOHIVCARE" name="ENTRY POINT INTO HIV CARE"></obs>
+				<obs key="familyPLANNINGSTATUS" name="FAMILY PLANNING STATUS"></obs>
+				<obs key="healthEDUCATIONARTESSENTIALS" name="HEALTH EDUCATION ART ESSENTIALS "></obs>
+				<obs key="healthEDUCATIONAVAILABLETREATMENTORPROPHYLAXIS" name="HEALTH EDUCATION AVAILABLE TREATMENT OR PROPHYLAXIS"></obs>
+				<obs key="healthEDUCATIONBASICHIVTRANSMISSION" name="HEALTH EDUCATION BASIC HIV TRANSMISSION 1"></obs>
+				<obs key="healthEDUCATIONBASICHIVTRANSMISSION" name="HEALTH EDUCATION BASIC HIV TRANSMISSION 2"></obs>
+				<obs key="healthEDUCATIONBASICHIVTRANSMISSIONCOMMENTS" name="HEALTH EDUCATION BASIC HIV TRANSMISSION COMMENTS"></obs>
+				<obs key="healthEDUCATIONBASICHIVTRANSMISSIONDATE" name="HEALTH EDUCATION BASIC HIV TRANSMISSION DATE"></obs>
+				<obs key="healthEDUCATIONCHILDBLOODTEST" name="HEALTH EDUCATION CHILD BLOOD TEST"></obs>
+				<obs key="healthEDUCATIONCOMPLETEADHERENCE" name="HEALTH EDUCATION COMPLETE ADHERENCE"></obs>
+				<obs key="healthEDUCATIONDISCLOSURE" name="HEALTH EDUCATION DISCLOSURE"></obs>
+				<obs key="healthEDUCATIONFAMILYLIVINGSITUATION" name="HEALTH EDUCATION FAMILY LIVING SITUATION"></obs>
+				<obs key="healthEDUCATIONFOLLOWUPAPPOINTMENTS" name="HEALTH EDUCATION FOLLOW UP APPOINTMENTS"></obs>
+				<obs key="healthEDUCATIONMALARIAPREVENTION" name="HEALTH EDUCATION MALARIA PREVENTION"></obs>
+				<obs key="healthEDUCATIONPARTNERTESTING" name="HEALTH EDUCATION PARTNER TESTING "></obs>
+				<obs key="healthEDUCATIONPOSITIVELIVING" name="HEALTH EDUCATION POSITIVE LIVING"></obs>
+				<obs key="healthEDUCATIONPOSTTESTCOUNSELLINGRESULTIMPLICATIONS"
+					name="HEALTH EDUCATION POST TEST COUNSELLING RESULT IMPLICATIONS"></obs>
+				<obs key="healthEDUCATIONPREVENTIONABSTINENCESAFERSEXCONDOM"
+					name="HEALTH EDUCATION PREVENTION ABSTINENCE SAFER SEX CONDOM"></obs>
+				<obs key="healthEDUCATIONPREVENTIONHOUSEHOLDPRECAUTIONS" name="HEALTH EDUCATION PREVENTION HOUSEHOLD PRECAUTIONS"></obs>
+				<obs key="healthEDUCATIONPREVENTIONMTCT" name="HEALTH EDUCATION PREVENTION MTCT"></obs>
+				<obs key="healthEDUCATIONPROGRESSIONOFDISEASE" name="HEALTH EDUCATION PROGRESSION OF DISEASE"></obs>
+				<obs key="healthEDUCATIONSHAREDCONFIDENTIALITY" name="HEALTH EDUCATION SHARED CONFIDENTIALITY"></obs>
+				<obs key="historyOFFUNCTIONALSTATUS" name="HISTORY OF FUNCTIONAL STATUS"></obs>
+				<obs key="methodOFFAMILYPLANNING" name="METHOD OF FAMILY PLANNING"></obs>
+				<obs key="nameOFLOCATIONTRANSFERREDFROM" name="NAME OF LOCATION TRANSFERRED FROM"></obs>
+				<obs key="patientTELEPHONENUMBEROWNER" name="PATIENT TELEPHONE NUMBER OWNER"></obs>
+				<obs key="priorART" name="PRIOR ART"></obs>
+				<obs key="problemLIST" name="PROBLEM LIST"></obs>
+				<obs key="returnVISITDATE" name="RETURN VISIT DATE"></obs>
+				<obs key="textOFENCOUNTERNOTE" name="TEXT OF ENCOUNTER NOTE"></obs>
+				<obs key="transferIN" name="TRANSFER IN"></obs>
+				<obs key="transferINREGIMEN" name="TRANSFER IN REGIMEN"></obs>
+				<obs key="transferINREGIMENSTARTDATE" name="TRANSFER IN REGIMEN START DATE"></obs>
+				<obs key="treatmentSUPPORTERDISTRICT" name="TREATMENT SUPPORTER DISTRICT"></obs>
+				<obs key="treatmentSUPPORTERNAME" name="TREATMENT SUPPORTER NAME"></obs>
+				<obs key="treatmentSUPPORTERPARISH" name="TREATMENT SUPPORTER PARISH"></obs>
+				<obs key="treatmentSUPPORTERSUBCOUNTY" name="TREATMENT SUPPORTER SUB COUNTY"></obs>
+				<obs key="treatmentSUPPORTERTELEPHONENUMBER" name="TREATMENT SUPPORTER TELEPHONE NUMBER"></obs>
+				<obs key="treatmentSUPPORTERTELEPHONENUMBEROWNER" name="TREATMENT SUPPORTER TELEPHONE NUMBER OWNER"></obs>
+				<obs key="treatmentSUPPORTERVILLAGE" name="TREATMENT SUPPORTER VILLAGE"></obs>
+				<obs key="tuberculosisSTATUS" name="TUBERCULOSIS STATUS"></obs>
+				<obs key="whoHIVCLINICALSTAGE" name="WHO HIV CLINICAL STAGE"></obs>
+			</row>
+			<row>
+				<obs key="visitID" name="Visit ID">1</obs>
+				<obs key="visitStartDate" name="Visit Start Date">2016-01-19 10:06:18.0</obs>
+				<obs key="visitStopDate" name="Visit Stop Date"></obs>
+				<obs key="type" name="Type">Admission</obs>
+				<obs key="location" name="Location">KITEBI HC III</obs>
+				<obs key="date" name="Date">2016-02-09 14:33:47.0</obs>
+				<obs key="adherenceTOCOTRIMOXZOLE" name="ADHERENCE TO COTRIMOXZOLE"></obs>
+				<obs key="artDURATION" name="ART DURATION"></obs>
+				<obs key="baselineCD" name="BASELINE CD4"></obs>
+				<obs key="baselineREGIMEN" name="BASELINE REGIMEN"></obs>
+				<obs key="baselineREGIMENSTARTDATE" name="BASELINE REGIMEN START DATE"></obs>
+				<obs key="baselineSTAGE" name="BASELINE STAGE"></obs>
+				<obs key="baselineWEIGHT" name="BASELINE WEIGHT"></obs>
+				<obs key="bodyWEIGHT" name="BODY WEIGHT"></obs>
+				<obs key="dateDETERMINEDMEDICALLYELIGIBLEANDREADYTOSTARTART"
+					name="DATE DETERMINED MEDICALLY ELIGIBLE AND READY TO START ART"></obs>
+				<obs key="dateDETERMINEDMEDICALLYELIGIBLETOSTARTART" name="DATE DETERMINED MEDICALLY ELIGIBLE TO START ART"></obs>
+				<obs key="datePOSITIVEHIVTESTCONFIRMED" name="DATE POSITIVE HIV TEST CONFIRMED"></obs>
+				<obs key="diagnosisCERTAINTY" name="DIAGNOSIS CERTAINTY"></obs>
+				<obs key="diagnosisORDER" name="DIAGNOSIS ORDER"></obs>
+				<obs key="eligibleFORARTCD" name="ELIGIBLE FOR ART CD4"></obs>
+				<obs key="eligibleFORARTSTAGE" name="ELIGIBLE FOR ART STAGE"></obs>
+				<obs key="entryPOINTINTOHIVCARE" name="ENTRY POINT INTO HIV CARE"></obs>
+				<obs key="familyPLANNINGSTATUS" name="FAMILY PLANNING STATUS"></obs>
+				<obs key="healthEDUCATIONARTESSENTIALS" name="HEALTH EDUCATION ART ESSENTIALS "></obs>
+				<obs key="healthEDUCATIONAVAILABLETREATMENTORPROPHYLAXIS" name="HEALTH EDUCATION AVAILABLE TREATMENT OR PROPHYLAXIS"></obs>
+				<obs key="healthEDUCATIONBASICHIVTRANSMISSION" name="HEALTH EDUCATION BASIC HIV TRANSMISSION 1"></obs>
+				<obs key="healthEDUCATIONBASICHIVTRANSMISSION" name="HEALTH EDUCATION BASIC HIV TRANSMISSION 2"></obs>
+				<obs key="healthEDUCATIONBASICHIVTRANSMISSIONCOMMENTS" name="HEALTH EDUCATION BASIC HIV TRANSMISSION COMMENTS"></obs>
+				<obs key="healthEDUCATIONBASICHIVTRANSMISSIONDATE" name="HEALTH EDUCATION BASIC HIV TRANSMISSION DATE"></obs>
+				<obs key="healthEDUCATIONCHILDBLOODTEST" name="HEALTH EDUCATION CHILD BLOOD TEST"></obs>
+				<obs key="healthEDUCATIONCOMPLETEADHERENCE" name="HEALTH EDUCATION COMPLETE ADHERENCE"></obs>
+				<obs key="healthEDUCATIONDISCLOSURE" name="HEALTH EDUCATION DISCLOSURE"></obs>
+				<obs key="healthEDUCATIONFAMILYLIVINGSITUATION" name="HEALTH EDUCATION FAMILY LIVING SITUATION"></obs>
+				<obs key="healthEDUCATIONFOLLOWUPAPPOINTMENTS" name="HEALTH EDUCATION FOLLOW UP APPOINTMENTS"></obs>
+				<obs key="healthEDUCATIONMALARIAPREVENTION" name="HEALTH EDUCATION MALARIA PREVENTION"></obs>
+				<obs key="healthEDUCATIONPARTNERTESTING" name="HEALTH EDUCATION PARTNER TESTING "></obs>
+				<obs key="healthEDUCATIONPOSITIVELIVING" name="HEALTH EDUCATION POSITIVE LIVING"></obs>
+				<obs key="healthEDUCATIONPOSTTESTCOUNSELLINGRESULTIMPLICATIONS"
+					name="HEALTH EDUCATION POST TEST COUNSELLING RESULT IMPLICATIONS"></obs>
+				<obs key="healthEDUCATIONPREVENTIONABSTINENCESAFERSEXCONDOM"
+					name="HEALTH EDUCATION PREVENTION ABSTINENCE SAFER SEX CONDOM"></obs>
+				<obs key="healthEDUCATIONPREVENTIONHOUSEHOLDPRECAUTIONS" name="HEALTH EDUCATION PREVENTION HOUSEHOLD PRECAUTIONS"></obs>
+				<obs key="healthEDUCATIONPREVENTIONMTCT" name="HEALTH EDUCATION PREVENTION MTCT"></obs>
+				<obs key="healthEDUCATIONPROGRESSIONOFDISEASE" name="HEALTH EDUCATION PROGRESSION OF DISEASE"></obs>
+				<obs key="healthEDUCATIONSHAREDCONFIDENTIALITY" name="HEALTH EDUCATION SHARED CONFIDENTIALITY"></obs>
+				<obs key="historyOFFUNCTIONALSTATUS" name="HISTORY OF FUNCTIONAL STATUS"></obs>
+				<obs key="methodOFFAMILYPLANNING" name="METHOD OF FAMILY PLANNING"></obs>
+				<obs key="nameOFLOCATIONTRANSFERREDFROM" name="NAME OF LOCATION TRANSFERRED FROM"></obs>
+				<obs key="patientTELEPHONENUMBEROWNER" name="PATIENT TELEPHONE NUMBER OWNER"></obs>
+				<obs key="priorART" name="PRIOR ART"></obs>
+				<obs key="problemLIST" name="PROBLEM LIST"></obs>
+				<obs key="returnVISITDATE" name="RETURN VISIT DATE"></obs>
+				<obs key="textOFENCOUNTERNOTE" name="TEXT OF ENCOUNTER NOTE"></obs>
+				<obs key="transferIN" name="TRANSFER IN"></obs>
+				<obs key="transferINREGIMEN" name="TRANSFER IN REGIMEN"></obs>
+				<obs key="transferINREGIMENSTARTDATE" name="TRANSFER IN REGIMEN START DATE"></obs>
+				<obs key="treatmentSUPPORTERDISTRICT" name="TREATMENT SUPPORTER DISTRICT"></obs>
+				<obs key="treatmentSUPPORTERNAME" name="TREATMENT SUPPORTER NAME"></obs>
+				<obs key="treatmentSUPPORTERPARISH" name="TREATMENT SUPPORTER PARISH"></obs>
+				<obs key="treatmentSUPPORTERSUBCOUNTY" name="TREATMENT SUPPORTER SUB COUNTY"></obs>
+				<obs key="treatmentSUPPORTERTELEPHONENUMBER" name="TREATMENT SUPPORTER TELEPHONE NUMBER"></obs>
+				<obs key="treatmentSUPPORTERTELEPHONENUMBEROWNER" name="TREATMENT SUPPORTER TELEPHONE NUMBER OWNER"></obs>
+				<obs key="treatmentSUPPORTERVILLAGE" name="TREATMENT SUPPORTER VILLAGE"></obs>
+				<obs key="tuberculosisSTATUS" name="TUBERCULOSIS STATUS"></obs>
+				<obs key="whoHIVCLINICALSTAGE" name="WHO HIV CLINICAL STAGE"></obs>
+			</row>
+			<row>
+				<obs key="visitID" name="Visit ID"></obs>
+				<obs key="visitStartDate" name="Visit Start Date"></obs>
+				<obs key="visitStopDate" name="Visit Stop Date"></obs>
+				<obs key="type" name="Type">ENCOUNTER PAGE</obs>
+				<obs key="location" name="Location">KITEBI HC III</obs>
+				<obs key="date" name="Date">2013-08-06 00:00:00.0</obs>
+				<obs key="adherenceTOCOTRIMOXZOLE" name="ADHERENCE TO COTRIMOXZOLE">GOOD ADHERENCE</obs>
+				<obs key="artDURATION" name="ART DURATION">22.0</obs>
+				<obs key="baselineCD" name="BASELINE CD4"></obs>
+				<obs key="baselineREGIMEN" name="BASELINE REGIMEN"></obs>
+				<obs key="baselineREGIMENSTARTDATE" name="BASELINE REGIMEN START DATE"></obs>
+				<obs key="baselineSTAGE" name="BASELINE STAGE"></obs>
+				<obs key="baselineWEIGHT" name="BASELINE WEIGHT"></obs>
+				<obs key="bodyWEIGHT" name="BODY WEIGHT">58.0</obs>
+				<obs key="dateDETERMINEDMEDICALLYELIGIBLEANDREADYTOSTARTART"
+					name="DATE DETERMINED MEDICALLY ELIGIBLE AND READY TO START ART"></obs>
+				<obs key="dateDETERMINEDMEDICALLYELIGIBLETOSTARTART" name="DATE DETERMINED MEDICALLY ELIGIBLE TO START ART"></obs>
+				<obs key="datePOSITIVEHIVTESTCONFIRMED" name="DATE POSITIVE HIV TEST CONFIRMED"></obs>
+				<obs key="diagnosisCERTAINTY" name="DIAGNOSIS CERTAINTY"></obs>
+				<obs key="diagnosisORDER" name="DIAGNOSIS ORDER"></obs>
+				<obs key="eligibleFORARTCD" name="ELIGIBLE FOR ART CD4"></obs>
+				<obs key="eligibleFORARTSTAGE" name="ELIGIBLE FOR ART STAGE"></obs>
+				<obs key="entryPOINTINTOHIVCARE" name="ENTRY POINT INTO HIV CARE"></obs>
+				<obs key="familyPLANNINGSTATUS" name="FAMILY PLANNING STATUS">NOT PREGNANT AND ON FAMILY
+					PLANNING</obs>
+				<obs key="healthEDUCATIONARTESSENTIALS" name="HEALTH EDUCATION ART ESSENTIALS "></obs>
+				<obs key="healthEDUCATIONAVAILABLETREATMENTORPROPHYLAXIS" name="HEALTH EDUCATION AVAILABLE TREATMENT OR PROPHYLAXIS"></obs>
+				<obs key="healthEDUCATIONBASICHIVTRANSMISSION" name="HEALTH EDUCATION BASIC HIV TRANSMISSION 1"></obs>
+				<obs key="healthEDUCATIONBASICHIVTRANSMISSION" name="HEALTH EDUCATION BASIC HIV TRANSMISSION 2"></obs>
+				<obs key="healthEDUCATIONBASICHIVTRANSMISSIONCOMMENTS" name="HEALTH EDUCATION BASIC HIV TRANSMISSION COMMENTS"></obs>
+				<obs key="healthEDUCATIONBASICHIVTRANSMISSIONDATE" name="HEALTH EDUCATION BASIC HIV TRANSMISSION DATE"></obs>
+				<obs key="healthEDUCATIONCHILDBLOODTEST" name="HEALTH EDUCATION CHILD BLOOD TEST"></obs>
+				<obs key="healthEDUCATIONCOMPLETEADHERENCE" name="HEALTH EDUCATION COMPLETE ADHERENCE"></obs>
+				<obs key="healthEDUCATIONDISCLOSURE" name="HEALTH EDUCATION DISCLOSURE"></obs>
+				<obs key="healthEDUCATIONFAMILYLIVINGSITUATION" name="HEALTH EDUCATION FAMILY LIVING SITUATION"></obs>
+				<obs key="healthEDUCATIONFOLLOWUPAPPOINTMENTS" name="HEALTH EDUCATION FOLLOW UP APPOINTMENTS"></obs>
+				<obs key="healthEDUCATIONMALARIAPREVENTION" name="HEALTH EDUCATION MALARIA PREVENTION"></obs>
+				<obs key="healthEDUCATIONPARTNERTESTING" name="HEALTH EDUCATION PARTNER TESTING "></obs>
+				<obs key="healthEDUCATIONPOSITIVELIVING" name="HEALTH EDUCATION POSITIVE LIVING"></obs>
+				<obs key="healthEDUCATIONPOSTTESTCOUNSELLINGRESULTIMPLICATIONS"
+					name="HEALTH EDUCATION POST TEST COUNSELLING RESULT IMPLICATIONS"></obs>
+				<obs key="healthEDUCATIONPREVENTIONABSTINENCESAFERSEXCONDOM"
+					name="HEALTH EDUCATION PREVENTION ABSTINENCE SAFER SEX CONDOM"></obs>
+				<obs key="healthEDUCATIONPREVENTIONHOUSEHOLDPRECAUTIONS" name="HEALTH EDUCATION PREVENTION HOUSEHOLD PRECAUTIONS"></obs>
+				<obs key="healthEDUCATIONPREVENTIONMTCT" name="HEALTH EDUCATION PREVENTION MTCT"></obs>
+				<obs key="healthEDUCATIONPROGRESSIONOFDISEASE" name="HEALTH EDUCATION PROGRESSION OF DISEASE"></obs>
+				<obs key="healthEDUCATIONSHAREDCONFIDENTIALITY" name="HEALTH EDUCATION SHARED CONFIDENTIALITY"></obs>
+				<obs key="historyOFFUNCTIONALSTATUS" name="HISTORY OF FUNCTIONAL STATUS">WORKING</obs>
+				<obs key="methodOFFAMILYPLANNING" name="METHOD OF FAMILY PLANNING">ORAL CONTRACEPTION</obs>
+				<obs key="nameOFLOCATIONTRANSFERREDFROM" name="NAME OF LOCATION TRANSFERRED FROM"></obs>
+				<obs key="patientTELEPHONENUMBEROWNER" name="PATIENT TELEPHONE NUMBER OWNER"></obs>
+				<obs key="priorART" name="PRIOR ART"></obs>
+				<obs key="problemLIST" name="PROBLEM LIST"></obs>
+				<obs key="returnVISITDATE" name="RETURN VISIT DATE">2013-09-11 00:00:00.0</obs>
+				<obs key="textOFENCOUNTERNOTE" name="TEXT OF ENCOUNTER NOTE"></obs>
+				<obs key="transferIN" name="TRANSFER IN"></obs>
+				<obs key="transferINREGIMEN" name="TRANSFER IN REGIMEN"></obs>
+				<obs key="transferINREGIMENSTARTDATE" name="TRANSFER IN REGIMEN START DATE"></obs>
+				<obs key="treatmentSUPPORTERDISTRICT" name="TREATMENT SUPPORTER DISTRICT"></obs>
+				<obs key="treatmentSUPPORTERNAME" name="TREATMENT SUPPORTER NAME"></obs>
+				<obs key="treatmentSUPPORTERPARISH" name="TREATMENT SUPPORTER PARISH"></obs>
+				<obs key="treatmentSUPPORTERSUBCOUNTY" name="TREATMENT SUPPORTER SUB COUNTY"></obs>
+				<obs key="treatmentSUPPORTERTELEPHONENUMBER" name="TREATMENT SUPPORTER TELEPHONE NUMBER"></obs>
+				<obs key="treatmentSUPPORTERTELEPHONENUMBEROWNER" name="TREATMENT SUPPORTER TELEPHONE NUMBER OWNER"></obs>
+				<obs key="treatmentSUPPORTERVILLAGE" name="TREATMENT SUPPORTER VILLAGE"></obs>
+				<obs key="tuberculosisSTATUS" name="TUBERCULOSIS STATUS">No signs or symptoms of TB
+				</obs>
+				<obs key="whoHIVCLINICALSTAGE" name="WHO HIV CLINICAL STAGE">HIV WHO CLINICAL STAGE T1
+				</obs>
+			</row>
+			<row>
+				<obs key="visitID" name="Visit ID">1</obs>
+				<obs key="visitStartDate" name="Visit Start Date">2016-01-19 10:06:18.0</obs>
+				<obs key="visitStopDate" name="Visit Stop Date"></obs>
+				<obs key="type" name="Type">Discharge</obs>
+				<obs key="location" name="Location">KITEBI HC III</obs>
+				<obs key="date" name="Date">2016-02-09 14:03:45.0</obs>
+				<obs key="adherenceTOCOTRIMOXZOLE" name="ADHERENCE TO COTRIMOXZOLE"></obs>
+				<obs key="artDURATION" name="ART DURATION"></obs>
+				<obs key="baselineCD" name="BASELINE CD4"></obs>
+				<obs key="baselineREGIMEN" name="BASELINE REGIMEN"></obs>
+				<obs key="baselineREGIMENSTARTDATE" name="BASELINE REGIMEN START DATE"></obs>
+				<obs key="baselineSTAGE" name="BASELINE STAGE"></obs>
+				<obs key="baselineWEIGHT" name="BASELINE WEIGHT"></obs>
+				<obs key="bodyWEIGHT" name="BODY WEIGHT"></obs>
+				<obs key="dateDETERMINEDMEDICALLYELIGIBLEANDREADYTOSTARTART"
+					name="DATE DETERMINED MEDICALLY ELIGIBLE AND READY TO START ART"></obs>
+				<obs key="dateDETERMINEDMEDICALLYELIGIBLETOSTARTART" name="DATE DETERMINED MEDICALLY ELIGIBLE TO START ART"></obs>
+				<obs key="datePOSITIVEHIVTESTCONFIRMED" name="DATE POSITIVE HIV TEST CONFIRMED"></obs>
+				<obs key="diagnosisCERTAINTY" name="DIAGNOSIS CERTAINTY"></obs>
+				<obs key="diagnosisORDER" name="DIAGNOSIS ORDER"></obs>
+				<obs key="eligibleFORARTCD" name="ELIGIBLE FOR ART CD4"></obs>
+				<obs key="eligibleFORARTSTAGE" name="ELIGIBLE FOR ART STAGE"></obs>
+				<obs key="entryPOINTINTOHIVCARE" name="ENTRY POINT INTO HIV CARE"></obs>
+				<obs key="familyPLANNINGSTATUS" name="FAMILY PLANNING STATUS"></obs>
+				<obs key="healthEDUCATIONARTESSENTIALS" name="HEALTH EDUCATION ART ESSENTIALS "></obs>
+				<obs key="healthEDUCATIONAVAILABLETREATMENTORPROPHYLAXIS" name="HEALTH EDUCATION AVAILABLE TREATMENT OR PROPHYLAXIS"></obs>
+				<obs key="healthEDUCATIONBASICHIVTRANSMISSION" name="HEALTH EDUCATION BASIC HIV TRANSMISSION 1"></obs>
+				<obs key="healthEDUCATIONBASICHIVTRANSMISSION" name="HEALTH EDUCATION BASIC HIV TRANSMISSION 2"></obs>
+				<obs key="healthEDUCATIONBASICHIVTRANSMISSIONCOMMENTS" name="HEALTH EDUCATION BASIC HIV TRANSMISSION COMMENTS"></obs>
+				<obs key="healthEDUCATIONBASICHIVTRANSMISSIONDATE" name="HEALTH EDUCATION BASIC HIV TRANSMISSION DATE"></obs>
+				<obs key="healthEDUCATIONCHILDBLOODTEST" name="HEALTH EDUCATION CHILD BLOOD TEST"></obs>
+				<obs key="healthEDUCATIONCOMPLETEADHERENCE" name="HEALTH EDUCATION COMPLETE ADHERENCE"></obs>
+				<obs key="healthEDUCATIONDISCLOSURE" name="HEALTH EDUCATION DISCLOSURE"></obs>
+				<obs key="healthEDUCATIONFAMILYLIVINGSITUATION" name="HEALTH EDUCATION FAMILY LIVING SITUATION"></obs>
+				<obs key="healthEDUCATIONFOLLOWUPAPPOINTMENTS" name="HEALTH EDUCATION FOLLOW UP APPOINTMENTS"></obs>
+				<obs key="healthEDUCATIONMALARIAPREVENTION" name="HEALTH EDUCATION MALARIA PREVENTION"></obs>
+				<obs key="healthEDUCATIONPARTNERTESTING" name="HEALTH EDUCATION PARTNER TESTING "></obs>
+				<obs key="healthEDUCATIONPOSITIVELIVING" name="HEALTH EDUCATION POSITIVE LIVING"></obs>
+				<obs key="healthEDUCATIONPOSTTESTCOUNSELLINGRESULTIMPLICATIONS"
+					name="HEALTH EDUCATION POST TEST COUNSELLING RESULT IMPLICATIONS"></obs>
+				<obs key="healthEDUCATIONPREVENTIONABSTINENCESAFERSEXCONDOM"
+					name="HEALTH EDUCATION PREVENTION ABSTINENCE SAFER SEX CONDOM"></obs>
+				<obs key="healthEDUCATIONPREVENTIONHOUSEHOLDPRECAUTIONS" name="HEALTH EDUCATION PREVENTION HOUSEHOLD PRECAUTIONS"></obs>
+				<obs key="healthEDUCATIONPREVENTIONMTCT" name="HEALTH EDUCATION PREVENTION MTCT"></obs>
+				<obs key="healthEDUCATIONPROGRESSIONOFDISEASE" name="HEALTH EDUCATION PROGRESSION OF DISEASE"></obs>
+				<obs key="healthEDUCATIONSHAREDCONFIDENTIALITY" name="HEALTH EDUCATION SHARED CONFIDENTIALITY"></obs>
+				<obs key="historyOFFUNCTIONALSTATUS" name="HISTORY OF FUNCTIONAL STATUS"></obs>
+				<obs key="methodOFFAMILYPLANNING" name="METHOD OF FAMILY PLANNING"></obs>
+				<obs key="nameOFLOCATIONTRANSFERREDFROM" name="NAME OF LOCATION TRANSFERRED FROM"></obs>
+				<obs key="patientTELEPHONENUMBEROWNER" name="PATIENT TELEPHONE NUMBER OWNER"></obs>
+				<obs key="priorART" name="PRIOR ART"></obs>
+				<obs key="problemLIST" name="PROBLEM LIST"></obs>
+				<obs key="returnVISITDATE" name="RETURN VISIT DATE"></obs>
+				<obs key="textOFENCOUNTERNOTE" name="TEXT OF ENCOUNTER NOTE"></obs>
+				<obs key="transferIN" name="TRANSFER IN"></obs>
+				<obs key="transferINREGIMEN" name="TRANSFER IN REGIMEN"></obs>
+				<obs key="transferINREGIMENSTARTDATE" name="TRANSFER IN REGIMEN START DATE"></obs>
+				<obs key="treatmentSUPPORTERDISTRICT" name="TREATMENT SUPPORTER DISTRICT"></obs>
+				<obs key="treatmentSUPPORTERNAME" name="TREATMENT SUPPORTER NAME"></obs>
+				<obs key="treatmentSUPPORTERPARISH" name="TREATMENT SUPPORTER PARISH"></obs>
+				<obs key="treatmentSUPPORTERSUBCOUNTY" name="TREATMENT SUPPORTER SUB COUNTY"></obs>
+				<obs key="treatmentSUPPORTERTELEPHONENUMBER" name="TREATMENT SUPPORTER TELEPHONE NUMBER"></obs>
+				<obs key="treatmentSUPPORTERTELEPHONENUMBEROWNER" name="TREATMENT SUPPORTER TELEPHONE NUMBER OWNER"></obs>
+				<obs key="treatmentSUPPORTERVILLAGE" name="TREATMENT SUPPORTER VILLAGE"></obs>
+				<obs key="tuberculosisSTATUS" name="TUBERCULOSIS STATUS"></obs>
+				<obs key="whoHIVCLINICALSTAGE" name="WHO HIV CLINICAL STAGE"></obs>
+			</row>
+			<row>
+				<obs key="visitID" name="Visit ID"></obs>
+				<obs key="visitStartDate" name="Visit Start Date"></obs>
+				<obs key="visitStopDate" name="Visit Stop Date"></obs>
+				<obs key="type" name="Type">HEALTH EDUCATION</obs>
+				<obs key="location" name="Location">KITEBI HC III</obs>
+				<obs key="date" name="Date">2011-10-05 00:00:00.0</obs>
+				<obs key="adherenceTOCOTRIMOXZOLE" name="ADHERENCE TO COTRIMOXZOLE"></obs>
+				<obs key="artDURATION" name="ART DURATION"></obs>
+				<obs key="baselineCD" name="BASELINE CD4"></obs>
+				<obs key="baselineREGIMEN" name="BASELINE REGIMEN"></obs>
+				<obs key="baselineREGIMENSTARTDATE" name="BASELINE REGIMEN START DATE"></obs>
+				<obs key="baselineSTAGE" name="BASELINE STAGE"></obs>
+				<obs key="baselineWEIGHT" name="BASELINE WEIGHT"></obs>
+				<obs key="bodyWEIGHT" name="BODY WEIGHT"></obs>
+				<obs key="dateDETERMINEDMEDICALLYELIGIBLEANDREADYTOSTARTART"
+					name="DATE DETERMINED MEDICALLY ELIGIBLE AND READY TO START ART"></obs>
+				<obs key="dateDETERMINEDMEDICALLYELIGIBLETOSTARTART" name="DATE DETERMINED MEDICALLY ELIGIBLE TO START ART"></obs>
+				<obs key="datePOSITIVEHIVTESTCONFIRMED" name="DATE POSITIVE HIV TEST CONFIRMED"></obs>
+				<obs key="diagnosisCERTAINTY" name="DIAGNOSIS CERTAINTY"></obs>
+				<obs key="diagnosisORDER" name="DIAGNOSIS ORDER"></obs>
+				<obs key="eligibleFORARTCD" name="ELIGIBLE FOR ART CD4"></obs>
+				<obs key="eligibleFORARTSTAGE" name="ELIGIBLE FOR ART STAGE"></obs>
+				<obs key="entryPOINTINTOHIVCARE" name="ENTRY POINT INTO HIV CARE"></obs>
+				<obs key="familyPLANNINGSTATUS" name="FAMILY PLANNING STATUS"></obs>
+				<obs key="healthEDUCATIONARTESSENTIALS" name="HEALTH EDUCATION ART ESSENTIALS ">YES</obs>
+				<obs key="healthEDUCATIONAVAILABLETREATMENTORPROPHYLAXIS" name="HEALTH EDUCATION AVAILABLE TREATMENT OR PROPHYLAXIS">YES
+				</obs>
+				<obs key="healthEDUCATIONBASICHIVTRANSMISSION" name="HEALTH EDUCATION BASIC HIV TRANSMISSION 1">YES</obs>
+				<obs key="healthEDUCATIONBASICHIVTRANSMISSION" name="HEALTH EDUCATION BASIC HIV TRANSMISSION 2">YES</obs>
+				<obs key="healthEDUCATIONBASICHIVTRANSMISSIONCOMMENTS" name="HEALTH EDUCATION BASIC HIV TRANSMISSION COMMENTS">TRANSFER
+					OUT</obs>
+				<obs key="healthEDUCATIONBASICHIVTRANSMISSIONDATE" name="HEALTH EDUCATION BASIC HIV TRANSMISSION DATE">2013-07-09
+					00:00:00.0</obs>
+				<obs key="healthEDUCATIONCHILDBLOODTEST" name="HEALTH EDUCATION CHILD BLOOD TEST">YES</obs>
+				<obs key="healthEDUCATIONCOMPLETEADHERENCE" name="HEALTH EDUCATION COMPLETE ADHERENCE">YES</obs>
+				<obs key="healthEDUCATIONDISCLOSURE" name="HEALTH EDUCATION DISCLOSURE">YES</obs>
+				<obs key="healthEDUCATIONFAMILYLIVINGSITUATION" name="HEALTH EDUCATION FAMILY LIVING SITUATION">YES</obs>
+				<obs key="healthEDUCATIONFOLLOWUPAPPOINTMENTS" name="HEALTH EDUCATION FOLLOW UP APPOINTMENTS">YES</obs>
+				<obs key="healthEDUCATIONMALARIAPREVENTION" name="HEALTH EDUCATION MALARIA PREVENTION">YES</obs>
+				<obs key="healthEDUCATIONPARTNERTESTING" name="HEALTH EDUCATION PARTNER TESTING ">YES</obs>
+				<obs key="healthEDUCATIONPOSITIVELIVING" name="HEALTH EDUCATION POSITIVE LIVING">YES</obs>
+				<obs key="healthEDUCATIONPOSTTESTCOUNSELLINGRESULTIMPLICATIONS"
+					name="HEALTH EDUCATION POST TEST COUNSELLING RESULT IMPLICATIONS">YES</obs>
+				<obs key="healthEDUCATIONPREVENTIONABSTINENCESAFERSEXCONDOM"
+					name="HEALTH EDUCATION PREVENTION ABSTINENCE SAFER SEX CONDOM">YES</obs>
+				<obs key="healthEDUCATIONPREVENTIONHOUSEHOLDPRECAUTIONS" name="HEALTH EDUCATION PREVENTION HOUSEHOLD PRECAUTIONS">YES
+				</obs>
+				<obs key="healthEDUCATIONPREVENTIONMTCT" name="HEALTH EDUCATION PREVENTION MTCT">YES</obs>
+				<obs key="healthEDUCATIONPROGRESSIONOFDISEASE" name="HEALTH EDUCATION PROGRESSION OF DISEASE">YES</obs>
+				<obs key="healthEDUCATIONSHAREDCONFIDENTIALITY" name="HEALTH EDUCATION SHARED CONFIDENTIALITY">YES</obs>
+				<obs key="historyOFFUNCTIONALSTATUS" name="HISTORY OF FUNCTIONAL STATUS"></obs>
+				<obs key="methodOFFAMILYPLANNING" name="METHOD OF FAMILY PLANNING"></obs>
+				<obs key="nameOFLOCATIONTRANSFERREDFROM" name="NAME OF LOCATION TRANSFERRED FROM"></obs>
+				<obs key="patientTELEPHONENUMBEROWNER" name="PATIENT TELEPHONE NUMBER OWNER"></obs>
+				<obs key="priorART" name="PRIOR ART"></obs>
+				<obs key="problemLIST" name="PROBLEM LIST"></obs>
+				<obs key="returnVISITDATE" name="RETURN VISIT DATE"></obs>
+				<obs key="textOFENCOUNTERNOTE" name="TEXT OF ENCOUNTER NOTE"></obs>
+				<obs key="transferIN" name="TRANSFER IN"></obs>
+				<obs key="transferINREGIMEN" name="TRANSFER IN REGIMEN"></obs>
+				<obs key="transferINREGIMENSTARTDATE" name="TRANSFER IN REGIMEN START DATE"></obs>
+				<obs key="treatmentSUPPORTERDISTRICT" name="TREATMENT SUPPORTER DISTRICT"></obs>
+				<obs key="treatmentSUPPORTERNAME" name="TREATMENT SUPPORTER NAME"></obs>
+				<obs key="treatmentSUPPORTERPARISH" name="TREATMENT SUPPORTER PARISH"></obs>
+				<obs key="treatmentSUPPORTERSUBCOUNTY" name="TREATMENT SUPPORTER SUB COUNTY"></obs>
+				<obs key="treatmentSUPPORTERTELEPHONENUMBER" name="TREATMENT SUPPORTER TELEPHONE NUMBER"></obs>
+				<obs key="treatmentSUPPORTERTELEPHONENUMBEROWNER" name="TREATMENT SUPPORTER TELEPHONE NUMBER OWNER"></obs>
+				<obs key="treatmentSUPPORTERVILLAGE" name="TREATMENT SUPPORTER VILLAGE"></obs>
+				<obs key="tuberculosisSTATUS" name="TUBERCULOSIS STATUS"></obs>
+				<obs key="whoHIVCLINICALSTAGE" name="WHO HIV CLINICAL STAGE"></obs>
+			</row>
+			<row>
+				<obs key="visitID" name="Visit ID">1</obs>
+				<obs key="visitStartDate" name="Visit Start Date">2016-01-19 10:06:18.0</obs>
+				<obs key="visitStopDate" name="Visit Stop Date"></obs>
+				<obs key="type" name="Type">Visit Note</obs>
+				<obs key="location" name="Location">KITEBI HC III</obs>
+				<obs key="date" name="Date">2016-02-09 14:01:31.0</obs>
+				<obs key="adherenceTOCOTRIMOXZOLE" name="ADHERENCE TO COTRIMOXZOLE"></obs>
+				<obs key="artDURATION" name="ART DURATION"></obs>
+				<obs key="baselineCD" name="BASELINE CD4"></obs>
+				<obs key="baselineREGIMEN" name="BASELINE REGIMEN"></obs>
+				<obs key="baselineREGIMENSTARTDATE" name="BASELINE REGIMEN START DATE"></obs>
+				<obs key="baselineSTAGE" name="BASELINE STAGE"></obs>
+				<obs key="baselineWEIGHT" name="BASELINE WEIGHT"></obs>
+				<obs key="bodyWEIGHT" name="BODY WEIGHT"></obs>
+				<obs key="dateDETERMINEDMEDICALLYELIGIBLEANDREADYTOSTARTART"
+					name="DATE DETERMINED MEDICALLY ELIGIBLE AND READY TO START ART"></obs>
+				<obs key="dateDETERMINEDMEDICALLYELIGIBLETOSTARTART" name="DATE DETERMINED MEDICALLY ELIGIBLE TO START ART"></obs>
+				<obs key="datePOSITIVEHIVTESTCONFIRMED" name="DATE POSITIVE HIV TEST CONFIRMED"></obs>
+				<obs key="diagnosisCERTAINTY" name="DIAGNOSIS CERTAINTY">Presumed diagnosis</obs>
+				<obs key="diagnosisORDER" name="DIAGNOSIS ORDER">Primary</obs>
+				<obs key="eligibleFORARTCD" name="ELIGIBLE FOR ART CD4"></obs>
+				<obs key="eligibleFORARTSTAGE" name="ELIGIBLE FOR ART STAGE"></obs>
+				<obs key="entryPOINTINTOHIVCARE" name="ENTRY POINT INTO HIV CARE"></obs>
+				<obs key="familyPLANNINGSTATUS" name="FAMILY PLANNING STATUS"></obs>
+				<obs key="healthEDUCATIONARTESSENTIALS" name="HEALTH EDUCATION ART ESSENTIALS "></obs>
+				<obs key="healthEDUCATIONAVAILABLETREATMENTORPROPHYLAXIS" name="HEALTH EDUCATION AVAILABLE TREATMENT OR PROPHYLAXIS"></obs>
+				<obs key="healthEDUCATIONBASICHIVTRANSMISSION" name="HEALTH EDUCATION BASIC HIV TRANSMISSION 1"></obs>
+				<obs key="healthEDUCATIONBASICHIVTRANSMISSION" name="HEALTH EDUCATION BASIC HIV TRANSMISSION 2"></obs>
+				<obs key="healthEDUCATIONBASICHIVTRANSMISSIONCOMMENTS" name="HEALTH EDUCATION BASIC HIV TRANSMISSION COMMENTS"></obs>
+				<obs key="healthEDUCATIONBASICHIVTRANSMISSIONDATE" name="HEALTH EDUCATION BASIC HIV TRANSMISSION DATE"></obs>
+				<obs key="healthEDUCATIONCHILDBLOODTEST" name="HEALTH EDUCATION CHILD BLOOD TEST"></obs>
+				<obs key="healthEDUCATIONCOMPLETEADHERENCE" name="HEALTH EDUCATION COMPLETE ADHERENCE"></obs>
+				<obs key="healthEDUCATIONDISCLOSURE" name="HEALTH EDUCATION DISCLOSURE"></obs>
+				<obs key="healthEDUCATIONFAMILYLIVINGSITUATION" name="HEALTH EDUCATION FAMILY LIVING SITUATION"></obs>
+				<obs key="healthEDUCATIONFOLLOWUPAPPOINTMENTS" name="HEALTH EDUCATION FOLLOW UP APPOINTMENTS"></obs>
+				<obs key="healthEDUCATIONMALARIAPREVENTION" name="HEALTH EDUCATION MALARIA PREVENTION"></obs>
+				<obs key="healthEDUCATIONPARTNERTESTING" name="HEALTH EDUCATION PARTNER TESTING "></obs>
+				<obs key="healthEDUCATIONPOSITIVELIVING" name="HEALTH EDUCATION POSITIVE LIVING"></obs>
+				<obs key="healthEDUCATIONPOSTTESTCOUNSELLINGRESULTIMPLICATIONS"
+					name="HEALTH EDUCATION POST TEST COUNSELLING RESULT IMPLICATIONS"></obs>
+				<obs key="healthEDUCATIONPREVENTIONABSTINENCESAFERSEXCONDOM"
+					name="HEALTH EDUCATION PREVENTION ABSTINENCE SAFER SEX CONDOM"></obs>
+				<obs key="healthEDUCATIONPREVENTIONHOUSEHOLDPRECAUTIONS" name="HEALTH EDUCATION PREVENTION HOUSEHOLD PRECAUTIONS"></obs>
+				<obs key="healthEDUCATIONPREVENTIONMTCT" name="HEALTH EDUCATION PREVENTION MTCT"></obs>
+				<obs key="healthEDUCATIONPROGRESSIONOFDISEASE" name="HEALTH EDUCATION PROGRESSION OF DISEASE"></obs>
+				<obs key="healthEDUCATIONSHAREDCONFIDENTIALITY" name="HEALTH EDUCATION SHARED CONFIDENTIALITY"></obs>
+				<obs key="historyOFFUNCTIONALSTATUS" name="HISTORY OF FUNCTIONAL STATUS"></obs>
+				<obs key="methodOFFAMILYPLANNING" name="METHOD OF FAMILY PLANNING"></obs>
+				<obs key="nameOFLOCATIONTRANSFERREDFROM" name="NAME OF LOCATION TRANSFERRED FROM"></obs>
+				<obs key="patientTELEPHONENUMBEROWNER" name="PATIENT TELEPHONE NUMBER OWNER"></obs>
+				<obs key="priorART" name="PRIOR ART"></obs>
+				<obs key="problemLIST" name="PROBLEM LIST">Presumptive malaria with pregnancy
+				</obs>
+				<obs key="returnVISITDATE" name="RETURN VISIT DATE"></obs>
+				<obs key="textOFENCOUNTERNOTE" name="TEXT OF ENCOUNTER NOTE">Testing</obs>
+				<obs key="transferIN" name="TRANSFER IN"></obs>
+				<obs key="transferINREGIMEN" name="TRANSFER IN REGIMEN"></obs>
+				<obs key="transferINREGIMENSTARTDATE" name="TRANSFER IN REGIMEN START DATE"></obs>
+				<obs key="treatmentSUPPORTERDISTRICT" name="TREATMENT SUPPORTER DISTRICT"></obs>
+				<obs key="treatmentSUPPORTERNAME" name="TREATMENT SUPPORTER NAME"></obs>
+				<obs key="treatmentSUPPORTERPARISH" name="TREATMENT SUPPORTER PARISH"></obs>
+				<obs key="treatmentSUPPORTERSUBCOUNTY" name="TREATMENT SUPPORTER SUB COUNTY"></obs>
+				<obs key="treatmentSUPPORTERTELEPHONENUMBER" name="TREATMENT SUPPORTER TELEPHONE NUMBER"></obs>
+				<obs key="treatmentSUPPORTERTELEPHONENUMBEROWNER" name="TREATMENT SUPPORTER TELEPHONE NUMBER OWNER"></obs>
+				<obs key="treatmentSUPPORTERVILLAGE" name="TREATMENT SUPPORTER VILLAGE"></obs>
+				<obs key="tuberculosisSTATUS" name="TUBERCULOSIS STATUS"></obs>
+				<obs key="whoHIVCLINICALSTAGE" name="WHO HIV CLINICAL STAGE"></obs>
+			</row>
+			<row>
+				<obs key="visitID" name="Visit ID">1</obs>
+				<obs key="visitStartDate" name="Visit Start Date">2016-01-19 10:06:18.0</obs>
+				<obs key="visitStopDate" name="Visit Stop Date"></obs>
+				<obs key="type" name="Type">Transfer</obs>
+				<obs key="location" name="Location">KITEBI HC III</obs>
+				<obs key="date" name="Date">2016-02-09 14:00:35.0</obs>
+				<obs key="adherenceTOCOTRIMOXZOLE" name="ADHERENCE TO COTRIMOXZOLE"></obs>
+				<obs key="artDURATION" name="ART DURATION"></obs>
+				<obs key="baselineCD" name="BASELINE CD4"></obs>
+				<obs key="baselineREGIMEN" name="BASELINE REGIMEN"></obs>
+				<obs key="baselineREGIMENSTARTDATE" name="BASELINE REGIMEN START DATE"></obs>
+				<obs key="baselineSTAGE" name="BASELINE STAGE"></obs>
+				<obs key="baselineWEIGHT" name="BASELINE WEIGHT"></obs>
+				<obs key="bodyWEIGHT" name="BODY WEIGHT"></obs>
+				<obs key="dateDETERMINEDMEDICALLYELIGIBLEANDREADYTOSTARTART"
+					name="DATE DETERMINED MEDICALLY ELIGIBLE AND READY TO START ART"></obs>
+				<obs key="dateDETERMINEDMEDICALLYELIGIBLETOSTARTART" name="DATE DETERMINED MEDICALLY ELIGIBLE TO START ART"></obs>
+				<obs key="datePOSITIVEHIVTESTCONFIRMED" name="DATE POSITIVE HIV TEST CONFIRMED"></obs>
+				<obs key="diagnosisCERTAINTY" name="DIAGNOSIS CERTAINTY"></obs>
+				<obs key="diagnosisORDER" name="DIAGNOSIS ORDER"></obs>
+				<obs key="eligibleFORARTCD" name="ELIGIBLE FOR ART CD4"></obs>
+				<obs key="eligibleFORARTSTAGE" name="ELIGIBLE FOR ART STAGE"></obs>
+				<obs key="entryPOINTINTOHIVCARE" name="ENTRY POINT INTO HIV CARE"></obs>
+				<obs key="familyPLANNINGSTATUS" name="FAMILY PLANNING STATUS"></obs>
+				<obs key="healthEDUCATIONARTESSENTIALS" name="HEALTH EDUCATION ART ESSENTIALS "></obs>
+				<obs key="healthEDUCATIONAVAILABLETREATMENTORPROPHYLAXIS" name="HEALTH EDUCATION AVAILABLE TREATMENT OR PROPHYLAXIS"></obs>
+				<obs key="healthEDUCATIONBASICHIVTRANSMISSION" name="HEALTH EDUCATION BASIC HIV TRANSMISSION 1"></obs>
+				<obs key="healthEDUCATIONBASICHIVTRANSMISSION" name="HEALTH EDUCATION BASIC HIV TRANSMISSION 2"></obs>
+				<obs key="healthEDUCATIONBASICHIVTRANSMISSIONCOMMENTS" name="HEALTH EDUCATION BASIC HIV TRANSMISSION COMMENTS"></obs>
+				<obs key="healthEDUCATIONBASICHIVTRANSMISSIONDATE" name="HEALTH EDUCATION BASIC HIV TRANSMISSION DATE"></obs>
+				<obs key="healthEDUCATIONCHILDBLOODTEST" name="HEALTH EDUCATION CHILD BLOOD TEST"></obs>
+				<obs key="healthEDUCATIONCOMPLETEADHERENCE" name="HEALTH EDUCATION COMPLETE ADHERENCE"></obs>
+				<obs key="healthEDUCATIONDISCLOSURE" name="HEALTH EDUCATION DISCLOSURE"></obs>
+				<obs key="healthEDUCATIONFAMILYLIVINGSITUATION" name="HEALTH EDUCATION FAMILY LIVING SITUATION"></obs>
+				<obs key="healthEDUCATIONFOLLOWUPAPPOINTMENTS" name="HEALTH EDUCATION FOLLOW UP APPOINTMENTS"></obs>
+				<obs key="healthEDUCATIONMALARIAPREVENTION" name="HEALTH EDUCATION MALARIA PREVENTION"></obs>
+				<obs key="healthEDUCATIONPARTNERTESTING" name="HEALTH EDUCATION PARTNER TESTING "></obs>
+				<obs key="healthEDUCATIONPOSITIVELIVING" name="HEALTH EDUCATION POSITIVE LIVING"></obs>
+				<obs key="healthEDUCATIONPOSTTESTCOUNSELLINGRESULTIMPLICATIONS"
+					name="HEALTH EDUCATION POST TEST COUNSELLING RESULT IMPLICATIONS"></obs>
+				<obs key="healthEDUCATIONPREVENTIONABSTINENCESAFERSEXCONDOM"
+					name="HEALTH EDUCATION PREVENTION ABSTINENCE SAFER SEX CONDOM"></obs>
+				<obs key="healthEDUCATIONPREVENTIONHOUSEHOLDPRECAUTIONS" name="HEALTH EDUCATION PREVENTION HOUSEHOLD PRECAUTIONS"></obs>
+				<obs key="healthEDUCATIONPREVENTIONMTCT" name="HEALTH EDUCATION PREVENTION MTCT"></obs>
+				<obs key="healthEDUCATIONPROGRESSIONOFDISEASE" name="HEALTH EDUCATION PROGRESSION OF DISEASE"></obs>
+				<obs key="healthEDUCATIONSHAREDCONFIDENTIALITY" name="HEALTH EDUCATION SHARED CONFIDENTIALITY"></obs>
+				<obs key="historyOFFUNCTIONALSTATUS" name="HISTORY OF FUNCTIONAL STATUS"></obs>
+				<obs key="methodOFFAMILYPLANNING" name="METHOD OF FAMILY PLANNING"></obs>
+				<obs key="nameOFLOCATIONTRANSFERREDFROM" name="NAME OF LOCATION TRANSFERRED FROM"></obs>
+				<obs key="patientTELEPHONENUMBEROWNER" name="PATIENT TELEPHONE NUMBER OWNER"></obs>
+				<obs key="priorART" name="PRIOR ART"></obs>
+				<obs key="problemLIST" name="PROBLEM LIST"></obs>
+				<obs key="returnVISITDATE" name="RETURN VISIT DATE"></obs>
+				<obs key="textOFENCOUNTERNOTE" name="TEXT OF ENCOUNTER NOTE"></obs>
+				<obs key="transferIN" name="TRANSFER IN"></obs>
+				<obs key="transferINREGIMEN" name="TRANSFER IN REGIMEN"></obs>
+				<obs key="transferINREGIMENSTARTDATE" name="TRANSFER IN REGIMEN START DATE"></obs>
+				<obs key="treatmentSUPPORTERDISTRICT" name="TREATMENT SUPPORTER DISTRICT"></obs>
+				<obs key="treatmentSUPPORTERNAME" name="TREATMENT SUPPORTER NAME"></obs>
+				<obs key="treatmentSUPPORTERPARISH" name="TREATMENT SUPPORTER PARISH"></obs>
+				<obs key="treatmentSUPPORTERSUBCOUNTY" name="TREATMENT SUPPORTER SUB COUNTY"></obs>
+				<obs key="treatmentSUPPORTERTELEPHONENUMBER" name="TREATMENT SUPPORTER TELEPHONE NUMBER"></obs>
+				<obs key="treatmentSUPPORTERTELEPHONENUMBEROWNER" name="TREATMENT SUPPORTER TELEPHONE NUMBER OWNER"></obs>
+				<obs key="treatmentSUPPORTERVILLAGE" name="TREATMENT SUPPORTER VILLAGE"></obs>
+				<obs key="tuberculosisSTATUS" name="TUBERCULOSIS STATUS"></obs>
+				<obs key="whoHIVCLINICALSTAGE" name="WHO HIV CLINICAL STAGE"></obs>
+			</row>
+			<row>
+				<obs key="visitID" name="Visit ID"></obs>
+				<obs key="visitStartDate" name="Visit Start Date"></obs>
+				<obs key="visitStopDate" name="Visit Stop Date"></obs>
+				<obs key="type" name="Type">SUMMARY PAGE</obs>
+				<obs key="location" name="Location">KITEBI HC III</obs>
+				<obs key="date" name="Date">2013-08-06 00:00:00.0</obs>
+				<obs key="adherenceTOCOTRIMOXZOLE" name="ADHERENCE TO COTRIMOXZOLE"></obs>
+				<obs key="artDURATION" name="ART DURATION"></obs>
+				<obs key="baselineCD" name="BASELINE CD4">252.0</obs>
+				<obs key="baselineREGIMEN" name="BASELINE REGIMEN">TDF-3TC-NVP</obs>
+				<obs key="baselineREGIMENSTARTDATE" name="BASELINE REGIMEN START DATE">2011-10-27 00:00:00.0
+				</obs>
+				<obs key="baselineSTAGE" name="BASELINE STAGE">WHO STAGE 1 ADULT</obs>
+				<obs key="baselineWEIGHT" name="BASELINE WEIGHT">52.0</obs>
+				<obs key="bodyWEIGHT" name="BODY WEIGHT"></obs>
+				<obs key="dateDETERMINEDMEDICALLYELIGIBLEANDREADYTOSTARTART"
+					name="DATE DETERMINED MEDICALLY ELIGIBLE AND READY TO START ART">2011-10-27 00:00:00.0</obs>
+				<obs key="dateDETERMINEDMEDICALLYELIGIBLETOSTARTART" name="DATE DETERMINED MEDICALLY ELIGIBLE TO START ART">2011-08-22
+					00:00:00.0</obs>
+				<obs key="datePOSITIVEHIVTESTCONFIRMED" name="DATE POSITIVE HIV TEST CONFIRMED">2011-02-19
+					00:00:00.0</obs>
+				<obs key="diagnosisCERTAINTY" name="DIAGNOSIS CERTAINTY"></obs>
+				<obs key="diagnosisORDER" name="DIAGNOSIS ORDER"></obs>
+				<obs key="eligibleFORARTCD" name="ELIGIBLE FOR ART CD4">252.0</obs>
+				<obs key="eligibleFORARTSTAGE" name="ELIGIBLE FOR ART STAGE">WHO STAGE 1 ADULT</obs>
+				<obs key="entryPOINTINTOHIVCARE" name="ENTRY POINT INTO HIV CARE">PMTCT</obs>
+				<obs key="familyPLANNINGSTATUS" name="FAMILY PLANNING STATUS"></obs>
+				<obs key="healthEDUCATIONARTESSENTIALS" name="HEALTH EDUCATION ART ESSENTIALS "></obs>
+				<obs key="healthEDUCATIONAVAILABLETREATMENTORPROPHYLAXIS" name="HEALTH EDUCATION AVAILABLE TREATMENT OR PROPHYLAXIS"></obs>
+				<obs key="healthEDUCATIONBASICHIVTRANSMISSION" name="HEALTH EDUCATION BASIC HIV TRANSMISSION 1"></obs>
+				<obs key="healthEDUCATIONBASICHIVTRANSMISSION" name="HEALTH EDUCATION BASIC HIV TRANSMISSION 2"></obs>
+				<obs key="healthEDUCATIONBASICHIVTRANSMISSIONCOMMENTS" name="HEALTH EDUCATION BASIC HIV TRANSMISSION COMMENTS"></obs>
+				<obs key="healthEDUCATIONBASICHIVTRANSMISSIONDATE" name="HEALTH EDUCATION BASIC HIV TRANSMISSION DATE"></obs>
+				<obs key="healthEDUCATIONCHILDBLOODTEST" name="HEALTH EDUCATION CHILD BLOOD TEST"></obs>
+				<obs key="healthEDUCATIONCOMPLETEADHERENCE" name="HEALTH EDUCATION COMPLETE ADHERENCE"></obs>
+				<obs key="healthEDUCATIONDISCLOSURE" name="HEALTH EDUCATION DISCLOSURE"></obs>
+				<obs key="healthEDUCATIONFAMILYLIVINGSITUATION" name="HEALTH EDUCATION FAMILY LIVING SITUATION"></obs>
+				<obs key="healthEDUCATIONFOLLOWUPAPPOINTMENTS" name="HEALTH EDUCATION FOLLOW UP APPOINTMENTS"></obs>
+				<obs key="healthEDUCATIONMALARIAPREVENTION" name="HEALTH EDUCATION MALARIA PREVENTION"></obs>
+				<obs key="healthEDUCATIONPARTNERTESTING" name="HEALTH EDUCATION PARTNER TESTING "></obs>
+				<obs key="healthEDUCATIONPOSITIVELIVING" name="HEALTH EDUCATION POSITIVE LIVING"></obs>
+				<obs key="healthEDUCATIONPOSTTESTCOUNSELLINGRESULTIMPLICATIONS"
+					name="HEALTH EDUCATION POST TEST COUNSELLING RESULT IMPLICATIONS"></obs>
+				<obs key="healthEDUCATIONPREVENTIONABSTINENCESAFERSEXCONDOM"
+					name="HEALTH EDUCATION PREVENTION ABSTINENCE SAFER SEX CONDOM"></obs>
+				<obs key="healthEDUCATIONPREVENTIONHOUSEHOLDPRECAUTIONS" name="HEALTH EDUCATION PREVENTION HOUSEHOLD PRECAUTIONS"></obs>
+				<obs key="healthEDUCATIONPREVENTIONMTCT" name="HEALTH EDUCATION PREVENTION MTCT"></obs>
+				<obs key="healthEDUCATIONPROGRESSIONOFDISEASE" name="HEALTH EDUCATION PROGRESSION OF DISEASE"></obs>
+				<obs key="healthEDUCATIONSHAREDCONFIDENTIALITY" name="HEALTH EDUCATION SHARED CONFIDENTIALITY"></obs>
+				<obs key="historyOFFUNCTIONALSTATUS" name="HISTORY OF FUNCTIONAL STATUS"></obs>
+				<obs key="methodOFFAMILYPLANNING" name="METHOD OF FAMILY PLANNING"></obs>
+				<obs key="nameOFLOCATIONTRANSFERREDFROM" name="NAME OF LOCATION TRANSFERRED FROM">PMTCT MULAGO</obs>
+				<obs key="patientTELEPHONENUMBEROWNER" name="PATIENT TELEPHONE NUMBER OWNER">PATIENT</obs>
+				<obs key="priorART" name="PRIOR ART">NO</obs>
+				<obs key="problemLIST" name="PROBLEM LIST"></obs>
+				<obs key="returnVISITDATE" name="RETURN VISIT DATE"></obs>
+				<obs key="textOFENCOUNTERNOTE" name="TEXT OF ENCOUNTER NOTE"></obs>
+				<obs key="transferIN" name="TRANSFER IN">YES</obs>
+				<obs key="transferINREGIMEN" name="TRANSFER IN REGIMEN">TDF-3TC-NVP</obs>
+				<obs key="transferINREGIMENSTARTDATE" name="TRANSFER IN REGIMEN START DATE">2011-09-08 00:00:00.0
+				</obs>
+				<obs key="treatmentSUPPORTERDISTRICT" name="TREATMENT SUPPORTER DISTRICT">WAKISO</obs>
+				<obs key="treatmentSUPPORTERNAME" name="TREATMENT SUPPORTER NAME">LUBWAMA SAMSON</obs>
+				<obs key="treatmentSUPPORTERPARISH" name="TREATMENT SUPPORTER PARISH">MASAJJA</obs>
+				<obs key="treatmentSUPPORTERSUBCOUNTY" name="TREATMENT SUPPORTER SUB COUNTY">KYADONDO</obs>
+				<obs key="treatmentSUPPORTERTELEPHONENUMBER" name="TREATMENT SUPPORTER TELEPHONE NUMBER">0759722256
+				</obs>
+				<obs key="treatmentSUPPORTERTELEPHONENUMBEROWNER" name="TREATMENT SUPPORTER TELEPHONE NUMBER OWNER">BROTHER
+				</obs>
+				<obs key="treatmentSUPPORTERVILLAGE" name="TREATMENT SUPPORTER VILLAGE">KIBIRA</obs>
+				<obs key="tuberculosisSTATUS" name="TUBERCULOSIS STATUS"></obs>
+				<obs key="whoHIVCLINICALSTAGE" name="WHO HIV CLINICAL STAGE"></obs>
+			</row>
+			<row>
+				<obs key="visitID" name="Visit ID">1</obs>
+				<obs key="visitStartDate" name="Visit Start Date">2016-01-19 10:06:18.0</obs>
+				<obs key="visitStopDate" name="Visit Stop Date"></obs>
+				<obs key="type" name="Type">Admission</obs>
+				<obs key="location" name="Location">KITEBI HC III</obs>
+				<obs key="date" name="Date">2016-02-09 13:58:42.0</obs>
+				<obs key="adherenceTOCOTRIMOXZOLE" name="ADHERENCE TO COTRIMOXZOLE"></obs>
+				<obs key="artDURATION" name="ART DURATION"></obs>
+				<obs key="baselineCD" name="BASELINE CD4"></obs>
+				<obs key="baselineREGIMEN" name="BASELINE REGIMEN"></obs>
+				<obs key="baselineREGIMENSTARTDATE" name="BASELINE REGIMEN START DATE"></obs>
+				<obs key="baselineSTAGE" name="BASELINE STAGE"></obs>
+				<obs key="baselineWEIGHT" name="BASELINE WEIGHT"></obs>
+				<obs key="bodyWEIGHT" name="BODY WEIGHT"></obs>
+				<obs key="dateDETERMINEDMEDICALLYELIGIBLEANDREADYTOSTARTART"
+					name="DATE DETERMINED MEDICALLY ELIGIBLE AND READY TO START ART"></obs>
+				<obs key="dateDETERMINEDMEDICALLYELIGIBLETOSTARTART" name="DATE DETERMINED MEDICALLY ELIGIBLE TO START ART"></obs>
+				<obs key="datePOSITIVEHIVTESTCONFIRMED" name="DATE POSITIVE HIV TEST CONFIRMED"></obs>
+				<obs key="diagnosisCERTAINTY" name="DIAGNOSIS CERTAINTY"></obs>
+				<obs key="diagnosisORDER" name="DIAGNOSIS ORDER"></obs>
+				<obs key="eligibleFORARTCD" name="ELIGIBLE FOR ART CD4"></obs>
+				<obs key="eligibleFORARTSTAGE" name="ELIGIBLE FOR ART STAGE"></obs>
+				<obs key="entryPOINTINTOHIVCARE" name="ENTRY POINT INTO HIV CARE"></obs>
+				<obs key="familyPLANNINGSTATUS" name="FAMILY PLANNING STATUS"></obs>
+				<obs key="healthEDUCATIONARTESSENTIALS" name="HEALTH EDUCATION ART ESSENTIALS "></obs>
+				<obs key="healthEDUCATIONAVAILABLETREATMENTORPROPHYLAXIS" name="HEALTH EDUCATION AVAILABLE TREATMENT OR PROPHYLAXIS"></obs>
+				<obs key="healthEDUCATIONBASICHIVTRANSMISSION" name="HEALTH EDUCATION BASIC HIV TRANSMISSION 1"></obs>
+				<obs key="healthEDUCATIONBASICHIVTRANSMISSION" name="HEALTH EDUCATION BASIC HIV TRANSMISSION 2"></obs>
+				<obs key="healthEDUCATIONBASICHIVTRANSMISSIONCOMMENTS" name="HEALTH EDUCATION BASIC HIV TRANSMISSION COMMENTS"></obs>
+				<obs key="healthEDUCATIONBASICHIVTRANSMISSIONDATE" name="HEALTH EDUCATION BASIC HIV TRANSMISSION DATE"></obs>
+				<obs key="healthEDUCATIONCHILDBLOODTEST" name="HEALTH EDUCATION CHILD BLOOD TEST"></obs>
+				<obs key="healthEDUCATIONCOMPLETEADHERENCE" name="HEALTH EDUCATION COMPLETE ADHERENCE"></obs>
+				<obs key="healthEDUCATIONDISCLOSURE" name="HEALTH EDUCATION DISCLOSURE"></obs>
+				<obs key="healthEDUCATIONFAMILYLIVINGSITUATION" name="HEALTH EDUCATION FAMILY LIVING SITUATION"></obs>
+				<obs key="healthEDUCATIONFOLLOWUPAPPOINTMENTS" name="HEALTH EDUCATION FOLLOW UP APPOINTMENTS"></obs>
+				<obs key="healthEDUCATIONMALARIAPREVENTION" name="HEALTH EDUCATION MALARIA PREVENTION"></obs>
+				<obs key="healthEDUCATIONPARTNERTESTING" name="HEALTH EDUCATION PARTNER TESTING "></obs>
+				<obs key="healthEDUCATIONPOSITIVELIVING" name="HEALTH EDUCATION POSITIVE LIVING"></obs>
+				<obs key="healthEDUCATIONPOSTTESTCOUNSELLINGRESULTIMPLICATIONS"
+					name="HEALTH EDUCATION POST TEST COUNSELLING RESULT IMPLICATIONS"></obs>
+				<obs key="healthEDUCATIONPREVENTIONABSTINENCESAFERSEXCONDOM"
+					name="HEALTH EDUCATION PREVENTION ABSTINENCE SAFER SEX CONDOM"></obs>
+				<obs key="healthEDUCATIONPREVENTIONHOUSEHOLDPRECAUTIONS" name="HEALTH EDUCATION PREVENTION HOUSEHOLD PRECAUTIONS"></obs>
+				<obs key="healthEDUCATIONPREVENTIONMTCT" name="HEALTH EDUCATION PREVENTION MTCT"></obs>
+				<obs key="healthEDUCATIONPROGRESSIONOFDISEASE" name="HEALTH EDUCATION PROGRESSION OF DISEASE"></obs>
+				<obs key="healthEDUCATIONSHAREDCONFIDENTIALITY" name="HEALTH EDUCATION SHARED CONFIDENTIALITY"></obs>
+				<obs key="historyOFFUNCTIONALSTATUS" name="HISTORY OF FUNCTIONAL STATUS"></obs>
+				<obs key="methodOFFAMILYPLANNING" name="METHOD OF FAMILY PLANNING"></obs>
+				<obs key="nameOFLOCATIONTRANSFERREDFROM" name="NAME OF LOCATION TRANSFERRED FROM"></obs>
+				<obs key="patientTELEPHONENUMBEROWNER" name="PATIENT TELEPHONE NUMBER OWNER"></obs>
+				<obs key="priorART" name="PRIOR ART"></obs>
+				<obs key="problemLIST" name="PROBLEM LIST"></obs>
+				<obs key="returnVISITDATE" name="RETURN VISIT DATE"></obs>
+				<obs key="textOFENCOUNTERNOTE" name="TEXT OF ENCOUNTER NOTE"></obs>
+				<obs key="transferIN" name="TRANSFER IN"></obs>
+				<obs key="transferINREGIMEN" name="TRANSFER IN REGIMEN"></obs>
+				<obs key="transferINREGIMENSTARTDATE" name="TRANSFER IN REGIMEN START DATE"></obs>
+				<obs key="treatmentSUPPORTERDISTRICT" name="TREATMENT SUPPORTER DISTRICT"></obs>
+				<obs key="treatmentSUPPORTERNAME" name="TREATMENT SUPPORTER NAME"></obs>
+				<obs key="treatmentSUPPORTERPARISH" name="TREATMENT SUPPORTER PARISH"></obs>
+				<obs key="treatmentSUPPORTERSUBCOUNTY" name="TREATMENT SUPPORTER SUB COUNTY"></obs>
+				<obs key="treatmentSUPPORTERTELEPHONENUMBER" name="TREATMENT SUPPORTER TELEPHONE NUMBER"></obs>
+				<obs key="treatmentSUPPORTERTELEPHONENUMBEROWNER" name="TREATMENT SUPPORTER TELEPHONE NUMBER OWNER"></obs>
+				<obs key="treatmentSUPPORTERVILLAGE" name="TREATMENT SUPPORTER VILLAGE"></obs>
+				<obs key="tuberculosisSTATUS" name="TUBERCULOSIS STATUS"></obs>
+				<obs key="whoHIVCLINICALSTAGE" name="WHO HIV CLINICAL STAGE"></obs>
+			</row>
+		</rows>
+	</dataset>
+</report>
