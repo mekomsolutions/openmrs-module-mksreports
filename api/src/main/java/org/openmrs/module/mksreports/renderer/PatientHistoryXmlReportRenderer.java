@@ -40,7 +40,7 @@ public class PatientHistoryXmlReportRenderer extends ReportDesignRenderer {
 	/**
 	 * @see ReportRenderer#getFilename(org.openmrs.module.reporting.report.ReportRequest)
 	 */
-    @Override
+	@Override
 	public String getFilename(ReportRequest request) {
 		return getFilenameBase(request) + ".xml";
 	}
@@ -58,35 +58,42 @@ public class PatientHistoryXmlReportRenderer extends ReportDesignRenderer {
 	public void render(ReportData results, String argument, OutputStream out) throws IOException, RenderingException {
 		
 		Writer w = new OutputStreamWriter(out, "UTF-8");
-        
+		
 		w.write("<?xml version=\"1.0\"?>\n");
-        w.write("<report name=\"" + results.getDefinition().getName() + "\">\n");
+		w.write("<report name=\"" + results.getDefinition().getName() + "\">\n");
 		for (String dsKey : results.getDataSets().keySet()) {
 			DataSet dataset = results.getDataSets().get(dsKey);
 			List<DataSetColumn> columns = dataset.getMetaData().getColumns();
 			w.write("<dataset name=\"" + dsKey + "\">\n");
 			w.write("\t<rows>\n");
-			for (DataSetRow row : dataset) {		
+			for (DataSetRow row : dataset) {
 				w.write("\t\t<row>");
-				for (DataSetColumn column : columns) {			
+				for (DataSetColumn column : columns) {
 					Object colValue = row.getColumnValue(column);
 					String label = toCamelCase(column.getLabel());
-					w.write("<" + label + ">");
-					if (colValue != null) { 
+					if (dsKey.equalsIgnoreCase("encounters")) {
+						w.write("<obs key=\"" + label + "\" name=\"" + column.getLabel().replaceAll("_", " ") + "\">");
+					} else {
+						w.write("<" + label + ">");
+					}
+					if (colValue != null) {
 						if (colValue instanceof Cohort) {
 							w.write(Integer.toString(((Cohort) colValue).size()));
-						} 
-						else {
+						} else {
 							w.write(colValue.toString());
 						}
 					}
-					w.write("</" + label + ">");
+					if (dsKey.equalsIgnoreCase("encounters")) {
+						w.write("</obs>");
+					} else {
+						w.write("</" + label + ">");
+					}
 				}
 				w.write("</row>\n");
 			}
 			w.write("\t</rows>\n");
 			w.write("</dataset>\n");
-		}		
+		}
 		w.write("</report>\n");
 		w.flush();
 	}
@@ -98,13 +105,13 @@ public class PatientHistoryXmlReportRenderer extends ReportDesignRenderer {
 	public static String toCamelCase(String s) {
 		StringBuffer sb = new StringBuffer();
 		String[] words = s.replaceAll("[^A-Za-z]", " ").replaceAll("\\s+", " ").trim().split(" ");
-
+		
 		for (int i = 0; i < words.length; i++) {
-			if (i == 0) 
+			if (i == 0)
 				words[i] = words[i].toLowerCase();
-			else 
+			else
 				words[i] = String.valueOf(words[i].charAt(0)).toUpperCase() + words[i].substring(1);
-
+			
 			sb.append(words[i]);
 		}
 		return sb.toString();
