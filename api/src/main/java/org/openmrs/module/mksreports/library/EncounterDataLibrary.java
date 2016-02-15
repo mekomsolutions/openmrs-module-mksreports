@@ -19,10 +19,8 @@ import java.util.Map;
 import org.openmrs.module.mksreports.common.Helper;
 import org.openmrs.module.reporting.data.encounter.definition.EncounterDataDefinition;
 import org.openmrs.module.reporting.data.encounter.definition.SqlEncounterDataDefinition;
-import org.openmrs.module.reporting.data.patient.library.BuiltInPatientDataLibrary;
 import org.openmrs.module.reporting.definition.library.BaseDefinitionLibrary;
 import org.openmrs.module.reporting.definition.library.DocumentedDefinition;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
@@ -32,9 +30,6 @@ import org.springframework.stereotype.Component;
 public class EncounterDataLibrary extends BaseDefinitionLibrary<EncounterDataDefinition> {
 	
 	public static final String PREFIX = "mksreports.encounterDataCalculation.";
-	
-	@Autowired
-	BuiltInPatientDataLibrary builtInPatientDataLibrary;
 	
 	@Override
 	public Class<? super EncounterDataDefinition> getDefinitionType() {
