@@ -96,8 +96,6 @@ public class MKSReportsManageController {
 			}
 			else
 			{
-				
-				//Get the content from the datasets rows.
 				StreamSource xmlSourceStream = new StreamSource(new ByteArrayInputStream(result.getRawContents()));
 				StreamSource xslTransformStream = new StreamSource(OpenmrsClassLoader.getInstance().getResourceAsStream(PATIENT_HISTORY_XSL_PATH));
 				ByteArrayOutputStream outStream = new ByteArrayOutputStream();
@@ -141,7 +139,7 @@ public class MKSReportsManageController {
         
         // Resulting SAX events (the generated FO) must be piped through to FOP
         Result res = new SAXResult(fop.getDefaultHandler());
-        
+
         // Step 4: Start XSLT transformation and FOP processing
         transformer.transform(xmlSourceStream, res);
 	}

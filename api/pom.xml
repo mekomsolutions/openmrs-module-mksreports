@@ -13,4 +13,13 @@
 	<name>Mekom Solutions Reports Module API</name>
 	<description>API project for MKSReports</description>
 
+	<build>
+		<testResources>
+			<testResource>
+				<directory>src/test/resources</directory>
+				<filtering>true</filtering>
+			</testResource>
+		</testResources>
+	</build>
+
 </project>
