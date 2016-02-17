@@ -3,33 +3,31 @@ package org.openmrs.module.mksreports.renderer;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.nio.file.Files;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.commons.io.IOUtils;
 import org.junit.Before;
 import org.junit.Test;
+import org.openmrs.Cohort;
 import org.openmrs.Concept;
 import org.openmrs.Location;
 import org.openmrs.Patient;
 import org.openmrs.PatientIdentifierType;
-import org.openmrs.Person;
-import org.openmrs.User;
 import org.openmrs.contrib.testdata.TestDataManager;
 import org.openmrs.contrib.testdata.builder.EncounterBuilder;
 import org.openmrs.module.mksreports.dataset.definition.PatientHistoryEncounterAndObsDataSetDefinition;
 import org.openmrs.module.reporting.common.SortCriteria;
 import org.openmrs.module.reporting.data.patient.library.BuiltInPatientDataLibrary;
 import org.openmrs.module.reporting.dataset.definition.PatientDataSetDefinition;
+import org.openmrs.module.reporting.evaluation.EvaluationContext;
+import org.openmrs.module.reporting.evaluation.EvaluationException;
 import org.openmrs.module.reporting.report.ReportData;
+import org.openmrs.module.reporting.report.ReportDesign;
 import org.openmrs.module.reporting.report.definition.ReportDefinition;
+import org.openmrs.module.reporting.report.definition.service.ReportDefinitionService;
+import org.openmrs.module.reporting.report.service.ReportService;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import com.thoughtworks.xstream.XStream;
-import com.thoughtworks.xstream.converters.reflection.Sun14ReflectionProvider;
 
 public class PatientHistoryXmlReportRendererTest extends BaseModuleContextSensitiveTest {
 	
@@ -41,9 +39,13 @@ public class PatientHistoryXmlReportRendererTest extends BaseModuleContextSensit
 	private BuiltInPatientDataLibrary builtInPatientData;
 	
 	@Autowired
-	private TestDataManager data;
+	private ReportDefinitionService reportDefinitionService;
 	
-	private PatientHistoryXmlReportRenderer renderer = new PatientHistoryXmlReportRenderer();
+	@Autowired
+	private ReportService reportService;
+	
+	@Autowired
+	private TestDataManager data;
 	
 	private ReportData reportData = null;
 	
@@ -79,25 +81,8 @@ public class PatientHistoryXmlReportRendererTest extends BaseModuleContextSensit
 		//Save the encounter
 		eb.save();
 		
-		InputStream inStream = getClass().getClassLoader().getResourceAsStream("sampleReportData.xml");
-		String str = IOUtils.toString(inStream, "UTF-8");
-		XStream xstream = new XStream(new Sun14ReflectionProvider());
-		xstream.omitField(User.class, "log");
-		xstream.omitField(Person.class, "log");
-		xstream.omitField(Person.class, "deathdateEstimated");
-		reportData = (ReportData) xstream.fromXML(str);
-		
 		file = new File(OUTPUT_XML_OUTPUT_PATH);
 		file.mkdirs();
-		
-		/* The below code deleting the output XML should in fact even
-		eventually moved in the tear down routine after tests are performed. */
-		try {
-			Files.deleteIfExists(file.toPath());
-		}
-		catch (IOException e) {
-			e.printStackTrace();
-		}
 	}
 	
 	/**
@@ -130,8 +115,35 @@ public class PatientHistoryXmlReportRendererTest extends BaseModuleContextSensit
 		return rd;
 	}
 	
+	/**
+	 * Gets the report definition and builds an evaluation context with one patient (...the test patient p1)
+	 * Creates then a report design that uses PatientHistoryExcelTemplateRenderer and renders the report to xml.
+	 * @throws IOException
+	 * @throws EvaluationException error evaluating the report definition
+	 */
 	@Test
-	public void shoudProduceValidXml() throws IOException {
+	public void shoudProduceValidXml() throws IOException, EvaluationException {
+		
+		ReportDefinition reportDefinition  = getReportDefinition();
+		// Populate a new EvaluationContext with the test patient
+		EvaluationContext context = new EvaluationContext();
+		Cohort baseCohort = new Cohort();
+		baseCohort.addMember(p1.getPatientId());
+		context.setBaseCohort(baseCohort);
+		
+		// Evaluate the report with this context to produce the data to use to populate the summary
+		reportData = reportDefinitionService.evaluate(reportDefinition, context);
+		
+		final ReportDesign design = new ReportDesign();
+		design.setName("TestDesign");
+		design.setReportDefinition(reportDefinition);
+		design.setRendererType(PatientHistoryExcelTemplateRenderer.class);
+		
+		PatientHistoryXmlReportRenderer renderer = new PatientHistoryXmlReportRenderer() {
+			public ReportDesign getDesign(String argument) {
+				return design;
+			}
+		};
 		
 		renderer.render(reportData, "", new FileOutputStream(file));
 	}
