@@ -11,6 +11,7 @@ import java.util.Map;
 import org.apache.commons.io.IOUtils;
 import org.junit.Before;
 import org.junit.Test;
+import org.openmrs.Concept;
 import org.openmrs.Location;
 import org.openmrs.Patient;
 import org.openmrs.PatientIdentifierType;
@@ -53,13 +54,30 @@ public class PatientHistoryXmlReportRendererTest extends BaseModuleContextSensit
 	@Before
 	public void setUp() throws Exception {
 		
+		/*Load the xml file with test concepts, locations, patient identifier types, ...
+		TODO This should be improved once we get a metadata management strategy.
+		A good strategy would be for example to use metadatadeploy (...see https://wiki.openmrs.org/display/docs/Metadata+Deploy+Module)
+		to bundle metadata within a module and perhaps have another module that depends on it that can provide metada lookups utilities*/
 		executeDataSet("org/openmrs/module/mksreports/include/ReportTestDataset.xml");
 		
-		PatientIdentifierType testIdentifierType = data.getPatientService().getPatientIdentifierType(4);
-		Location testLocation = data.getLocationService().getLocation(1);
+		PatientIdentifierType testIdentifierType = data.getPatientService().getPatientIdentifierType(4); //Social Security Number
+		Location testLocation = data.getLocationService().getLocation(1); //Unknown Location
 		
+		//Build a test patient
 		p1 = data.patient().name("Alice", "MKS Test").gender("F").birthdate("1975-01-02", false).dateCreated("2013-10-01").identifier(testIdentifierType, "Y2ATDN", testLocation).save();
 		
+		//Build a sample a test encounter
+		EncounterBuilder eb = data.randomEncounter().patient(p1).encounterType(6).form(2); //Laboratory Encouter Type
+		Concept wt = data.getConceptService().getConcept(5089);
+		Concept civilStatus = data.getConceptService().getConcept(4);
+		Concept single = data.getConceptService().getConcept(5);
+		
+		//Add some obs to the encounter
+		eb.obs(wt, 77);
+		eb.obs(civilStatus, single);
+		
+		//Save the encounter
+		eb.save();
 		
 		InputStream inStream = getClass().getClassLoader().getResourceAsStream("sampleReportData.xml");
 		String str = IOUtils.toString(inStream, "UTF-8");
