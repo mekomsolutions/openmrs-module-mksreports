@@ -40,6 +40,8 @@
 		<uiframeworkVersion>3.4</uiframeworkVersion>
 		<calculationVersion>1.1</calculationVersion>
 		<serialization.xstreamVersion>0.2.7</serialization.xstreamVersion>
+		<testutilsVersion>1.5</testutilsVersion>
+		<xmlunitVersion>1.6</xmlunitVersion>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 
@@ -69,7 +71,7 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.apache.pdfbox</groupId>
 			<artifactId>pdfbox</artifactId>
@@ -119,6 +121,24 @@
 			<groupId>com.lowagie</groupId>
 			<artifactId>itext</artifactId>
 			<version>2.1.7</version>
+		</dependency>
+
+		<!-- Begin OpenMRS contrib -->
+
+		<dependency>
+			<groupId>org.openmrs.contrib</groupId>
+			<artifactId>testutils</artifactId>
+			<version>${testutilsVersion}</version>
+			<scope>test</scope>
+		</dependency>
+
+		<!-- End OpenMRS contrib -->
+
+		<dependency>
+			<groupId>xmlunit</groupId>
+			<artifactId>xmlunit</artifactId>
+			<version>${xmlunitVersion}</version>
+			<scope>test</scope>
 		</dependency>
 
 
