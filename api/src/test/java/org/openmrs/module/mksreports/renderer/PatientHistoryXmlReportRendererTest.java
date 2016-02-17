@@ -49,7 +49,7 @@ public class PatientHistoryXmlReportRendererTest extends BaseModuleContextSensit
 		/*Load the xml file with test concepts, locations, patient identifier types, ...
 		TODO This should be improved once we get a metadata management strategy.
 		A good strategy would be for example to use metadatadeploy (...see https://wiki.openmrs.org/display/docs/Metadata+Deploy+Module)
-		to bundle metadata within a module and perhaps have another module that depends on it that can provide metada lookups utilities*/
+		to bundle metadata within a module and perhaps have another module that depends on it that can provide metadata lookup utilities*/
 		executeDataSet("org/openmrs/module/mksreports/include/ReportTestDataset.xml");
 		
 		PatientIdentifierType testIdentifierType = data.getPatientService().getPatientIdentifierType(4); //Social Security Number
@@ -83,22 +83,22 @@ public class PatientHistoryXmlReportRendererTest extends BaseModuleContextSensit
 		rd.setName("Testing Renderer");
 		
 		//Create a new dataset definition to hold the patient's demographics
-		PatientDataSetDefinition dsd = new PatientDataSetDefinition();
+		PatientDataSetDefinition demographicsDSD = new PatientDataSetDefinition();
 		Map<String, Object> mappings = new HashMap<String, Object>();
 		
-		dsd.addColumn("ID", builtInPatientData.getPatientId(), mappings);
-		dsd.addColumn("Given Name", builtInPatientData.getPreferredGivenName(), mappings);
-		dsd.addColumn("Last Name", builtInPatientData.getPreferredFamilyName(), mappings);
-		dsd.addColumn("Gender", builtInPatientData.getGender(), mappings);
+		demographicsDSD.addColumn("ID", builtInPatientData.getPatientId(), mappings);
+		demographicsDSD.addColumn("Given Name", builtInPatientData.getPreferredGivenName(), mappings);
+		demographicsDSD.addColumn("Last Name", builtInPatientData.getPreferredFamilyName(), mappings);
+		demographicsDSD.addColumn("Gender", builtInPatientData.getGender(), mappings);
 		
 		// Create a new dataset definition to hold the patient's encounters and obs
-		PatientHistoryEncounterAndObsDataSetDefinition dataSetDefinition = new PatientHistoryEncounterAndObsDataSetDefinition();
-		dataSetDefinition.setName("Patient History data set");
-		dataSetDefinition.addSortCriteria("encounterDate", SortCriteria.SortDirection.ASC);
+		PatientHistoryEncounterAndObsDataSetDefinition encountersDSD = new PatientHistoryEncounterAndObsDataSetDefinition();
+		encountersDSD.setName("Patient History data set");
+		encountersDSD.addSortCriteria("encounterDate", SortCriteria.SortDirection.ASC);
 		
 		//Attaching the tow datasets to the report definition
-		rd.addDataSetDefinition("demographics", dataSetDefinition, new HashMap<String, Object>());
-		rd.addDataSetDefinition("encounters", dataSetDefinition, new HashMap<String, Object>());
+		rd.addDataSetDefinition("demographics", demographicsDSD, new HashMap<String, Object>());
+		rd.addDataSetDefinition("encounters", encountersDSD, new HashMap<String, Object>());
 		return rd;
 	}
 	
@@ -124,7 +124,7 @@ public class PatientHistoryXmlReportRendererTest extends BaseModuleContextSensit
 		final ReportDesign design = new ReportDesign();
 		design.setName("TestDesign");
 		design.setReportDefinition(reportDefinition);
-		design.setRendererType(PatientHistoryExcelTemplateRenderer.class);
+		design.setRendererType(PatientHistoryXmlReportRenderer.class);
 		
 		PatientHistoryXmlReportRenderer renderer = new PatientHistoryXmlReportRenderer() {
 			public ReportDesign getDesign(String argument) {
@@ -132,7 +132,7 @@ public class PatientHistoryXmlReportRendererTest extends BaseModuleContextSensit
 			}
 		};
 		
-		//Outputting the generate xml file to tmp dir instead. We wan't worry about deleting it after
+		//Outputting the generated xml file to tmp dir instead. We wan't worry about deleting it after
 		String outFile = System.getProperty("java.io.tmpdir") + File.separator + "out_samplePatientHistory.xml";
 		FileOutputStream fos = new FileOutputStream(outFile);
 		renderer.render(reportData, " ", fos);
