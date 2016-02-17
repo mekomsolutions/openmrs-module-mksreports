@@ -25,15 +25,18 @@ import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.converters.reflection.Sun14ReflectionProvider;
 
 public class PatientHistoryXmlReportRendererTest {
-
+	
 	private static String OUTPUT_XML_OUTPUT_DIR = "target/test/";
+	
 	private static String OUTPUT_XML_OUTPUT_PATH = OUTPUT_XML_OUTPUT_DIR + "out_samplePatientHistory.xml";
 	
 	@Autowired
 	private BuiltInPatientDataLibrary builtInPatientData;
 	
 	private PatientHistoryXmlReportRenderer renderer = new PatientHistoryXmlReportRenderer();
+	
 	private ReportData reportData = null;
+	
 	private File file = null;
 	
 	@Before
@@ -53,32 +56,42 @@ public class PatientHistoryXmlReportRendererTest {
 		eventually moved in the tear down routine after tests are performed. */
 		try {
 			Files.deleteIfExists(file.toPath());
-		} catch (IOException e) {
+		}
+		catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 	
+	/**
+	 * Creates a new report definition and adds a PatientDataSetDefinition and
+	 * PatientHistoryEncounterAndObsDataSetDefinition datasets to it
+	 * 
+	 * @return rd The new report definition
+	 */
 	protected ReportDefinition getReportDefinition() {
 		ReportDefinition rd = new ReportDefinition();
-		rd.setName("Testing");
+		rd.setName("Testing Renderer");
 		
+		//Create a new dataset definition to hold the patient's demographics
 		PatientDataSetDefinition dsd = new PatientDataSetDefinition();
 		Map<String, Object> mappings = new HashMap<String, Object>();
 		
-		dsd.addColumn("ID", builtInPatientData.getPatientId(),mappings);
-		dsd.addColumn("Given Name", builtInPatientData.getPreferredGivenName(),mappings);
-		dsd.addColumn("Last Name", builtInPatientData.getPreferredFamilyName(),mappings);
-		dsd.addColumn("Gender", builtInPatientData.getGender(),mappings);
+		dsd.addColumn("ID", builtInPatientData.getPatientId(), mappings);
+		dsd.addColumn("Given Name", builtInPatientData.getPreferredGivenName(), mappings);
+		dsd.addColumn("Last Name", builtInPatientData.getPreferredFamilyName(), mappings);
+		dsd.addColumn("Gender", builtInPatientData.getGender(), mappings);
 		
-		// Create new dataset definition 
+		// Create a new dataset definition to hold the patient's encounters and obs
 		PatientHistoryEncounterAndObsDataSetDefinition dataSetDefinition = new PatientHistoryEncounterAndObsDataSetDefinition();
 		dataSetDefinition.setName("Patient History data set");
 		dataSetDefinition.addSortCriteria("encounterDate", SortCriteria.SortDirection.ASC);
 		
-		rd.addDataSetDefinition("demographics", dataSetDefinition, new HashMap<String, Object>());		
+		//Attaching the tow datasets to the report definition
+		rd.addDataSetDefinition("demographics", dataSetDefinition, new HashMap<String, Object>());
 		rd.addDataSetDefinition("encounters", dataSetDefinition, new HashMap<String, Object>());
 		return rd;
 	}
+	
 	@Test
 	public void shoudProduceValidXml() throws IOException {
 		
