@@ -30,6 +30,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 public class PatientHistoryXmlReportRendererTest extends BaseModuleContextSensitiveTest {
 	
+	private static String OUTPUT_XML_OUTPUT_DIR = "target/test/";
+	
+	private static String OUTPUT_XML_OUTPUT_PATH = OUTPUT_XML_OUTPUT_DIR + "out_samplePatientHistory.xml";
+	
 	@Autowired
 	private BuiltInPatientDataLibrary builtInPatientData;
 	
@@ -40,6 +44,8 @@ public class PatientHistoryXmlReportRendererTest extends BaseModuleContextSensit
 	private TestDataManager data;
 	
 	private ReportData reportData = null;
+	
+	private File file = null;
 	
 	private Patient p1 =null;
 	
@@ -70,6 +76,9 @@ public class PatientHistoryXmlReportRendererTest extends BaseModuleContextSensit
 		
 		//Save the encounter
 		eb.save();
+		
+		file = new File(OUTPUT_XML_OUTPUT_DIR);
+		file.mkdirs();
 	}
 	
 	/**
@@ -132,9 +141,8 @@ public class PatientHistoryXmlReportRendererTest extends BaseModuleContextSensit
 			}
 		};
 		
-		//Outputting the generated xml file to tmp dir instead. We wan't worry about deleting it after
-		String outFile = System.getProperty("java.io.tmpdir") + File.separator + "out_samplePatientHistory.xml";
-		FileOutputStream fos = new FileOutputStream(outFile);
+		//Outputting the generated xml to target/test
+		FileOutputStream fos = new FileOutputStream(OUTPUT_XML_OUTPUT_PATH);
 		renderer.render(reportData, " ", fos);
 		fos.close();
 	}
