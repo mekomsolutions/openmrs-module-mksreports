@@ -25,15 +25,10 @@ import org.openmrs.module.reporting.report.ReportData;
 import org.openmrs.module.reporting.report.ReportDesign;
 import org.openmrs.module.reporting.report.definition.ReportDefinition;
 import org.openmrs.module.reporting.report.definition.service.ReportDefinitionService;
-import org.openmrs.module.reporting.report.service.ReportService;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public class PatientHistoryXmlReportRendererTest extends BaseModuleContextSensitiveTest {
-	
-	private static String OUTPUT_XML_OUTPUT_DIR = "target/test/";
-	
-	private static String OUTPUT_XML_OUTPUT_PATH = OUTPUT_XML_OUTPUT_DIR + "out_samplePatientHistory.xml";
 	
 	@Autowired
 	private BuiltInPatientDataLibrary builtInPatientData;
@@ -42,14 +37,9 @@ public class PatientHistoryXmlReportRendererTest extends BaseModuleContextSensit
 	private ReportDefinitionService reportDefinitionService;
 	
 	@Autowired
-	private ReportService reportService;
-	
-	@Autowired
 	private TestDataManager data;
 	
 	private ReportData reportData = null;
-	
-	private File file = null;
 	
 	private Patient p1 =null;
 	
@@ -80,9 +70,6 @@ public class PatientHistoryXmlReportRendererTest extends BaseModuleContextSensit
 		
 		//Save the encounter
 		eb.save();
-		
-		file = new File(OUTPUT_XML_OUTPUT_PATH);
-		file.mkdirs();
 	}
 	
 	/**
@@ -145,6 +132,10 @@ public class PatientHistoryXmlReportRendererTest extends BaseModuleContextSensit
 			}
 		};
 		
-		renderer.render(reportData, "", new FileOutputStream(file));
+		//Outputting the generate xml file to tmp dir instead. We wan't worry about deleting it after
+		String outFile = System.getProperty("java.io.tmpdir") + File.separator + "out_samplePatientHistory.xml";
+		FileOutputStream fos = new FileOutputStream(outFile);
+		renderer.render(reportData, " ", fos);
+		fos.close();
 	}
 }
