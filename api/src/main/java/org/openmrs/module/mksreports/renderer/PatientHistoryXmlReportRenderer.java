@@ -29,7 +29,7 @@ import org.openmrs.module.reporting.report.ReportData;
 import org.openmrs.module.reporting.report.ReportRequest;
 import org.openmrs.module.reporting.report.renderer.RenderingException;
 import org.openmrs.module.reporting.report.renderer.ReportDesignRenderer;
-import org.openmrs.report.ReportRenderer;
+import org.openmrs.module.reporting.report.renderer.ReportRenderer;
 
 /**
  * ReportRenderer that renders to a default XML format

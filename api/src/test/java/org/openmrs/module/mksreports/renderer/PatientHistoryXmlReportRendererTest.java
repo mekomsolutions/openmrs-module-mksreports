@@ -15,7 +15,6 @@ import org.openmrs.Patient;
 import org.openmrs.PatientIdentifierType;
 import org.openmrs.Visit;
 import org.openmrs.contrib.testdata.TestDataManager;
-import org.openmrs.contrib.testdata.builder.EncounterBuilder;
 import org.openmrs.module.mksreports.dataset.definition.PatientHistoryEncounterAndObsDataSetDefinition;
 import org.openmrs.module.reporting.common.SortCriteria;
 import org.openmrs.module.reporting.data.patient.library.BuiltInPatientDataLibrary;
@@ -64,9 +63,7 @@ public class PatientHistoryXmlReportRendererTest extends BaseModuleContextSensit
 		
 		//Build a test patient
 		p1 = data.patient().name("Alice", "MKS Test").gender("F").birthdate("1975-01-02", false).dateCreated("2013-10-01").identifier(testIdentifierType, "Y2ATDN", testLocation).save();
-		
-		Visit v = data.visit().patient(p1).visitType(2).started("2005-01-01 00:00:00.0").save();
-		
+			
 		//Some concepts
 		Concept wt = data.getConceptService().getConcept(5089);
 		Concept civilStatus = data.getConceptService().getConcept(4);
@@ -79,10 +76,24 @@ public class PatientHistoryXmlReportRendererTest extends BaseModuleContextSensit
 		Concept no = data.getConceptService().getConcept(8);
 		Concept yes = data.getConceptService().getConcept(7);
 		
-		data.randomEncounter().encounterDatetime("2007-08-01 00:00:00.0").encounterType(6).visit(v).patient(p1).obs(wt, 51).obs(civilStatus, single).save();
-		data.randomEncounter().encounterDatetime("2008-08-01 00:00:00.0").encounterType(6).visit(v).patient(p1).obs(cd4Count, 150).obs(foodAssistanceForEntireFamily, no).obs(wt, 50).save();
-		data.randomEncounter().encounterDatetime("2008-08-15 00:00:00.0").encounterType(6).visit(v).patient(p1).obs(cd4Count, 175).obs(dateOfFoodAssistance, "2008-08-14 00:00:00.0").obs(favoriteFoodNonCoded, "PB and J").obs(foodAssistance,yes).obs(foodAssistanceForEntireFamily, yes).obs(wt, 55).save();
-		data.randomEncounter().encounterDatetime("2009-09-19 00:00:00.0").encounterType(6).visit(v).patient(p1).obs(wt, 61).save();
+		Visit v1 = data.visit().patient(p1).visitType(2).started("2005-01-01 00:00:00.0").stopped("2010-09-10 00:00:00.0").save();
+		
+		//Some encounters on visit v1
+		data.randomEncounter().encounterDatetime("2007-08-01 00:00:00.0").encounterType(1).visit(v1).patient(p1).obs(wt, 51).obs(civilStatus, single).save();
+		data.randomEncounter().encounterDatetime("2008-08-01 00:00:00.0").encounterType(6).visit(v1).patient(p1).obs(cd4Count, 150).obs(foodAssistanceForEntireFamily, no).obs(wt, 50).save();
+		data.randomEncounter().encounterDatetime("2008-08-15 00:00:00.0").encounterType(2).visit(v1).patient(p1).obs(cd4Count, 175).obs(dateOfFoodAssistance, "2008-08-14 00:00:00.0").obs(favoriteFoodNonCoded, "PB and J").obs(foodAssistance,yes).obs(foodAssistanceForEntireFamily, yes).obs(wt, 55).save();
+		data.randomEncounter().encounterDatetime("2009-09-19 00:00:00.0").encounterType(6).visit(v1).patient(p1).obs(wt, 61).save();
+		
+		Visit v2 = data.visit().patient(p1).visitType(3).started("2009-01-01 00:00:00.0").save();
+		
+		//Some encounters on visit v2
+		data.randomEncounter().encounterDatetime("2009-08-19 00:00:00.0").encounterType(2).visit(v2).patient(p1).obs(cd4Count, 180).obs(foodAssistance, no).obs(wt, 80).save();
+		data.randomEncounter().encounterDatetime("2009-09-19 00:00:00.0").encounterType(6).visit(v2).patient(p1).obs(cd4Count, 150).obs(foodAssistance, yes).obs(wt, 78).save();
+		
+		//Some encounters with no visit
+		data.randomEncounter().encounterDatetime("2009-09-19 00:00:00.0").encounterType(1).patient(p1).obs(cd4Count, 49).obs(foodAssistance, yes).obs(wt, 180).save();
+		data.randomEncounter().encounterDatetime("2010-09-26 00:00:00.0").encounterType(2).patient(p1).obs(cd4Count, 51).obs(foodAssistance, yes).obs(wt, 190).save();
+		
 		file = new File(OUTPUT_XML_OUTPUT_DIR);
 		file.mkdirs();
 	}

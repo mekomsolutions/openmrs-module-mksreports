@@ -30,7 +30,7 @@
 				<fo:table-row>
 					<fo:table-cell>
 						<fo:block>
-							<xsl:value-of select="name(.)" />
+							<xsl:value-of select="@name" />
 							:
 							<xsl:value-of select="." />
 						</fo:block>
