@@ -70,9 +70,9 @@ public class PatientHistoryEncounterAndObsDataSetEvaluator extends EncounterData
 			dsd.addColumn("Visit ID", encounterDataLibrary.getVisitId(), "");
 			dsd.addColumn("Visit Start Date", encounterDataLibrary.getVisitStartDatetime(), "");
 			dsd.addColumn("Visit Stop Date", encounterDataLibrary.getVisitStopDatetime(), "");
-			dsd.addColumn("Type", encounterData.getEncounterTypeName(), "");
-			dsd.addColumn("Location", encounterData.getLocationName(), "");
-			dsd.addColumn("Date", encounterData.getEncounterDatetime(), "");
+			dsd.addColumn("Encounter Type", encounterData.getEncounterTypeName(), "");
+			dsd.addColumn("Encounter Location", encounterData.getLocationName(), "");
+			dsd.addColumn("Encounter Date", encounterData.getEncounterDatetime(), "");
 		}
 
 		// Add all Obs for each encounter

@@ -13,6 +13,7 @@ import org.openmrs.Concept;
 import org.openmrs.Location;
 import org.openmrs.Patient;
 import org.openmrs.PatientIdentifierType;
+import org.openmrs.Visit;
 import org.openmrs.contrib.testdata.TestDataManager;
 import org.openmrs.contrib.testdata.builder.EncounterBuilder;
 import org.openmrs.module.mksreports.dataset.definition.PatientHistoryEncounterAndObsDataSetDefinition;
@@ -64,19 +65,24 @@ public class PatientHistoryXmlReportRendererTest extends BaseModuleContextSensit
 		//Build a test patient
 		p1 = data.patient().name("Alice", "MKS Test").gender("F").birthdate("1975-01-02", false).dateCreated("2013-10-01").identifier(testIdentifierType, "Y2ATDN", testLocation).save();
 		
-		//Build a sample a test encounter
-		EncounterBuilder eb = data.randomEncounter().patient(p1).encounterType(6).form(2); //Laboratory Encouter Type
+		Visit v = data.visit().patient(p1).visitType(2).started("2005-01-01 00:00:00.0").save();
+		
+		//Some concepts
 		Concept wt = data.getConceptService().getConcept(5089);
 		Concept civilStatus = data.getConceptService().getConcept(4);
-		Concept single = data.getConceptService().getConcept(5);
+		Concept single = data.getConceptService().getConcept(5);	
+		Concept cd4Count = data.getConceptService().getConcept(5497);
+		Concept dateOfFoodAssistance = data.getConceptService().getConcept(20);
+		Concept favoriteFoodNonCoded = data.getConceptService().getConcept(19);
+		Concept foodAssistance = data.getConceptService().getConcept(18);
+		Concept foodAssistanceForEntireFamily = data.getConceptService().getConcept(21);
+		Concept no = data.getConceptService().getConcept(8);
+		Concept yes = data.getConceptService().getConcept(7);
 		
-		//Add some obs to the encounter
-		eb.obs(wt, 77);
-		eb.obs(civilStatus, single);
-		
-		//Save the encounter
-		eb.save();
-		
+		data.randomEncounter().encounterDatetime("2007-08-01 00:00:00.0").encounterType(6).visit(v).patient(p1).obs(wt, 51).obs(civilStatus, single).save();
+		data.randomEncounter().encounterDatetime("2008-08-01 00:00:00.0").encounterType(6).visit(v).patient(p1).obs(cd4Count, 150).obs(foodAssistanceForEntireFamily, no).obs(wt, 50).save();
+		data.randomEncounter().encounterDatetime("2008-08-15 00:00:00.0").encounterType(6).visit(v).patient(p1).obs(cd4Count, 175).obs(dateOfFoodAssistance, "2008-08-14 00:00:00.0").obs(favoriteFoodNonCoded, "PB and J").obs(foodAssistance,yes).obs(foodAssistanceForEntireFamily, yes).obs(wt, 55).save();
+		data.randomEncounter().encounterDatetime("2009-09-19 00:00:00.0").encounterType(6).visit(v).patient(p1).obs(wt, 61).save();
 		file = new File(OUTPUT_XML_OUTPUT_DIR);
 		file.mkdirs();
 	}

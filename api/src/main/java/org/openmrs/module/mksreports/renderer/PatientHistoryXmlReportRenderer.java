@@ -72,11 +72,7 @@ public class PatientHistoryXmlReportRenderer extends ReportDesignRenderer {
 				for (DataSetColumn column : columns) {
 					Object colValue = row.getColumnValue(column);
 					String label = toCamelCase(column.getLabel());
-					if (dsKey.equalsIgnoreCase("encounters")) {
-						w.write("<obs key=\"" + label + "\" name=\"" + column.getLabel().replaceAll("_", " ") + "\">");
-					} else {
-						w.write("<" + label + ">");
-					}
+					w.write("<column key=\"" + label + "\" name=\"" + column.getLabel().replaceAll("_", " ") + "\">");
 					if (colValue != null) {
 						if (colValue instanceof Cohort) {
 							w.write(Integer.toString(((Cohort) colValue).size()));
@@ -84,11 +80,7 @@ public class PatientHistoryXmlReportRenderer extends ReportDesignRenderer {
 							w.write(colValue.toString());
 						}
 					}
-					if (dsKey.equalsIgnoreCase("encounters")) {
-						w.write("</obs>");
-					} else {
-						w.write("</" + label + ">");
-					}
+					w.write("</column>");
 				}
 				w.write("</row>\n");
 			}
