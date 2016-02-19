@@ -30,6 +30,7 @@ public class PatientHistoryXmlReportRendererTest {
 		InputStream inStream = getClass().getClassLoader().getResourceAsStream("sampleReportData.xml");
 		String str = IOUtils.toString(inStream, "UTF-8");
 		XStream xstream = new XStream(new Sun14ReflectionProvider());
+		xstream.alias("org.openmrs.User_$$_jvst9b6_41", User.class);
 		xstream.omitField(User.class, "log");
 		xstream.omitField(Person.class, "log");
 		xstream.omitField(Person.class, "deathdateEstimated");

@@ -57,7 +57,7 @@ public class PatientHistoryXmlReportRenderer extends ReportDesignRenderer {
 	 * @see ReportRenderer#render(ReportData, String, OutputStream)
 	 */
 	public void render(ReportData results, String argument, OutputStream out) throws IOException, RenderingException {
-		
+				
 		Writer w = new OutputStreamWriter(out, "UTF-8");
 		
 		w.write("<?xml version=\"1.0\"?>\n");
