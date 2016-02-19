@@ -28,6 +28,7 @@ import org.openmrs.module.mksreports.library.EncounterDataLibrary;
 import org.openmrs.module.reporting.common.BeanPropertyComparator;
 import org.openmrs.module.reporting.common.ObjectCounter;
 import org.openmrs.module.reporting.common.ObjectUtil;
+import org.openmrs.module.reporting.common.SortCriteria;
 import org.openmrs.module.reporting.data.converter.ObsValueConverter;
 import org.openmrs.module.reporting.data.encounter.definition.ObsForEncounterDataDefinition;
 import org.openmrs.module.reporting.data.encounter.library.BuiltInEncounterDataLibrary;
@@ -73,6 +74,7 @@ public class PatientHistoryEncounterAndObsDataSetEvaluator extends EncounterData
 			dsd.addColumn("Encounter Type", encounterData.getEncounterTypeName(), "");
 			dsd.addColumn("Encounter Location", encounterData.getLocationName(), "");
 			dsd.addColumn("Encounter Date", encounterData.getEncounterDatetime(), "");
+			dsd.addSortCriteria("Visit Start Date",SortCriteria.SortDirection.DESC);
 		}
 
 		// Add all Obs for each encounter
