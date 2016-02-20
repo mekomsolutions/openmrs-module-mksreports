@@ -12,12 +12,14 @@
  * Copyright (C) OpenMRS, LLC.  All Rights Reserved.
  */
 
-package org.openmrs.module.mksreports.patientsummary;
+package org.openmrs.module.mksreports.patienthistory;
 
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 import org.openmrs.api.context.Context;
+import org.openmrs.messagesource.MessageSourceService;
 import org.openmrs.module.mksreports.common.Helper;
 import org.openmrs.module.mksreports.dataset.definition.PatientHistoryEncounterAndObsDataSetDefinition;
 import org.openmrs.module.mksreports.library.BasePatientDataLibrary;
@@ -36,8 +38,11 @@ public class PatientHistoryReportManager extends MKSReportsReportManager {
 	public final static String REPORT_DESIGN_NAME = "mksPatientHistory.xml_";
 	protected final static String REPORT_DEFINITION_NAME = "Patient History";
 	
+	public final static String DATASET_KEY_DEMOGRAPHICS = "demographics";
+	public final static String DATASET_KEY_ENCOUNTERS = "encounters";
+	
 	//@Autowired TODO Reconfigure this annotation after
-	private DataFactory df = new DataFactory();
+	private DataFactory dataFactory = new DataFactory();
 	
 	//@Autowired TODO Reconfigure this annotation after
 	private BuiltInPatientDataLibrary builtInPatientData = new BuiltInPatientDataLibrary();
@@ -47,36 +52,45 @@ public class PatientHistoryReportManager extends MKSReportsReportManager {
 	
 	public void setup() throws Exception {
 		
-		ReportDefinition rd = constructReportDefinition();		
-		ReportDesign design = Helper.createXMLReportDesign(rd, REPORT_DESIGN_NAME);
-		Helper.saveReportDesign(design);
+		ReportDefinition reportDef = constructReportDefinition();		
+		ReportDesign reportDesign = Helper.createXMLReportDesign(reportDef, REPORT_DESIGN_NAME);
+		Helper.saveReportDesign(reportDesign);
 	}
 	
 	public ReportDefinition constructReportDefinition() {
-		ReportDefinition reportDefinition = new ReportDefinition();
-		reportDefinition.setName(REPORT_DEFINITION_NAME);
+		ReportDefinition reportDef = new ReportDefinition();
+		reportDef.setName(REPORT_DEFINITION_NAME);
 		
 		// Create new dataset definition 
-		PatientHistoryEncounterAndObsDataSetDefinition dataSetDefinition = new PatientHistoryEncounterAndObsDataSetDefinition();
-		dataSetDefinition.setName("Patient History data set");
-		dataSetDefinition.addSortCriteria("encounterDate", SortCriteria.SortDirection.ASC);
+		PatientHistoryEncounterAndObsDataSetDefinition dataSetDef = new PatientHistoryEncounterAndObsDataSetDefinition();
+		dataSetDef.setName("Patient History data set");
+		dataSetDef.addSortCriteria("encounterDate", SortCriteria.SortDirection.DESC);
 		
-		PatientDataSetDefinition dsd = new PatientDataSetDefinition();
+		PatientDataSetDefinition patientDataSetDef = new PatientDataSetDefinition();
 		Map<String, Object> mappings = new HashMap<String, Object>();
 
-		addColumn(dsd, "patient_id", builtInPatientData.getPatientId());
-		addColumn(dsd, "given_name", builtInPatientData.getPreferredGivenName());
-		addColumn(dsd, "last_name", builtInPatientData.getPreferredFamilyName());
-		addColumn(dsd, "birthdate", basePatientData.getBirthdate());
-		addColumn(dsd, "current_age_yr", basePatientData.getAgeAtEndInYears());
-		addColumn(dsd, "gender", builtInPatientData.getGender());
+		MessageSourceService translator = Context.getMessageSourceService();
 		
-		reportDefinition.addDataSetDefinition("demographics", dsd, mappings);
-		reportDefinition.addDataSetDefinition("encounters", dataSetDefinition, new HashMap<String, Object>());
+		Locale locale = Context.getLocale(); //TODO Figure out how to use a 'locale' param when getting msgs
+		addColumn(patientDataSetDef, translator.getMessage("mksrports.patienthistory.demographics.identifier"),
+				builtInPatientData.getPreferredIdentifierIdentifier());
+		addColumn(patientDataSetDef, translator.getMessage("mksreports.patienthistory.demographics.firstname"),
+				builtInPatientData.getPreferredGivenName());
+		addColumn(patientDataSetDef, translator.getMessage("mksreports.patienthistory.demographics.lastname"),
+				builtInPatientData.getPreferredFamilyName());
+		addColumn(patientDataSetDef, translator.getMessage("mksreports.patienthistory.demographics.dob"),
+				basePatientData.getBirthdate());
+		addColumn(patientDataSetDef, translator.getMessage("mksreports.patienthistory.demographics.age"),
+				basePatientData.getAgeAtEndInYears());
+		addColumn(patientDataSetDef, translator.getMessage("mksreports.patienthistory.demographics.gender"),
+				builtInPatientData.getGender());
 		
-		Helper.saveReportDefinition(reportDefinition);
+		reportDef.addDataSetDefinition(DATASET_KEY_DEMOGRAPHICS,	patientDataSetDef, mappings);
+		reportDef.addDataSetDefinition(DATASET_KEY_ENCOUNTERS,	dataSetDef, new HashMap<String, Object>());
 		
-		return reportDefinition;
+		Helper.saveReportDefinition(reportDef);
+		
+		return reportDef;
 	}
 	
 	public void delete() {

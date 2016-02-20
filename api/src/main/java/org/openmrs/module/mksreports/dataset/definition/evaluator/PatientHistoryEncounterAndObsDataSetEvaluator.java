@@ -23,6 +23,8 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.openmrs.Obs;
 import org.openmrs.annotation.Handler;
+import org.openmrs.api.context.Context;
+import org.openmrs.messagesource.MessageSourceService;
 import org.openmrs.module.mksreports.dataset.definition.PatientHistoryEncounterAndObsDataSetDefinition;
 import org.openmrs.module.mksreports.library.EncounterDataLibrary;
 import org.openmrs.module.reporting.common.BeanPropertyComparator;
@@ -63,25 +65,33 @@ public class PatientHistoryEncounterAndObsDataSetEvaluator extends EncounterData
 	 */
 	public DataSet evaluate(DataSetDefinition dataSetDefinition, EvaluationContext context) throws EvaluationException {
 
-		PatientHistoryEncounterAndObsDataSetDefinition dsd = (PatientHistoryEncounterAndObsDataSetDefinition) dataSetDefinition;
+		PatientHistoryEncounterAndObsDataSetDefinition dataSetDef = (PatientHistoryEncounterAndObsDataSetDefinition) dataSetDefinition;
 
+		MessageSourceService translator = Context.getMessageSourceService();
+		
 		// If no specific columns definitions are specified, use some defaults
-		if (dsd.getColumnDefinitions().isEmpty()) {
-			dsd.addColumn("Visit ID", encounterDataLibrary.getVisitId(), "");
-			dsd.addColumn("Visit Start Date", encounterDataLibrary.getVisitStartDatetime(), "");
-			dsd.addColumn("Visit Stop Date", encounterDataLibrary.getVisitStopDatetime(), "");
-			dsd.addColumn("Type", encounterData.getEncounterTypeName(), "");
-			dsd.addColumn("Location", encounterData.getLocationName(), "");
-			dsd.addColumn("Date", encounterData.getEncounterDatetime(), "");
+		if (dataSetDef.getColumnDefinitions().isEmpty()) {
+			dataSetDef.addColumn(translator.getMessage("mksreports.patienthistory.encounterandobs.visitid"),
+					encounterDataLibrary.getVisitId(), "");
+			dataSetDef.addColumn(translator.getMessage("mksreports.patienthistory.encounterandobs.visitstart"),
+					encounterDataLibrary.getVisitStartDatetime(), "");
+			dataSetDef.addColumn(translator.getMessage("mksreports.patienthistory.encounterandobs.visitstop"),
+					encounterDataLibrary.getVisitStopDatetime(), "");
+			dataSetDef.addColumn(translator.getMessage("mksreports.patienthistory.encounterandobs.encountertype"),
+					encounterData.getEncounterTypeName(), "");
+			dataSetDef.addColumn(translator.getMessage("mksreports.patienthistory.encounterandobs.location"),
+					encounterData.getLocationName(), "");
+			dataSetDef.addColumn(translator.getMessage("mksreports.patienthistory.encounterandobs.encountertime"),
+					encounterData.getEncounterDatetime(), "");
 		}
-
+		
 		// Add all Obs for each encounter
 		ObsForEncounterDataDefinition allObs = new ObsForEncounterDataDefinition();
 		allObs.setSingleObs(false);
-		dsd.addColumn("OBS", allObs, "");
+		dataSetDef.addColumn("OBS", allObs, "");
 
 		// Produce the core starting data set for encounter data
-		SimpleDataSet data = (SimpleDataSet) super.evaluate(dsd, context);
+		SimpleDataSet data = (SimpleDataSet) super.evaluate(dataSetDef, context);
 
 		// Determine all necessary column headers and get necessary obs data to populate these
 		Map<String, DataSetColumn> obsColumnMap = new HashMap<String, DataSetColumn>();
@@ -91,7 +101,7 @@ public class PatientHistoryEncounterAndObsDataSetEvaluator extends EncounterData
 		Map<String, Integer> maxNumForKey = new HashMap<String, Integer>();
 
 		for (DataSetRow row : data.getRowMap().values()) {
-			List<Obs> obsList = (List<Obs>)row.getColumnValue("OBS");
+			List<Obs> obsList = (List<Obs>) row.getColumnValue("OBS");
 
 			if (obsList != null) {
 				ObjectCounter<String> currentNumForKey = new ObjectCounter<String>();
@@ -113,7 +123,7 @@ public class PatientHistoryEncounterAndObsDataSetEvaluator extends EncounterData
 
 		// Add the Obs values to each dataset row
 		for (DataSetRow row : data.getRowMap().values()) {
-			List<Obs> obsList = (List<Obs>)row.getColumnValue("OBS");
+			List<Obs> obsList = (List<Obs>) row.getColumnValue("OBS");
 
 			if (obsList != null) {
 				ObjectCounter<String> currentNumForKey = new ObjectCounter<String>();
@@ -121,10 +131,10 @@ public class PatientHistoryEncounterAndObsDataSetEvaluator extends EncounterData
 					String key = getObsKey(obs);
 					if (key != null) {
 						int num = currentNumForKey.increment(key);
-						String columnName = ObjectUtil.format(obs.getConcept()).replaceAll("\\s", "_").replaceAll("-", "_").toUpperCase();
-						if (maxNumForKey.get(key) > 1) {
-							columnName = columnName + "_" + num;
-						}
+						String columnName = ObjectUtil.format(obs.getConcept().getName(Context.getLocale()));
+//						if (maxNumForKey.get(key) > 1) {
+//							columnName = columnName + "_" + num;
+//						}
 						DataSetColumn obsColumn = obsColumnMap.get(columnName);
 						if (obsColumn == null) {
 							obsColumn = new DataSetColumn(columnName, columnName, Object.class);

@@ -32,7 +32,7 @@ import org.apache.fop.apps.Fop;
 import org.apache.fop.apps.FopFactory;
 import org.apache.fop.apps.MimeConstants;
 import org.openmrs.api.context.Context;
-import org.openmrs.module.mksreports.patientsummary.PatientHistoryReportManager;
+import org.openmrs.module.mksreports.patienthistory.PatientHistoryReportManager;
 import org.openmrs.module.patientsummary.PatientSummaryResult;
 import org.openmrs.module.patientsummary.PatientSummaryTemplate;
 import org.openmrs.module.patientsummary.api.PatientSummaryService;

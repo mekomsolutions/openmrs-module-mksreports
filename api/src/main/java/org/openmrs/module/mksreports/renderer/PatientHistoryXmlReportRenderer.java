@@ -13,14 +13,25 @@
  */
 package org.openmrs.module.mksreports.renderer;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.io.Writer;
-import java.util.List;
 
-import org.openmrs.Cohort;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerConfigurationException;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.TransformerFactoryConfigurationError;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+
 import org.openmrs.annotation.Handler;
+import org.openmrs.module.mksreports.patienthistory.PatientHistoryReportManager;
 import org.openmrs.module.reporting.common.Localized;
 import org.openmrs.module.reporting.dataset.DataSet;
 import org.openmrs.module.reporting.dataset.DataSetColumn;
@@ -30,6 +41,10 @@ import org.openmrs.module.reporting.report.ReportRequest;
 import org.openmrs.module.reporting.report.renderer.RenderingException;
 import org.openmrs.module.reporting.report.renderer.ReportDesignRenderer;
 import org.openmrs.report.ReportRenderer;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+
+import com.thoughtworks.xstream.XStream;
 
 /**
  * ReportRenderer that renders to a default XML format
@@ -53,69 +68,94 @@ public class PatientHistoryXmlReportRenderer extends ReportDesignRenderer {
 		return "text/xml";
 	}
 	
-	/**
-	 * @see ReportRenderer#render(ReportData, String, OutputStream)
-	 */
 	public void render(ReportData results, String argument, OutputStream out) throws IOException, RenderingException {
-				
-		Writer w = new OutputStreamWriter(out, "UTF-8");
 		
-		w.write("<?xml version=\"1.0\"?>\n");
-		w.write("<report name=\"" + results.getDefinition().getName() + "\">\n");
-		for (String dsKey : results.getDataSets().keySet()) {
-			DataSet dataset = results.getDataSets().get(dsKey);
-			List<DataSetColumn> columns = dataset.getMetaData().getColumns();
-			w.write("<dataset name=\"" + dsKey + "\">\n");
-			w.write("\t<rows>\n");
-			for (DataSetRow row : dataset) {
-				w.write("\t\t<row>");
-				for (DataSetColumn column : columns) {
-					Object colValue = row.getColumnValue(column);
-					String label = toCamelCase(column.getLabel());
-					if (dsKey.equalsIgnoreCase("encounters")) {
-						w.write("<obs key=\"" + label + "\" name=\"" + column.getLabel().replaceAll("_", " ") + "\">");
-					} else {
-						w.write("<" + label + ">");
-					}
-					if (colValue != null) {
-						if (colValue instanceof Cohort) {
-							w.write(Integer.toString(((Cohort) colValue).size()));
-						} else {
-							w.write(colValue.toString());
-						}
-					}
-					if (dsKey.equalsIgnoreCase("encounters")) {
-						w.write("</obs>");
-					} else {
-						w.write("</" + label + ">");
-					}
-				}
-				w.write("</row>\n");
-			}
-			w.write("\t</rows>\n");
-			w.write("</dataset>\n");
+		BufferedWriter outWriter = null;
+		try {
+		  outWriter = new BufferedWriter(new FileWriter("/tmp/sampleReportData.xml"));
+		  XStream xstream = new XStream();
+		  xstream.toXML(results, outWriter);
+		} catch (IOException e) {
+		  System.out.println("IOException Occured" + e.getMessage());
 		}
-		w.write("</report>\n");
-		w.flush();
-	}
-	
-	/**
-	 * @param s the string to conver to camelcase
-	 * @return should return the passed in string in the camelcase format
-	 */
-	public static String toCamelCase(String s) {
-		StringBuffer sb = new StringBuffer();
-		String[] words = s.replaceAll("[^A-Za-z]", " ").replaceAll("\\s+", " ").trim().split(" ");
 		
-		for (int i = 0; i < words.length; i++) {
-			if (i == 0)
-				words[i] = words[i].toLowerCase();
-			else
-				words[i] = String.valueOf(words[i].charAt(0)).toUpperCase() + words[i].substring(1);
+		DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
+		DocumentBuilder docBuilder = null;
+		try {
+			docBuilder = docFactory.newDocumentBuilder();
+		} catch (ParserConfigurationException e) {
+			throw new RenderingException(e.getLocalizedMessage());
+		}
+
+		// Root element
+		Document doc = docBuilder.newDocument();
+		Element rootElement = doc.createElement("patientHistory");
+		doc.appendChild(rootElement);
+		
+		String dataSetKey = "";
+		dataSetKey = PatientHistoryReportManager.DATASET_KEY_DEMOGRAPHICS;
+		if(results.getDataSets().containsKey(dataSetKey)) {
+			DataSet dataSet = results.getDataSets().get(dataSetKey);
+			Element demographics = doc.createElement("demographics");
+			rootElement.appendChild(demographics);
 			
-			sb.append(words[i]);
+			for (DataSetRow row : dataSet) {
+				for (DataSetColumn column : dataSet.getMetaData().getColumns()) {
+					Object colValue = row.getColumnValue(column);
+					if(colValue == null)
+						continue;
+					String strValue = colValue.toString();
+					if(strValue.isEmpty())
+						continue;
+					
+					Element demographicData = doc.createElement("demographic");
+					demographics.appendChild(demographicData);
+					demographicData.setAttribute("name", column.getLabel());
+					demographicData.appendChild(doc.createTextNode(strValue));
+				}
+			}
 		}
-		return sb.toString();
 		
+		dataSetKey = PatientHistoryReportManager.DATASET_KEY_ENCOUNTERS;
+		if(results.getDataSets().containsKey(dataSetKey)) {
+			DataSet dataSet = results.getDataSets().get(dataSetKey);
+			Element encounters = doc.createElement("encounters");
+			rootElement.appendChild(encounters);
+			
+			for (DataSetRow row : dataSet) {
+				Element encounter = doc.createElement("encounter");
+				encounters.appendChild(encounter);
+				for (DataSetColumn column : dataSet.getMetaData().getColumns()) {
+					Object colValue = row.getColumnValue(column);
+					if(colValue == null)
+						continue;
+					String strValue = colValue.toString();
+					if(strValue.isEmpty())
+						continue;
+					
+					Element obs = doc.createElement("obs");
+					encounter.appendChild(obs);
+					obs.setAttribute("name", column.getLabel());
+					obs.appendChild(doc.createTextNode(strValue));
+				}
+			}
+		}
+		
+		// Write the content to the output stream
+		Transformer transformer = null;
+		try {
+			transformer = TransformerFactory.newInstance().newTransformer();
+		} catch (TransformerConfigurationException e) {
+			throw new RenderingException(e.getLocalizedMessage());
+		} catch (TransformerFactoryConfigurationError e) {
+			throw new RenderingException(e.getLocalizedMessage());
+		}
+		transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+		DOMSource source = new DOMSource(doc);
+		try {
+			transformer.transform(source, new StreamResult(out));
+		} catch (TransformerException e) {
+			throw new RenderingException(e.getLocalizedMessage());
+		}
 	}
 }

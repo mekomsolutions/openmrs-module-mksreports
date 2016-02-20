@@ -12,9 +12,9 @@ import org.junit.Test;
 import org.openmrs.Person;
 import org.openmrs.User;
 import org.openmrs.module.reporting.report.ReportData;
+import org.openmrs.serialization.SerializationException;
 
 import com.thoughtworks.xstream.XStream;
-import com.thoughtworks.xstream.converters.reflection.Sun14ReflectionProvider;
 
 public class PatientHistoryXmlReportRendererTest {
 
@@ -26,11 +26,11 @@ public class PatientHistoryXmlReportRendererTest {
 	private File file = null;
 	
 	@Before
-	public void setUp() throws IOException {
+	public void setUp() throws IOException, SerializationException {
 		InputStream inStream = getClass().getClassLoader().getResourceAsStream("sampleReportData.xml");
 		String str = IOUtils.toString(inStream, "UTF-8");
-		XStream xstream = new XStream(new Sun14ReflectionProvider());
-		xstream.alias("org.openmrs.User_$$_jvst9b6_41", User.class);
+		XStream xstream = new XStream();
+		xstream.alias("org.openmrs.User_$$_jvst45f_41", User.class);
 		xstream.omitField(User.class, "log");
 		xstream.omitField(Person.class, "log");
 		xstream.omitField(Person.class, "deathdateEstimated");
@@ -49,8 +49,9 @@ public class PatientHistoryXmlReportRendererTest {
 	}
 	
 	@Test
-	public void shoudProduceValidXml() throws IOException {
+	public void shoudProduceValidXml() throws Exception {
 		
 		renderer.render(reportData, "", new FileOutputStream(file));
+		
 	}
 }
