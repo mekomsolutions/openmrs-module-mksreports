@@ -41,9 +41,9 @@ public class ObsDataLibrary extends BaseDefinitionLibrary<ObsDataDefinition> {
 		return PREFIX;
 	}
 
-	@DocumentedDefinition("concept.name")
-	public ObsDataDefinition getConceptName() {
-		return sqlObsDataDefinition("conceptName.sql", null);
+	@DocumentedDefinition("concept.id")
+	public ObsDataDefinition getConceptId() {
+		return sqlObsDataDefinition("conceptId.sql", null);
 	}
 
 

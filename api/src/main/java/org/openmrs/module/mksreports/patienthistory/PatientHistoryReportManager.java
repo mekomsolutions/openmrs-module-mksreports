@@ -21,10 +21,20 @@ import java.util.Map;
 import org.openmrs.api.context.Context;
 import org.openmrs.messagesource.MessageSourceService;
 import org.openmrs.module.mksreports.common.Helper;
+import org.openmrs.module.mksreports.data.converter.ConceptDataTypeConverter;
+import org.openmrs.module.mksreports.data.converter.ConceptNameConverter;
+import org.openmrs.module.mksreports.data.converter.ObsValueFromIdConverter;
+import org.openmrs.module.mksreports.data.obs.definition.ObsDatetimeDataDefinition;
 import org.openmrs.module.mksreports.dataset.definition.PatientHistoryEncounterAndObsDataSetDefinition;
+import org.openmrs.module.mksreports.dataset.definition.PatientHistoryObsAndEncounterDataSetDefinition;
 import org.openmrs.module.mksreports.library.BasePatientDataLibrary;
 import org.openmrs.module.mksreports.library.DataFactory;
+import org.openmrs.module.mksreports.library.EncounterDataLibrary;
+import org.openmrs.module.mksreports.library.ObsDataLibrary;
 import org.openmrs.module.reporting.common.SortCriteria;
+import org.openmrs.module.reporting.data.converter.DateConverter;
+import org.openmrs.module.reporting.data.converter.ObjectFormatter;
+import org.openmrs.module.reporting.data.obs.definition.ObsIdDataDefinition;
 import org.openmrs.module.reporting.data.patient.library.BuiltInPatientDataLibrary;
 import org.openmrs.module.reporting.dataset.definition.PatientDataSetDefinition;
 import org.openmrs.module.reporting.report.ReportDesign;
@@ -48,6 +58,12 @@ public class PatientHistoryReportManager extends MKSReportsReportManager {
 	private BuiltInPatientDataLibrary builtInPatientData = new BuiltInPatientDataLibrary();
 	
 	//@Autowired TODO Reconfigure this annotation after
+	private EncounterDataLibrary encounterDataLibrary = new EncounterDataLibrary();
+	
+	//@Autowired TODO Reconfigure this annotation after
+	private ObsDataLibrary obsDataLibrary = new ObsDataLibrary();
+	
+	//@Autowired TODO Reconfigure this annotation after
 	private BasePatientDataLibrary basePatientData = new BasePatientDataLibrary();
 	
 	public void setup() throws Exception {
@@ -62,31 +78,39 @@ public class PatientHistoryReportManager extends MKSReportsReportManager {
 		reportDef.setName(REPORT_DEFINITION_NAME);
 		
 		// Create new dataset definition 
-		PatientHistoryEncounterAndObsDataSetDefinition dataSetDef = new PatientHistoryEncounterAndObsDataSetDefinition();
-		dataSetDef.setName("Patient History data set");
-		dataSetDef.addSortCriteria("encounterDate", SortCriteria.SortDirection.DESC);
+		PatientHistoryEncounterAndObsDataSetDefinition encountersDatasetSetDef = new PatientHistoryEncounterAndObsDataSetDefinition();
+		encountersDatasetSetDef.setName("Patient History data set");
+		encountersDatasetSetDef.addSortCriteria("encounterDate", SortCriteria.SortDirection.DESC);
 		
 		PatientDataSetDefinition patientDataSetDef = new PatientDataSetDefinition();
 		Map<String, Object> mappings = new HashMap<String, Object>();
-
+		
 		MessageSourceService translator = Context.getMessageSourceService();
 		
 		Locale locale = Context.getLocale(); //TODO Figure out how to use a 'locale' param when getting msgs
 		addColumn(patientDataSetDef, translator.getMessage("mksrports.patienthistory.demographics.identifier"),
-				builtInPatientData.getPreferredIdentifierIdentifier());
+			builtInPatientData.getPreferredIdentifierIdentifier());
 		addColumn(patientDataSetDef, translator.getMessage("mksreports.patienthistory.demographics.firstname"),
-				builtInPatientData.getPreferredGivenName());
+			builtInPatientData.getPreferredGivenName());
 		addColumn(patientDataSetDef, translator.getMessage("mksreports.patienthistory.demographics.lastname"),
-				builtInPatientData.getPreferredFamilyName());
+			builtInPatientData.getPreferredFamilyName());
 		addColumn(patientDataSetDef, translator.getMessage("mksreports.patienthistory.demographics.dob"),
-				basePatientData.getBirthdate());
+			basePatientData.getBirthdate());
 		addColumn(patientDataSetDef, translator.getMessage("mksreports.patienthistory.demographics.age"),
-				basePatientData.getAgeAtEndInYears());
+			basePatientData.getAgeAtEndInYears());
 		addColumn(patientDataSetDef, translator.getMessage("mksreports.patienthistory.demographics.gender"),
-				builtInPatientData.getGender());
+			builtInPatientData.getGender());
+		
+		PatientHistoryObsAndEncounterDataSetDefinition obs = new PatientHistoryObsAndEncounterDataSetDefinition();
+		obs.addColumn("Enounter uuid", encounterDataLibrary.getUUID(),"", new ObjectFormatter());
+		obs.addColumn("Obs date-time", new ObsDatetimeDataDefinition(), "", new DateConverter());
+		obs.addColumn("Concept data type", obsDataLibrary.getConceptId(), "", new ConceptDataTypeConverter());
+		obs.addColumn("Concept name", obsDataLibrary.getConceptId(), "", new ConceptNameConverter());
+		obs.addColumn("Value", new ObsIdDataDefinition(), "", new ObsValueFromIdConverter());
+		obs.addSortCriteria("Obs date-time", SortCriteria.SortDirection.DESC);
 		
 		reportDef.addDataSetDefinition(DATASET_KEY_DEMOGRAPHICS,	patientDataSetDef, mappings);
-		reportDef.addDataSetDefinition(DATASET_KEY_ENCOUNTERS,	dataSetDef, new HashMap<String, Object>());
+		reportDef.addDataSetDefinition(DATASET_KEY_ENCOUNTERS,	encountersDatasetSetDef, new HashMap<String, Object>());
 		
 		Helper.saveReportDefinition(reportDef);
 		
