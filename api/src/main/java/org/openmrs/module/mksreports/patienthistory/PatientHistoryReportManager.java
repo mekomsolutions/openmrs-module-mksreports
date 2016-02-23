@@ -49,6 +49,7 @@ public class PatientHistoryReportManager extends MKSReportsReportManager {
 	protected final static String REPORT_DEFINITION_NAME = "Patient History";
 	
 	public final static String DATASET_KEY_DEMOGRAPHICS = "demographics";
+	public final static String DATASET_KEY_OBS = "obs";
 	public final static String DATASET_KEY_ENCOUNTERS = "encounters";
 	
 	//@Autowired TODO Reconfigure this annotation after
@@ -77,17 +78,32 @@ public class PatientHistoryReportManager extends MKSReportsReportManager {
 		ReportDefinition reportDef = new ReportDefinition();
 		reportDef.setName(REPORT_DEFINITION_NAME);
 		
-		// Create new dataset definition 
-		PatientHistoryEncounterAndObsDataSetDefinition encountersDatasetSetDef = new PatientHistoryEncounterAndObsDataSetDefinition();
-		encountersDatasetSetDef.setName("Patient History data set");
-		encountersDatasetSetDef.addSortCriteria("encounterDate", SortCriteria.SortDirection.DESC);
-		
-		PatientDataSetDefinition patientDataSetDef = new PatientDataSetDefinition();
-		Map<String, Object> mappings = new HashMap<String, Object>();
-		
-		MessageSourceService translator = Context.getMessageSourceService();
-		
+		Map<String, Object> mappings = new HashMap<String, Object>();		
+		MessageSourceService translator = Context.getMessageSourceService();		
 		Locale locale = Context.getLocale(); //TODO Figure out how to use a 'locale' param when getting msgs
+		
+		// Create dataset definitions 
+		PatientHistoryEncounterAndObsDataSetDefinition encountersDatasetSetDef = createEncounterAndObsDataSetDefinition();
+		PatientDataSetDefinition patientDataSetDef = createPatientDataSetDefinition(translator);
+		PatientHistoryObsAndEncounterDataSetDefinition obsDataSetDef = createObsDataSetDefinition();
+		
+		//Add datasets to the report
+		reportDef.addDataSetDefinition(DATASET_KEY_DEMOGRAPHICS,	patientDataSetDef, mappings);
+		reportDef.addDataSetDefinition(DATASET_KEY_OBS,	obsDataSetDef, mappings);
+		reportDef.addDataSetDefinition(DATASET_KEY_ENCOUNTERS,	encountersDatasetSetDef, new HashMap<String, Object>());
+		
+		//Save the report definition
+		Helper.saveReportDefinition(reportDef);
+		
+		return reportDef;
+	}
+	
+	/**
+	 * @param translator
+	 * @return
+	 */
+	public PatientDataSetDefinition createPatientDataSetDefinition(MessageSourceService translator) {
+		PatientDataSetDefinition patientDataSetDef = new PatientDataSetDefinition();
 		addColumn(patientDataSetDef, translator.getMessage("mksrports.patienthistory.demographics.identifier"),
 			builtInPatientData.getPreferredIdentifierIdentifier());
 		addColumn(patientDataSetDef, translator.getMessage("mksreports.patienthistory.demographics.firstname"),
@@ -100,21 +116,31 @@ public class PatientHistoryReportManager extends MKSReportsReportManager {
 			basePatientData.getAgeAtEndInYears());
 		addColumn(patientDataSetDef, translator.getMessage("mksreports.patienthistory.demographics.gender"),
 			builtInPatientData.getGender());
-		
-		PatientHistoryObsAndEncounterDataSetDefinition obs = new PatientHistoryObsAndEncounterDataSetDefinition();
-		obs.addColumn("Enounter uuid", encounterDataLibrary.getUUID(),"", new ObjectFormatter());
-		obs.addColumn("Obs date-time", new ObsDatetimeDataDefinition(), "", new DateConverter());
-		obs.addColumn("Concept data type", obsDataLibrary.getConceptId(), "", new ConceptDataTypeConverter());
-		obs.addColumn("Concept name", obsDataLibrary.getConceptId(), "", new ConceptNameConverter());
-		obs.addColumn("Value", new ObsIdDataDefinition(), "", new ObsValueFromIdConverter());
-		obs.addSortCriteria("Obs date-time", SortCriteria.SortDirection.DESC);
-		
-		reportDef.addDataSetDefinition(DATASET_KEY_DEMOGRAPHICS,	patientDataSetDef, mappings);
-		reportDef.addDataSetDefinition(DATASET_KEY_ENCOUNTERS,	encountersDatasetSetDef, new HashMap<String, Object>());
-		
-		Helper.saveReportDefinition(reportDef);
-		
-		return reportDef;
+		return patientDataSetDef;
+	}
+	
+	/**
+	 * @return
+	 */
+	public PatientHistoryEncounterAndObsDataSetDefinition createEncounterAndObsDataSetDefinition() {
+		PatientHistoryEncounterAndObsDataSetDefinition encountersDatasetSetDef = new PatientHistoryEncounterAndObsDataSetDefinition();
+		encountersDatasetSetDef.setName("Patient History data set");
+		encountersDatasetSetDef.addSortCriteria("encounterDate", SortCriteria.SortDirection.DESC);
+		return encountersDatasetSetDef;
+	}
+	
+	/**
+	 * @return
+	 */
+	public PatientHistoryObsAndEncounterDataSetDefinition createObsDataSetDefinition() {
+		PatientHistoryObsAndEncounterDataSetDefinition obsDataSetDef = new PatientHistoryObsAndEncounterDataSetDefinition();
+		obsDataSetDef.addColumn("Enounter uuid", encounterDataLibrary.getUUID(),"", new ObjectFormatter());
+		obsDataSetDef.addColumn("Obs date-time", new ObsDatetimeDataDefinition(), "", new DateConverter());
+		obsDataSetDef.addColumn("Concept data type", obsDataLibrary.getConceptId(), "", new ConceptDataTypeConverter());
+		obsDataSetDef.addColumn("Concept name", obsDataLibrary.getConceptId(), "", new ConceptNameConverter());
+		obsDataSetDef.addColumn("Value", new ObsIdDataDefinition(), "", new ObsValueFromIdConverter());
+		obsDataSetDef.addSortCriteria("Obs date-time", SortCriteria.SortDirection.DESC);
+		return obsDataSetDef;
 	}
 	
 	public void delete() {
