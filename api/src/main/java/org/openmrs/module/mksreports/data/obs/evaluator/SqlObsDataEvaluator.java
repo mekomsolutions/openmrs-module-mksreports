@@ -32,10 +32,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * Expects that the SQL query returns two columns:
- *   the first should be an Integer returning the encounterId
- *   the second should be the data you wish to retrieve for each Encounter
- * Expects that you use "encounterIds" within your query to limit by the base id set in the evaluation context:
- *   eg. "select encounter_datetime from encounter where encounter_id in (:encounterIds)"
+ *   the first should be an Integer returning the obsId
+ *   the second should be the data you wish to retrieve for each Obs
+ * Expects that you use "obsIds" within your query to limit by the base id set in the evaluation context:
+ *   eg. "select obs_datetime from obs where obs_id in (:obsIds)"
  */
 @Handler(supports=SqlObsDataDefinition.class)
 public class SqlObsDataEvaluator implements ObsDataEvaluator {
