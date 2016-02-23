@@ -6,7 +6,7 @@ import org.openmrs.api.context.Context;
 import org.openmrs.module.reporting.data.converter.DataConverter;
 
 /**
- * Converts an Obs to it's value
+ * Converts a concept id to concept name
  */
 public class ConceptNameConverter implements DataConverter {
 
@@ -15,7 +15,8 @@ public class ConceptNameConverter implements DataConverter {
     @Override
     public Object convert(Object original) {
     	ConceptService cs  = Context.getConceptService();
-		Concept c = cs.getConcept((Integer) original);	    	
+		Concept c = cs.getConcept((Integer) original);	
+		//Think of i18n'd name
 		return c.getName(Context.getLocale());
     }
 
