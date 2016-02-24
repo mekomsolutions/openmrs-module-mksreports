@@ -37,6 +37,8 @@ import org.openmrs.module.mksreports.library.ObsDataLibrary;
 import org.openmrs.module.reporting.common.SortCriteria;
 import org.openmrs.module.reporting.data.converter.DateConverter;
 import org.openmrs.module.reporting.data.converter.ObjectFormatter;
+import org.openmrs.module.reporting.data.encounter.definition.EncounterDatetimeDataDefinition;
+import org.openmrs.module.reporting.data.encounter.definition.EncounterTypeDataDefinition;
 import org.openmrs.module.reporting.data.obs.definition.ObsIdDataDefinition;
 import org.openmrs.module.reporting.data.patient.library.BuiltInPatientDataLibrary;
 import org.openmrs.module.reporting.dataset.definition.PatientDataSetDefinition;
@@ -130,6 +132,9 @@ public class PatientHistoryReportManager extends MKSReportsReportManager {
 		encounterAndVistDatasetSetDef.addColumn("Visit uuid", encounterDataLibrary.getVisitId(),"", new VisitUUIDFromIdConverter());
 		encounterAndVistDatasetSetDef.addColumn("Visit Location", encounterDataLibrary.getVisitId(),"", new VisitLocationFromIdConverter());
 		encounterAndVistDatasetSetDef.addColumn("Visit Type", encounterDataLibrary.getVisitId(),"", new VisitTypeFromIdConverter());
+		encounterAndVistDatasetSetDef.addColumn("Enounter uuid", encounterDataLibrary.getUUID(),"", new ObjectFormatter());
+		encounterAndVistDatasetSetDef.addColumn("Encounter Type name", new EncounterTypeDataDefinition(),"", new ObjectFormatter());
+		encounterAndVistDatasetSetDef.addColumn("Encounter Date-Time", new EncounterDatetimeDataDefinition(),"", new DateConverter());
 		return encounterAndVistDatasetSetDef;
 	}
 	
