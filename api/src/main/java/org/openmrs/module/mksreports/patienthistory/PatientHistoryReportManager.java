@@ -24,8 +24,9 @@ import org.openmrs.module.mksreports.common.Helper;
 import org.openmrs.module.mksreports.data.converter.ConceptDataTypeConverter;
 import org.openmrs.module.mksreports.data.converter.ConceptNameConverter;
 import org.openmrs.module.mksreports.data.converter.ObsValueFromIdConverter;
+import org.openmrs.module.mksreports.data.converter.VisitUUIDFromIdConverter;
 import org.openmrs.module.mksreports.data.obs.definition.ObsDatetimeDataDefinition;
-import org.openmrs.module.mksreports.dataset.definition.PatientHistoryEncounterAndObsDataSetDefinition;
+import org.openmrs.module.mksreports.dataset.definition.PatientHistoryEncounterAndVisitDataSetDefinition;
 import org.openmrs.module.mksreports.dataset.definition.PatientHistoryObsAndEncounterDataSetDefinition;
 import org.openmrs.module.mksreports.library.BasePatientDataLibrary;
 import org.openmrs.module.mksreports.library.DataFactory;
@@ -83,7 +84,7 @@ public class PatientHistoryReportManager extends MKSReportsReportManager {
 		Locale locale = Context.getLocale(); //TODO Figure out how to use a 'locale' param when getting msgs
 		
 		// Create dataset definitions 
-		PatientHistoryEncounterAndObsDataSetDefinition encountersDatasetSetDef = createEncounterAndObsDataSetDefinition();
+		PatientHistoryEncounterAndVisitDataSetDefinition encountersDatasetSetDef = createEncounterAndVisitDataSetDefinition();
 		PatientDataSetDefinition patientDataSetDef = createPatientDataSetDefinition(translator);
 		PatientHistoryObsAndEncounterDataSetDefinition obsDataSetDef = createObsDataSetDefinition();
 		
@@ -122,11 +123,10 @@ public class PatientHistoryReportManager extends MKSReportsReportManager {
 	/**
 	 * @return
 	 */
-	public PatientHistoryEncounterAndObsDataSetDefinition createEncounterAndObsDataSetDefinition() {
-		PatientHistoryEncounterAndObsDataSetDefinition encountersDatasetSetDef = new PatientHistoryEncounterAndObsDataSetDefinition();
-		encountersDatasetSetDef.setName("Patient History data set");
-		encountersDatasetSetDef.addSortCriteria("encounterDate", SortCriteria.SortDirection.DESC);
-		return encountersDatasetSetDef;
+	public PatientHistoryEncounterAndVisitDataSetDefinition createEncounterAndVisitDataSetDefinition() {
+		PatientHistoryEncounterAndVisitDataSetDefinition encounterAndViistDatasetSetDef = new PatientHistoryEncounterAndVisitDataSetDefinition();
+		encounterAndViistDatasetSetDef.addColumn("Visit uuid", encounterDataLibrary.getVisitId(),"", new VisitUUIDFromIdConverter());
+		return encounterAndViistDatasetSetDef;
 	}
 	
 	public final static String		OBS_VALUE_LABEL		= "obs_value";
