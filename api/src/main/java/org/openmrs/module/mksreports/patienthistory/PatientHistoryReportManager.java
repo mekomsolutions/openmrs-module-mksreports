@@ -24,6 +24,7 @@ import org.openmrs.module.mksreports.common.Helper;
 import org.openmrs.module.mksreports.data.converter.ConceptDataTypeConverter;
 import org.openmrs.module.mksreports.data.converter.ConceptNameConverter;
 import org.openmrs.module.mksreports.data.converter.ObsValueFromIdConverter;
+import org.openmrs.module.mksreports.data.converter.VisitLocationFromIdConverter;
 import org.openmrs.module.mksreports.data.converter.VisitUUIDFromIdConverter;
 import org.openmrs.module.mksreports.data.obs.definition.ObsDatetimeDataDefinition;
 import org.openmrs.module.mksreports.dataset.definition.PatientHistoryEncounterAndVisitDataSetDefinition;
@@ -124,9 +125,10 @@ public class PatientHistoryReportManager extends MKSReportsReportManager {
 	 * @return
 	 */
 	public PatientHistoryEncounterAndVisitDataSetDefinition createEncounterAndVisitDataSetDefinition() {
-		PatientHistoryEncounterAndVisitDataSetDefinition encounterAndViistDatasetSetDef = new PatientHistoryEncounterAndVisitDataSetDefinition();
-		encounterAndViistDatasetSetDef.addColumn("Visit uuid", encounterDataLibrary.getVisitId(),"", new VisitUUIDFromIdConverter());
-		return encounterAndViistDatasetSetDef;
+		PatientHistoryEncounterAndVisitDataSetDefinition encounterAndVistDatasetSetDef = new PatientHistoryEncounterAndVisitDataSetDefinition();
+		encounterAndVistDatasetSetDef.addColumn("Visit uuid", encounterDataLibrary.getVisitId(),"", new VisitUUIDFromIdConverter());
+		encounterAndVistDatasetSetDef.addColumn("Visit Location", encounterDataLibrary.getVisitId(),"", new VisitLocationFromIdConverter());
+		return encounterAndVistDatasetSetDef;
 	}
 	
 	public final static String		OBS_VALUE_LABEL		= "obs_value";
