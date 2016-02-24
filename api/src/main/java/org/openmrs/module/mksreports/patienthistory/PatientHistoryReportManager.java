@@ -129,17 +129,20 @@ public class PatientHistoryReportManager extends MKSReportsReportManager {
 		return encountersDatasetSetDef;
 	}
 	
+	public final static String		OBS_VALUE_LABEL		= "obs_value";
+	protected final static String	OBS_DATETIME_LABEL	= "obs_datetime";
+	
 	/**
 	 * @return
 	 */
 	public PatientHistoryObsAndEncounterDataSetDefinition createObsDataSetDefinition() {
 		PatientHistoryObsAndEncounterDataSetDefinition obsDataSetDef = new PatientHistoryObsAndEncounterDataSetDefinition();
-		obsDataSetDef.addColumn("Enounter uuid", encounterDataLibrary.getUUID(),"", new ObjectFormatter());
-		obsDataSetDef.addColumn("Obs date-time", new ObsDatetimeDataDefinition(), "", new DateConverter());
-		obsDataSetDef.addColumn("Concept data type", obsDataLibrary.getConceptId(), "", new ConceptDataTypeConverter());
-		obsDataSetDef.addColumn("Concept name", obsDataLibrary.getConceptId(), "", new ConceptNameConverter());
-		obsDataSetDef.addColumn("Value", new ObsIdDataDefinition(), "", new ObsValueFromIdConverter());
-		obsDataSetDef.addSortCriteria("Obs date-time", SortCriteria.SortDirection.DESC);
+		obsDataSetDef.addColumn("encounter_uuid", encounterDataLibrary.getUUID(),"", new ObjectFormatter());
+		obsDataSetDef.addColumn(OBS_DATETIME_LABEL, new ObsDatetimeDataDefinition(), "", new DateConverter());
+		obsDataSetDef.addColumn("concept_datatype", obsDataLibrary.getConceptId(), "", new ConceptDataTypeConverter());
+		obsDataSetDef.addColumn("concept_name", obsDataLibrary.getConceptId(), "", new ConceptNameConverter());
+		obsDataSetDef.addColumn(OBS_VALUE_LABEL, new ObsIdDataDefinition(), "", new ObsValueFromIdConverter());
+		obsDataSetDef.addSortCriteria(OBS_DATETIME_LABEL, SortCriteria.SortDirection.DESC);
 		return obsDataSetDef;
 	}
 	

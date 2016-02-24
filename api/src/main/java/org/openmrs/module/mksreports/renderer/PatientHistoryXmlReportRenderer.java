@@ -17,6 +17,7 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -30,6 +31,7 @@ import javax.xml.transform.TransformerFactoryConfigurationError;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
+import org.apache.commons.lang.StringUtils;
 import org.openmrs.annotation.Handler;
 import org.openmrs.module.mksreports.patienthistory.PatientHistoryReportManager;
 import org.openmrs.module.reporting.common.Localized;
@@ -70,13 +72,15 @@ public class PatientHistoryXmlReportRenderer extends ReportDesignRenderer {
 	
 	public void render(ReportData results, String argument, OutputStream out) throws IOException, RenderingException {
 		
-		BufferedWriter outWriter = null;
-		try {
-		  outWriter = new BufferedWriter(new FileWriter("/tmp/sampleReportData.xml"));
-		  XStream xstream = new XStream();
-		  xstream.toXML(results, outWriter);
-		} catch (IOException e) {
-		  System.out.println("IOException Occured" + e.getMessage());
+		if(false == StringUtils.equals(argument, "in_tests")) {
+			BufferedWriter outWriter = null;
+			try {
+			  outWriter = new BufferedWriter(new FileWriter("/tmp/sampleReportData.xml"));
+			  XStream xstream = new XStream();
+			  xstream.toXML(results, outWriter);
+			} catch (IOException e) {
+			  System.out.println("IOException Occured" + e.getMessage());
+			}
 		}
 		
 		DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
@@ -116,27 +120,57 @@ public class PatientHistoryXmlReportRenderer extends ReportDesignRenderer {
 			}
 		}
 		
-		dataSetKey = PatientHistoryReportManager.DATASET_KEY_ENCOUNTERS;
+//		dataSetKey = PatientHistoryReportManager.DATASET_KEY_ENCOUNTERS;
+//		if(results.getDataSets().containsKey(dataSetKey)) {
+//			DataSet dataSet = results.getDataSets().get(dataSetKey);
+//			Element encounters = doc.createElement("encounters");
+//			rootElement.appendChild(encounters);
+//			
+//			for (DataSetRow row : dataSet) {
+//				Element encounter = doc.createElement("encounter");
+//				encounters.appendChild(encounter);
+//				for (DataSetColumn column : dataSet.getMetaData().getColumns()) {
+//					Object colValue = row.getColumnValue(column);
+//					if(colValue == null)
+//						continue;
+//					String strValue = colValue.toString();
+//					if(strValue.isEmpty())
+//						continue;
+//					
+//					Element obs = doc.createElement("obs");
+//					encounter.appendChild(obs);
+//					obs.setAttribute("name", column.getLabel());
+//					obs.appendChild(doc.createTextNode(strValue));
+//				}
+//			}
+//		}
+		
+		dataSetKey = PatientHistoryReportManager.DATASET_KEY_OBS;
 		if(results.getDataSets().containsKey(dataSetKey)) {
 			DataSet dataSet = results.getDataSets().get(dataSetKey);
-			Element encounters = doc.createElement("encounters");
-			rootElement.appendChild(encounters);
+			Element observations = doc.createElement("observations");
+			rootElement.appendChild(observations);
 			
 			for (DataSetRow row : dataSet) {
-				Element encounter = doc.createElement("encounter");
-				encounters.appendChild(encounter);
-				for (DataSetColumn column : dataSet.getMetaData().getColumns()) {
+				Element obs = doc.createElement("obs");
+				observations.appendChild(obs);
+				List<DataSetColumn> columns = dataSet.getMetaData().getColumns();
+				for (DataSetColumn column : columns) {
+					String label = column.getLabel();
+					boolean isObsValue = false;
+					isObsValue = StringUtils.equals(label, PatientHistoryReportManager.OBS_VALUE_LABEL);
+							
+					String strValue = "";
 					Object colValue = row.getColumnValue(column);
-					if(colValue == null)
-						continue;
-					String strValue = colValue.toString();
-					if(strValue.isEmpty())
+					if(colValue != null) {
+						strValue = colValue.toString();
+					}
+					if(strValue.isEmpty() && isObsValue)	// We don't record "empty obs"
 						continue;
 					
-					Element obs = doc.createElement("obs");
-					encounter.appendChild(obs);
-					obs.setAttribute("name", column.getLabel());
-					obs.appendChild(doc.createTextNode(strValue));
+					Element obsDetails = doc.createElement(label);
+					obs.appendChild(obsDetails);
+					obsDetails.appendChild(doc.createTextNode(strValue));
 				}
 			}
 		}

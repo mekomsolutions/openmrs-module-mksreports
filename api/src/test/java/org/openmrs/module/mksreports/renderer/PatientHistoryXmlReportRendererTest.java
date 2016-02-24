@@ -9,6 +9,9 @@ import java.nio.file.Files;
 import org.apache.commons.io.IOUtils;
 import org.junit.Before;
 import org.junit.Test;
+import org.openmrs.ConceptClass;
+import org.openmrs.ConceptDatatype;
+import org.openmrs.ConceptNumeric;
 import org.openmrs.Person;
 import org.openmrs.User;
 import org.openmrs.module.reporting.report.ReportData;
@@ -29,11 +32,15 @@ public class PatientHistoryXmlReportRendererTest {
 	public void setUp() throws IOException, SerializationException {
 		InputStream inStream = getClass().getClassLoader().getResourceAsStream("sampleReportData.xml");
 		String str = IOUtils.toString(inStream, "UTF-8");
+		
 		XStream xstream = new XStream();
-		xstream.alias("org.openmrs.User_$$_jvst45f_41", User.class);
+		xstream.alias("org.openmrs.User_$$_jvste9c_41", User.class);
+		xstream.alias("org.openmrs.ConceptDatatype_$$_jvste9c_40", ConceptDatatype.class);
+		xstream.alias("org.openmrs.ConceptClass_$$_jvste9c_16", ConceptClass.class);
 		xstream.omitField(User.class, "log");
 		xstream.omitField(Person.class, "log");
 		xstream.omitField(Person.class, "deathdateEstimated");
+		xstream.omitField(ConceptNumeric.class, "allowDecimal");
 		reportData = (ReportData) xstream.fromXML(str);
 		
 		file = new File(OUTPUT_XML_OUTPUT_PATH);
@@ -51,7 +58,7 @@ public class PatientHistoryXmlReportRendererTest {
 	@Test
 	public void shoudProduceValidXml() throws Exception {
 		
-		renderer.render(reportData, "", new FileOutputStream(file));
+		renderer.render(reportData, "in_tests", new FileOutputStream(file));
 		
 	}
 }
