@@ -3,6 +3,7 @@ package org.openmrs.module.mksreports.web.controller;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Files;
 
 import javax.xml.transform.stream.StreamSource;
@@ -41,8 +42,11 @@ public class MKSReportsManageControllerTest {
 	@Test
 	public void shouldProducePdf() throws Exception {
 		
-		StreamSource xmlSourceStream = new StreamSource(getClass().getClassLoader().getResourceAsStream("samplePatientHistory.xml"));
-		StreamSource xslTransformStream = new StreamSource(getClass().getClassLoader().getResourceAsStream(MKSReportsManageController.PATIENT_HISTORY_XSL_PATH));
+		InputStream inStreamXml = getClass().getClassLoader().getResourceAsStream("samplePatientHistory.xml");
+		StreamSource xmlSourceStream = new StreamSource(inStreamXml);
+		
+		InputStream inStreamXsl = getClass().getClassLoader().getResourceAsStream(MKSReportsManageController.PATIENT_HISTORY_XSL_PATH);
+		StreamSource xslTransformStream = new StreamSource(inStreamXsl);
 		
 		FileOutputStream outStream = new FileOutputStream(new File(OUTPUT_PDF_OUTPUT_PATH));
 		ctrl.writeToOutputStream(xmlSourceStream, xslTransformStream, outStream);

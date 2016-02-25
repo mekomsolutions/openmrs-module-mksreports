@@ -192,8 +192,6 @@ public class PatientHistoryXmlReportRenderer extends ReportDesignRenderer {
 		dataSetKey = PatientHistoryReportManager.DATASET_KEY_OBS;
 		if(results.getDataSets().containsKey(dataSetKey)) {
 			DataSet dataSet = results.getDataSets().get(dataSetKey);
-			Element observations = doc.createElement("observations");
-			rootElement.appendChild(observations);
 			
 			for (DataSetRow row : dataSet) {
 				Element obs = doc.createElement("obs");
