@@ -89,13 +89,13 @@ public class PatientHistoryReportManager extends MKSReportsReportManager {
 		
 		// Create dataset definitions 
 		PatientHistoryEncounterAndVisitDataSetDefinition encountersDatasetSetDef = createEncounterAndVisitDataSetDefinition();
-		PatientDataSetDefinition patientDataSetDef = createPatientDataSetDefinition(translator);
-		PatientHistoryObsAndEncounterDataSetDefinition obsDataSetDef = createObsDataSetDefinition();
+		PatientDataSetDefinition patientDataSetDef = createDemographicsDataSetDefinition(translator);
+		PatientHistoryObsAndEncounterDataSetDefinition obsDataSetDef = createObsAndEncounterDataSetDefinition();
 		
 		//Add datasets to the report
 		reportDef.addDataSetDefinition(DATASET_KEY_DEMOGRAPHICS,	patientDataSetDef, mappings);
-		reportDef.addDataSetDefinition(DATASET_KEY_OBS,	obsDataSetDef, mappings);
-		reportDef.addDataSetDefinition(DATASET_KEY_ENCOUNTERS,	encountersDatasetSetDef, new HashMap<String, Object>());
+		reportDef.addDataSetDefinition(DATASET_KEY_OBS,				obsDataSetDef, mappings);
+		reportDef.addDataSetDefinition(DATASET_KEY_ENCOUNTERS,		encountersDatasetSetDef, new HashMap<String, Object>());
 		
 		//Save the report definition
 		Helper.saveReportDefinition(reportDef);
@@ -107,7 +107,7 @@ public class PatientHistoryReportManager extends MKSReportsReportManager {
 	 * @param translator
 	 * @return
 	 */
-	public PatientDataSetDefinition createPatientDataSetDefinition(MessageSourceService translator) {
+	public PatientDataSetDefinition createDemographicsDataSetDefinition(MessageSourceService translator) {
 		PatientDataSetDefinition patientDataSetDef = new PatientDataSetDefinition();
 		addColumn(patientDataSetDef, translator.getMessage("mksrports.patienthistory.demographics.identifier"),
 			builtInPatientData.getPreferredIdentifierIdentifier());
@@ -124,32 +124,42 @@ public class PatientHistoryReportManager extends MKSReportsReportManager {
 		return patientDataSetDef;
 	}
 	
+	public final static String	VISIT_UUID_LABEL		= "visit_uuid";
+	public final static String	VISIT_LOCATION_LABEL	= "visit_location";
+	public final static String	VISIT_TYPE_LABEL		= "visit_type";
+	public final static String	ENCOUNTER_UUID_LABEL	= "encounter_uuid";
+	public final static String	ENCOUNTERTYPE_NAME_LABEL	= "encounter_type_name";
+	public final static String	ENCOUNTER_DATETIME_LABEL	= "encounter_datetime";
+	
 	/**
 	 * @return
 	 */
 	public PatientHistoryEncounterAndVisitDataSetDefinition createEncounterAndVisitDataSetDefinition() {
 		PatientHistoryEncounterAndVisitDataSetDefinition encounterAndVistDatasetSetDef = new PatientHistoryEncounterAndVisitDataSetDefinition();
-		encounterAndVistDatasetSetDef.addColumn("Visit uuid", encounterDataLibrary.getVisitId(),"", new VisitUUIDFromIdConverter());
-		encounterAndVistDatasetSetDef.addColumn("Visit Location", encounterDataLibrary.getVisitId(),"", new VisitLocationFromIdConverter());
-		encounterAndVistDatasetSetDef.addColumn("Visit Type", encounterDataLibrary.getVisitId(),"", new VisitTypeFromIdConverter());
-		encounterAndVistDatasetSetDef.addColumn("Enounter uuid", encounterDataLibrary.getUUID(),"", new ObjectFormatter());
-		encounterAndVistDatasetSetDef.addColumn("Encounter Type name", new EncounterTypeDataDefinition(),"", new ObjectFormatter());
-		encounterAndVistDatasetSetDef.addColumn("Encounter Date-Time", new EncounterDatetimeDataDefinition(),"", new DateConverter());
+		encounterAndVistDatasetSetDef.addColumn(VISIT_UUID_LABEL, encounterDataLibrary.getVisitId(),"", new VisitUUIDFromIdConverter());
+		encounterAndVistDatasetSetDef.addColumn(VISIT_LOCATION_LABEL, encounterDataLibrary.getVisitId(),"", new VisitLocationFromIdConverter());
+		encounterAndVistDatasetSetDef.addColumn(VISIT_TYPE_LABEL, encounterDataLibrary.getVisitId(),"", new VisitTypeFromIdConverter());
+		encounterAndVistDatasetSetDef.addColumn(ENCOUNTER_UUID_LABEL, encounterDataLibrary.getUUID(),"", new ObjectFormatter());
+		encounterAndVistDatasetSetDef.addColumn(ENCOUNTERTYPE_NAME_LABEL, new EncounterTypeDataDefinition(),"", new ObjectFormatter());
+		encounterAndVistDatasetSetDef.addColumn(ENCOUNTER_DATETIME_LABEL, new EncounterDatetimeDataDefinition(),"", new DateConverter());
+		encounterAndVistDatasetSetDef.addSortCriteria(ENCOUNTER_DATETIME_LABEL, SortCriteria.SortDirection.DESC);
 		return encounterAndVistDatasetSetDef;
 	}
 	
 	public final static String		OBS_VALUE_LABEL		= "obs_value";
-	protected final static String	OBS_DATETIME_LABEL	= "obs_datetime";
+	public final static String		OBS_DATETIME_LABEL	= "obs_datetime";
+	public final static String		OBS_DATATYPE_LABEL	= "concept_datatype";
+	public final static String		OBS_NAME_LABEL		= "concept_name";
 	
 	/**
 	 * @return
 	 */
-	public PatientHistoryObsAndEncounterDataSetDefinition createObsDataSetDefinition() {
+	public PatientHistoryObsAndEncounterDataSetDefinition createObsAndEncounterDataSetDefinition() {
 		PatientHistoryObsAndEncounterDataSetDefinition obsDataSetDef = new PatientHistoryObsAndEncounterDataSetDefinition();
-		obsDataSetDef.addColumn("encounter_uuid", encounterDataLibrary.getUUID(),"", new ObjectFormatter());
+		obsDataSetDef.addColumn(ENCOUNTER_UUID_LABEL, encounterDataLibrary.getUUID(),"", new ObjectFormatter());
 		obsDataSetDef.addColumn(OBS_DATETIME_LABEL, new ObsDatetimeDataDefinition(), "", new DateConverter());
-		obsDataSetDef.addColumn("concept_datatype", obsDataLibrary.getConceptId(), "", new ConceptDataTypeConverter());
-		obsDataSetDef.addColumn("concept_name", obsDataLibrary.getConceptId(), "", new ConceptNameConverter());
+		obsDataSetDef.addColumn(OBS_DATATYPE_LABEL, obsDataLibrary.getConceptId(), "", new ConceptDataTypeConverter());
+		obsDataSetDef.addColumn(OBS_NAME_LABEL, obsDataLibrary.getConceptId(), "", new ConceptNameConverter());
 		obsDataSetDef.addColumn(OBS_VALUE_LABEL, new ObsIdDataDefinition(), "", new ObsValueFromIdConverter());
 		obsDataSetDef.addSortCriteria(OBS_DATETIME_LABEL, SortCriteria.SortDirection.DESC);
 		return obsDataSetDef;

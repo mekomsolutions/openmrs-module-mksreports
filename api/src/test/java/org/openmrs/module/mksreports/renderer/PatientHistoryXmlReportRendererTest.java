@@ -9,6 +9,7 @@ import java.nio.file.Files;
 import org.apache.commons.io.IOUtils;
 import org.junit.Before;
 import org.junit.Test;
+import org.openmrs.Concept;
 import org.openmrs.ConceptClass;
 import org.openmrs.ConceptDatatype;
 import org.openmrs.ConceptNumeric;
@@ -37,6 +38,7 @@ public class PatientHistoryXmlReportRendererTest {
 		xstream.alias("org.openmrs.User_$$_jvste9c_41", User.class);
 		xstream.alias("org.openmrs.ConceptDatatype_$$_jvste9c_40", ConceptDatatype.class);
 		xstream.alias("org.openmrs.ConceptClass_$$_jvste9c_16", ConceptClass.class);
+		xstream.alias("org.openmrs.Concept_$$_jvste9c_10", Concept.class);
 		xstream.omitField(User.class, "log");
 		xstream.omitField(Person.class, "log");
 		xstream.omitField(Person.class, "deathdateEstimated");

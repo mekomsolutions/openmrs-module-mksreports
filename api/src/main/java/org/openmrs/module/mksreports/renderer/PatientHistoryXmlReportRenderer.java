@@ -14,6 +14,8 @@
 package org.openmrs.module.mksreports.renderer;
 
 import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -42,7 +44,9 @@ import org.openmrs.module.reporting.report.ReportData;
 import org.openmrs.module.reporting.report.ReportRequest;
 import org.openmrs.module.reporting.report.renderer.RenderingException;
 import org.openmrs.module.reporting.report.renderer.ReportDesignRenderer;
+import org.openmrs.module.reporting.serializer.ReportingSerializer;
 import org.openmrs.report.ReportRenderer;
+import org.openmrs.serialization.SerializationException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -70,18 +74,53 @@ public class PatientHistoryXmlReportRenderer extends ReportDesignRenderer {
 		return "text/xml";
 	}
 	
+	protected String getStringValue(DataSetRow row, String columnName) {
+		Object value = row.getColumnValue(columnName);
+		String strVal = "";
+		if(value != null)
+			return strVal = value.toString();
+		return strVal;
+	}
+	
+	protected String getStringValue(DataSetRow row, DataSetColumn column) {
+		return getStringValue(row, column.getName());
+	}
+	
 	public void render(ReportData results, String argument, OutputStream out) throws IOException, RenderingException {
 		
+		//  - - - - - - - - - - - - - - - - - - - - - - - -  
+		//TODO This should go eventually.
+		//  - - - - - - - - - - - - - - - - - - - - - - - -  
 		if(false == StringUtils.equals(argument, "in_tests")) {
-			BufferedWriter outWriter = null;
+			
+			// Marhsalling using Xstream directly
 			try {
-			  outWriter = new BufferedWriter(new FileWriter("/tmp/sampleReportData.xml"));
-			  XStream xstream = new XStream();
-			  xstream.toXML(results, outWriter);
+				File xmlFile = File.createTempFile("sampleReportData_Xstream_", ".xml");
+				BufferedWriter outWriter = new BufferedWriter(new FileWriter(xmlFile));
+				XStream xstream = new XStream();
+				xstream.toXML(results, outWriter);
 			} catch (IOException e) {
-			  System.out.println("IOException Occured" + e.getMessage());
+				System.out.println("IOException Occured" + e.getMessage());
 			}
+			
+			// Marhsalling using ReportingSerializer
+			try {
+				File xmlFile = File.createTempFile("sampleReportData_ReportingSerializer_", ".xml");
+				ReportingSerializer serializer = new ReportingSerializer();
+				serializer.serializeToStream(results, new FileOutputStream(xmlFile));
+			} catch (SerializationException e) {
+				System.out.println("SerializationException Occured" + e.getMessage());
+			} 
 		}
+		//  - - - - - - - - - - - - - - - - - - - - - - - -
+		//
+		//  - - - - - - - - - - - - - - - - - - - - - - - -
+		
+		final String ATTR_TYPE = "type";
+		final String ATTR_LABEL = "label";
+		final String ATTR_TIME = "time";
+		final String ATTR_UUID = "uuid";
+		final String ATTR_LOC = "location";
 		
 		DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder docBuilder = null;
@@ -97,6 +136,7 @@ public class PatientHistoryXmlReportRenderer extends ReportDesignRenderer {
 		doc.appendChild(rootElement);
 		
 		String dataSetKey = "";
+		
 		dataSetKey = PatientHistoryReportManager.DATASET_KEY_DEMOGRAPHICS;
 		if(results.getDataSets().containsKey(dataSetKey)) {
 			DataSet dataSet = results.getDataSets().get(dataSetKey);
@@ -105,45 +145,49 @@ public class PatientHistoryXmlReportRenderer extends ReportDesignRenderer {
 			
 			for (DataSetRow row : dataSet) {
 				for (DataSetColumn column : dataSet.getMetaData().getColumns()) {
-					Object colValue = row.getColumnValue(column);
-					if(colValue == null)
-						continue;
-					String strValue = colValue.toString();
-					if(strValue.isEmpty())
-						continue;
-					
 					Element demographicData = doc.createElement("demographic");
 					demographics.appendChild(demographicData);
-					demographicData.setAttribute("name", column.getLabel());
+					demographicData.setAttribute(ATTR_LABEL, column.getLabel());
+					String strValue = getStringValue(row, column);
 					demographicData.appendChild(doc.createTextNode(strValue));
 				}
 			}
 		}
 		
-//		dataSetKey = PatientHistoryReportManager.DATASET_KEY_ENCOUNTERS;
-//		if(results.getDataSets().containsKey(dataSetKey)) {
-//			DataSet dataSet = results.getDataSets().get(dataSetKey);
-//			Element encounters = doc.createElement("encounters");
-//			rootElement.appendChild(encounters);
-//			
-//			for (DataSetRow row : dataSet) {
-//				Element encounter = doc.createElement("encounter");
-//				encounters.appendChild(encounter);
-//				for (DataSetColumn column : dataSet.getMetaData().getColumns()) {
-//					Object colValue = row.getColumnValue(column);
-//					if(colValue == null)
-//						continue;
-//					String strValue = colValue.toString();
-//					if(strValue.isEmpty())
-//						continue;
-//					
-//					Element obs = doc.createElement("obs");
-//					encounter.appendChild(obs);
-//					obs.setAttribute("name", column.getLabel());
-//					obs.appendChild(doc.createTextNode(strValue));
-//				}
-//			}
-//		}
+		dataSetKey = PatientHistoryReportManager.DATASET_KEY_ENCOUNTERS;
+		if(results.getDataSets().containsKey(dataSetKey)) {
+			DataSet dataSet = results.getDataSets().get(dataSetKey);
+			
+			for (DataSetRow row : dataSet) {
+				String visitUuid = row.getColumnValue(PatientHistoryReportManager.VISIT_UUID_LABEL).toString();
+				Element visit = doc.getElementById(visitUuid);
+				if(visit == null) {	// If the visit node doesn't exist, we create it.
+					visit = doc.createElement("visit");
+					visit.setAttribute(ATTR_UUID, visitUuid);
+					visit.setIdAttribute(ATTR_UUID, true);
+					rootElement.appendChild(visit);
+				
+					//TODO: Add the visit location and the visit type
+					String visitType = getStringValue(row, PatientHistoryReportManager.VISIT_TYPE_LABEL);
+					visit.setAttribute(ATTR_TYPE, visitType);
+					String visitLocation = getStringValue(row, PatientHistoryReportManager.VISIT_LOCATION_LABEL);
+					visit.setAttribute(ATTR_LOC, visitLocation);
+				}
+				
+				// Adding the encounter.
+				String encounterUuid = row.getColumnValue(PatientHistoryReportManager.ENCOUNTER_UUID_LABEL).toString();
+				Element encounter = doc.createElement("encounter");
+				encounter.setAttribute(ATTR_UUID, encounterUuid);
+				encounter.setIdAttribute(ATTR_UUID, true);
+				
+				String encounterName = getStringValue(row, PatientHistoryReportManager.ENCOUNTERTYPE_NAME_LABEL);
+				encounter.setAttribute(ATTR_LABEL, encounterName);
+				String encounterDatetime = getStringValue(row, PatientHistoryReportManager.ENCOUNTER_DATETIME_LABEL);
+				encounter.setAttribute(ATTR_TIME, encounterDatetime);
+				
+				visit.appendChild(encounter);
+			}
+		}
 		
 		dataSetKey = PatientHistoryReportManager.DATASET_KEY_OBS;
 		if(results.getDataSets().containsKey(dataSetKey)) {
@@ -153,25 +197,39 @@ public class PatientHistoryXmlReportRenderer extends ReportDesignRenderer {
 			
 			for (DataSetRow row : dataSet) {
 				Element obs = doc.createElement("obs");
-				observations.appendChild(obs);
+				
+				String encounterUuid = row.getColumnValue(PatientHistoryReportManager.ENCOUNTER_UUID_LABEL).toString();
+				Element encounter = doc.getElementById(encounterUuid);
+				if(encounter == null) {	
+					// TODO: At least log this.
+				}
+				
 				List<DataSetColumn> columns = dataSet.getMetaData().getColumns();
 				for (DataSetColumn column : columns) {
-					String label = column.getLabel();
-					boolean isObsValue = false;
-					isObsValue = StringUtils.equals(label, PatientHistoryReportManager.OBS_VALUE_LABEL);
-							
-					String strValue = "";
-					Object colValue = row.getColumnValue(column);
-					if(colValue != null) {
-						strValue = colValue.toString();
-					}
-					if(strValue.isEmpty() && isObsValue)	// We don't record "empty obs"
+					String colName = column.getName();
+					String strValue = getStringValue(row, column);
+					if(StringUtils.equals(colName, PatientHistoryReportManager.ENCOUNTER_UUID_LABEL)) {
 						continue;
-					
-					Element obsDetails = doc.createElement(label);
-					obs.appendChild(obsDetails);
-					obsDetails.appendChild(doc.createTextNode(strValue));
+					}
+					if(StringUtils.equals(column.getName(), PatientHistoryReportManager.OBS_NAME_LABEL)) {
+						obs.setAttribute(ATTR_LABEL, strValue);
+						continue;
+					}
+					if(StringUtils.equals(column.getName(), PatientHistoryReportManager.OBS_DATATYPE_LABEL)) {
+						obs.setAttribute(ATTR_TYPE, strValue);
+						continue;
+					}
+					if(StringUtils.equals(column.getName(), PatientHistoryReportManager.OBS_DATETIME_LABEL)) {
+						obs.setAttribute(ATTR_TIME, strValue);
+						continue;
+					}
+					if(StringUtils.equals(column.getName(), PatientHistoryReportManager.OBS_VALUE_LABEL)) {
+						obs.appendChild(doc.createTextNode(strValue));
+						continue;
+					}
 				}
+				
+				encounter.appendChild(obs);
 			}
 		}
 		

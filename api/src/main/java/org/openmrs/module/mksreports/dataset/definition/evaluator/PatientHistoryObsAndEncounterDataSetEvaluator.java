@@ -26,7 +26,5 @@ import org.openmrs.module.reporting.dataset.definition.evaluator.ObsDataSetEvalu
  */
 @Handler(supports = { PatientHistoryObsAndEncounterDataSetDefinition.class }, order = 25)
 public class PatientHistoryObsAndEncounterDataSetEvaluator extends ObsDataSetEvaluator {
-
 	protected static final Log log = LogFactory.getLog(PatientHistoryObsAndEncounterDataSetEvaluator.class);
-
 }

@@ -24,9 +24,7 @@ import org.openmrs.module.reporting.dataset.definition.evaluator.EncounterDataSe
  * The logic that evaluates a {@link PatientHistoryEncounterAndVisitDataSetDefinition} and produces an {@link DataSet}
  * @see PatientHistoryEncounterAndVisitDataSetDefinition
  */
-@Handler(supports = { PatientHistoryEncounterAndVisitDataSetDefinition.class }, order = 25)
+@Handler(supports = { PatientHistoryEncounterAndVisitDataSetDefinition.class }, order = 24)
 public class PatientHistoryEncounterAndVisitDataSetEvaluator extends EncounterDataSetEvaluator {
-
 	protected static final Log log = LogFactory.getLog(PatientHistoryEncounterAndVisitDataSetEvaluator.class);
-
 }
