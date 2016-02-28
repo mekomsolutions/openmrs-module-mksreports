@@ -24,6 +24,7 @@ import org.openmrs.module.mksreports.common.Helper;
 import org.openmrs.module.mksreports.data.converter.ConceptDataTypeConverter;
 import org.openmrs.module.mksreports.data.converter.ConceptNameConverter;
 import org.openmrs.module.mksreports.data.converter.EncounterTypeUUIDFromEncounterIdConverter;
+import org.openmrs.module.mksreports.data.converter.ObsProviderFromIdConverter;
 import org.openmrs.module.mksreports.data.converter.ObsValueFromIdConverter;
 import org.openmrs.module.mksreports.data.converter.VisitLocationFromIdConverter;
 import org.openmrs.module.mksreports.data.converter.VisitTypeFromIdConverter;
@@ -154,6 +155,7 @@ public class PatientHistoryReportManager extends MKSReportsReportManager {
 	public final static String		OBS_DATETIME_LABEL	= "obs_datetime";
 	public final static String		OBS_DATATYPE_LABEL	= "concept_datatype";
 	public final static String		OBS_NAME_LABEL		= "concept_name";
+	public final static String OBS_PROVIDER_LABEL = "provider_name";
 	
 	/**
 	 * @return
@@ -161,6 +163,7 @@ public class PatientHistoryReportManager extends MKSReportsReportManager {
 	public PatientHistoryObsAndEncounterDataSetDefinition createObsAndEncounterDataSetDefinition() {
 		PatientHistoryObsAndEncounterDataSetDefinition obsDataSetDef = new PatientHistoryObsAndEncounterDataSetDefinition();
 		obsDataSetDef.addColumn(ENCOUNTER_UUID_LABEL, encounterDataLibrary.getUUID(),"", new ObjectFormatter());
+		obsDataSetDef.addColumn(OBS_PROVIDER_LABEL, new ObsIdDataDefinition(),"", new ObsProviderFromIdConverter());
 		obsDataSetDef.addColumn(OBS_DATETIME_LABEL, new ObsDatetimeDataDefinition(), "", new DateConverter());
 		obsDataSetDef.addColumn(OBS_DATATYPE_LABEL, obsDataLibrary.getConceptId(), "", new ConceptDataTypeConverter());
 		obsDataSetDef.addColumn(OBS_NAME_LABEL, obsDataLibrary.getConceptId(), "", new ConceptNameConverter());
