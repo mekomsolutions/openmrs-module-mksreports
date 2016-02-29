@@ -23,6 +23,7 @@ import org.openmrs.messagesource.MessageSourceService;
 import org.openmrs.module.mksreports.common.Helper;
 import org.openmrs.module.mksreports.data.converter.ConceptDataTypeConverter;
 import org.openmrs.module.mksreports.data.converter.ConceptNameConverter;
+import org.openmrs.module.mksreports.data.converter.EncounterProviderFromIdConverter;
 import org.openmrs.module.mksreports.data.converter.EncounterTypeUUIDFromEncounterIdConverter;
 import org.openmrs.module.mksreports.data.converter.ObsProviderFromIdConverter;
 import org.openmrs.module.mksreports.data.converter.ObsValueFromIdConverter;
@@ -131,6 +132,7 @@ public class PatientHistoryReportManager extends MKSReportsReportManager {
 	public final static String	VISIT_LOCATION_LABEL	= "visit_location";
 	public final static String	VISIT_TYPE_LABEL		= "visit_type";
 	public final static String	ENCOUNTER_UUID_LABEL	= "encounter_uuid";
+	public final static String    ENCOUNTER_PROVIDER_LABEL = "provider_name";
 	public final static String	ENCOUNTER_TYPE_UUID_LABEL	= "encounter_type_uuid";
 	public final static String	ENCOUNTERTYPE_NAME_LABEL	= "encounter_type_name";
 	public final static String	ENCOUNTER_DATETIME_LABEL	= "encounter_datetime";
@@ -144,6 +146,7 @@ public class PatientHistoryReportManager extends MKSReportsReportManager {
 		encounterAndVistDatasetSetDef.addColumn(VISIT_LOCATION_LABEL, encounterDataLibrary.getVisitId(),"", new VisitLocationFromIdConverter());
 		encounterAndVistDatasetSetDef.addColumn(VISIT_TYPE_LABEL, encounterDataLibrary.getVisitId(),"", new VisitTypeFromIdConverter());
 		encounterAndVistDatasetSetDef.addColumn(ENCOUNTER_UUID_LABEL, encounterDataLibrary.getUUID(),"", new ObjectFormatter());
+		encounterAndVistDatasetSetDef.addColumn(ENCOUNTER_PROVIDER_LABEL, new EncounterIdDataDefinition(),"", new EncounterProviderFromIdConverter());
 		encounterAndVistDatasetSetDef.addColumn(ENCOUNTER_TYPE_UUID_LABEL, new EncounterIdDataDefinition(),"", new EncounterTypeUUIDFromEncounterIdConverter());
 		encounterAndVistDatasetSetDef.addColumn(ENCOUNTERTYPE_NAME_LABEL, new EncounterTypeDataDefinition(),"", new ObjectFormatter());
 		encounterAndVistDatasetSetDef.addColumn(ENCOUNTER_DATETIME_LABEL, new EncounterDatetimeDataDefinition(),"", new DateConverter());
