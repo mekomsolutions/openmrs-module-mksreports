@@ -20,18 +20,19 @@
 	</xsl:template>
 	
 	<xsl:template match="visit">
-		<fo:block margin-bottom="4mm">
-			<fo:block font-size="14">
-				VISIT - <xsl:value-of select="@type"/>
-			</fo:block>
+		<fo:block margin-bottom="10mm">
+			<fo:block font-size="18"> <xsl:value-of select="@type"/> </fo:block>
 			<xsl:apply-templates select="encounter"/>
 		</fo:block>
 	</xsl:template>
 	
 	<xsl:template match="encounter">
-		<fo:block margin-top="2mm">
-			<fo:block font-size="12">
+		<fo:block margin-top="6mm">
+			<fo:block font-size="13">
 				<xsl:value-of select="@label"/>
+			</fo:block>
+			<fo:block font-size="9">
+				<xsl:value-of select="@provider"/> <xsl:text>&#x9;</xsl:text>-<xsl:text>&#x9;</xsl:text> <xsl:value-of select="@time"/> 
 			</fo:block>
 			<xsl:choose>
 				<xsl:when test="count(obs[@type!='Text']) &gt; 0">
@@ -58,7 +59,8 @@
 		<fo:block margin="2mm">
 			<fo:block font-size="10">
 				<fo:block font-size="8" font-style="italic" margin-bottom="1mm" margin-right="3mm">
-					<xsl:value-of select="@label" />
+					<fo:block><xsl:value-of select="@label" /></fo:block>
+<!-- 					<fo:block><xsl:value-of select="@time" /></fo:block> -->
 				</fo:block>
 				<xsl:value-of select="." />
 			</fo:block>
@@ -79,7 +81,8 @@
 			<fo:block margin="2mm">
 				<fo:block font-size="10">
 					<fo:block font-size="8" font-style="italic" margin-bottom="1mm" margin-right="3mm">
-						<xsl:value-of select="@label" />
+						<fo:block><xsl:value-of select="@label" /></fo:block>
+<!-- 						<fo:block><xsl:value-of select="@time" /></fo:block> -->
 					</fo:block>
 					<xsl:value-of select="." />
 				</fo:block>

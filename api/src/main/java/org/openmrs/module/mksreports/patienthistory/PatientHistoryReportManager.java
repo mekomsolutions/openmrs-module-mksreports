@@ -128,11 +128,11 @@ public class PatientHistoryReportManager extends MKSReportsReportManager {
 		return patientDataSetDef;
 	}
 	
-	public final static String	VISIT_UUID_LABEL		= "visit_uuid";
-	public final static String	VISIT_LOCATION_LABEL	= "visit_location";
-	public final static String	VISIT_TYPE_LABEL		= "visit_type";
-	public final static String	ENCOUNTER_UUID_LABEL	= "encounter_uuid";
-	public final static String    ENCOUNTER_PROVIDER_LABEL = "provider_name";
+	public final static String	VISIT_UUID_LABEL			= "visit_uuid";
+	public final static String	VISIT_LOCATION_LABEL		= "visit_location";
+	public final static String	VISIT_TYPE_LABEL			= "visit_type";
+	public final static String	ENCOUNTER_UUID_LABEL		= "encounter_uuid";
+	public final static String  ENCOUNTER_PROVIDER_LABEL	= "provider_name";
 	public final static String	ENCOUNTER_TYPE_UUID_LABEL	= "encounter_type_uuid";
 	public final static String	ENCOUNTERTYPE_NAME_LABEL	= "encounter_type_name";
 	public final static String	ENCOUNTER_DATETIME_LABEL	= "encounter_datetime";
@@ -158,7 +158,7 @@ public class PatientHistoryReportManager extends MKSReportsReportManager {
 	public final static String		OBS_DATETIME_LABEL	= "obs_datetime";
 	public final static String		OBS_DATATYPE_LABEL	= "concept_datatype";
 	public final static String		OBS_NAME_LABEL		= "concept_name";
-	public final static String OBS_PROVIDER_LABEL = "provider_name";
+	public final static String		OBS_PROVIDER_LABEL	= "provider_name";
 	
 	/**
 	 * @return

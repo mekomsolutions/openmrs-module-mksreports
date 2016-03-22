@@ -19,6 +19,10 @@ import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.text.DateFormat;
+import java.text.ParsePosition;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -74,12 +78,16 @@ public class PatientHistoryXmlReportRenderer extends ReportDesignRenderer {
 		return "text/xml";
 	}
 	
-	protected String getStringValue(DataSetRow row, String columnName) {
-		Object value = row.getColumnValue(columnName);
+	protected String getStringValue(Object value) {
 		String strVal = "";
 		if(value != null)
 			return strVal = value.toString();
 		return strVal;
+	}
+	
+	protected String getStringValue(DataSetRow row, String columnName) {
+		Object value = row.getColumnValue(columnName);
+		return getStringValue(value);
 	}
 	
 	protected String getStringValue(DataSetRow row, DataSetColumn column) {
@@ -121,6 +129,10 @@ public class PatientHistoryXmlReportRenderer extends ReportDesignRenderer {
 		final String ATTR_TIME = "time";
 		final String ATTR_UUID = "uuid";
 		final String ATTR_LOC = "location";
+		final String ATTR_PROV = "provider";
+		
+		final String DATETIME_FORMAT = "dd MMM yyyy @ HH:mm";
+		final String TIME_FORMAT = "HH:mm:ss";
 		
 		DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder docBuilder = null;
@@ -182,8 +194,13 @@ public class PatientHistoryXmlReportRenderer extends ReportDesignRenderer {
 				
 				String encounterName = getStringValue(row, PatientHistoryReportManager.ENCOUNTERTYPE_NAME_LABEL);
 				encounter.setAttribute(ATTR_LABEL, encounterName);
-				String encounterDatetime = getStringValue(row, PatientHistoryReportManager.ENCOUNTER_DATETIME_LABEL);
+				
+				Object value = row.getColumnValue(PatientHistoryReportManager.ENCOUNTER_DATETIME_LABEL);
+				String encounterDatetime = (new SimpleDateFormat(DATETIME_FORMAT)).format(value);
 				encounter.setAttribute(ATTR_TIME, encounterDatetime);
+
+				String encounterProvider = getStringValue(row, PatientHistoryReportManager.ENCOUNTER_PROVIDER_LABEL);
+				encounter.setAttribute(ATTR_PROV, encounterProvider);
 				
 				visit.appendChild(encounter);
 			}
@@ -205,7 +222,8 @@ public class PatientHistoryXmlReportRenderer extends ReportDesignRenderer {
 				List<DataSetColumn> columns = dataSet.getMetaData().getColumns();
 				for (DataSetColumn column : columns) {
 					String colName = column.getName();
-					String strValue = getStringValue(row, column);
+					Object value = row.getColumnValue(column);
+					String strValue = getStringValue(value);
 					if(StringUtils.equals(colName, PatientHistoryReportManager.ENCOUNTER_UUID_LABEL)) {
 						continue;
 					}
@@ -218,7 +236,12 @@ public class PatientHistoryXmlReportRenderer extends ReportDesignRenderer {
 						continue;
 					}
 					if(StringUtils.equals(column.getName(), PatientHistoryReportManager.OBS_DATETIME_LABEL)) {
-						obs.setAttribute(ATTR_TIME, strValue);
+						String obsDateTime = (new SimpleDateFormat(TIME_FORMAT)).format(value);
+						obs.setAttribute(ATTR_TIME, obsDateTime);
+						continue;
+					}
+					if(StringUtils.equals(column.getName(), PatientHistoryReportManager.OBS_PROVIDER_LABEL)) {
+						obs.setAttribute(ATTR_PROV, strValue);
 						continue;
 					}
 					if(StringUtils.equals(column.getName(), PatientHistoryReportManager.OBS_VALUE_LABEL)) {
