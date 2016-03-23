@@ -13,6 +13,13 @@
  */
 package org.openmrs.module.mksreports.library;
 
+import java.util.AbstractMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.Set;
+
+import org.openmrs.api.LocationService;
+import org.openmrs.api.context.Context;
 import org.openmrs.module.reporting.common.Birthdate;
 import org.openmrs.module.reporting.data.converter.AgeConverter;
 import org.openmrs.module.reporting.data.converter.ConcatenatedPropertyConverter;
@@ -26,11 +33,68 @@ import org.openmrs.module.reporting.definition.library.BaseDefinitionLibrary;
 import org.openmrs.module.reporting.definition.library.DocumentedDefinition;
 import org.springframework.stereotype.Component;
 
+import com.thoughtworks.xstream.XStream;
+import com.thoughtworks.xstream.converters.Converter;
+import com.thoughtworks.xstream.converters.MarshallingContext;
+import com.thoughtworks.xstream.converters.UnmarshallingContext;
+import com.thoughtworks.xstream.io.HierarchicalStreamReader;
+import com.thoughtworks.xstream.io.HierarchicalStreamWriter;
+
 @Component
 public class BasePatientDataLibrary extends BaseDefinitionLibrary<PatientDataDefinition> {
 
+	/*
+	 * XStream converter for unmarshalling the Address Template XML
+	 * 		into a Map<String, String> of what is inside <nameMappings/>. 
+	 */
+	/**
+	 * @see {@link https://github.com/mekomsolutions/openmrs-module-coreapps/blob/3603eaf433d1d426cd8c9748956a5a0eaebd7ef9/omod/src/main/java/org/openmrs/module/coreapps/fragment/controller/patientheader/RegistrationDataHelper.java#L146-L173}
+	 */
+	protected static class AddressTemplateConverter implements Converter {
+
+        public boolean canConvert(Class clazz) {
+            return AbstractMap.class.isAssignableFrom(clazz);
+        }
+
+        @Override
+		public void marshal(Object arg0, HierarchicalStreamWriter writer, MarshallingContext context) {}
+
+        @Override
+        public Object unmarshal(HierarchicalStreamReader reader, UnmarshallingContext context) {
+
+            Map<String, String> map = new LinkedHashMap<String, String>();	// LinkedHashMap to keep the Address Template XML order. 
+            reader.moveDown();	// Get down the nameMappings, sizeMappings... etc level
+
+            while(reader.hasMoreChildren()) {
+            	if(reader.getNodeName().equals("nameMappings")) {
+            		while(reader.hasMoreChildren()) {
+            			reader.moveDown();
+            			String key = reader.getAttribute("name");
+            			String value = reader.getAttribute("value");
+            			map.put(key, value);
+            			reader.moveUp();
+            		}
+            	}
+            }
+            return map;
+        }
+    }
+	
+	protected Map<String, String> getAddressTemplateNameMappings(final LocationService locationService) {
+		
+		XStream xstream = new XStream();
+		xstream.alias("org.openmrs.layout.web.address.AddressTemplate", java.util.Map.class);
+		xstream.registerConverter(new AddressTemplateConverter());
+		
+		String addressTemplateXml = locationService.getAddressTemplate();
+		@SuppressWarnings("unchecked")
+		Map<String, String> nameMappings = (Map<String, String>) xstream.fromXML(addressTemplateXml);
+		
+		return nameMappings;
+	}
+	
 	//@Autowired
-	private DataFactory df = new DataFactory();
+	private DataFactory dataFactory = new DataFactory();
 
 	//@Autowired
 	private BuiltInPatientDataLibrary builtInPatientData = new BuiltInPatientDataLibrary();
@@ -49,28 +113,17 @@ public class BasePatientDataLibrary extends BaseDefinitionLibrary<PatientDataDef
 
 	@DocumentedDefinition("birthdate")
 	public PatientDataDefinition getBirthdate() {
-		return df.convert(new BirthdateDataDefinition(), new PropertyConverter(Birthdate.class, "birthdate"));
-	}
-
-	@DocumentedDefinition("village")
-	public PatientDataDefinition getVillage() {
-		return df.getPreferredAddress("cityVillage");
-	}
-
-	@DocumentedDefinition("traditionalAuthority")
-	public PatientDataDefinition getTraditionalAuthority() {
-		return df.getPreferredAddress("countyDistrict");
-	}
-
-	@DocumentedDefinition("district")
-	public PatientDataDefinition getDistrict() {
-		return df.getPreferredAddress("stateProvince");
+		return dataFactory.convert(new BirthdateDataDefinition(), new PropertyConverter(Birthdate.class, "birthdate"));
 	}
 
 	@DocumentedDefinition("addressFull")
 	public PatientDataDefinition getAddressFull() {
+		Map<String, String> nameMappings = getAddressTemplateNameMappings(Context.getLocationService());
+		Set<String> addressLevels = nameMappings.keySet();
+		
 		PreferredAddressDataDefinition pdd = new PreferredAddressDataDefinition();
-		return df.convert(pdd, new ConcatenatedPropertyConverter(", ", "district", "traditionalAuthority", "village"));
+		return dataFactory.convert(pdd, new ConcatenatedPropertyConverter(", ", addressLevels.toArray(new String[addressLevels.size()])));
+//		return dataFactory.convert(pdd, new ConcatenatedPropertyConverter(", ", "cityVillage", "countyDistrict", "stateProvince", "country"));
 	}
 
 	// Demographic Data
@@ -78,19 +131,19 @@ public class BasePatientDataLibrary extends BaseDefinitionLibrary<PatientDataDef
 	@DocumentedDefinition("ageAtEndInYears")
 	public PatientDataDefinition getAgeAtEndInYears() {
 		PatientDataDefinition ageAtEnd = builtInPatientData.getAgeAtEnd();
-		return df.convert(ageAtEnd, new AgeConverter(AgeConverter.YEARS));
+		return dataFactory.convert(ageAtEnd, new AgeConverter(AgeConverter.YEARS));
 	}
 
 	@DocumentedDefinition("ageAtEndInMonths")
 	public PatientDataDefinition getAgeAtEndInMonths() {
 		PatientDataDefinition ageAtEnd = builtInPatientData.getAgeAtEnd();
-		return df.convert(ageAtEnd, new AgeConverter(AgeConverter.MONTHS));
+		return dataFactory.convert(ageAtEnd, new AgeConverter(AgeConverter.MONTHS));
 	}
 
 	@DocumentedDefinition("preferredFamilyNames")
 	public PatientDataDefinition getPreferredFamilyNames() {
 		PreferredNameDataDefinition pdd = new PreferredNameDataDefinition();
-		return df.convert(pdd, new ConcatenatedPropertyConverter(" ", "familyName", "familyName2"));
+		return dataFactory.convert(pdd, new ConcatenatedPropertyConverter(" ", "familyName", "familyName2"));
 	}
 
 }

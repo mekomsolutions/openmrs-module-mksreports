@@ -4,7 +4,7 @@
         "extensionPointId": "patientDashboard.overallActions",
         "type": "link",
         "label": "mksreports.patienthistory.linklabel",
-        "url": "module/mksreports/renderSummary.form?patientId={{patient.patientId}}&download=true",
+        "url": "module/mksreports/patientHistory.form?patientId={{patient.patientId}}&download=true",
         "icon": "icon-print",
         "order": 14
     }

@@ -67,11 +67,13 @@ public class MKSReportsManageController {
 	 * @param patientId the id of patient whose summary you wish to view
 	 * @param summaryId the id of the patientsummary you wish to view
 	 */
-	@RequestMapping(value = "/module/mksreports/renderSummary")
-	public void renderSummary(ModelMap model, HttpServletRequest request, HttpServletResponse response,
+	@RequestMapping(value = "/module/mksreports/patientHistory")
+	public void renderPatientHistory(ModelMap model, HttpServletRequest request, HttpServletResponse response,
 	                          @RequestParam("patientId") Integer patientId,
 	                          @RequestParam(value = "download", required = false) boolean download,
-	                          @RequestParam(value = "print", required = false) boolean print) throws IOException {
+	                          @RequestParam(value = "print", required = false) boolean print
+	                          ) 	throws IOException
+	{
 		System.setProperty("javax.xml.transform.TransformerFactory", "net.sf.saxon.TransformerFactoryImpl");
 		
 		try {
@@ -90,13 +92,13 @@ public class MKSReportsManageController {
 			
 			HashMap<String, Object> parameters = new HashMap<String, Object>();
 			parameters.put("patientSummaryMode", print ? "print" : "download");
-			PatientSummaryResult result = patientSummaryService.evaluatePatientSummaryTemplate(patientSummaryTemplate, patientId, parameters);
-			if (result.getErrorDetails() != null) {
-				result.getErrorDetails().printStackTrace(response.getWriter());
+			PatientSummaryResult patientSummaryResult = patientSummaryService.evaluatePatientSummaryTemplate(patientSummaryTemplate, patientId, parameters);
+			if (patientSummaryResult.getErrorDetails() != null) {
+				patientSummaryResult.getErrorDetails().printStackTrace(response.getWriter());
 			}
 			else
 			{
-				StreamSource xmlSourceStream = new StreamSource(new ByteArrayInputStream(result.getRawContents()));
+				StreamSource xmlSourceStream = new StreamSource(new ByteArrayInputStream(patientSummaryResult.getRawContents()));
 				StreamSource xslTransformStream = new StreamSource(OpenmrsClassLoader.getInstance().getResourceAsStream(PATIENT_HISTORY_XSL_PATH));
 				ByteArrayOutputStream outStream = new ByteArrayOutputStream();
 				

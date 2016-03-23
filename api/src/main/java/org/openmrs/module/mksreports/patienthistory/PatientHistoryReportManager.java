@@ -65,7 +65,7 @@ public class PatientHistoryReportManager extends MKSReportsReportManager {
 	private DataFactory dataFactory = new DataFactory();
 	
 	//@Autowired TODO Reconfigure this annotation after
-	private BuiltInPatientDataLibrary builtInPatientData = new BuiltInPatientDataLibrary();
+	private BuiltInPatientDataLibrary builtInPatientDataLibrary = new BuiltInPatientDataLibrary();
 	
 	//@Autowired TODO Reconfigure this annotation after
 	private EncounterDataLibrary encounterDataLibrary = new EncounterDataLibrary();
@@ -74,7 +74,7 @@ public class PatientHistoryReportManager extends MKSReportsReportManager {
 	private ObsDataLibrary obsDataLibrary = new ObsDataLibrary();
 	
 	//@Autowired TODO Reconfigure this annotation after
-	private BasePatientDataLibrary basePatientData = new BasePatientDataLibrary();
+	private BasePatientDataLibrary basePatientDataLibrary = new BasePatientDataLibrary();
 	
 	public void setup() throws Exception {
 		
@@ -88,12 +88,12 @@ public class PatientHistoryReportManager extends MKSReportsReportManager {
 		reportDef.setName(REPORT_DEFINITION_NAME);
 		
 		Map<String, Object> mappings = new HashMap<String, Object>();		
-		MessageSourceService translator = Context.getMessageSourceService();		
+		MessageSourceService i18nTranslator = Context.getMessageSourceService();		
 		Locale locale = Context.getLocale(); //TODO Figure out how to use a 'locale' param when getting msgs
 		
 		// Create dataset definitions 
 		PatientHistoryEncounterAndVisitDataSetDefinition encountersDatasetSetDef = createEncounterAndVisitDataSetDefinition();
-		PatientDataSetDefinition patientDataSetDef = createDemographicsDataSetDefinition(translator);
+		PatientDataSetDefinition patientDataSetDef = createDemographicsDataSetDefinition(i18nTranslator);
 		PatientHistoryObsAndEncounterDataSetDefinition obsDataSetDef = createObsAndEncounterDataSetDefinition();
 		
 		//Add datasets to the report
@@ -108,23 +108,26 @@ public class PatientHistoryReportManager extends MKSReportsReportManager {
 	}
 	
 	/**
-	 * @param translator
+	 * @param i18nTranslator
 	 * @return
 	 */
-	public PatientDataSetDefinition createDemographicsDataSetDefinition(MessageSourceService translator) {
+	public PatientDataSetDefinition createDemographicsDataSetDefinition(MessageSourceService i18nTranslator) {
 		PatientDataSetDefinition patientDataSetDef = new PatientDataSetDefinition();
-		addColumn(patientDataSetDef, translator.getMessage("mksrports.patienthistory.demographics.identifier"),
-			builtInPatientData.getPreferredIdentifierIdentifier());
-		addColumn(patientDataSetDef, translator.getMessage("mksreports.patienthistory.demographics.firstname"),
-			builtInPatientData.getPreferredGivenName());
-		addColumn(patientDataSetDef, translator.getMessage("mksreports.patienthistory.demographics.lastname"),
-			builtInPatientData.getPreferredFamilyName());
-		addColumn(patientDataSetDef, translator.getMessage("mksreports.patienthistory.demographics.dob"),
-			basePatientData.getBirthdate());
-		addColumn(patientDataSetDef, translator.getMessage("mksreports.patienthistory.demographics.age"),
-			basePatientData.getAgeAtEndInYears());
-		addColumn(patientDataSetDef, translator.getMessage("mksreports.patienthistory.demographics.gender"),
-			builtInPatientData.getGender());
+		addColumn(patientDataSetDef, i18nTranslator.getMessage("mksreports.patienthistory.demographics.identifier"),
+			builtInPatientDataLibrary.getPreferredIdentifierIdentifier());
+		addColumn(patientDataSetDef, i18nTranslator.getMessage("mksreports.patienthistory.demographics.firstname"),
+			builtInPatientDataLibrary.getPreferredGivenName());
+		addColumn(patientDataSetDef, i18nTranslator.getMessage("mksreports.patienthistory.demographics.lastname"),
+			builtInPatientDataLibrary.getPreferredFamilyName());
+		addColumn(patientDataSetDef, i18nTranslator.getMessage("mksreports.patienthistory.demographics.dob"),
+			basePatientDataLibrary.getBirthdate());
+		addColumn(patientDataSetDef, i18nTranslator.getMessage("mksreports.patienthistory.demographics.age"),
+			basePatientDataLibrary.getAgeAtEndInYears());
+		addColumn(patientDataSetDef, i18nTranslator.getMessage("mksreports.patienthistory.demographics.gender"),
+			builtInPatientDataLibrary.getGender());
+		addColumn(patientDataSetDef, i18nTranslator.getMessage("mksreports.patienthistory.demographics.fulladdress"),
+				basePatientDataLibrary.getAddressFull());
+		
 		return patientDataSetDef;
 	}
 	
