@@ -63,7 +63,7 @@
 	<globalProperty>
 		<property>mksreports.registration.encountertype</property>
 		<defaultValue>3e3424bd-6e9d-4c9c-b3a4-f3fee751fe7c</defaultValue>
-		<description>The uuid,name of id of Registration encounter type
+		<description>The uuid,name or id of Registration encounter type
 		</description>
 	</globalProperty>
 

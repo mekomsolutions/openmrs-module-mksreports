@@ -20,6 +20,7 @@ import java.util.Map;
 
 import org.openmrs.api.context.Context;
 import org.openmrs.messagesource.MessageSourceService;
+import org.openmrs.module.mksreports.GlobalPropertiesManagement;
 import org.openmrs.module.mksreports.common.Helper;
 import org.openmrs.module.mksreports.data.converter.ConceptDataTypeConverter;
 import org.openmrs.module.mksreports.data.converter.ConceptNameConverter;
@@ -46,6 +47,8 @@ import org.openmrs.module.reporting.data.encounter.definition.EncounterTypeDataD
 import org.openmrs.module.reporting.data.obs.definition.ObsIdDataDefinition;
 import org.openmrs.module.reporting.data.patient.library.BuiltInPatientDataLibrary;
 import org.openmrs.module.reporting.dataset.definition.PatientDataSetDefinition;
+import org.openmrs.module.reporting.query.obs.definition.ObsQuery;
+import org.openmrs.module.reporting.query.obs.definition.SqlObsQuery;
 import org.openmrs.module.reporting.report.ReportDesign;
 import org.openmrs.module.reporting.report.definition.ReportDefinition;
 import org.openmrs.module.reporting.report.service.ReportService;
@@ -58,7 +61,8 @@ public class PatientHistoryReportManager extends MKSReportsReportManager {
 	protected final static String REPORT_DEFINITION_NAME = "Patient History";
 	
 	public final static String DATASET_KEY_DEMOGRAPHICS = "demographics";
-	public final static String DATASET_KEY_OBS = "obs";
+	public final static String DATASET_KEY_OBS = "obs"; //For the first PatientHistoryObsAndEncounterDataSetDefinition
+	public final static String DATASET_KEY_SECOND_OBS = "secondObs"; //For the first PatientHistoryObsAndEncounterDataSetDefinition
 	public final static String DATASET_KEY_ENCOUNTERS = "encounters";
 	
 	//@Autowired TODO Reconfigure this annotation after
@@ -75,6 +79,8 @@ public class PatientHistoryReportManager extends MKSReportsReportManager {
 	
 	//@Autowired TODO Reconfigure this annotation after
 	private BasePatientDataLibrary basePatientDataLibrary = new BasePatientDataLibrary();
+	
+	private GlobalPropertiesManagement gp  =  new GlobalPropertiesManagement();
 	
 	public void setup() throws Exception {
 		
@@ -95,10 +101,12 @@ public class PatientHistoryReportManager extends MKSReportsReportManager {
 		PatientHistoryEncounterAndVisitDataSetDefinition encountersDatasetSetDef = createEncounterAndVisitDataSetDefinition();
 		PatientDataSetDefinition patientDataSetDef = createDemographicsDataSetDefinition(i18nTranslator);
 		PatientHistoryObsAndEncounterDataSetDefinition obsDataSetDef = createObsAndEncounterDataSetDefinition();
+		PatientHistoryObsAndEncounterDataSetDefinition secondObsDataSetDef = createSecondObsAndEncounterDataSetDefinition();
 		
 		//Add datasets to the report
 		reportDef.addDataSetDefinition(DATASET_KEY_DEMOGRAPHICS,	patientDataSetDef, mappings);
 		reportDef.addDataSetDefinition(DATASET_KEY_OBS,				obsDataSetDef, mappings);
+		reportDef.addDataSetDefinition(DATASET_KEY_SECOND_OBS,		secondObsDataSetDef, mappings);
 		reportDef.addDataSetDefinition(DATASET_KEY_ENCOUNTERS,		encountersDatasetSetDef, new HashMap<String, Object>());
 		
 		//Save the report definition
@@ -178,6 +186,32 @@ public class PatientHistoryReportManager extends MKSReportsReportManager {
 		return obsDataSetDef;
 	}
 	
+	/**
+	 * @return
+	 */
+	public PatientHistoryObsAndEncounterDataSetDefinition createSecondObsAndEncounterDataSetDefinition() {
+		
+		//Start by creating an ObsQuery to filter the dataset rows
+		int registrationEncounter = gp.getEncounterType(GlobalPropertiesManagement.REGISTRATION_ENCOUNTER_TYPE).getId();
+		
+		StringBuilder sql = new StringBuilder();
+		sql.append("select o.obs_id from obs o where o.encounter_id in (select e.encounter_id from encounter e where e.encounter_type ="+registrationEncounter+")");
+		
+		ObsQuery q = new SqlObsQuery(sql.toString());
+		
+		PatientHistoryObsAndEncounterDataSetDefinition obsDataSetDef = new PatientHistoryObsAndEncounterDataSetDefinition();
+		obsDataSetDef.addColumn(ENCOUNTER_UUID_LABEL, encounterDataLibrary.getUUID(),"", new ObjectFormatter());
+		obsDataSetDef.addColumn(ENCOUNTER_TYPE_UUID_LABEL, new EncounterIdDataDefinition(),"", new EncounterTypeUUIDFromEncounterIdConverter());
+		obsDataSetDef.addColumn(OBS_PROVIDER_LABEL, new ObsIdDataDefinition(),"", new ObsProviderFromIdConverter());
+		obsDataSetDef.addColumn(OBS_DATETIME_LABEL, new ObsDatetimeDataDefinition(), "", new DateConverter());
+		obsDataSetDef.addColumn(OBS_DATATYPE_LABEL, obsDataLibrary.getConceptId(), "", new ConceptDataTypeConverter());
+		obsDataSetDef.addColumn(OBS_NAME_LABEL, obsDataLibrary.getConceptId(), "", new ConceptNameConverter());
+		obsDataSetDef.addColumn(OBS_VALUE_LABEL, new ObsIdDataDefinition(), "", new ObsValueFromIdConverter());
+		obsDataSetDef.addRowFilter(q, null); //Add the filter to include obs for Registration Encounters only
+		obsDataSetDef.addSortCriteria(OBS_DATETIME_LABEL, SortCriteria.SortDirection.DESC);	
+		return obsDataSetDef;
+	}
+		
 	public void delete() {
 		ReportService rs = Context.getService(ReportService.class);
 		for (ReportDesign rd : rs.getAllReportDesigns(false)) {
