@@ -6,14 +6,15 @@
 	<id>${project.parent.artifactId}</id>
 	<name>${project.parent.name}</name>
 	<version>${project.parent.version}</version>
-	<package>${project.parent.groupId}.${project.parent.artifactId}</package>
+	<package>${project.parent.groupId}.${project.parent.artifactId}
+	</package>
 	<author>Mekom Solutions</author>
 	<description>
 		${project.parent.description}
 	</description>
-<!-- 	<updateURL>https://dev.openmrs.org/modules/download/${project.parent.artifactId}/update.rdf</updateURL> -->
+	<!-- <updateURL>https://dev.openmrs.org/modules/download/${project.parent.artifactId}/update.rdf</updateURL> -->
 	<require_version>${openMRSVersion}</require_version>
-	
+
 	<!-- / Module Properties -->
 	<require_modules>
 		<require_module>org.openmrs.module.uiframework</require_module>
@@ -21,23 +22,25 @@
 		<require_module>org.openmrs.module.htmlwidgets</require_module>
 		<require_module>org.openmrs.module.patientsummary</require_module>
 	</require_modules>
-	
-	
+
+
 	<!-- Module Activator -->
-	<activator>${project.parent.groupId}.${project.parent.artifactId}.MKSReportsActivator</activator>
-	
-	
+	<activator>${project.parent.groupId}.${project.parent.artifactId}.MKSReportsActivator
+	</activator>
+
+
 	<!-- Adds link to admin page -->
 	<extension>
 		<point>org.openmrs.admin.list</point>
-		<class>${project.parent.groupId}.${project.parent.artifactId}.extension.html.AdminList</class>
+		<class>${project.parent.groupId}.${project.parent.artifactId}.extension.html.AdminList
+		</class>
 	</extension>
-	
+
 	<!-- Maps hibernate file's, if present -->
 	<mappingFiles>
-				
+
 		MKSReports.hbm.xml
-				
+
 	</mappingFiles>
 
 	<!-- Internationalization -->
@@ -55,6 +58,16 @@
 		<file>messages_es.properties</file>
 	</messages>
 	<!-- /Internationalization -->
+
+	<!-- Global Properties -->
+	<globalProperty>
+		<property>mksreports.registration.encountertype</property>
+		<defaultValue>3e3424bd-6e9d-4c9c-b3a4-f3fee751fe7c</defaultValue>
+		<description>The uuid,name of id of Registration encounter type
+		</description>
+	</globalProperty>
+
+	<!-- /Global Properties -->
 
 </module>
 
