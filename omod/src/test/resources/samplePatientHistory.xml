@@ -1,15 +1,2090 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <patientHistory>
    <demographics>
-      <demographic label="mksrports.patienthistory.demographics.identifier">102PG1</demographic>
       <demographic label="First Name">Somkiet</demographic>
       <demographic label="Last Name">OLAJAK</demographic>
+      <demographic label="Patient Identifier">102PG1</demographic>
       <demographic label="Date of Birth">2002-08-30 00:00:00.0</demographic>
       <demographic label="Current Age">13</demographic>
       <demographic label="Gender">M</demographic>
+      <demographic label="Address">Yor, Boon neua, Phongsaly, Laos</demographic>
+      <demographic label="ETHNIC GROUP MEMBERSHIP">Other Lao</demographic>
+      <demographic label="MAIN LANGUAGE SPOKEN">LAO LANGUAGE</demographic>
    </demographics>
-   <visit location="Lao Friends Hospital for Children" type="Emergency"
+   <visit location="Lao Friends Hospital for Children" type="Inpatient"
           uuid="f93344ef-b067-489d-85dd-094030fd0e5f">
+      <encounter label="Clinical Notes" provider="Noy keopasueth" time="28 Mar 2016 @ 18:53"
+                 uuid="24492200-c91a-44b8-9dbc-9faa521b882c">
+         <obs label="Clinical impression comment" provider="Noy keopasueth" time="18:53:38"
+              type="Text">pt can eat and drinking well during the day, pt no fever and pain, vital sign normal. Passing urine and stool normal.</obs>
+      </encounter>
+      <encounter label="Clinical Notes" provider="Khamthavong Sayavong"
+                 time="28 Mar 2016 @ 17:34"
+                 uuid="fa73d199-6e88-415b-b32f-39c61711210c">
+         <obs label="Clinical impression comment" provider="Khamthavong Sayavong"
+              time="17:34:55"
+              type="Text">Somkiet OLAJAK looks well, no complain of pain, febrile, vital signs stable. &#xD;
+Plan: continue Bactrim, waiting for splint.</obs>
+      </encounter>
+      <encounter label="Vitals" provider="Noy keopasueth" time="28 Mar 2016 @ 16:24"
+                 uuid="7a3e2b85-22dd-47e6-96d9-85a8af7d2336">
+         <obs label="Level of consciousness" provider="Noy keopasueth" time="16:24:03"
+              type="Coded">Awake</obs>
+         <obs label="Temperature (C)" provider="Noy keopasueth" time="16:24:03"
+              type="Numeric">36.5</obs>
+         <obs label="receiving oxygen therapy" provider="Noy keopasueth" time="16:24:03"
+              type="Coded">No</obs>
+         <obs label="Pulse" provider="Noy keopasueth" time="16:24:03" type="Numeric">95.0</obs>
+         <obs label="Blood oxygen saturation" provider="Noy keopasueth" time="16:24:03"
+              type="Numeric">99.0</obs>
+         <obs label="Respiratory rate" provider="Noy keopasueth" time="16:24:03"
+              type="Numeric">20.0</obs>
+         <obs label="Diastolic blood pressure" provider="Noy keopasueth" time="16:24:03"
+              type="Numeric">65.0</obs>
+         <obs label="Systolic blood pressure" provider="Noy keopasueth" time="16:24:03"
+              type="Numeric">100.0</obs>
+         <obs label="INTERCOSTAL RECESSION" provider="Noy keopasueth" time="16:24:03"
+              type="Coded">No</obs>
+         <obs label="blood pressure set" provider="Noy keopasueth" time="16:24:03" type="N/A">65.0, 100.0</obs>
+      </encounter>
+      <encounter label="Vitals" provider="Noy keopasueth" time="28 Mar 2016 @ 12:25"
+                 uuid="56aacbd6-faa9-4360-9b9c-ec8cffba5e6a">
+         <obs label="Diastolic blood pressure" provider="Noy keopasueth" time="12:25:42"
+              type="Numeric">59.0</obs>
+         <obs label="blood pressure set" provider="Noy keopasueth" time="12:25:42" type="N/A">105.0, 59.0</obs>
+         <obs label="Pulse" provider="Noy keopasueth" time="12:25:42" type="Numeric">90.0</obs>
+         <obs label="Level of consciousness" provider="Noy keopasueth" time="12:25:42"
+              type="Coded">Awake</obs>
+         <obs label="Temperature (C)" provider="Noy keopasueth" time="12:25:42"
+              type="Numeric">36.0</obs>
+         <obs label="Blood oxygen saturation" provider="Noy keopasueth" time="12:25:42"
+              type="Numeric">99.0</obs>
+         <obs label="Respiratory rate" provider="Noy keopasueth" time="12:25:42"
+              type="Numeric">20.0</obs>
+         <obs label="Systolic blood pressure" provider="Noy keopasueth" time="12:25:42"
+              type="Numeric">105.0</obs>
+      </encounter>
+      <encounter label="Vitals" provider="Noy keopasueth" time="28 Mar 2016 @ 09:35"
+                 uuid="87a2877e-d571-43ec-8089-1f8c269de8b4">
+         <obs label="Temperature (C)" provider="Noy keopasueth" time="09:35:04"
+              type="Numeric">36.0</obs>
+         <obs label="Blood oxygen saturation" provider="Noy keopasueth" time="09:35:04"
+              type="Numeric">98.0</obs>
+         <obs label="Level of consciousness" provider="Noy keopasueth" time="09:35:04"
+              type="Coded">Awake</obs>
+         <obs label="Diastolic blood pressure" provider="Noy keopasueth" time="09:35:04"
+              type="Numeric">52.0</obs>
+         <obs label="Respiratory rate" provider="Noy keopasueth" time="09:35:04"
+              type="Numeric">20.0</obs>
+         <obs label="Pulse" provider="Noy keopasueth" time="09:35:04" type="Numeric">96.0</obs>
+         <obs label="blood pressure set" provider="Noy keopasueth" time="09:35:04" type="N/A">52.0, 107.0</obs>
+         <obs label="Systolic blood pressure" provider="Noy keopasueth" time="09:35:04"
+              type="Numeric">107.0</obs>
+      </encounter>
+      <encounter label="Clinical Notes" provider="Xay HER" time="28 Mar 2016 @ 06:02"
+                 uuid="f187e2d5-438f-4429-8e85-e883e152c1eb">
+         <obs label="Clinical impression comment" provider="Xay HER" time="06:02:34"
+              type="Text">13 years old with cronic Osteomyelitis. &#xD;
+over night patient look well , no fever no leg pain .&#xD;
+Plan: &#xD;
+1. Oral Bactrim and wait splint</obs>
+      </encounter>
+      <encounter label="Clinical Notes" provider="Maiy Saybourphan" time="28 Mar 2016 @ 05:05"
+                 uuid="c71711a8-8848-4910-a342-7ebd3bafd83f">
+         <obs label="Clinical impression comment" provider="Maiy Saybourphan" time="05:05:45"
+              type="Text">overnigh patient no fever , no pain ,vital signs normol,patient sleeping well , eating and drinking well , urine 2 times and stool 1 time</obs>
+      </encounter>
+      <encounter label="Neurovascular Observation" provider="Maiy Saybourphan"
+                 time="28 Mar 2016 @ 04:19"
+                 uuid="0d13997c-7e5a-4964-b34a-e3f213305990">
+         <obs label="Sensation of Affected Extremity" provider="Maiy Saybourphan"
+              time="04:19:18"
+              type="Coded">Normal sensation</obs>
+         <obs label="skin colour" provider="Maiy Saybourphan" time="04:19:18" type="Coded">pink</obs>
+         <obs label="Movement of affected extremity" provider="Maiy Saybourphan"
+              time="04:19:18"
+              type="Coded">Active movement without pain</obs>
+         <obs label="Surrounding Skin Temperature" provider="Maiy Saybourphan"
+              time="04:19:18"
+              type="Coded">Normal</obs>
+         <obs label="extremity pulse" provider="Maiy Saybourphan" time="04:19:18"
+              type="Coded">strong pulse</obs>
+         <obs label="pain in limb (amount)" provider="Maiy Saybourphan" time="04:19:18"
+              type="Numeric">1.0</obs>
+         <obs label="Capillary filling time (sec)" provider="Maiy Saybourphan"
+              time="04:19:18"
+              type="Numeric">2.0</obs>
+         <obs label="Swelling of affected extremity" provider="Maiy Saybourphan"
+              time="04:19:18"
+              type="Coded">Small</obs>
+      </encounter>
+      <encounter label="Vitals" provider="Maiy Saybourphan" time="28 Mar 2016 @ 04:11"
+                 uuid="4f1fc480-a237-46c1-b584-38179e03d415">
+         <obs label="blood pressure set" provider="Maiy Saybourphan" time="04:11:13"
+              type="N/A">100.0, 43.0</obs>
+         <obs label="Diastolic blood pressure" provider="Maiy Saybourphan" time="04:11:13"
+              type="Numeric">43.0</obs>
+         <obs label="Respiratory rate" provider="Maiy Saybourphan" time="04:11:13"
+              type="Numeric">24.0</obs>
+         <obs label="Systolic blood pressure" provider="Maiy Saybourphan" time="04:11:13"
+              type="Numeric">100.0</obs>
+         <obs label="Blood oxygen saturation" provider="Maiy Saybourphan" time="04:11:13"
+              type="Numeric">95.0</obs>
+         <obs label="Pulse" provider="Maiy Saybourphan" time="04:11:13" type="Numeric">86.0</obs>
+         <obs label="Temperature (C)" provider="Maiy Saybourphan" time="04:11:13"
+              type="Numeric">36.0</obs>
+      </encounter>
+      <encounter label="Vitals" provider="Maiy Saybourphan" time="28 Mar 2016 @ 00:38"
+                 uuid="64bfea5c-ccca-427d-9ea8-a463faae0ef6">
+         <obs label="Temperature (C)" provider="Maiy Saybourphan" time="00:38:55"
+              type="Numeric">36.0</obs>
+         <obs label="Respiratory rate" provider="Maiy Saybourphan" time="00:38:55"
+              type="Numeric">22.0</obs>
+         <obs label="Blood oxygen saturation" provider="Maiy Saybourphan" time="00:38:55"
+              type="Numeric">99.0</obs>
+         <obs label="Systolic blood pressure" provider="Maiy Saybourphan" time="00:38:55"
+              type="Numeric">113.0</obs>
+         <obs label="blood pressure set" provider="Maiy Saybourphan" time="00:38:55"
+              type="N/A">113.0, 62.0</obs>
+         <obs label="receiving oxygen therapy" provider="Maiy Saybourphan" time="00:38:55"
+              type="Coded">No</obs>
+         <obs label="Diastolic blood pressure" provider="Maiy Saybourphan" time="00:38:55"
+              type="Numeric">62.0</obs>
+         <obs label="Pulse" provider="Maiy Saybourphan" time="00:38:55" type="Numeric">78.0</obs>
+      </encounter>
+      <encounter label="Vitals" provider="Maiy Saybourphan" time="27 Mar 2016 @ 19:51"
+                 uuid="f78f826f-adc1-40e3-922c-5e96b006ff2a">
+         <obs label="Pulse" provider="Maiy Saybourphan" time="19:51:40" type="Numeric">80.0</obs>
+         <obs label="Temperature (C)" provider="Maiy Saybourphan" time="19:51:40"
+              type="Numeric">36.2</obs>
+         <obs label="Blood oxygen saturation" provider="Maiy Saybourphan" time="19:51:40"
+              type="Numeric">96.0</obs>
+         <obs label="receiving oxygen therapy" provider="Maiy Saybourphan" time="19:51:40"
+              type="Coded">No</obs>
+         <obs label="Diastolic blood pressure" provider="Maiy Saybourphan" time="19:51:40"
+              type="Numeric">52.0</obs>
+         <obs label="Systolic blood pressure" provider="Maiy Saybourphan" time="19:51:40"
+              type="Numeric">123.0</obs>
+         <obs label="blood pressure set" provider="Maiy Saybourphan" time="19:51:40"
+              type="N/A">52.0, 123.0</obs>
+         <obs label="Respiratory rate" provider="Maiy Saybourphan" time="19:51:40"
+              type="Numeric">22.0</obs>
+         <obs label="Capillary filling time (sec)" provider="Maiy Saybourphan"
+              time="19:51:40"
+              type="Numeric">2.0</obs>
+      </encounter>
+      <encounter label="Clinical Notes" provider="Anousone SOULIYAVONG"
+                 time="27 Mar 2016 @ 17:26"
+                 uuid="b6129e98-995e-4ab4-9eff-db328fdee5e8">
+         <obs label="Clinical impression comment" provider="Anousone SOULIYAVONG"
+              time="17:26:28"
+              type="Text">Airway: no nasal fling , airway clear no sound funny.&#xD;
+Breathing: no difficulty breathing, no indrawing, no cyanosis, RR between 20-24/min. not receiving the oxygen. &#xD;
+Circulation: no fever, strong pules normal, capillary refile under two second. &#xD;
+Dehydration: no diarrhea, eating and drinking well but no stool for four days. passed urine 2-3time for today.</obs>
+      </encounter>
+      <encounter label="Vitals" provider="Anousone SOULIYAVONG" time="27 Mar 2016 @ 17:25"
+                 uuid="cc4c45b2-b0e7-4526-80be-bbcaae591c8b">
+         <obs label="receiving oxygen therapy" provider="Anousone SOULIYAVONG"
+              time="17:25:41"
+              type="Coded">No</obs>
+         <obs label="BREATHING SOUNDS, ABNORMAL" provider="Anousone SOULIYAVONG"
+              time="17:25:41"
+              type="Coded">No</obs>
+         <obs label="Diastolic blood pressure" provider="Anousone SOULIYAVONG"
+              time="17:25:41"
+              type="Numeric">62.0</obs>
+         <obs label="Pulse" provider="Anousone SOULIYAVONG" time="17:25:41" type="Numeric">86.0</obs>
+         <obs label="head bobbing" provider="Anousone SOULIYAVONG" time="17:25:41"
+              type="Coded">No</obs>
+         <obs label="Systolic blood pressure" provider="Anousone SOULIYAVONG" time="17:25:41"
+              type="Numeric">123.0</obs>
+         <obs label="Temperature (C)" provider="Anousone SOULIYAVONG" time="17:25:41"
+              type="Numeric">37.0</obs>
+         <obs label="INTERCOSTAL RECESSION" provider="Anousone SOULIYAVONG" time="17:25:41"
+              type="Coded">No</obs>
+         <obs label="Level of consciousness" provider="Anousone SOULIYAVONG" time="17:25:41"
+              type="Coded">Awake</obs>
+         <obs label="Capillary filling time (sec)" provider="Anousone SOULIYAVONG"
+              time="17:25:41"
+              type="Numeric">1.5</obs>
+         <obs label="Respiratory rate" provider="Anousone SOULIYAVONG" time="17:25:41"
+              type="Numeric">22.0</obs>
+         <obs label="blood pressure set" provider="Anousone SOULIYAVONG" time="17:25:41"
+              type="N/A">123.0, 62.0</obs>
+         <obs label="Blood oxygen saturation" provider="Anousone SOULIYAVONG" time="17:25:41"
+              type="Numeric">99.0</obs>
+         <obs label="NOSTRIL FLARING" provider="Anousone SOULIYAVONG" time="17:25:41"
+              type="Coded">No</obs>
+      </encounter>
+      <encounter label="Clinical Notes" provider="Vilayvone SENKEO" time="27 Mar 2016 @ 12:34"
+                 uuid="c044bebb-0bad-422e-ab0b-0314b3ef0b6b">
+         <obs label="Clinical impression comment" provider="Vilayvone SENKEO" time="12:34:15"
+              type="Text">13 years old with cronic Osteomyelitis. today patient look well but  no puss stool abouut 3 days, we give Lactulose PRN if patient pass stool can stop.&#xD;
+Plan:&#xD;
+1. Oral Bactrim and wait splint.</obs>
+      </encounter>
+      <encounter label="Vitals" provider="Anousone SOULIYAVONG" time="27 Mar 2016 @ 12:19"
+                 uuid="21f15c07-d84c-4aa1-af29-acf9ac0c1a3f">
+         <obs label="Level of consciousness" provider="Anousone SOULIYAVONG" time="12:19:52"
+              type="Coded">Awake</obs>
+         <obs label="INTERCOSTAL RECESSION" provider="Anousone SOULIYAVONG" time="12:19:52"
+              type="Coded">No</obs>
+         <obs label="Diastolic blood pressure" provider="Anousone SOULIYAVONG"
+              time="12:19:52"
+              type="Numeric">58.0</obs>
+         <obs label="Respiratory rate" provider="Anousone SOULIYAVONG" time="12:19:52"
+              type="Numeric">20.0</obs>
+         <obs label="blood pressure set" provider="Anousone SOULIYAVONG" time="12:19:52"
+              type="N/A">110.0, 58.0</obs>
+         <obs label="Systolic blood pressure" provider="Anousone SOULIYAVONG" time="12:19:52"
+              type="Numeric">110.0</obs>
+         <obs label="Temperature (C)" provider="Anousone SOULIYAVONG" time="12:19:52"
+              type="Numeric">36.1</obs>
+         <obs label="receiving oxygen therapy" provider="Anousone SOULIYAVONG"
+              time="12:19:52"
+              type="Coded">No</obs>
+         <obs label="Blood oxygen saturation" provider="Anousone SOULIYAVONG" time="12:19:52"
+              type="Numeric">98.0</obs>
+         <obs label="Pulse" provider="Anousone SOULIYAVONG" time="12:19:52" type="Numeric">76.0</obs>
+      </encounter>
+      <encounter label="Vitals" provider="Anousone SOULIYAVONG" time="27 Mar 2016 @ 09:18"
+                 uuid="e4e11496-6ab2-451b-8bd5-a3080771931d">
+         <obs label="Capillary filling time (sec)" provider="Anousone SOULIYAVONG"
+              time="09:18:30"
+              type="Numeric">1.5</obs>
+         <obs label="Diastolic blood pressure" provider="Anousone SOULIYAVONG"
+              time="09:18:30"
+              type="Numeric">62.0</obs>
+         <obs label="Level of consciousness" provider="Anousone SOULIYAVONG" time="09:18:30"
+              type="Coded">Awake</obs>
+         <obs label="receiving oxygen therapy" provider="Anousone SOULIYAVONG"
+              time="09:18:30"
+              type="Coded">No</obs>
+         <obs label="Temperature (C)" provider="Anousone SOULIYAVONG" time="09:18:30"
+              type="Numeric">36.7</obs>
+         <obs label="Pulse" provider="Anousone SOULIYAVONG" time="09:18:30" type="Numeric">80.0</obs>
+         <obs label="INTERCOSTAL RECESSION" provider="Anousone SOULIYAVONG" time="09:18:30"
+              type="Coded">No</obs>
+         <obs label="Respiratory rate" provider="Anousone SOULIYAVONG" time="09:18:30"
+              type="Numeric">22.0</obs>
+         <obs label="Blood oxygen saturation" provider="Anousone SOULIYAVONG" time="09:18:30"
+              type="Numeric">98.0</obs>
+         <obs label="blood pressure set" provider="Anousone SOULIYAVONG" time="09:18:30"
+              type="N/A">62.0, 127.0</obs>
+         <obs label="Systolic blood pressure" provider="Anousone SOULIYAVONG" time="09:18:30"
+              type="Numeric">127.0</obs>
+      </encounter>
+      <encounter label="Clinical Notes" provider="Maiy Saybourphan" time="27 Mar 2016 @ 07:14"
+                 uuid="ac0563e3-29b3-49a1-8ff1-4fcd74868ebf">
+         <obs label="Clinical impression comment" provider="Maiy Saybourphan" time="07:14:00"
+              type="Text">Overnigh patient no pain , no fever eating and drinking well ,vital signs normol ,sleeping well ,urne 2 times no stool 3 days,</obs>
+      </encounter>
+      <encounter label="Clinical Notes" provider="Xay HER" time="27 Mar 2016 @ 06:21"
+                 uuid="b60f4fff-c9b5-4563-a915-be99f880c47e">
+         <obs label="Clinical impression comment" provider="Xay HER" time="06:21:23"
+              type="Text">Male 13 year day #10 admitted in IPD with chronic osteomyelitis(transverse fracture of lower end femur &#xD;
+over night  he is stable , no complaints of pain, good appetite, no has fever &#xD;
+Plan &#xD;
+- continue bactrim &#xD;
+-New splint and return home &#xD;
+-come back mid May for Dr Tom consult</obs>
+      </encounter>
+      <encounter label="Vitals" provider="Maiy Saybourphan" time="27 Mar 2016 @ 04:51"
+                 uuid="1c82c05f-c4fa-4822-8ad7-8b4410469998">
+         <obs label="Blood oxygen saturation" provider="Maiy Saybourphan" time="04:51:38"
+              type="Numeric">97.0</obs>
+         <obs label="receiving oxygen therapy" provider="Maiy Saybourphan" time="04:51:38"
+              type="Coded">No</obs>
+         <obs label="Capillary filling time (sec)" provider="Maiy Saybourphan"
+              time="04:51:38"
+              type="Numeric">2.0</obs>
+         <obs label="Pulse" provider="Maiy Saybourphan" time="04:51:38" type="Numeric">90.0</obs>
+         <obs label="blood pressure set" provider="Maiy Saybourphan" time="04:51:38"
+              type="N/A">65.0, 113.0</obs>
+         <obs label="Respiratory rate" provider="Maiy Saybourphan" time="04:51:38"
+              type="Numeric">20.0</obs>
+         <obs label="Temperature (C)" provider="Maiy Saybourphan" time="04:51:38"
+              type="Numeric">36.0</obs>
+         <obs label="Systolic blood pressure" provider="Maiy Saybourphan" time="04:51:38"
+              type="Numeric">113.0</obs>
+         <obs label="Diastolic blood pressure" provider="Maiy Saybourphan" time="04:51:38"
+              type="Numeric">65.0</obs>
+      </encounter>
+      <encounter label="Neurovascular Observation" provider="Maiy Saybourphan"
+                 time="27 Mar 2016 @ 01:21"
+                 uuid="f63975dd-4808-4bac-901e-fe306fd50fbb">
+         <obs label="Movement of affected extremity" provider="Maiy Saybourphan"
+              time="01:21:12"
+              type="Coded">Active movement with pain</obs>
+         <obs label="Capillary filling time (sec)" provider="Maiy Saybourphan"
+              time="01:21:12"
+              type="Numeric">2.0</obs>
+         <obs label="Surrounding Skin Temperature" provider="Maiy Saybourphan"
+              time="01:21:12"
+              type="Coded">Normal</obs>
+         <obs label="pain in limb (amount)" provider="Maiy Saybourphan" time="01:21:12"
+              type="Numeric">1.0</obs>
+         <obs label="Sensation of Affected Extremity" provider="Maiy Saybourphan"
+              time="01:21:12"
+              type="Coded">Normal sensation</obs>
+         <obs label="skin colour" provider="Maiy Saybourphan" time="01:21:12" type="Coded">pink</obs>
+         <obs label="extremity pulse" provider="Maiy Saybourphan" time="01:21:12"
+              type="Coded">strong pulse</obs>
+         <obs label="Swelling of affected extremity" provider="Maiy Saybourphan"
+              time="01:21:12"
+              type="Coded">Small</obs>
+      </encounter>
+      <encounter label="Vitals" provider="Maiy Saybourphan" time="27 Mar 2016 @ 01:16"
+                 uuid="2ed35242-462d-4ca5-b62d-0b023864cc8a">
+         <obs label="Capillary filling time (sec)" provider="Maiy Saybourphan"
+              time="01:16:22"
+              type="Numeric">2.0</obs>
+         <obs label="Diastolic blood pressure" provider="Maiy Saybourphan" time="01:16:22"
+              type="Numeric">53.0</obs>
+         <obs label="Systolic blood pressure" provider="Maiy Saybourphan" time="01:16:22"
+              type="Numeric">115.0</obs>
+         <obs label="Blood oxygen saturation" provider="Maiy Saybourphan" time="01:16:22"
+              type="Numeric">98.0</obs>
+         <obs label="receiving oxygen therapy" provider="Maiy Saybourphan" time="01:16:22"
+              type="Coded">No</obs>
+         <obs label="Pulse" provider="Maiy Saybourphan" time="01:16:22" type="Numeric">78.0</obs>
+         <obs label="Temperature (C)" provider="Maiy Saybourphan" time="01:16:22"
+              type="Numeric">36.8</obs>
+         <obs label="blood pressure set" provider="Maiy Saybourphan" time="01:16:22"
+              type="N/A">53.0, 115.0</obs>
+         <obs label="Respiratory rate" provider="Maiy Saybourphan" time="01:16:22"
+              type="Numeric">20.0</obs>
+      </encounter>
+      <encounter label="Vitals" provider="Maiy Saybourphan" time="26 Mar 2016 @ 20:37"
+                 uuid="6951a42b-3b25-450f-a329-be9ccf107b83">
+         <obs label="Systolic blood pressure" provider="Maiy Saybourphan" time="20:37:15"
+              type="Numeric">95.0</obs>
+         <obs label="Blood oxygen saturation" provider="Maiy Saybourphan" time="20:37:15"
+              type="Numeric">96.0</obs>
+         <obs label="Respiratory rate" provider="Maiy Saybourphan" time="20:37:15"
+              type="Numeric">22.0</obs>
+         <obs label="Pulse" provider="Maiy Saybourphan" time="20:37:15" type="Numeric">84.0</obs>
+         <obs label="Temperature (C)" provider="Maiy Saybourphan" time="20:37:15"
+              type="Numeric">36.1</obs>
+         <obs label="blood pressure set" provider="Maiy Saybourphan" time="20:37:15"
+              type="N/A">46.0, 95.0</obs>
+         <obs label="Diastolic blood pressure" provider="Maiy Saybourphan" time="20:37:15"
+              type="Numeric">46.0</obs>
+      </encounter>
+      <encounter label="Clinical Notes" provider="Bouakhan VACHOOKER" time="26 Mar 2016 @ 17:14"
+                 uuid="67c60d23-d01d-45a5-a2c6-83ae5da0b48b">
+         <obs label="Clinical impression comment" provider="Bouakhan VACHOOKER"
+              time="17:14:02"
+              type="Text">today patient no fever , no pain , no cough , eating and drinking well , vitalsign normal , passed urine 2 times and no stool .</obs>
+      </encounter>
+      <encounter label="Neurovascular Observation" provider="Bouakhan VACHOOKER"
+                 time="26 Mar 2016 @ 17:01"
+                 uuid="53b94720-b17c-4042-9a95-7bd5004ed8f5">
+         <obs label="pain in limb (amount)" provider="Bouakhan VACHOOKER" time="17:01:21"
+              type="Numeric">1.0</obs>
+         <obs label="Movement of affected extremity" provider="Bouakhan VACHOOKER"
+              time="17:01:21"
+              type="Coded">Active movement without pain</obs>
+         <obs label="extremity pulse" provider="Bouakhan VACHOOKER" time="17:01:21"
+              type="Coded">strong pulse</obs>
+         <obs label="skin colour" provider="Bouakhan VACHOOKER" time="17:01:21" type="Coded">pink</obs>
+         <obs label="Capillary filling time (sec)" provider="Bouakhan VACHOOKER"
+              time="17:01:21"
+              type="Numeric">1.0</obs>
+         <obs label="Swelling of affected extremity" provider="Bouakhan VACHOOKER"
+              time="17:01:21"
+              type="Coded">Small</obs>
+         <obs label="Sensation of Affected Extremity" provider="Bouakhan VACHOOKER"
+              time="17:01:21"
+              type="Coded">Normal sensation</obs>
+         <obs label="Surrounding Skin Temperature" provider="Bouakhan VACHOOKER"
+              time="17:01:21"
+              type="Coded">SKIN COLD TO TOUCH</obs>
+      </encounter>
+      <encounter label="Vitals" provider="Bouakhan VACHOOKER" time="26 Mar 2016 @ 17:00"
+                 uuid="ff1dea38-5d47-4ed1-9732-babb0d56bf28">
+         <obs label="Temperature (C)" provider="Bouakhan VACHOOKER" time="17:00:14"
+              type="Numeric">36.8</obs>
+         <obs label="Systolic blood pressure" provider="Bouakhan VACHOOKER" time="17:00:14"
+              type="Numeric">100.0</obs>
+         <obs label="Pulse" provider="Bouakhan VACHOOKER" time="17:00:14" type="Numeric">85.0</obs>
+         <obs label="Level of consciousness" provider="Bouakhan VACHOOKER" time="17:00:14"
+              type="Coded">Awake</obs>
+         <obs label="Respiratory rate" provider="Bouakhan VACHOOKER" time="17:00:14"
+              type="Numeric">22.0</obs>
+         <obs label="receiving oxygen therapy" provider="Bouakhan VACHOOKER" time="17:00:14"
+              type="Coded">No</obs>
+         <obs label="Diastolic blood pressure" provider="Bouakhan VACHOOKER" time="17:00:14"
+              type="Numeric">56.0</obs>
+         <obs label="Capillary filling time (sec)" provider="Bouakhan VACHOOKER"
+              time="17:00:14"
+              type="Numeric">2.0</obs>
+         <obs label="Blood oxygen saturation" provider="Bouakhan VACHOOKER" time="17:00:14"
+              type="Numeric">99.0</obs>
+         <obs label="blood pressure set" provider="Bouakhan VACHOOKER" time="17:00:14"
+              type="N/A">100.0, 56.0</obs>
+      </encounter>
+      <encounter label="Vitals" provider="Bouakhan VACHOOKER" time="26 Mar 2016 @ 13:02"
+                 uuid="85c16edd-2c17-4fc5-a09e-3cb3b10ec8df">
+         <obs label="receiving oxygen therapy" provider="Bouakhan VACHOOKER" time="13:02:24"
+              type="Coded">No</obs>
+         <obs label="Blood oxygen saturation" provider="Bouakhan VACHOOKER" time="13:02:24"
+              type="Numeric">99.0</obs>
+         <obs label="blood pressure set" provider="Bouakhan VACHOOKER" time="13:02:24"
+              type="N/A">106.0, 55.0</obs>
+         <obs label="Diastolic blood pressure" provider="Bouakhan VACHOOKER" time="13:02:24"
+              type="Numeric">55.0</obs>
+         <obs label="Systolic blood pressure" provider="Bouakhan VACHOOKER" time="13:02:24"
+              type="Numeric">106.0</obs>
+         <obs label="Capillary filling time (sec)" provider="Bouakhan VACHOOKER"
+              time="13:02:24"
+              type="Numeric">2.0</obs>
+         <obs label="Respiratory rate" provider="Bouakhan VACHOOKER" time="13:02:24"
+              type="Numeric">22.0</obs>
+         <obs label="Level of consciousness" provider="Bouakhan VACHOOKER" time="13:02:24"
+              type="Coded">Awake</obs>
+         <obs label="Pulse" provider="Bouakhan VACHOOKER" time="13:02:24" type="Numeric">80.0</obs>
+         <obs label="Temperature (C)" provider="Bouakhan VACHOOKER" time="13:02:24"
+              type="Numeric">36.1</obs>
+      </encounter>
+      <encounter label="Vitals" provider="Bouakhan VACHOOKER" time="26 Mar 2016 @ 09:19"
+                 uuid="914173a4-0a10-4ffd-aac1-b29205c56e6d">
+         <obs label="Level of consciousness" provider="Bouakhan VACHOOKER" time="09:19:52"
+              type="Coded">Awake</obs>
+         <obs label="Systolic blood pressure" provider="Bouakhan VACHOOKER" time="09:19:52"
+              type="Numeric">109.0</obs>
+         <obs label="Pulse" provider="Bouakhan VACHOOKER" time="09:19:52" type="Numeric">82.0</obs>
+         <obs label="Capillary filling time (sec)" provider="Bouakhan VACHOOKER"
+              time="09:19:52"
+              type="Numeric">2.0</obs>
+         <obs label="Blood oxygen saturation" provider="Bouakhan VACHOOKER" time="09:19:52"
+              type="Numeric">99.0</obs>
+         <obs label="receiving oxygen therapy" provider="Bouakhan VACHOOKER" time="09:19:52"
+              type="Coded">No</obs>
+         <obs label="Temperature (C)" provider="Bouakhan VACHOOKER" time="09:19:52"
+              type="Numeric">36.0</obs>
+         <obs label="Respiratory rate" provider="Bouakhan VACHOOKER" time="09:19:52"
+              type="Numeric">22.0</obs>
+         <obs label="Diastolic blood pressure" provider="Bouakhan VACHOOKER" time="09:19:52"
+              type="Numeric">64.0</obs>
+         <obs label="blood pressure set" provider="Bouakhan VACHOOKER" time="09:19:52"
+              type="N/A">109.0, 64.0</obs>
+      </encounter>
+      <encounter label="Clinical Notes" provider="Somchittana Soulalay"
+                 time="26 Mar 2016 @ 08:38"
+                 uuid="0ae6e944-7ccf-4185-b3b5-b044e501d51e">
+         <obs label="Clinical impression comment" provider="Somchittana Soulalay"
+              time="08:38:11"
+              type="Text">13 y/o boy was admitted in IPD with chronic osteomyelitis(transverse fracture of lower end femur&#xD;
+This morning he is stable , no complaints of pain, good appetite, no has fever&#xD;
+Plan&#xD;
+- continue bactrim &#xD;
+-New splint  and return home&#xD;
+-come back mid May for Dr Tom  consult</obs>
+      </encounter>
+      <encounter label="Clinical Notes" provider="Sounisa THONGMEEXAY"
+                 time="26 Mar 2016 @ 05:25"
+                 uuid="ff2083ab-0b7d-422b-a54e-8fab80394487">
+         <obs label="Clinical impression comment" provider="Sounisa THONGMEEXAY"
+              time="05:25:16"
+              type="Text">over night patient sleep well no pain vitalsign normal he no urie no stool.</obs>
+      </encounter>
+      <encounter label="Vitals" provider="Sounisa THONGMEEXAY" time="26 Mar 2016 @ 05:00"
+                 uuid="73039ac5-0d96-4600-b540-a89471506a9c">
+         <obs label="blood pressure set" provider="Sounisa THONGMEEXAY" time="05:00:41"
+              type="N/A">110.0, 60.0</obs>
+         <obs label="Diastolic blood pressure" provider="Sounisa THONGMEEXAY" time="05:00:41"
+              type="Numeric">60.0</obs>
+         <obs label="Respiratory rate" provider="Sounisa THONGMEEXAY" time="05:00:41"
+              type="Numeric">20.0</obs>
+         <obs label="Systolic blood pressure" provider="Sounisa THONGMEEXAY" time="05:00:41"
+              type="Numeric">110.0</obs>
+         <obs label="Pulse" provider="Sounisa THONGMEEXAY" time="05:00:41" type="Numeric">82.0</obs>
+         <obs label="Blood oxygen saturation" provider="Sounisa THONGMEEXAY" time="05:00:41"
+              type="Numeric">98.0</obs>
+         <obs label="Temperature (C)" provider="Sounisa THONGMEEXAY" time="05:00:41"
+              type="Numeric">36.5</obs>
+      </encounter>
+      <encounter label="Vitals" provider="Sounisa THONGMEEXAY" time="26 Mar 2016 @ 00:29"
+                 uuid="62559e10-6b7a-4d59-95c9-a3cc28faf9a1">
+         <obs label="blood pressure set" provider="Sounisa THONGMEEXAY" time="00:29:36"
+              type="N/A">112.0, 61.0</obs>
+         <obs label="Temperature (C)" provider="Sounisa THONGMEEXAY" time="00:29:36"
+              type="Numeric">36.3</obs>
+         <obs label="Blood oxygen saturation" provider="Sounisa THONGMEEXAY" time="00:29:36"
+              type="Numeric">98.0</obs>
+         <obs label="Diastolic blood pressure" provider="Sounisa THONGMEEXAY" time="00:29:36"
+              type="Numeric">61.0</obs>
+         <obs label="Respiratory rate" provider="Sounisa THONGMEEXAY" time="00:29:36"
+              type="Numeric">20.0</obs>
+         <obs label="Pulse" provider="Sounisa THONGMEEXAY" time="00:29:36" type="Numeric">80.0</obs>
+         <obs label="Systolic blood pressure" provider="Sounisa THONGMEEXAY" time="00:29:36"
+              type="Numeric">112.0</obs>
+      </encounter>
+      <encounter label="Vitals" provider="Sounisa THONGMEEXAY" time="25 Mar 2016 @ 20:07"
+                 uuid="8319a5b4-b217-411e-8d5b-e19f7eda2915">
+         <obs label="Diastolic blood pressure" provider="Sounisa THONGMEEXAY" time="20:07:24"
+              type="Numeric">58.0</obs>
+         <obs label="Systolic blood pressure" provider="Sounisa THONGMEEXAY" time="20:07:24"
+              type="Numeric">116.0</obs>
+         <obs label="blood pressure set" provider="Sounisa THONGMEEXAY" time="20:07:24"
+              type="N/A">116.0, 58.0</obs>
+         <obs label="Respiratory rate" provider="Sounisa THONGMEEXAY" time="20:07:24"
+              type="Numeric">20.0</obs>
+         <obs label="Temperature (C)" provider="Sounisa THONGMEEXAY" time="20:07:24"
+              type="Numeric">36.5</obs>
+         <obs label="Blood oxygen saturation" provider="Sounisa THONGMEEXAY" time="20:07:24"
+              type="Numeric">99.0</obs>
+         <obs label="Pulse" provider="Sounisa THONGMEEXAY" time="20:07:24" type="Numeric">78.0</obs>
+      </encounter>
+      <encounter label="Clinical Notes" provider="Bouakhan VACHOOKER" time="25 Mar 2016 @ 17:49"
+                 uuid="96242220-f0e9-4d1c-a04a-0c549f9e2a0d">
+         <obs label="Clinical impression comment" provider="Bouakhan VACHOOKER"
+              time="17:49:53"
+              type="Text">today patient no fever , no pain , no cough , eating and drinking well , vital sign , passed urine 2 times and no stool .</obs>
+      </encounter>
+      <encounter label="Vitals" provider="Bouakhan VACHOOKER" time="25 Mar 2016 @ 16:35"
+                 uuid="6f189ee2-7e52-4868-b991-4e2256545557">
+         <obs label="blood pressure set" provider="Bouakhan VACHOOKER" time="16:35:04"
+              type="N/A">64.0, 110.0</obs>
+         <obs label="Diastolic blood pressure" provider="Bouakhan VACHOOKER" time="16:35:04"
+              type="Numeric">64.0</obs>
+         <obs label="Systolic blood pressure" provider="Bouakhan VACHOOKER" time="16:35:04"
+              type="Numeric">110.0</obs>
+         <obs label="Pulse" provider="Bouakhan VACHOOKER" time="16:35:04" type="Numeric">90.0</obs>
+         <obs label="Blood oxygen saturation" provider="Bouakhan VACHOOKER" time="16:35:04"
+              type="Numeric">99.0</obs>
+         <obs label="Capillary filling time (sec)" provider="Bouakhan VACHOOKER"
+              time="16:35:04"
+              type="Numeric">2.0</obs>
+         <obs label="Respiratory rate" provider="Bouakhan VACHOOKER" time="16:35:04"
+              type="Numeric">22.0</obs>
+         <obs label="Level of consciousness" provider="Bouakhan VACHOOKER" time="16:35:04"
+              type="Coded">Awake</obs>
+         <obs label="Temperature (C)" provider="Bouakhan VACHOOKER" time="16:35:04"
+              type="Numeric">36.2</obs>
+         <obs label="receiving oxygen therapy" provider="Bouakhan VACHOOKER" time="16:35:04"
+              type="Coded">No</obs>
+      </encounter>
+      <encounter label="Neurovascular Observation" provider="Bouakhan VACHOOKER"
+                 time="25 Mar 2016 @ 13:29"
+                 uuid="bd7d6136-b8a3-40fa-aea0-2c1ad80531f3">
+         <obs label="Swelling of affected extremity" provider="Bouakhan VACHOOKER"
+              time="13:29:03"
+              type="Coded">Small</obs>
+         <obs label="Movement of affected extremity" provider="Bouakhan VACHOOKER"
+              time="13:29:03"
+              type="Coded">Active movement without pain</obs>
+         <obs label="Capillary filling time (sec)" provider="Bouakhan VACHOOKER"
+              time="13:29:03"
+              type="Numeric">1.0</obs>
+         <obs label="extremity pulse" provider="Bouakhan VACHOOKER" time="13:29:03"
+              type="Coded">strong pulse</obs>
+         <obs label="Surrounding Skin Temperature" provider="Bouakhan VACHOOKER"
+              time="13:29:03"
+              type="Coded">SKIN COLD TO TOUCH</obs>
+         <obs label="pain in limb (amount)" provider="Bouakhan VACHOOKER" time="13:29:03"
+              type="Numeric">1.0</obs>
+         <obs label="Sensation of Affected Extremity" provider="Bouakhan VACHOOKER"
+              time="13:29:03"
+              type="Coded">Normal sensation</obs>
+         <obs label="skin colour" provider="Bouakhan VACHOOKER" time="13:29:03" type="Coded">pink</obs>
+      </encounter>
+      <encounter label="Vitals" provider="Bouakhan VACHOOKER" time="25 Mar 2016 @ 13:26"
+                 uuid="815399a8-60d0-449b-ba0b-e0844bd74ac1">
+         <obs label="Pulse" provider="Bouakhan VACHOOKER" time="13:26:26" type="Numeric">93.0</obs>
+         <obs label="blood pressure set" provider="Bouakhan VACHOOKER" time="13:26:26"
+              type="N/A">101.0, 58.0</obs>
+         <obs label="Diastolic blood pressure" provider="Bouakhan VACHOOKER" time="13:26:26"
+              type="Numeric">58.0</obs>
+         <obs label="Level of consciousness" provider="Bouakhan VACHOOKER" time="13:26:26"
+              type="Coded">Awake</obs>
+         <obs label="Systolic blood pressure" provider="Bouakhan VACHOOKER" time="13:26:26"
+              type="Numeric">101.0</obs>
+         <obs label="Temperature (C)" provider="Bouakhan VACHOOKER" time="13:26:26"
+              type="Numeric">36.0</obs>
+         <obs label="Blood oxygen saturation" provider="Bouakhan VACHOOKER" time="13:26:26"
+              type="Numeric">99.0</obs>
+         <obs label="Respiratory rate" provider="Bouakhan VACHOOKER" time="13:26:26"
+              type="Numeric">22.0</obs>
+         <obs label="Capillary filling time (sec)" provider="Bouakhan VACHOOKER"
+              time="13:26:26"
+              type="Numeric">2.0</obs>
+         <obs label="receiving oxygen therapy" provider="Bouakhan VACHOOKER" time="13:26:26"
+              type="Coded">No</obs>
+      </encounter>
+      <encounter label="Clinical Notes" provider="Somchittana Soulalay"
+                 time="25 Mar 2016 @ 13:17"
+                 uuid="cd3d38e1-2058-4b8f-8910-bab04c277bae">
+         <obs label="Clinical impression comment" provider="Somchittana Soulalay"
+              time="13:17:50"
+              type="Text">13 y/o  male was admitted in IPD day 10 with Chronic ostemyelitis. &#xD;
+Today he ha complaints of  pain on the  L thigh  when he try to move , orm turn round , no  has fever. &#xD;
+Plan: &#xD;
+1.continue medication. &#xD;
+2.Waiting splint for 2 weeks. &#xD;
+3.Continue physical therapy.</obs>
+      </encounter>
+      <encounter label="Vitals" provider="Bouakhan VACHOOKER" time="25 Mar 2016 @ 08:15"
+                 uuid="540750f3-8596-49dd-adae-bca309ef1cb0">
+         <obs label="blood pressure set" provider="Bouakhan VACHOOKER" time="08:15:07"
+              type="N/A">56.0, 116.0</obs>
+         <obs label="Level of consciousness" provider="Bouakhan VACHOOKER" time="08:15:07"
+              type="Coded">Awake</obs>
+         <obs label="Pulse" provider="Bouakhan VACHOOKER" time="08:15:07" type="Numeric">86.0</obs>
+         <obs label="Systolic blood pressure" provider="Bouakhan VACHOOKER" time="08:15:07"
+              type="Numeric">116.0</obs>
+         <obs label="Temperature (C)" provider="Bouakhan VACHOOKER" time="08:15:07"
+              type="Numeric">36.2</obs>
+         <obs label="receiving oxygen therapy" provider="Bouakhan VACHOOKER" time="08:15:07"
+              type="Coded">No</obs>
+         <obs label="Respiratory rate" provider="Bouakhan VACHOOKER" time="08:15:07"
+              type="Numeric">22.0</obs>
+         <obs label="Blood oxygen saturation" provider="Bouakhan VACHOOKER" time="08:15:07"
+              type="Numeric">99.0</obs>
+         <obs label="Capillary filling time (sec)" provider="Bouakhan VACHOOKER"
+              time="08:15:07"
+              type="Numeric">2.0</obs>
+         <obs label="Diastolic blood pressure" provider="Bouakhan VACHOOKER" time="08:15:07"
+              type="Numeric">56.0</obs>
+      </encounter>
+      <encounter label="Neurovascular Observation" provider="Kamalgeet HUNDAL"
+                 time="25 Mar 2016 @ 07:40"
+                 uuid="7fefc537-0d64-4a2a-8ade-361ef0c13bed">
+         <obs label="Swelling of affected extremity" provider="Kamalgeet HUNDAL"
+              time="07:40:10"
+              type="Coded">Small</obs>
+         <obs label="Capillary filling time (sec)" provider="Kamalgeet HUNDAL"
+              time="07:40:10"
+              type="Numeric">2.0</obs>
+         <obs label="pain in limb (amount)" provider="Kamalgeet HUNDAL" time="07:40:10"
+              type="Numeric">2.0</obs>
+         <obs label="Movement of affected extremity" provider="Kamalgeet HUNDAL"
+              time="07:40:10"
+              type="Coded">Active movement without pain</obs>
+         <obs label="skin colour" provider="Kamalgeet HUNDAL" time="07:40:10" type="Coded">pink</obs>
+         <obs label="Surrounding Skin Temperature" provider="Kamalgeet HUNDAL"
+              time="07:40:10"
+              type="Coded">SKIN COLD TO TOUCH</obs>
+         <obs label="extremity pulse" provider="Kamalgeet HUNDAL" time="07:40:10"
+              type="Coded">strong pulse</obs>
+         <obs label="Sensation of Affected Extremity" provider="Kamalgeet HUNDAL"
+              time="07:40:10"
+              type="Coded">Normal sensation</obs>
+      </encounter>
+      <encounter label="Clinical Notes" provider="Dorkmai SAINYAKHAMSIN"
+                 time="25 Mar 2016 @ 06:48"
+                 uuid="18539480-6d9d-4faf-af24-0d39de2da9f8">
+         <obs label="Clinical impression comment" provider="Dorkmai SAINYAKHAMSIN"
+              time="06:48:16"
+              type="Text">Male 13 yo with Chronic ostemyelitis. Day 9 IPD today he has pain thigh L when removed not removed not pain. No fever. &#xD;
+Plan: &#xD;
+1.continue medication. &#xD;
+2.Waiting splint for 2 weeks. &#xD;
+3.Continue physical therapy.&#xD;
+( If discharge will comeback f/u May ).</obs>
+      </encounter>
+      <encounter label="Clinical Notes" provider="Sounisa THONGMEEXAY"
+                 time="25 Mar 2016 @ 06:10"
+                 uuid="1920ccf1-f76f-40eb-ab8c-f76e047cb453">
+         <obs label="Clinical impression comment" provider="Sounisa THONGMEEXAY"
+              time="06:10:08"
+              type="Text">over night patient sleep well no pain no fever vitalsign normal he no urine and stool.</obs>
+      </encounter>
+      <encounter label="Vitals" provider="Sounisa THONGMEEXAY" time="25 Mar 2016 @ 05:18"
+                 uuid="a815f1bb-9622-4cbb-88a4-b9016aa413b7">
+         <obs label="Respiratory rate" provider="Sounisa THONGMEEXAY" time="05:18:03"
+              type="Numeric">20.0</obs>
+         <obs label="Blood oxygen saturation" provider="Sounisa THONGMEEXAY" time="05:18:03"
+              type="Numeric">98.0</obs>
+         <obs label="blood pressure set" provider="Sounisa THONGMEEXAY" time="05:18:03"
+              type="N/A">64.0, 116.0</obs>
+         <obs label="Pulse" provider="Sounisa THONGMEEXAY" time="05:18:03" type="Numeric">60.0</obs>
+         <obs label="Temperature (C)" provider="Sounisa THONGMEEXAY" time="05:18:03"
+              type="Numeric">36.0</obs>
+         <obs label="Diastolic blood pressure" provider="Sounisa THONGMEEXAY" time="05:18:03"
+              type="Numeric">64.0</obs>
+         <obs label="Systolic blood pressure" provider="Sounisa THONGMEEXAY" time="05:18:03"
+              type="Numeric">116.0</obs>
+      </encounter>
+      <encounter label="Vitals" provider="Sounisa THONGMEEXAY" time="24 Mar 2016 @ 23:56"
+                 uuid="a77e675b-cdff-44a2-aa59-e88dd4ad8bf3">
+         <obs label="Pulse" provider="Sounisa THONGMEEXAY" time="23:56:21" type="Numeric">84.0</obs>
+         <obs label="Respiratory rate" provider="Sounisa THONGMEEXAY" time="23:56:21"
+              type="Numeric">20.0</obs>
+         <obs label="Systolic blood pressure" provider="Sounisa THONGMEEXAY" time="23:56:21"
+              type="Numeric">110.0</obs>
+         <obs label="Diastolic blood pressure" provider="Sounisa THONGMEEXAY" time="23:56:21"
+              type="Numeric">60.0</obs>
+         <obs label="Blood oxygen saturation" provider="Sounisa THONGMEEXAY" time="23:56:21"
+              type="Numeric">97.0</obs>
+         <obs label="blood pressure set" provider="Sounisa THONGMEEXAY" time="23:56:21"
+              type="N/A">110.0, 60.0</obs>
+         <obs label="Temperature (C)" provider="Sounisa THONGMEEXAY" time="23:56:21"
+              type="Numeric">36.5</obs>
+      </encounter>
+      <encounter label="Vitals" provider="Sounisa THONGMEEXAY" time="24 Mar 2016 @ 20:22"
+                 uuid="28a8fe07-997a-437b-9841-4066c9d77c77">
+         <obs label="blood pressure set" provider="Sounisa THONGMEEXAY" time="20:22:55"
+              type="N/A">116.0, 57.0</obs>
+         <obs label="Diastolic blood pressure" provider="Sounisa THONGMEEXAY" time="20:22:55"
+              type="Numeric">57.0</obs>
+         <obs label="Systolic blood pressure" provider="Sounisa THONGMEEXAY" time="20:22:55"
+              type="Numeric">116.0</obs>
+         <obs label="Blood oxygen saturation" provider="Sounisa THONGMEEXAY" time="20:22:55"
+              type="Numeric">98.0</obs>
+         <obs label="Temperature (C)" provider="Sounisa THONGMEEXAY" time="20:22:55"
+              type="Numeric">36.5</obs>
+         <obs label="Pulse" provider="Sounisa THONGMEEXAY" time="20:22:55" type="Numeric">86.0</obs>
+         <obs label="Respiratory rate" provider="Sounisa THONGMEEXAY" time="20:22:55"
+              type="Numeric">20.0</obs>
+      </encounter>
+      <encounter label="Neurovascular Observation" provider="Naly YACHUNU"
+                 time="24 Mar 2016 @ 17:33"
+                 uuid="e07d3476-a3da-48f7-8b72-671ddcd8e6b3">
+         <obs label="pain in limb (amount)" provider="Naly YACHUNU" time="17:33:54"
+              type="Numeric">1.0</obs>
+         <obs label="Sensation of Affected Extremity" provider="Naly YACHUNU" time="17:33:54"
+              type="Coded">Normal sensation</obs>
+         <obs label="Surrounding Skin Temperature" provider="Naly YACHUNU" time="17:33:54"
+              type="Coded">Normal</obs>
+         <obs label="Clinical impression comment" provider="Naly YACHUNU" time="17:33:54"
+              type="Text">no pain</obs>
+         <obs label="extremity pulse" provider="Naly YACHUNU" time="17:33:54" type="Coded">strong pulse</obs>
+         <obs label="Movement of affected extremity" provider="Naly YACHUNU" time="17:33:54"
+              type="Coded">Active movement without pain</obs>
+         <obs label="skin colour" provider="Naly YACHUNU" time="17:33:54" type="Coded">pink</obs>
+         <obs label="Capillary filling time (sec)" provider="Naly YACHUNU" time="17:33:54"
+              type="Numeric">3.0</obs>
+         <obs label="Swelling of affected extremity" provider="Naly YACHUNU" time="17:33:54"
+              type="Coded">Small</obs>
+      </encounter>
+      <encounter label="Clinical Notes" provider="Vilayvone SENKEO" time="24 Mar 2016 @ 17:21"
+                 uuid="36a08605-18f7-41f5-85b7-7b559a1a2331">
+         <obs label="Clinical impression comment" provider="Vilayvone SENKEO" time="17:21:29"
+              type="Text">13 years old with Chronic Osteomyelitis , Today patient look well, no fever, Good appetite, drinking well.&#xD;
+Plan: &#xD;
+1. Oral bactrim&#xD;
+2. wait new splint for 2 weeks.</obs>
+      </encounter>
+      <encounter label="Clinical Notes" provider="Naly YACHUNU" time="24 Mar 2016 @ 17:10"
+                 uuid="b7c95a47-5d4d-4275-84e1-ba7772635415">
+         <obs label="Clinical impression comment" provider="Naly YACHUNU" time="17:10:35"
+              type="Text">today patient vital sign normal ,eating and drinking well,passed urine 2 time and not passed stool.No pain.Alert and playful.&#xD;
+plan:&#xD;
+waiting for mold</obs>
+      </encounter>
+      <encounter label="Clinical Notes" provider="Lee HER" time="24 Mar 2016 @ 17:05"
+                 uuid="0b1dd900-f53e-4031-8448-93f317f16d21">
+         <obs label="Clinical impression comment" provider="Lee HER" time="17:05:07"
+              type="Text">Child Life: reviewed English dialogue and given some multiplication drill to work on 30 mn. He was be able to deal with the exercise. Then played game with other patient. Poummy.&#xD;
+Next day: English ( asking the time )</obs>
+      </encounter>
+      <encounter label="Vitals" provider="Naly YACHUNU" time="24 Mar 2016 @ 16:42"
+                 uuid="1e15fac6-478d-4357-bd52-c10e147923e2">
+         <obs label="Respiratory rate" provider="Naly YACHUNU" time="16:42:16" type="Numeric">26.0</obs>
+         <obs label="Blood oxygen saturation" provider="Naly YACHUNU" time="16:42:16"
+              type="Numeric">98.0</obs>
+         <obs label="Pulse" provider="Naly YACHUNU" time="16:42:16" type="Numeric">88.0</obs>
+         <obs label="Diastolic blood pressure" provider="Naly YACHUNU" time="16:42:16"
+              type="Numeric">60.0</obs>
+         <obs label="blood pressure set" provider="Naly YACHUNU" time="16:42:16" type="N/A">60.0, 121.0</obs>
+         <obs label="Temperature (C)" provider="Naly YACHUNU" time="16:42:16" type="Numeric">37.0</obs>
+         <obs label="Systolic blood pressure" provider="Naly YACHUNU" time="16:42:16"
+              type="Numeric">121.0</obs>
+      </encounter>
+      <encounter label="Vitals" provider="Naly YACHUNU" time="24 Mar 2016 @ 13:43"
+                 uuid="12830e27-6ed8-46bb-925c-31954d59c49a">
+         <obs label="Blood oxygen saturation" provider="Naly YACHUNU" time="13:43:05"
+              type="Numeric">98.0</obs>
+         <obs label="Temperature (C)" provider="Naly YACHUNU" time="13:43:05" type="Numeric">37.2</obs>
+         <obs label="Pulse" provider="Naly YACHUNU" time="13:43:05" type="Numeric">84.0</obs>
+         <obs label="Respiratory rate" provider="Naly YACHUNU" time="13:43:05" type="Numeric">26.0</obs>
+         <obs label="Systolic blood pressure" provider="Naly YACHUNU" time="13:43:05"
+              type="Numeric">119.0</obs>
+         <obs label="blood pressure set" provider="Naly YACHUNU" time="13:43:05" type="N/A">64.0, 119.0</obs>
+         <obs label="Diastolic blood pressure" provider="Naly YACHUNU" time="13:43:05"
+              type="Numeric">64.0</obs>
+      </encounter>
+      <encounter label="Vitals" provider="Naly YACHUNU" time="24 Mar 2016 @ 07:44"
+                 uuid="4227f6e7-d578-4b8e-9516-5c47a3b90257">
+         <obs label="Systolic blood pressure" provider="Naly YACHUNU" time="07:44:43"
+              type="Numeric">123.0</obs>
+         <obs label="Diastolic blood pressure" provider="Naly YACHUNU" time="07:44:43"
+              type="Numeric">65.0</obs>
+         <obs label="Respiratory rate" provider="Naly YACHUNU" time="07:44:43" type="Numeric">24.0</obs>
+         <obs label="Pulse" provider="Naly YACHUNU" time="07:44:43" type="Numeric">83.0</obs>
+         <obs label="blood pressure set" provider="Naly YACHUNU" time="07:44:43" type="N/A">65.0, 123.0</obs>
+         <obs label="Temperature (C)" provider="Naly YACHUNU" time="07:44:43" type="Numeric">36.5</obs>
+         <obs label="Blood oxygen saturation" provider="Naly YACHUNU" time="07:44:43"
+              type="Numeric">96.0</obs>
+      </encounter>
+      <encounter label="Clinical Notes" provider="Bounma SENGMANEE" time="24 Mar 2016 @ 06:15"
+                 uuid="3126134c-a942-4e4f-90ff-61373dd6991b">
+         <obs label="Clinical impression comment" provider="Bounma SENGMANEE" time="06:15:25"
+              type="Text">Male 13 years old with Chronic Ostemyelitis. Day 8 IPD&#xD;
+Overnight: not pain, vital sign stable &#xD;
+Plan: &#xD;
+1.continue medication. &#xD;
+2.Waiting splint for 2 weeks. &#xD;
+( If discharge will comeback f/u May ).</obs>
+      </encounter>
+      <encounter label="Clinical Notes" provider="Si LEE" time="24 Mar 2016 @ 05:40"
+                 uuid="a9033259-a0f4-4781-b853-d7f9dcd3a597">
+         <obs label="Clinical impression comment" provider="Si LEE" time="05:40:08"
+              type="Text">overnight patient appeared to have slept well. Vital signs normal, no fever but he had pain on his right leg Ibuprofen given. he still had zimmer splint fitted. &#xD;
+eating and drinking well. &#xD;
+urine and stool passing well.&#xD;
+Plan:&#xD;
+continue oral cotrimoxazole. &#xD;
+medication for pain as needed.</obs>
+      </encounter>
+      <encounter label="Vitals" provider="Si LEE" time="24 Mar 2016 @ 04:03"
+                 uuid="ba9a69b7-eac8-4d16-b640-641e39bf56f7">
+         <obs label="Diastolic blood pressure" provider="Si LEE" time="04:03:46"
+              type="Numeric">59.0</obs>
+         <obs label="Blood oxygen saturation" provider="Si LEE" time="04:03:46"
+              type="Numeric">99.0</obs>
+         <obs label="receiving oxygen therapy" provider="Si LEE" time="04:03:46" type="Coded">No</obs>
+         <obs label="Level of consciousness" provider="Si LEE" time="04:03:46" type="Coded">Awake</obs>
+         <obs label="NOSTRIL FLARING" provider="Si LEE" time="04:03:46" type="Coded">No</obs>
+         <obs label="head bobbing" provider="Si LEE" time="04:03:46" type="Coded">No</obs>
+         <obs label="INTERCOSTAL RECESSION" provider="Si LEE" time="04:03:46" type="Coded">No</obs>
+         <obs label="Systolic blood pressure" provider="Si LEE" time="04:03:46"
+              type="Numeric">114.0</obs>
+         <obs label="Pulse" provider="Si LEE" time="04:03:46" type="Numeric">69.0</obs>
+         <obs label="BREATHING SOUNDS, ABNORMAL" provider="Si LEE" time="04:03:46"
+              type="Coded">No</obs>
+         <obs label="Respiratory rate" provider="Si LEE" time="04:03:46" type="Numeric">22.0</obs>
+         <obs label="blood pressure set" provider="Si LEE" time="04:03:46" type="N/A">59.0, 114.0</obs>
+         <obs label="Temperature (C)" provider="Si LEE" time="04:03:46" type="Numeric">35.7</obs>
+         <obs label="Capillary filling time (sec)" provider="Si LEE" time="04:03:46"
+              type="Numeric">1.0</obs>
+      </encounter>
+      <encounter label="Vitals" provider="Si LEE" time="23 Mar 2016 @ 23:53"
+                 uuid="5dae0b83-d376-4c51-87c2-d1eb28d1d951">
+         <obs label="Systolic blood pressure" provider="Si LEE" time="23:53:28"
+              type="Numeric">100.0</obs>
+         <obs label="BREATHING SOUNDS, ABNORMAL" provider="Si LEE" time="23:53:28"
+              type="Coded">No</obs>
+         <obs label="head bobbing" provider="Si LEE" time="23:53:28" type="Coded">No</obs>
+         <obs label="Temperature (C)" provider="Si LEE" time="23:53:28" type="Numeric">36.0</obs>
+         <obs label="Respiratory rate" provider="Si LEE" time="23:53:28" type="Numeric">20.0</obs>
+         <obs label="receiving oxygen therapy" provider="Si LEE" time="23:53:28" type="Coded">No</obs>
+         <obs label="Pulse" provider="Si LEE" time="23:53:28" type="Numeric">63.0</obs>
+         <obs label="Level of consciousness" provider="Si LEE" time="23:53:28" type="Coded">Awake</obs>
+         <obs label="Blood oxygen saturation" provider="Si LEE" time="23:53:28"
+              type="Numeric">99.0</obs>
+         <obs label="NOSTRIL FLARING" provider="Si LEE" time="23:53:28" type="Coded">No</obs>
+         <obs label="INTERCOSTAL RECESSION" provider="Si LEE" time="23:53:28" type="Coded">No</obs>
+         <obs label="Diastolic blood pressure" provider="Si LEE" time="23:53:28"
+              type="Numeric">57.0</obs>
+         <obs label="Capillary filling time (sec)" provider="Si LEE" time="23:53:28"
+              type="Numeric">1.0</obs>
+         <obs label="blood pressure set" provider="Si LEE" time="23:53:28" type="N/A">100.0, 57.0</obs>
+      </encounter>
+      <encounter label="Vitals" provider="Si LEE" time="23 Mar 2016 @ 19:58"
+                 uuid="e78ffa7a-7980-483d-9e2c-770fb76aadf6">
+         <obs label="Diastolic blood pressure" provider="Si LEE" time="19:58:26"
+              type="Numeric">65.0</obs>
+         <obs label="BREATHING SOUNDS, ABNORMAL" provider="Si LEE" time="19:58:26"
+              type="Coded">No</obs>
+         <obs label="blood pressure set" provider="Si LEE" time="19:58:26" type="N/A">65.0, 118.0</obs>
+         <obs label="Systolic blood pressure" provider="Si LEE" time="19:58:26"
+              type="Numeric">118.0</obs>
+         <obs label="Pulse" provider="Si LEE" time="19:58:26" type="Numeric">84.0</obs>
+         <obs label="NOSTRIL FLARING" provider="Si LEE" time="19:58:26" type="Coded">No</obs>
+         <obs label="Level of consciousness" provider="Si LEE" time="19:58:26" type="Coded">Awake</obs>
+         <obs label="Respiratory rate" provider="Si LEE" time="19:58:26" type="Numeric">20.0</obs>
+         <obs label="head bobbing" provider="Si LEE" time="19:58:26" type="Coded">No</obs>
+         <obs label="Capillary filling time (sec)" provider="Si LEE" time="19:58:26"
+              type="Numeric">1.0</obs>
+         <obs label="Blood oxygen saturation" provider="Si LEE" time="19:58:26"
+              type="Numeric">96.0</obs>
+         <obs label="Temperature (C)" provider="Si LEE" time="19:58:26" type="Numeric">36.5</obs>
+         <obs label="receiving oxygen therapy" provider="Si LEE" time="19:58:26" type="Coded">No</obs>
+         <obs label="INTERCOSTAL RECESSION" provider="Si LEE" time="19:58:26" type="Coded">No</obs>
+      </encounter>
+      <encounter label="Clinical Notes" provider="Lee HER" time="23 Mar 2016 @ 16:55"
+                 uuid="7ef4f0da-8681-414f-a59d-36fecfc5dee4">
+         <obs label="Clinical impression comment" provider="Lee HER" time="16:55:27"
+              type="Text">Patient was given some math worksheet to work on....He did quite well...Practiced a short English dialogue ( Asking someone' s name ) an hour.&#xD;
+Next day: Lao Geography</obs>
+      </encounter>
+      <encounter label="Clinical Notes" provider="Dorkmai SAINYAKHAMSIN"
+                 time="23 Mar 2016 @ 16:20"
+                 uuid="2991bf16-b9d3-464e-b63a-9a872a327f9d">
+         <obs label="Clinical impression comment" provider="Dorkmai SAINYAKHAMSIN"
+              time="16:20:22"
+              type="Text">Male 13 yo with Chronic ostemyelitis. Day 7 IPD today he has pain thigh L when removed not removed not pain. No fever.&#xD;
+Plan:&#xD;
+1.continue medication.&#xD;
+2.Waiting splint for 2 weeks.&#xD;
+( If discharge will comeback f/u May ).</obs>
+      </encounter>
+      <encounter label="Clinical Notes" provider="Maly Chittaphai" time="23 Mar 2016 @ 16:06"
+                 uuid="28a34145-8e64-42cc-a08e-204d58be465e">
+         <obs label="Clinical impression comment" provider="Maly Chittaphai" time="16:06:06"
+              type="Text">Today pt looks well, no fever vital signs normal. pain on left knee if  movement and not pain if not movement patient said. eating and drinking well, passed  two tome urine and no stool. Medication given.</obs>
+      </encounter>
+      <encounter label="Vitals" provider="Maly Chittaphai" time="23 Mar 2016 @ 16:05"
+                 uuid="47d04fad-11d1-41f5-acc4-18c5a91d0cd5">
+         <obs label="Respiratory rate" provider="Maly Chittaphai" time="16:05:20"
+              type="Numeric">22.0</obs>
+         <obs label="Blood oxygen saturation" provider="Maly Chittaphai" time="16:05:20"
+              type="Numeric">99.0</obs>
+         <obs label="Diastolic blood pressure" provider="Maly Chittaphai" time="16:05:20"
+              type="Numeric">63.0</obs>
+         <obs label="blood pressure set" provider="Maly Chittaphai" time="16:05:20"
+              type="N/A">105.0, 63.0</obs>
+         <obs label="Temperature (C)" provider="Maly Chittaphai" time="16:05:20"
+              type="Numeric">36.5</obs>
+         <obs label="Pulse" provider="Maly Chittaphai" time="16:05:20" type="Numeric">67.0</obs>
+         <obs label="Systolic blood pressure" provider="Maly Chittaphai" time="16:05:20"
+              type="Numeric">105.0</obs>
+      </encounter>
+      <encounter label="Vitals" provider="Maly Chittaphai" time="23 Mar 2016 @ 12:50"
+                 uuid="45d6274c-7cbf-4e34-9450-767a8c5e2536">
+         <obs label="Systolic blood pressure" provider="Maly Chittaphai" time="12:50:12"
+              type="Numeric">110.0</obs>
+         <obs label="Temperature (C)" provider="Maly Chittaphai" time="12:50:12"
+              type="Numeric">36.5</obs>
+         <obs label="Pulse" provider="Maly Chittaphai" time="12:50:12" type="Numeric">69.0</obs>
+         <obs label="Respiratory rate" provider="Maly Chittaphai" time="12:50:12"
+              type="Numeric">22.0</obs>
+         <obs label="Blood oxygen saturation" provider="Maly Chittaphai" time="12:50:12"
+              type="Numeric">99.0</obs>
+         <obs label="blood pressure set" provider="Maly Chittaphai" time="12:50:12"
+              type="N/A">57.0, 110.0</obs>
+         <obs label="Diastolic blood pressure" provider="Maly Chittaphai" time="12:50:12"
+              type="Numeric">57.0</obs>
+      </encounter>
+      <encounter label="Vitals" provider="Maly Chittaphai" time="23 Mar 2016 @ 09:11"
+                 uuid="ff6374d1-9cbe-4a57-8df0-d9afa8014d5b">
+         <obs label="blood pressure set" provider="Maly Chittaphai" time="09:11:28"
+              type="N/A">65.0, 110.0</obs>
+         <obs label="Pulse" provider="Maly Chittaphai" time="09:11:28" type="Numeric">66.0</obs>
+         <obs label="Systolic blood pressure" provider="Maly Chittaphai" time="09:11:28"
+              type="Numeric">110.0</obs>
+         <obs label="Blood oxygen saturation" provider="Maly Chittaphai" time="09:11:28"
+              type="Numeric">97.0</obs>
+         <obs label="Temperature (C)" provider="Maly Chittaphai" time="09:11:28"
+              type="Numeric">36.1</obs>
+         <obs label="Respiratory rate" provider="Maly Chittaphai" time="09:11:28"
+              type="Numeric">22.0</obs>
+         <obs label="Diastolic blood pressure" provider="Maly Chittaphai" time="09:11:28"
+              type="Numeric">65.0</obs>
+      </encounter>
+      <encounter label="Clinical Notes" provider="Noy keopasueth" time="23 Mar 2016 @ 05:54"
+                 uuid="0645b594-90ff-4d2a-b946-e7ee3e72421c">
+         <obs label="Clinical impression comment" provider="Noy keopasueth" time="05:54:40"
+              type="Text">pt can slept well no fever and pain once at 20:50 paracetamol given. vital sign stable</obs>
+      </encounter>
+      <encounter label="Vitals" provider="Noy keopasueth" time="23 Mar 2016 @ 04:48"
+                 uuid="77d57dc4-3c5c-4585-a225-d10fa9c97514">
+         <obs label="Temperature (C)" provider="Noy keopasueth" time="04:48:41"
+              type="Numeric">37.0</obs>
+         <obs label="Pulse" provider="Noy keopasueth" time="04:48:41" type="Numeric">80.0</obs>
+         <obs label="Respiratory rate" provider="Noy keopasueth" time="04:48:41"
+              type="Numeric">20.0</obs>
+         <obs label="Systolic blood pressure" provider="Noy keopasueth" time="04:48:41"
+              type="Numeric">107.0</obs>
+         <obs label="Diastolic blood pressure" provider="Noy keopasueth" time="04:48:41"
+              type="Numeric">58.0</obs>
+         <obs label="Level of consciousness" provider="Noy keopasueth" time="04:48:41"
+              type="Coded">Awake</obs>
+         <obs label="blood pressure set" provider="Noy keopasueth" time="04:48:41" type="N/A">107.0, 58.0</obs>
+         <obs label="Blood oxygen saturation" provider="Noy keopasueth" time="04:48:41"
+              type="Numeric">98.0</obs>
+      </encounter>
+      <encounter label="Clinical Notes" provider="Bounma SENGMANEE" time="23 Mar 2016 @ 02:47"
+                 uuid="7e9ae905-8e33-4555-b29f-e1d4347bd20b">
+         <obs label="Clinical impression comment" provider="Bounma SENGMANEE" time="02:47:21"
+              type="Text">Male 13 years old with Chronic osteomyelitis+pathological fracture &#xD;
+Overnight: vital sign stable, ESR 20&#xD;
+treatment: Co-trimoxazole&#xD;
+Plan: &#xD;
+- continuous medication</obs>
+      </encounter>
+      <encounter label="Vitals" provider="Noy keopasueth" time="23 Mar 2016 @ 00:44"
+                 uuid="20952256-c631-4c27-b7e4-b7fcf37a42d4">
+         <obs label="Diastolic blood pressure" provider="Noy keopasueth" time="00:44:18"
+              type="Numeric">62.0</obs>
+         <obs label="blood pressure set" provider="Noy keopasueth" time="00:44:18" type="N/A">62.0, 109.0</obs>
+         <obs label="Systolic blood pressure" provider="Noy keopasueth" time="00:44:18"
+              type="Numeric">109.0</obs>
+         <obs label="Level of consciousness" provider="Noy keopasueth" time="00:44:18"
+              type="Coded">Awake</obs>
+         <obs label="Blood oxygen saturation" provider="Noy keopasueth" time="00:44:18"
+              type="Numeric">98.0</obs>
+         <obs label="Respiratory rate" provider="Noy keopasueth" time="00:44:18"
+              type="Numeric">20.0</obs>
+         <obs label="Pulse" provider="Noy keopasueth" time="00:44:18" type="Numeric">86.0</obs>
+         <obs label="Temperature (C)" provider="Noy keopasueth" time="00:44:18"
+              type="Numeric">36.2</obs>
+      </encounter>
+      <encounter label="Vitals" provider="Noy keopasueth" time="22 Mar 2016 @ 20:43"
+                 uuid="5ce38c36-6c4d-4786-8947-55fdf2e8aa8b">
+         <obs label="Level of consciousness" provider="Noy keopasueth" time="20:43:15"
+              type="Coded">Awake</obs>
+         <obs label="Respiratory rate" provider="Noy keopasueth" time="20:43:15"
+              type="Numeric">20.0</obs>
+         <obs label="blood pressure set" provider="Noy keopasueth" time="20:43:15" type="N/A">139.0, 60.0</obs>
+         <obs label="Diastolic blood pressure" provider="Noy keopasueth" time="20:43:15"
+              type="Numeric">60.0</obs>
+         <obs label="Blood oxygen saturation" provider="Noy keopasueth" time="20:43:15"
+              type="Numeric">98.0</obs>
+         <obs label="Systolic blood pressure" provider="Noy keopasueth" time="20:43:15"
+              type="Numeric">139.0</obs>
+         <obs label="Temperature (C)" provider="Noy keopasueth" time="20:43:15"
+              type="Numeric">36.5</obs>
+         <obs label="Pulse" provider="Noy keopasueth" time="20:43:15" type="Numeric">84.0</obs>
+      </encounter>
+      <encounter label="Clinical Notes" provider="Amphone Vilaysom" time="22 Mar 2016 @ 18:32"
+                 uuid="00036f21-2727-497d-8997-f8b50c8ed635">
+         <obs label="Clinical impression comment" provider="Amphone Vilaysom" time="18:32:37"
+              type="Text">Today patient no fever, no pain, vital signs normal, eating and drinking well, passing urine 1 time no stool. &#xD;
+ESR done.</obs>
+      </encounter>
+      <encounter label="Clinical Notes" provider="Sengdeuane PHOMMY" time="22 Mar 2016 @ 17:50"
+                 uuid="4c2230fa-1a73-49f7-bbc5-50b1c4279a06">
+         <obs label="Clinical impression comment" provider="Sengdeuane PHOMMY"
+              time="17:50:02"
+              type="Text">Physio: had seen by PT and continue give exercises.</obs>
+      </encounter>
+      <encounter label="Vitals" provider="Amphone Vilaysom" time="22 Mar 2016 @ 16:45"
+                 uuid="e0b43af7-5e04-4aeb-b979-a66956e56edc">
+         <obs label="Respiratory rate" provider="Amphone Vilaysom" time="16:45:00"
+              type="Numeric">22.0</obs>
+         <obs label="receiving oxygen therapy" provider="Amphone Vilaysom" time="16:45:00"
+              type="Coded">No</obs>
+         <obs label="Systolic blood pressure" provider="Amphone Vilaysom" time="16:45:00"
+              type="Numeric">119.0</obs>
+         <obs label="Blood oxygen saturation" provider="Amphone Vilaysom" time="16:45:00"
+              type="Numeric">98.0</obs>
+         <obs label="blood pressure set" provider="Amphone Vilaysom" time="16:45:00"
+              type="N/A">62.0, 119.0</obs>
+         <obs label="Diastolic blood pressure" provider="Amphone Vilaysom" time="16:45:00"
+              type="Numeric">62.0</obs>
+         <obs label="Temperature (C)" provider="Amphone Vilaysom" time="16:45:00"
+              type="Numeric">36.7</obs>
+         <obs label="Pulse" provider="Amphone Vilaysom" time="16:45:00" type="Numeric">74.0</obs>
+      </encounter>
+      <encounter label="Clinical Notes" provider="Lakiher LEETONGXAY" time="22 Mar 2016 @ 15:48"
+                 uuid="2fca622c-3d33-4093-b9f0-5f38392c7b10">
+         <obs label="Clinical impression comment" provider="Lakiher LEETONGXAY"
+              time="15:48:10"
+              type="Text">Boy 13 yr with Osteomyelitis and pathological fracture of lower end L femur.&#xD;
+today stable, no pain, no fever, Ultrasound done show fracture, no infection.&#xD;
+Pain:&#xD;
+- continue bactrime</obs>
+      </encounter>
+      <encounter label="Vitals" provider="Amphone Vilaysom" time="22 Mar 2016 @ 12:10"
+                 uuid="673ce932-b21c-4276-bb20-4d14cdd2e05c">
+         <obs label="Blood oxygen saturation" provider="Amphone Vilaysom" time="12:10:44"
+              type="Numeric">98.0</obs>
+         <obs label="Systolic blood pressure" provider="Amphone Vilaysom" time="12:10:44"
+              type="Numeric">115.0</obs>
+         <obs label="Temperature (C)" provider="Amphone Vilaysom" time="12:10:44"
+              type="Numeric">36.8</obs>
+         <obs label="receiving oxygen therapy" provider="Amphone Vilaysom" time="12:10:44"
+              type="Coded">No</obs>
+         <obs label="Respiratory rate" provider="Amphone Vilaysom" time="12:10:44"
+              type="Numeric">20.0</obs>
+         <obs label="Pulse" provider="Amphone Vilaysom" time="12:10:44" type="Numeric">91.0</obs>
+         <obs label="blood pressure set" provider="Amphone Vilaysom" time="12:10:44"
+              type="N/A">63.0, 115.0</obs>
+         <obs label="Diastolic blood pressure" provider="Amphone Vilaysom" time="12:10:44"
+              type="Numeric">63.0</obs>
+      </encounter>
+      <encounter label="Xray/Ultrasound order" provider="Xay HER" time="22 Mar 2016 @ 11:31"
+                 uuid="25aa54f0-b466-444f-a9ce-8ca473731ef7">
+         <obs label="Ultrasound order" provider="Xay HER" time="11:31:13" type="N/A">ultrasound of the thigh look for collection in the muscles arand the bane, Other ultrasound</obs>
+         <obs label="Other ultrasound" provider="Xay HER" time="11:31:13" type="Text">ultrasound of the thigh look for collection in the muscles arand the bane</obs>
+         <obs label="Ultrasound procedure" provider="Xay HER" time="11:31:13" type="Coded">Other ultrasound</obs>
+      </encounter>
+      <encounter label="Vitals" provider="Amphone Vilaysom" time="22 Mar 2016 @ 08:14"
+                 uuid="760226ad-c36f-4c6e-8ce0-16fbb43f4059">
+         <obs label="Diastolic blood pressure" provider="Amphone Vilaysom" time="08:14:33"
+              type="Numeric">66.0</obs>
+         <obs label="Temperature (C)" provider="Amphone Vilaysom" time="08:14:33"
+              type="Numeric">36.5</obs>
+         <obs label="Blood oxygen saturation" provider="Amphone Vilaysom" time="08:14:33"
+              type="Numeric">97.0</obs>
+         <obs label="Pulse" provider="Amphone Vilaysom" time="08:14:33" type="Numeric">73.0</obs>
+         <obs label="blood pressure set" provider="Amphone Vilaysom" time="08:14:33"
+              type="N/A">66.0, 119.0</obs>
+         <obs label="Systolic blood pressure" provider="Amphone Vilaysom" time="08:14:33"
+              type="Numeric">119.0</obs>
+         <obs label="receiving oxygen therapy" provider="Amphone Vilaysom" time="08:14:33"
+              type="Coded">No</obs>
+         <obs label="Respiratory rate" provider="Amphone Vilaysom" time="08:14:33"
+              type="Numeric">22.0</obs>
+      </encounter>
+      <encounter label="Clinical Notes" provider="Bouakhan VACHOOKER" time="22 Mar 2016 @ 06:20"
+                 uuid="315f1a82-1109-4ef9-bb8e-1b9ed5620c36">
+         <obs label="Clinical impression comment" provider="Bouakhan VACHOOKER"
+              time="06:20:55"
+              type="Text">overnight patient had slept well , no fever , pain a little at 21:00 we given ibuprofen , eating and drinking well , vital sign normal , no passed urine and stool .</obs>
+      </encounter>
+      <encounter label="Vitals" provider="Bouakhan VACHOOKER" time="22 Mar 2016 @ 05:54"
+                 uuid="aefd90d1-0ad0-487a-b0be-e8ade56e5c06">
+         <obs label="Systolic blood pressure" provider="Bouakhan VACHOOKER" time="05:54:42"
+              type="Numeric">110.0</obs>
+         <obs label="Diastolic blood pressure" provider="Bouakhan VACHOOKER" time="05:54:42"
+              type="Numeric">59.0</obs>
+         <obs label="blood pressure set" provider="Bouakhan VACHOOKER" time="05:54:42"
+              type="N/A">59.0, 110.0</obs>
+         <obs label="Pulse" provider="Bouakhan VACHOOKER" time="05:54:42" type="Numeric">70.0</obs>
+         <obs label="Temperature (C)" provider="Bouakhan VACHOOKER" time="05:54:42"
+              type="Numeric">36.0</obs>
+         <obs label="Blood oxygen saturation" provider="Bouakhan VACHOOKER" time="05:54:42"
+              type="Numeric">99.0</obs>
+         <obs label="Respiratory rate" provider="Bouakhan VACHOOKER" time="05:54:42"
+              type="Numeric">22.0</obs>
+      </encounter>
+      <encounter label="Clinical Notes" provider="Khamthavong Sayavong"
+                 time="22 Mar 2016 @ 04:49"
+                 uuid="3a69ca01-2b0d-43dd-9169-7c7e81db0378">
+         <obs label="Clinical impression comment" provider="Khamthavong Sayavong"
+              time="04:49:49"
+              type="Text">A 13 year old male with Chronic osteomyelitis+pathological fracture&#xD;
+Overnight: vital signs stable&#xD;
+Current treatment: Co-trimoxazole &#xD;
+Plan:&#xD;
+1. ERS today&#xD;
+2. Consult surgeon.</obs>
+      </encounter>
+      <encounter label="Lab Test Order" provider="Khamthavong Sayavong"
+                 time="22 Mar 2016 @ 04:47"
+                 uuid="a7742fdb-1d98-4a3d-81c8-e15e8b2f7409">
+         <obs label="ERYTHROCYTE SEDIMENTATION RATE" provider="Anousin PHONEDALA"
+              time="04:47:50"
+              type="Numeric">20.0</obs>
+         <obs label="Lab test ordered" provider="Khamthavong Sayavong" time="04:47:50"
+              type="Coded">ERYTHROCYTE SEDIMENTATION RATE</obs>
+      </encounter>
+      <encounter label="Vitals" provider="Bouakhan VACHOOKER" time="22 Mar 2016 @ 00:52"
+                 uuid="14187030-82a1-48c5-8e71-ae6866df48dc">
+         <obs label="receiving oxygen therapy" provider="Bouakhan VACHOOKER" time="00:52:00"
+              type="Coded">No</obs>
+         <obs label="Respiratory rate" provider="Bouakhan VACHOOKER" time="00:52:00"
+              type="Numeric">22.0</obs>
+         <obs label="Blood oxygen saturation" provider="Bouakhan VACHOOKER" time="00:52:00"
+              type="Numeric">99.0</obs>
+         <obs label="Pulse" provider="Bouakhan VACHOOKER" time="00:52:00" type="Numeric">88.0</obs>
+         <obs label="Systolic blood pressure" provider="Bouakhan VACHOOKER" time="00:52:00"
+              type="Numeric">110.0</obs>
+         <obs label="blood pressure set" provider="Bouakhan VACHOOKER" time="00:52:00"
+              type="N/A">60.0, 110.0</obs>
+         <obs label="Level of consciousness" provider="Bouakhan VACHOOKER" time="00:52:00"
+              type="Coded">Awake</obs>
+         <obs label="Diastolic blood pressure" provider="Bouakhan VACHOOKER" time="00:52:00"
+              type="Numeric">60.0</obs>
+         <obs label="Capillary filling time (sec)" provider="Bouakhan VACHOOKER"
+              time="00:52:00"
+              type="Numeric">2.0</obs>
+         <obs label="Temperature (C)" provider="Bouakhan VACHOOKER" time="00:52:00"
+              type="Numeric">36.0</obs>
+      </encounter>
+      <encounter label="Vitals" provider="Bouakhan VACHOOKER" time="21 Mar 2016 @ 20:21"
+                 uuid="b8bc4624-3abf-4fa9-8fd9-755cd07140d6">
+         <obs label="Pulse" provider="Bouakhan VACHOOKER" time="20:21:12" type="Numeric">94.0</obs>
+         <obs label="Blood oxygen saturation" provider="Bouakhan VACHOOKER" time="20:21:12"
+              type="Numeric">98.0</obs>
+         <obs label="receiving oxygen therapy" provider="Bouakhan VACHOOKER" time="20:21:12"
+              type="Coded">No</obs>
+         <obs label="Capillary filling time (sec)" provider="Bouakhan VACHOOKER"
+              time="20:21:12"
+              type="Numeric">2.0</obs>
+         <obs label="Respiratory rate" provider="Bouakhan VACHOOKER" time="20:21:12"
+              type="Numeric">22.0</obs>
+         <obs label="blood pressure set" provider="Bouakhan VACHOOKER" time="20:21:12"
+              type="N/A">53.0, 110.0</obs>
+         <obs label="Systolic blood pressure" provider="Bouakhan VACHOOKER" time="20:21:12"
+              type="Numeric">110.0</obs>
+         <obs label="Temperature (C)" provider="Bouakhan VACHOOKER" time="20:21:12"
+              type="Numeric">36.4</obs>
+         <obs label="Level of consciousness" provider="Bouakhan VACHOOKER" time="20:21:12"
+              type="Coded">Awake</obs>
+         <obs label="Diastolic blood pressure" provider="Bouakhan VACHOOKER" time="20:21:12"
+              type="Numeric">53.0</obs>
+      </encounter>
+      <encounter label="Clinical Notes" provider="Noy keopasueth" time="21 Mar 2016 @ 18:16"
+                 uuid="e6cfb7d9-af88-4e2e-a113-1adcf9c2cf2d">
+         <obs label="Clinical impression comment" provider="Noy keopasueth" time="18:16:46"
+              type="Text">pt can eat and drinking well, no fever and pain during the day, vital sign normal, passed urine twice and no stool.</obs>
+      </encounter>
+      <encounter label="Clinical Notes" provider="Xay HER" time="21 Mar 2016 @ 18:00"
+                 uuid="7ce64a6b-b73c-4c65-a18b-f7929844773e">
+         <obs label="Clinical impression comment" provider="Xay HER" time="18:00:10"
+              type="Text">13 years old day # 6 admit   with chronic Osteomyelitis &#xD;
+today patient did well. no leg pain . no itchy . no fever . vita sign normal . &#xD;
+Plan: &#xD;
+1. Bactrim.</obs>
+      </encounter>
+      <encounter label="Vitals" provider="Noy keopasueth" time="21 Mar 2016 @ 17:03"
+                 uuid="9fc97f32-c5e4-42e0-b67d-356f714f13fb">
+         <obs label="blood pressure set" provider="Noy keopasueth" time="17:03:07" type="N/A">61.0, 116.0</obs>
+         <obs label="Diastolic blood pressure" provider="Noy keopasueth" time="17:03:07"
+              type="Numeric">61.0</obs>
+         <obs label="Temperature (C)" provider="Noy keopasueth" time="17:03:07"
+              type="Numeric">36.8</obs>
+         <obs label="Systolic blood pressure" provider="Noy keopasueth" time="17:03:07"
+              type="Numeric">116.0</obs>
+         <obs label="Level of consciousness" provider="Noy keopasueth" time="17:03:07"
+              type="Coded">Awake</obs>
+         <obs label="Pulse" provider="Noy keopasueth" time="17:03:07" type="Numeric">91.0</obs>
+         <obs label="Blood oxygen saturation" provider="Noy keopasueth" time="17:03:07"
+              type="Numeric">99.0</obs>
+         <obs label="Respiratory rate" provider="Noy keopasueth" time="17:03:07"
+              type="Numeric">20.0</obs>
+      </encounter>
+      <encounter label="Vitals" provider="Noy keopasueth" time="21 Mar 2016 @ 12:39"
+                 uuid="1ca92015-cfeb-4e4b-8ff0-db00ee0a6cf3">
+         <obs label="Respiratory rate" provider="Noy keopasueth" time="12:39:29"
+              type="Numeric">20.0</obs>
+         <obs label="Level of consciousness" provider="Noy keopasueth" time="12:39:29"
+              type="Coded">Awake</obs>
+         <obs label="Blood oxygen saturation" provider="Noy keopasueth" time="12:39:29"
+              type="Numeric">99.0</obs>
+         <obs label="blood pressure set" provider="Noy keopasueth" time="12:39:29" type="N/A">60.0, 110.0</obs>
+         <obs label="Temperature (C)" provider="Noy keopasueth" time="12:39:29"
+              type="Numeric">36.9</obs>
+         <obs label="Systolic blood pressure" provider="Noy keopasueth" time="12:39:29"
+              type="Numeric">110.0</obs>
+         <obs label="Diastolic blood pressure" provider="Noy keopasueth" time="12:39:29"
+              type="Numeric">60.0</obs>
+         <obs label="Pulse" provider="Noy keopasueth" time="12:39:29" type="Numeric">87.0</obs>
+      </encounter>
+      <encounter label="Vitals" provider="Noy keopasueth" time="21 Mar 2016 @ 10:12"
+                 uuid="19342f60-f0de-49e0-8ec1-8d8f1cf3a72d">
+         <obs label="Pulse" provider="Noy keopasueth" time="10:12:49" type="Numeric">80.0</obs>
+         <obs label="Respiratory rate" provider="Noy keopasueth" time="10:12:49"
+              type="Numeric">20.0</obs>
+         <obs label="Blood oxygen saturation" provider="Noy keopasueth" time="10:12:49"
+              type="Numeric">98.0</obs>
+         <obs label="Level of consciousness" provider="Noy keopasueth" time="10:12:49"
+              type="Coded">Awake</obs>
+         <obs label="blood pressure set" provider="Noy keopasueth" time="10:12:49" type="N/A">62.0, 113.0</obs>
+         <obs label="Temperature (C)" provider="Noy keopasueth" time="10:12:49"
+              type="Numeric">36.0</obs>
+         <obs label="Systolic blood pressure" provider="Noy keopasueth" time="10:12:49"
+              type="Numeric">113.0</obs>
+         <obs label="Diastolic blood pressure" provider="Noy keopasueth" time="10:12:49"
+              type="Numeric">62.0</obs>
+      </encounter>
+      <encounter label="Clinical Notes" provider="Khamthavong Sayavong"
+                 time="21 Mar 2016 @ 05:58"
+                 uuid="8619ff21-c925-4750-b6b4-42238dc022f6">
+         <obs label="Clinical impression comment" provider="Khamthavong Sayavong"
+              time="05:58:32"
+              type="Text">A 13 year old male with Chronic osteomyelitis+pathological fracture.&#xD;
+Overnight, complain of leg pain, vitals stable. &#xD;
+Current treatment: Bactrim 240mg Bid</obs>
+      </encounter>
+      <encounter label="Clinical Notes" provider="Dalika Sitthiphone" time="21 Mar 2016 @ 04:30"
+                 uuid="440113dc-1b8d-40e3-9d61-162795a3c936">
+         <obs label="Clinical impression comment" provider="Dalika Sitthiphone"
+              time="04:30:51"
+              type="Text">To night patient look slept well , eating and drinking well , for 2400 he pain his leg and we given ibuprofen now still sleep well , no pain , no fever , his VS is normal , passed stool 1 time and urine 3 time .</obs>
+      </encounter>
+      <encounter label="Vitals" provider="Dalika Sitthiphone" time="21 Mar 2016 @ 04:20"
+                 uuid="37c75f3c-d2ab-46bc-b5a8-9e3568fc89a5">
+         <obs label="Systolic blood pressure" provider="Dalika Sitthiphone" time="04:20:18"
+              type="Numeric">110.0</obs>
+         <obs label="Pulse" provider="Dalika Sitthiphone" time="04:20:18" type="Numeric">78.0</obs>
+         <obs label="Diastolic blood pressure" provider="Dalika Sitthiphone" time="04:20:18"
+              type="Numeric">60.0</obs>
+         <obs label="blood pressure set" provider="Dalika Sitthiphone" time="04:20:18"
+              type="N/A">110.0, 60.0</obs>
+         <obs label="receiving oxygen therapy" provider="Dalika Sitthiphone" time="04:20:18"
+              type="Coded">No</obs>
+         <obs label="Capillary filling time (sec)" provider="Dalika Sitthiphone"
+              time="04:20:18"
+              type="Numeric">1.0</obs>
+         <obs label="Temperature (C)" provider="Dalika Sitthiphone" time="04:20:18"
+              type="Numeric">37.0</obs>
+         <obs label="Respiratory rate" provider="Dalika Sitthiphone" time="04:20:18"
+              type="Numeric">24.0</obs>
+         <obs label="Blood oxygen saturation" provider="Dalika Sitthiphone" time="04:20:18"
+              type="Numeric">97.0</obs>
+      </encounter>
+      <encounter label="Vitals" provider="Dalika Sitthiphone" time="21 Mar 2016 @ 00:21"
+                 uuid="2c7a49fa-4c69-44ec-a860-f07ccdbdbf13">
+         <obs label="Pulse" provider="Dalika Sitthiphone" time="00:21:50" type="Numeric">76.0</obs>
+         <obs label="receiving oxygen therapy" provider="Dalika Sitthiphone" time="00:21:50"
+              type="Coded">No</obs>
+         <obs label="Temperature (C)" provider="Dalika Sitthiphone" time="00:21:50"
+              type="Numeric">36.0</obs>
+         <obs label="Blood oxygen saturation" provider="Dalika Sitthiphone" time="00:21:50"
+              type="Numeric">99.0</obs>
+         <obs label="Systolic blood pressure" provider="Dalika Sitthiphone" time="00:21:50"
+              type="Numeric">115.0</obs>
+         <obs label="Capillary filling time (sec)" provider="Dalika Sitthiphone"
+              time="00:21:50"
+              type="Numeric">1.0</obs>
+         <obs label="Diastolic blood pressure" provider="Dalika Sitthiphone" time="00:21:50"
+              type="Numeric">65.0</obs>
+         <obs label="blood pressure set" provider="Dalika Sitthiphone" time="00:21:50"
+              type="N/A">65.0, 115.0</obs>
+         <obs label="Respiratory rate" provider="Dalika Sitthiphone" time="00:21:50"
+              type="Numeric">24.0</obs>
+      </encounter>
+      <encounter label="Vitals" provider="Dalika Sitthiphone" time="20 Mar 2016 @ 21:36"
+                 uuid="04470ac0-ab24-47e5-9276-1ee193cf6ea9">
+         <obs label="Temperature (C)" provider="Dalika Sitthiphone" time="21:36:03"
+              type="Numeric">36.2</obs>
+         <obs label="receiving oxygen therapy" provider="Dalika Sitthiphone" time="21:36:03"
+              type="Coded">No</obs>
+         <obs label="Pulse" provider="Dalika Sitthiphone" time="21:36:03" type="Numeric">78.0</obs>
+         <obs label="Systolic blood pressure" provider="Dalika Sitthiphone" time="21:36:03"
+              type="Numeric">120.0</obs>
+         <obs label="Blood oxygen saturation" provider="Dalika Sitthiphone" time="21:36:03"
+              type="Numeric">97.0</obs>
+         <obs label="Diastolic blood pressure" provider="Dalika Sitthiphone" time="21:36:03"
+              type="Numeric">64.0</obs>
+         <obs label="Respiratory rate" provider="Dalika Sitthiphone" time="21:36:03"
+              type="Numeric">32.0</obs>
+         <obs label="Capillary filling time (sec)" provider="Dalika Sitthiphone"
+              time="21:36:03"
+              type="Numeric">1.0</obs>
+         <obs label="blood pressure set" provider="Dalika Sitthiphone" time="21:36:03"
+              type="N/A">120.0, 64.0</obs>
+      </encounter>
+      <encounter label="Clinical Notes" provider="Anousone SOULIYAVONG"
+                 time="20 Mar 2016 @ 16:37"
+                 uuid="ca40d02e-1eaa-4c9d-997d-c355e6238f02">
+         <obs label="Clinical impression comment" provider="Anousone SOULIYAVONG"
+              time="16:37:49"
+              type="Text">Somkiet has no fever, vital sign stable, some time pain when he's  moved to toilet and some time itchy on him left leg . he's eating and drinking very well, passed stool one time and urine 2-3time.</obs>
+      </encounter>
+      <encounter label="Clinical Notes" provider="Xay HER" time="20 Mar 2016 @ 16:18"
+                 uuid="5e45b2ab-e127-446b-91a8-675d94634857">
+         <obs label="Clinical impression comment" provider="Xay HER" time="16:18:55"
+              type="Text">13 years old with chronic Osteomyelitis &#xD;
+today patient did well. no leg pain . no itchy . no fever . vita sign normal .&#xD;
+Plan: &#xD;
+1. give Bactrim.</obs>
+      </encounter>
+      <encounter label="Vitals" provider="Dorkeo Bounpao" time="20 Mar 2016 @ 16:13"
+                 uuid="7bd97469-f985-4204-b8eb-4e295bb97588">
+         <obs label="INTERCOSTAL RECESSION" provider="Dorkeo Bounpao" time="16:13:13"
+              type="Coded">No</obs>
+         <obs label="Pulse" provider="Dorkeo Bounpao" time="16:13:13" type="Numeric">93.0</obs>
+         <obs label="Diastolic blood pressure" provider="Dorkeo Bounpao" time="16:13:13"
+              type="Numeric">60.0</obs>
+         <obs label="Systolic blood pressure" provider="Dorkeo Bounpao" time="16:13:13"
+              type="Numeric">120.0</obs>
+         <obs label="Blood oxygen saturation" provider="Dorkeo Bounpao" time="16:13:13"
+              type="Numeric">98.0</obs>
+         <obs label="Level of consciousness" provider="Dorkeo Bounpao" time="16:13:13"
+              type="Coded">Awake</obs>
+         <obs label="blood pressure set" provider="Dorkeo Bounpao" time="16:13:13" type="N/A">120.0, 60.0</obs>
+         <obs label="receiving oxygen therapy" provider="Dorkeo Bounpao" time="16:13:13"
+              type="Coded">No</obs>
+         <obs label="Respiratory rate" provider="Dorkeo Bounpao" time="16:13:13"
+              type="Numeric">22.0</obs>
+         <obs label="Temperature (C)" provider="Dorkeo Bounpao" time="16:13:13"
+              type="Numeric">36.8</obs>
+      </encounter>
+      <encounter label="Vitals" provider="Noy keopasueth" time="20 Mar 2016 @ 12:13"
+                 uuid="35aefaa9-e054-4319-924f-cdf4631754ca">
+         <obs label="Level of consciousness" provider="Noy keopasueth" time="12:13:04"
+              type="Coded">Awake</obs>
+         <obs label="Capillary filling time (sec)" provider="Noy keopasueth" time="12:13:04"
+              type="Numeric">1.0</obs>
+         <obs label="Respiratory rate" provider="Noy keopasueth" time="12:13:04"
+              type="Numeric">20.0</obs>
+         <obs label="blood pressure set" provider="Noy keopasueth" time="12:13:04" type="N/A">110.0, 60.0</obs>
+         <obs label="Systolic blood pressure" provider="Noy keopasueth" time="12:13:04"
+              type="Numeric">110.0</obs>
+         <obs label="Temperature (C)" provider="Noy keopasueth" time="12:13:04"
+              type="Numeric">36.5</obs>
+         <obs label="Blood oxygen saturation" provider="Noy keopasueth" time="12:13:04"
+              type="Numeric">97.0</obs>
+         <obs label="Diastolic blood pressure" provider="Noy keopasueth" time="12:13:04"
+              type="Numeric">60.0</obs>
+         <obs label="Pulse" provider="Noy keopasueth" time="12:13:04" type="Numeric">96.0</obs>
+      </encounter>
+      <encounter label="Vitals" provider="Noy keopasueth" time="20 Mar 2016 @ 09:27"
+                 uuid="3a9f0e2f-accc-4bb6-aecc-7bf6e6b68797">
+         <obs label="Pulse" provider="Noy keopasueth" time="09:27:16" type="Numeric">99.0</obs>
+         <obs label="Blood oxygen saturation" provider="Noy keopasueth" time="09:27:16"
+              type="Numeric">98.0</obs>
+         <obs label="Respiratory rate" provider="Noy keopasueth" time="09:27:16"
+              type="Numeric">22.0</obs>
+         <obs label="Level of consciousness" provider="Noy keopasueth" time="09:27:16"
+              type="Coded">Awake</obs>
+         <obs label="Diastolic blood pressure" provider="Noy keopasueth" time="09:27:16"
+              type="Numeric">65.0</obs>
+         <obs label="Systolic blood pressure" provider="Noy keopasueth" time="09:27:16"
+              type="Numeric">120.0</obs>
+         <obs label="Temperature (C)" provider="Noy keopasueth" time="09:27:16"
+              type="Numeric">36.4</obs>
+         <obs label="Capillary filling time (sec)" provider="Noy keopasueth" time="09:27:16"
+              type="Numeric">1.0</obs>
+         <obs label="blood pressure set" provider="Noy keopasueth" time="09:27:16" type="N/A">65.0, 120.0</obs>
+      </encounter>
+      <encounter label="Clinical Notes" provider="Maiy Saybourphan" time="20 Mar 2016 @ 06:58"
+                 uuid="b8b5959d-5e8e-41ee-82ce-b77b724284bb">
+         <obs label="Clinical impression comment" provider="Maiy Saybourphan" time="06:58:44"
+              type="Text">Overnight patient sleeping well,no pain ,no fever ,eating and drinking well vital signs normal ,urine1 time ,no stool</obs>
+      </encounter>
+      <encounter label="Vitals" provider="Maiy Saybourphan" time="20 Mar 2016 @ 05:23"
+                 uuid="e055c907-6306-4f6e-a1ef-1708abd10c78">
+         <obs label="blood pressure set" provider="Maiy Saybourphan" time="05:23:05"
+              type="N/A">72.0, 128.0</obs>
+         <obs label="Systolic blood pressure" provider="Maiy Saybourphan" time="05:23:05"
+              type="Numeric">128.0</obs>
+         <obs label="Temperature (C)" provider="Maiy Saybourphan" time="05:23:05"
+              type="Numeric">36.0</obs>
+         <obs label="Pulse" provider="Maiy Saybourphan" time="05:23:05" type="Numeric">104.0</obs>
+         <obs label="Diastolic blood pressure" provider="Maiy Saybourphan" time="05:23:05"
+              type="Numeric">72.0</obs>
+         <obs label="Blood oxygen saturation" provider="Maiy Saybourphan" time="05:23:05"
+              type="Numeric">98.0</obs>
+         <obs label="Respiratory rate" provider="Maiy Saybourphan" time="05:23:05"
+              type="Numeric">22.0</obs>
+      </encounter>
+      <encounter label="Clinical Notes" provider="Vilayvone SENKEO" time="20 Mar 2016 @ 02:54"
+                 uuid="f99e6a09-5c80-42ad-9d0e-3531504ea37c">
+         <obs label="Clinical impression comment" provider="Vilayvone SENKEO" time="02:54:03"
+              type="Text">13 years old with chronic Osteomyelitis &#xD;
+Overnight patient did well.&#xD;
+Plan: &#xD;
+1. give Bactrim.</obs>
+      </encounter>
+      <encounter label="Neurovascular Observation" provider="Maiy Saybourphan"
+                 time="20 Mar 2016 @ 00:36"
+                 uuid="858da73d-fb8c-433b-a689-7c68263ef859">
+         <obs label="Surrounding Skin Temperature" provider="Maiy Saybourphan"
+              time="00:36:09"
+              type="Coded">Normal</obs>
+         <obs label="skin colour" provider="Maiy Saybourphan" time="00:36:09" type="Coded">pink</obs>
+         <obs label="Sensation of Affected Extremity" provider="Maiy Saybourphan"
+              time="00:36:09"
+              type="Coded">Normal sensation</obs>
+         <obs label="pain in limb (amount)" provider="Maiy Saybourphan" time="00:36:09"
+              type="Numeric">2.0</obs>
+         <obs label="extremity pulse" provider="Maiy Saybourphan" time="00:36:09"
+              type="Coded">strong pulse</obs>
+         <obs label="Swelling of affected extremity" provider="Maiy Saybourphan"
+              time="00:36:09"
+              type="Coded">Small</obs>
+         <obs label="Capillary filling time (sec)" provider="Maiy Saybourphan"
+              time="00:36:09"
+              type="Numeric">2.0</obs>
+         <obs label="Movement of affected extremity" provider="Maiy Saybourphan"
+              time="00:36:09"
+              type="Coded">Active movement without pain</obs>
+      </encounter>
+      <encounter label="Vitals" provider="Maiy Saybourphan" time="20 Mar 2016 @ 00:34"
+                 uuid="d62a4283-b406-474d-aa12-e4f557e0b0ba">
+         <obs label="Pulse" provider="Maiy Saybourphan" time="00:34:34" type="Numeric">78.0</obs>
+         <obs label="Blood oxygen saturation" provider="Maiy Saybourphan" time="00:34:34"
+              type="Numeric">98.0</obs>
+         <obs label="Capillary filling time (sec)" provider="Maiy Saybourphan"
+              time="00:34:34"
+              type="Numeric">2.0</obs>
+         <obs label="Systolic blood pressure" provider="Maiy Saybourphan" time="00:34:34"
+              type="Numeric">114.0</obs>
+         <obs label="Respiratory rate" provider="Maiy Saybourphan" time="00:34:34"
+              type="Numeric">20.0</obs>
+         <obs label="receiving oxygen therapy" provider="Maiy Saybourphan" time="00:34:34"
+              type="Coded">No</obs>
+         <obs label="Temperature (C)" provider="Maiy Saybourphan" time="00:34:34"
+              type="Numeric">36.1</obs>
+         <obs label="blood pressure set" provider="Maiy Saybourphan" time="00:34:34"
+              type="N/A">61.0, 114.0</obs>
+         <obs label="Diastolic blood pressure" provider="Maiy Saybourphan" time="00:34:34"
+              type="Numeric">61.0</obs>
+      </encounter>
+      <encounter label="Neurovascular Observation" provider="Maiy Saybourphan"
+                 time="19 Mar 2016 @ 21:34"
+                 uuid="b1399322-acd8-424d-a0aa-b6855166513c">
+         <obs label="pain in limb (amount)" provider="Maiy Saybourphan" time="21:34:08"
+              type="Numeric">2.0</obs>
+         <obs label="skin colour" provider="Maiy Saybourphan" time="21:34:08" type="Coded">pink</obs>
+         <obs label="Swelling of affected extremity" provider="Maiy Saybourphan"
+              time="21:34:08"
+              type="Coded">Small</obs>
+         <obs label="Surrounding Skin Temperature" provider="Maiy Saybourphan"
+              time="21:34:08"
+              type="Coded">Normal</obs>
+         <obs label="extremity pulse" provider="Maiy Saybourphan" time="21:34:08"
+              type="Coded">strong pulse</obs>
+         <obs label="Sensation of Affected Extremity" provider="Maiy Saybourphan"
+              time="21:34:08"
+              type="Coded">Normal sensation</obs>
+         <obs label="Capillary filling time (sec)" provider="Maiy Saybourphan"
+              time="21:34:08"
+              type="Numeric">2.0</obs>
+         <obs label="Movement of affected extremity" provider="Maiy Saybourphan"
+              time="21:34:08"
+              type="Coded">Active movement with pain</obs>
+      </encounter>
+      <encounter label="Vitals" provider="Maiy Saybourphan" time="19 Mar 2016 @ 21:32"
+                 uuid="773aa708-f992-4b58-9b55-47143ce65434">
+         <obs label="receiving oxygen therapy" provider="Maiy Saybourphan" time="21:32:31"
+              type="Coded">No</obs>
+         <obs label="Blood oxygen saturation" provider="Maiy Saybourphan" time="21:32:31"
+              type="Numeric">97.0</obs>
+         <obs label="Systolic blood pressure" provider="Maiy Saybourphan" time="21:32:31"
+              type="Numeric">117.0</obs>
+         <obs label="Pulse" provider="Maiy Saybourphan" time="21:32:31" type="Numeric">92.0</obs>
+         <obs label="Diastolic blood pressure" provider="Maiy Saybourphan" time="21:32:31"
+              type="Numeric">64.0</obs>
+         <obs label="Capillary filling time (sec)" provider="Maiy Saybourphan"
+              time="21:32:31"
+              type="Numeric">2.0</obs>
+         <obs label="Temperature (C)" provider="Maiy Saybourphan" time="21:32:31"
+              type="Numeric">36.2</obs>
+         <obs label="blood pressure set" provider="Maiy Saybourphan" time="21:32:31"
+              type="N/A">117.0, 64.0</obs>
+         <obs label="Respiratory rate" provider="Maiy Saybourphan" time="21:32:31"
+              type="Numeric">22.0</obs>
+      </encounter>
+      <encounter label="Neurovascular Observation" provider="Noy keopasueth"
+                 time="19 Mar 2016 @ 17:40"
+                 uuid="4af161a3-7087-44b2-af16-6cfcdbce16f0">
+         <obs label="Surrounding Skin Temperature" provider="Noy keopasueth" time="17:40:56"
+              type="Coded">Normal</obs>
+         <obs label="skin colour" provider="Noy keopasueth" time="17:40:56" type="Coded">pink</obs>
+         <obs label="Movement of affected extremity" provider="Noy keopasueth"
+              time="17:40:56"
+              type="Coded">Active movement with pain</obs>
+         <obs label="Sensation of Affected Extremity" provider="Noy keopasueth"
+              time="17:40:56"
+              type="Coded">Normal sensation</obs>
+         <obs label="Swelling of affected extremity" provider="Noy keopasueth"
+              time="17:40:56"
+              type="Coded">No</obs>
+         <obs label="extremity pulse" provider="Noy keopasueth" time="17:40:56" type="Coded">strong pulse</obs>
+         <obs label="Capillary filling time (sec)" provider="Noy keopasueth" time="17:40:56"
+              type="Numeric">1.0</obs>
+      </encounter>
+      <encounter label="Neurovascular Observation" provider="Noy keopasueth"
+                 time="19 Mar 2016 @ 17:40"
+                 uuid="5b94f1c9-eb50-4ab3-b647-e4c26c0e4e9a">
+         <obs label="Movement of affected extremity" provider="Noy keopasueth"
+              time="17:40:56"
+              type="Coded">Active movement with pain</obs>
+         <obs label="Capillary filling time (sec)" provider="Noy keopasueth" time="17:40:56"
+              type="Numeric">1.0</obs>
+         <obs label="skin colour" provider="Noy keopasueth" time="17:40:56" type="Coded">pink</obs>
+         <obs label="Swelling of affected extremity" provider="Noy keopasueth"
+              time="17:40:56"
+              type="Coded">No</obs>
+         <obs label="extremity pulse" provider="Noy keopasueth" time="17:40:56" type="Coded">strong pulse</obs>
+         <obs label="Surrounding Skin Temperature" provider="Noy keopasueth" time="17:40:56"
+              type="Coded">Normal</obs>
+         <obs label="Sensation of Affected Extremity" provider="Noy keopasueth"
+              time="17:40:56"
+              type="Coded">Normal sensation</obs>
+      </encounter>
+      <encounter label="Clinical Notes" provider="Noy keopasueth" time="19 Mar 2016 @ 17:36"
+                 uuid="18fd89e7-c1b7-466e-a93e-4f7c7402f24f">
+         <obs label="Clinical impression comment" provider="Noy keopasueth" time="17:36:54"
+              type="Text">pt can eat and  well, no fever, pain on his his left leg during the day , vital sing normal. urinate once and no stool. &#xD;
+&#xD;
+plan&#xD;
+pain killer medicine given as need &#xD;
+elevate his left foot</obs>
+      </encounter>
+      <encounter label="Clinical Notes" provider="Xay HER" time="19 Mar 2016 @ 17:21"
+                 uuid="95669273-a474-4e78-955f-2be4f15fb7b0">
+         <obs label="Clinical impression comment" provider="Xay HER" time="17:21:16"
+              type="Text">13 years old with chronic Osteomyelitis &#xD;
+over day he look well .no fever. no leg pain but some time itchy .&#xD;
+Plan: &#xD;
+1. give Bactrim.</obs>
+      </encounter>
+      <encounter label="Vitals" provider="Noy keopasueth" time="19 Mar 2016 @ 17:13"
+                 uuid="e2d03d7e-ab5b-4ea2-9dc8-b2d657ef739b">
+         <obs label="Pulse" provider="Noy keopasueth" time="17:13:08" type="Numeric">93.0</obs>
+         <obs label="Respiratory rate" provider="Noy keopasueth" time="17:13:08"
+              type="Numeric">20.0</obs>
+         <obs label="Level of consciousness" provider="Noy keopasueth" time="17:13:08"
+              type="Coded">Awake</obs>
+         <obs label="Temperature (C)" provider="Noy keopasueth" time="17:13:08"
+              type="Numeric">37.3</obs>
+         <obs label="Systolic blood pressure" provider="Noy keopasueth" time="17:13:08"
+              type="Numeric">107.0</obs>
+         <obs label="blood pressure set" provider="Noy keopasueth" time="17:13:08" type="N/A">60.0, 107.0</obs>
+         <obs label="Blood oxygen saturation" provider="Noy keopasueth" time="17:13:08"
+              type="Numeric">98.0</obs>
+         <obs label="Diastolic blood pressure" provider="Noy keopasueth" time="17:13:08"
+              type="Numeric">60.0</obs>
+      </encounter>
+      <encounter label="Vitals" provider="Noy keopasueth" time="19 Mar 2016 @ 13:20"
+                 uuid="7093dc0b-d350-4653-a08b-28a748a65298">
+         <obs label="Temperature (C)" provider="Noy keopasueth" time="13:20:52"
+              type="Numeric">37.2</obs>
+         <obs label="Systolic blood pressure" provider="Noy keopasueth" time="13:20:52"
+              type="Numeric">107.0</obs>
+         <obs label="Level of consciousness" provider="Noy keopasueth" time="13:20:52"
+              type="Coded">Awake</obs>
+         <obs label="Pulse" provider="Noy keopasueth" time="13:20:52" type="Numeric">96.0</obs>
+         <obs label="blood pressure set" provider="Noy keopasueth" time="13:20:52" type="N/A">60.0, 107.0</obs>
+         <obs label="Respiratory rate" provider="Noy keopasueth" time="13:20:52"
+              type="Numeric">20.0</obs>
+         <obs label="Diastolic blood pressure" provider="Noy keopasueth" time="13:20:52"
+              type="Numeric">60.0</obs>
+         <obs label="Blood oxygen saturation" provider="Noy keopasueth" time="13:20:52"
+              type="Numeric">99.0</obs>
+      </encounter>
+      <encounter label="Vitals" provider="Noy keopasueth" time="19 Mar 2016 @ 08:06"
+                 uuid="8d79224b-177b-4e83-905c-d451be9db7eb">
+         <obs label="Respiratory rate" provider="Noy keopasueth" time="08:06:59"
+              type="Numeric">20.0</obs>
+         <obs label="Diastolic blood pressure" provider="Noy keopasueth" time="08:06:59"
+              type="Numeric">65.0</obs>
+         <obs label="blood pressure set" provider="Noy keopasueth" time="08:06:59" type="N/A">117.0, 65.0</obs>
+         <obs label="Systolic blood pressure" provider="Noy keopasueth" time="08:06:59"
+              type="Numeric">117.0</obs>
+         <obs label="Capillary filling time (sec)" provider="Noy keopasueth" time="08:06:59"
+              type="Numeric">1.0</obs>
+         <obs label="Temperature (C)" provider="Noy keopasueth" time="08:06:59"
+              type="Numeric">36.2</obs>
+         <obs label="Pulse" provider="Noy keopasueth" time="08:06:59" type="Numeric">95.0</obs>
+         <obs label="Blood oxygen saturation" provider="Noy keopasueth" time="08:06:59"
+              type="Numeric">98.0</obs>
+         <obs label="Level of consciousness" provider="Noy keopasueth" time="08:06:59"
+              type="Coded">Awake</obs>
+      </encounter>
+      <encounter label="Clinical Notes" provider="Maiy Saybourphan" time="19 Mar 2016 @ 06:04"
+                 uuid="613d9144-6924-44eb-b18d-ab9762fab96c">
+         <obs label="Clinical impression comment" provider="Maiy Saybourphan" time="06:04:19"
+              type="Text">Overnight patient no fever, no pain ,sleeping well ,vital signs normal,eating and drinking well , urine 1 time ,no stool.</obs>
+      </encounter>
+      <encounter label="Clinical Notes" provider="Vilayvone SENKEO" time="19 Mar 2016 @ 05:31"
+                 uuid="36c49847-2c3f-4ef1-b4dd-60217ba93689">
+         <obs label="Clinical impression comment" provider="Vilayvone SENKEO" time="05:31:32"
+              type="Text">13 years old with chronic Osteomyelitis &#xD;
+Overnight patient sleeping well, no fever. &#xD;
+Plan: &#xD;
+1. give Bactrim.</obs>
+      </encounter>
+      <encounter label="Neurovascular Observation" provider="Maiy Saybourphan"
+                 time="19 Mar 2016 @ 05:08"
+                 uuid="08ab149c-d6ef-400d-994c-b89cd4fb721a">
+         <obs label="Capillary filling time (sec)" provider="Maiy Saybourphan"
+              time="05:08:04"
+              type="Numeric">2.0</obs>
+         <obs label="Movement of affected extremity" provider="Maiy Saybourphan"
+              time="05:08:04"
+              type="Coded">Active movement without pain</obs>
+         <obs label="Surrounding Skin Temperature" provider="Maiy Saybourphan"
+              time="05:08:04"
+              type="Coded">Normal</obs>
+         <obs label="pain in limb (amount)" provider="Maiy Saybourphan" time="05:08:04"
+              type="Numeric">1.0</obs>
+         <obs label="Sensation of Affected Extremity" provider="Maiy Saybourphan"
+              time="05:08:04"
+              type="Coded">Normal sensation</obs>
+         <obs label="extremity pulse" provider="Maiy Saybourphan" time="05:08:04"
+              type="Coded">strong pulse</obs>
+         <obs label="Swelling of affected extremity" provider="Maiy Saybourphan"
+              time="05:08:04"
+              type="Coded">Small</obs>
+         <obs label="skin colour" provider="Maiy Saybourphan" time="05:08:04" type="Coded">pink</obs>
+      </encounter>
+      <encounter label="Vitals" provider="Maiy Saybourphan" time="19 Mar 2016 @ 05:05"
+                 uuid="4de10bab-960c-464c-ac5a-c3e05ab996da">
+         <obs label="blood pressure set" provider="Maiy Saybourphan" time="05:05:58"
+              type="N/A">57.0, 111.0</obs>
+         <obs label="Diastolic blood pressure" provider="Maiy Saybourphan" time="05:05:58"
+              type="Numeric">57.0</obs>
+         <obs label="Pulse" provider="Maiy Saybourphan" time="05:05:58" type="Numeric">76.0</obs>
+         <obs label="Systolic blood pressure" provider="Maiy Saybourphan" time="05:05:58"
+              type="Numeric">111.0</obs>
+         <obs label="Temperature (C)" provider="Maiy Saybourphan" time="05:05:58"
+              type="Numeric">36.0</obs>
+         <obs label="receiving oxygen therapy" provider="Maiy Saybourphan" time="05:05:58"
+              type="Coded">No</obs>
+         <obs label="Respiratory rate" provider="Maiy Saybourphan" time="05:05:58"
+              type="Numeric">22.0</obs>
+         <obs label="Blood oxygen saturation" provider="Maiy Saybourphan" time="05:05:58"
+              type="Numeric">97.0</obs>
+      </encounter>
+      <encounter label="Vitals" provider="Maiy Saybourphan" time="19 Mar 2016 @ 01:15"
+                 uuid="ce71e716-abbf-470b-970a-51097ff60e40">
+         <obs label="Diastolic blood pressure" provider="Maiy Saybourphan" time="01:15:37"
+              type="Numeric">57.0</obs>
+         <obs label="Systolic blood pressure" provider="Maiy Saybourphan" time="01:15:37"
+              type="Numeric">102.0</obs>
+         <obs label="Respiratory rate" provider="Maiy Saybourphan" time="01:15:37"
+              type="Numeric">20.0</obs>
+         <obs label="Temperature (C)" provider="Maiy Saybourphan" time="01:15:37"
+              type="Numeric">36.0</obs>
+         <obs label="receiving oxygen therapy" provider="Maiy Saybourphan" time="01:15:37"
+              type="Coded">No</obs>
+         <obs label="Pulse" provider="Maiy Saybourphan" time="01:15:37" type="Numeric">78.0</obs>
+         <obs label="blood pressure set" provider="Maiy Saybourphan" time="01:15:37"
+              type="N/A">57.0, 102.0</obs>
+         <obs label="Blood oxygen saturation" provider="Maiy Saybourphan" time="01:15:37"
+              type="Numeric">98.0</obs>
+      </encounter>
+      <encounter label="Vitals" provider="Maiy Saybourphan" time="18 Mar 2016 @ 20:25"
+                 uuid="a490a1b5-6c27-4fdf-a926-b6f4117d8519">
+         <obs label="Capillary filling time (sec)" provider="Maiy Saybourphan"
+              time="20:25:44"
+              type="Numeric">2.0</obs>
+         <obs label="Systolic blood pressure" provider="Maiy Saybourphan" time="20:25:44"
+              type="Numeric">125.0</obs>
+         <obs label="receiving oxygen therapy" provider="Maiy Saybourphan" time="20:25:44"
+              type="Coded">No</obs>
+         <obs label="Diastolic blood pressure" provider="Maiy Saybourphan" time="20:25:44"
+              type="Numeric">65.0</obs>
+         <obs label="blood pressure set" provider="Maiy Saybourphan" time="20:25:44"
+              type="N/A">125.0, 65.0</obs>
+         <obs label="Respiratory rate" provider="Maiy Saybourphan" time="20:25:44"
+              type="Numeric">22.0</obs>
+         <obs label="Pulse" provider="Maiy Saybourphan" time="20:25:44" type="Numeric">92.0</obs>
+         <obs label="Temperature (C)" provider="Maiy Saybourphan" time="20:25:44"
+              type="Numeric">36.3</obs>
+         <obs label="Blood oxygen saturation" provider="Maiy Saybourphan" time="20:25:44"
+              type="Numeric">97.0</obs>
+      </encounter>
+      <encounter label="Clinical Notes" provider="Lakiher LEETONGXAY" time="18 Mar 2016 @ 19:29"
+                 uuid="eda190a6-6640-45fa-9d16-97cbe3bd806c">
+         <obs label="Clinical impression comment" provider="Lakiher LEETONGXAY"
+              time="19:29:25"
+              type="Text">13 yr boy with Osteomyelitis and R femur fracture.&#xD;
+today no pain no fever, stable vital.&#xD;
+Plan:&#xD;
+- continue Bactrim&#xD;
+- continue physiotherapy</obs>
+      </encounter>
+      <encounter label="Clinical Notes" provider="Bouakhan VACHOOKER" time="18 Mar 2016 @ 17:40"
+                 uuid="ae1488c0-f230-461a-8cdc-57af7c197c2d">
+         <obs label="Clinical impression comment" provider="Bouakhan VACHOOKER"
+              time="17:40:09"
+              type="Text">today patient no fever , no pain , vitalsign normal , eating and drinking well , passed urine 1 time and no stool .</obs>
+      </encounter>
+      <encounter label="Vitals" provider="Bouakhan VACHOOKER" time="18 Mar 2016 @ 17:24"
+                 uuid="8005edd9-ca6f-41d2-9b4b-d67478c2d080">
+         <obs label="Systolic blood pressure" provider="Bouakhan VACHOOKER" time="17:24:01"
+              type="Numeric">129.0</obs>
+         <obs label="Respiratory rate" provider="Bouakhan VACHOOKER" time="17:24:01"
+              type="Numeric">22.0</obs>
+         <obs label="receiving oxygen therapy" provider="Bouakhan VACHOOKER" time="17:24:01"
+              type="Coded">No</obs>
+         <obs label="Diastolic blood pressure" provider="Bouakhan VACHOOKER" time="17:24:01"
+              type="Numeric">77.0</obs>
+         <obs label="Temperature (C)" provider="Bouakhan VACHOOKER" time="17:24:01"
+              type="Numeric">36.4</obs>
+         <obs label="Blood oxygen saturation" provider="Bouakhan VACHOOKER" time="17:24:01"
+              type="Numeric">98.0</obs>
+         <obs label="blood pressure set" provider="Bouakhan VACHOOKER" time="17:24:01"
+              type="N/A">77.0, 129.0</obs>
+         <obs label="Capillary filling time (sec)" provider="Bouakhan VACHOOKER"
+              time="17:24:01"
+              type="Numeric">2.0</obs>
+         <obs label="Pulse" provider="Bouakhan VACHOOKER" time="17:24:01" type="Numeric">92.0</obs>
+         <obs label="Level of consciousness" provider="Bouakhan VACHOOKER" time="17:24:01"
+              type="Coded">Awake</obs>
+      </encounter>
+      <encounter label="Vitals" provider="Bouakhan VACHOOKER" time="18 Mar 2016 @ 13:16"
+                 uuid="273bd0df-32c2-46a6-a775-2a2b700d23e0">
+         <obs label="Blood oxygen saturation" provider="Bouakhan VACHOOKER" time="13:16:07"
+              type="Numeric">99.0</obs>
+         <obs label="receiving oxygen therapy" provider="Bouakhan VACHOOKER" time="13:16:07"
+              type="Coded">No</obs>
+         <obs label="Temperature (C)" provider="Bouakhan VACHOOKER" time="13:16:07"
+              type="Numeric">36.2</obs>
+         <obs label="Pulse" provider="Bouakhan VACHOOKER" time="13:16:07" type="Numeric">90.0</obs>
+         <obs label="blood pressure set" provider="Bouakhan VACHOOKER" time="13:16:07"
+              type="N/A">108.0, 68.0</obs>
+         <obs label="Systolic blood pressure" provider="Bouakhan VACHOOKER" time="13:16:07"
+              type="Numeric">108.0</obs>
+         <obs label="Level of consciousness" provider="Bouakhan VACHOOKER" time="13:16:07"
+              type="Coded">Awake</obs>
+         <obs label="Respiratory rate" provider="Bouakhan VACHOOKER" time="13:16:07"
+              type="Numeric">22.0</obs>
+         <obs label="Diastolic blood pressure" provider="Bouakhan VACHOOKER" time="13:16:07"
+              type="Numeric">68.0</obs>
+         <obs label="Capillary filling time (sec)" provider="Bouakhan VACHOOKER"
+              time="13:16:07"
+              type="Numeric">2.0</obs>
+      </encounter>
+      <encounter label="Clinical Notes" provider="Mai Kasuavang" time="18 Mar 2016 @ 04:15"
+                 uuid="624509bc-b9ae-4bd8-8f37-81332811ab14">
+         <obs label="Clinical impression comment" provider="Mai Kasuavang" time="04:15:33"
+              type="Text">Overnight patient sleeping well no pain no fever vital sign normal, no urine no stool.</obs>
+      </encounter>
+      <encounter label="Vitals" provider="Mai Kasuavang" time="18 Mar 2016 @ 04:14"
+                 uuid="defeb9af-3460-464c-950d-0510893b2a80">
+         <obs label="Pulse" provider="Mai Kasuavang" time="04:14:55" type="Numeric">95.0</obs>
+         <obs label="Temperature (C)" provider="Mai Kasuavang" time="04:14:55" type="Numeric">36.0</obs>
+         <obs label="Blood oxygen saturation" provider="Mai Kasuavang" time="04:14:55"
+              type="Numeric">99.0</obs>
+         <obs label="Systolic blood pressure" provider="Mai Kasuavang" time="04:14:55"
+              type="Numeric">109.0</obs>
+         <obs label="Diastolic blood pressure" provider="Mai Kasuavang" time="04:14:55"
+              type="Numeric">63.0</obs>
+         <obs label="Respiratory rate" provider="Mai Kasuavang" time="04:14:55"
+              type="Numeric">24.0</obs>
+         <obs label="blood pressure set" provider="Mai Kasuavang" time="04:14:55" type="N/A">63.0, 109.0</obs>
+      </encounter>
+      <encounter label="Clinical Notes" provider="Vilayvone SENKEO" time="18 Mar 2016 @ 04:12"
+                 uuid="6d57fd16-8b38-428b-9b9f-6af4373fd1ef">
+         <obs label="Clinical impression comment" provider="Vilayvone SENKEO" time="04:12:45"
+              type="Text">13 years old with chronic Osteomyelitis &#xD;
+Overnight patient sleeping well, no fever. &#xD;
+Plan: &#xD;
+1. give Bactrim.</obs>
+      </encounter>
+      <encounter label="Vitals" provider="Mai Kasuavang" time="18 Mar 2016 @ 00:26"
+                 uuid="b1d880c5-91f1-4048-a872-10ce24a0c2f5">
+         <obs label="Respiratory rate" provider="Mai Kasuavang" time="00:26:03"
+              type="Numeric">24.0</obs>
+         <obs label="Pulse" provider="Mai Kasuavang" time="00:26:03" type="Numeric">96.0</obs>
+         <obs label="Temperature (C)" provider="Mai Kasuavang" time="00:26:03" type="Numeric">36.0</obs>
+         <obs label="Systolic blood pressure" provider="Mai Kasuavang" time="00:26:03"
+              type="Numeric">100.0</obs>
+         <obs label="blood pressure set" provider="Mai Kasuavang" time="00:26:03" type="N/A">100.0, 64.0</obs>
+         <obs label="Diastolic blood pressure" provider="Mai Kasuavang" time="00:26:03"
+              type="Numeric">64.0</obs>
+         <obs label="Blood oxygen saturation" provider="Mai Kasuavang" time="00:26:03"
+              type="Numeric">98.0</obs>
+      </encounter>
+      <encounter label="Vitals" provider="Mai Kasuavang" time="17 Mar 2016 @ 20:36"
+                 uuid="c26d0a78-42ea-4aa8-8f29-2c2e850c8a26">
+         <obs label="Temperature (C)" provider="Mai Kasuavang" time="20:36:07" type="Numeric">37.0</obs>
+         <obs label="Blood oxygen saturation" provider="Mai Kasuavang" time="20:36:07"
+              type="Numeric">96.0</obs>
+         <obs label="Systolic blood pressure" provider="Mai Kasuavang" time="20:36:07"
+              type="Numeric">113.0</obs>
+         <obs label="Diastolic blood pressure" provider="Mai Kasuavang" time="20:36:07"
+              type="Numeric">58.0</obs>
+         <obs label="Respiratory rate" provider="Mai Kasuavang" time="20:36:07"
+              type="Numeric">24.0</obs>
+         <obs label="Pulse" provider="Mai Kasuavang" time="20:36:07" type="Numeric">97.0</obs>
+         <obs label="blood pressure set" provider="Mai Kasuavang" time="20:36:07" type="N/A">58.0, 113.0</obs>
+      </encounter>
+      <encounter label="Clinical Notes" provider="Khamhak Phoumesy" time="17 Mar 2016 @ 18:49"
+                 uuid="cee267aa-ab74-4dfd-8fde-e3b6ee8bc7b1">
+         <obs label="Clinical impression comment" provider="Khamhak Phoumesy" time="18:49:10"
+              type="Text">today pt eat and drink good, vital signs normal but high blood pressure little bit 121/77, on leg ( L ) had warm, red and swollen little bit, pt no stool and urine 2 times</obs>
+      </encounter>
+      <encounter label="Vitals" provider="Khamhak Phoumesy" time="17 Mar 2016 @ 17:25"
+                 uuid="c1e15c5c-4abf-40b5-a3f4-1a584fbbf16d">
+         <obs label="Level of consciousness" provider="Khamhak Phoumesy" time="17:25:12"
+              type="Coded">Awake</obs>
+         <obs label="blood pressure set" provider="Khamhak Phoumesy" time="17:25:12"
+              type="N/A">121.0, 77.0</obs>
+         <obs label="Blood oxygen saturation" provider="Khamhak Phoumesy" time="17:25:12"
+              type="Numeric">98.0</obs>
+         <obs label="Temperature (C)" provider="Khamhak Phoumesy" time="17:25:12"
+              type="Numeric">36.9</obs>
+         <obs label="Diastolic blood pressure" provider="Khamhak Phoumesy" time="17:25:12"
+              type="Numeric">77.0</obs>
+         <obs label="Systolic blood pressure" provider="Khamhak Phoumesy" time="17:25:12"
+              type="Numeric">121.0</obs>
+         <obs label="Capillary filling time (sec)" provider="Khamhak Phoumesy"
+              time="17:25:12"
+              type="Numeric">2.0</obs>
+         <obs label="receiving oxygen therapy" provider="Khamhak Phoumesy" time="17:25:12"
+              type="Coded">No</obs>
+         <obs label="Pulse" provider="Khamhak Phoumesy" time="17:25:12" type="Numeric">99.0</obs>
+         <obs label="Respiratory rate" provider="Khamhak Phoumesy" time="17:25:12"
+              type="Numeric">25.0</obs>
+      </encounter>
+      <encounter label="Neurovascular Observation" provider="Khamhak Phoumesy"
+                 time="17 Mar 2016 @ 14:59"
+                 uuid="2ad258b6-8571-4375-874a-133967e31aa2">
+         <obs label="Sensation of Affected Extremity" provider="Khamhak Phoumesy"
+              time="14:59:45"
+              type="Coded">Normal sensation</obs>
+         <obs label="Movement of affected extremity" provider="Khamhak Phoumesy"
+              time="14:59:45"
+              type="Coded">Active movement with pain</obs>
+         <obs label="Surrounding Skin Temperature" provider="Khamhak Phoumesy"
+              time="14:59:45"
+              type="Coded">Normal</obs>
+         <obs label="Swelling of affected extremity" provider="Khamhak Phoumesy"
+              time="14:59:45"
+              type="Coded">Small</obs>
+         <obs label="extremity pulse" provider="Khamhak Phoumesy" time="14:59:45"
+              type="Coded">strong pulse</obs>
+         <obs label="skin colour" provider="Khamhak Phoumesy" time="14:59:45" type="Coded">pink</obs>
+         <obs label="pain in limb (amount)" provider="Khamhak Phoumesy" time="14:59:45"
+              type="Numeric">2.0</obs>
+         <obs label="Capillary filling time (sec)" provider="Khamhak Phoumesy"
+              time="14:59:45"
+              type="Numeric">1.0</obs>
+      </encounter>
+      <encounter label="Vitals" provider="Khamhak Phoumesy" time="17 Mar 2016 @ 14:57"
+                 uuid="0b3c4965-6490-4819-bab8-20d404aae223">
+         <obs label="Capillary filling time (sec)" provider="Khamhak Phoumesy"
+              time="14:57:26"
+              type="Numeric">2.0</obs>
+         <obs label="Pulse" provider="Khamhak Phoumesy" time="14:57:26" type="Numeric">100.0</obs>
+         <obs label="Diastolic blood pressure" provider="Khamhak Phoumesy" time="14:57:26"
+              type="Numeric">59.0</obs>
+         <obs label="blood pressure set" provider="Khamhak Phoumesy" time="14:57:26"
+              type="N/A">59.0, 108.0</obs>
+         <obs label="Systolic blood pressure" provider="Khamhak Phoumesy" time="14:57:26"
+              type="Numeric">108.0</obs>
+         <obs label="Temperature (C)" provider="Khamhak Phoumesy" time="14:57:26"
+              type="Numeric">36.7</obs>
+         <obs label="receiving oxygen therapy" provider="Khamhak Phoumesy" time="14:57:26"
+              type="Coded">No</obs>
+         <obs label="Respiratory rate" provider="Khamhak Phoumesy" time="14:57:26"
+              type="Numeric">26.0</obs>
+         <obs label="Blood oxygen saturation" provider="Khamhak Phoumesy" time="14:57:26"
+              type="Numeric">98.0</obs>
+         <obs label="Level of consciousness" provider="Khamhak Phoumesy" time="14:57:26"
+              type="Coded">Awake</obs>
+      </encounter>
+      <encounter label="Vitals" provider="Khamhak Phoumesy" time="17 Mar 2016 @ 08:35"
+                 uuid="80eb6f2b-c342-4323-ab2a-cd8296b965f2">
+         <obs label="Diastolic blood pressure" provider="Khamhak Phoumesy" time="08:35:39"
+              type="Numeric">63.0</obs>
+         <obs label="Systolic blood pressure" provider="Khamhak Phoumesy" time="08:35:39"
+              type="Numeric">121.0</obs>
+         <obs label="blood pressure set" provider="Khamhak Phoumesy" time="08:35:39"
+              type="N/A">63.0, 121.0</obs>
+         <obs label="Temperature (C)" provider="Khamhak Phoumesy" time="08:35:39"
+              type="Numeric">36.0</obs>
+         <obs label="Capillary filling time (sec)" provider="Khamhak Phoumesy"
+              time="08:35:39"
+              type="Numeric">2.0</obs>
+         <obs label="Respiratory rate" provider="Khamhak Phoumesy" time="08:35:39"
+              type="Numeric">25.0</obs>
+         <obs label="Pulse" provider="Khamhak Phoumesy" time="08:35:39" type="Numeric">108.0</obs>
+         <obs label="Weight (kg)" provider="Khamhak Phoumesy" time="08:35:39" type="Numeric">42.7</obs>
+         <obs label="Blood oxygen saturation" provider="Khamhak Phoumesy" time="08:35:39"
+              type="Numeric">97.0</obs>
+         <obs label="Level of consciousness" provider="Khamhak Phoumesy" time="08:35:39"
+              type="Coded">Awake</obs>
+         <obs label="receiving oxygen therapy" provider="Khamhak Phoumesy" time="08:35:39"
+              type="Coded">No</obs>
+      </encounter>
+      <encounter label="Clinical Notes" provider="Vilayvone SENKEO" time="17 Mar 2016 @ 05:55"
+                 uuid="19b2fef4-1985-4da4-b420-a847d4a26b16">
+         <obs label="Clinical impression comment" provider="Vilayvone SENKEO" time="05:55:51"
+              type="Text">13 years old with chronic Osteomyelitis &#xD;
+Overnight patient sleeping well, no fever.&#xD;
+Plan: &#xD;
+1. give Bactrim.</obs>
+      </encounter>
+      <encounter label="Clinical Notes" provider="Sounisa THONGMEEXAY"
+                 time="17 Mar 2016 @ 05:16"
+                 uuid="c2f13367-2a68-4817-a200-8444affa79a1">
+         <obs label="Clinical impression comment" provider="Sounisa THONGMEEXAY"
+              time="05:16:58"
+              type="Text">over night patient eating and drinking well no pain no fever vitasigns normal he no urine no stool.</obs>
+      </encounter>
+      <encounter label="Vitals" provider="Sounisa THONGMEEXAY" time="17 Mar 2016 @ 04:29"
+                 uuid="096927ad-dfb1-4ce6-aff7-fc47f8bdb548">
+         <obs label="Temperature (C)" provider="Sounisa THONGMEEXAY" time="04:29:28"
+              type="Numeric">36.2</obs>
+         <obs label="Diastolic blood pressure" provider="Sounisa THONGMEEXAY" time="04:29:28"
+              type="Numeric">68.0</obs>
+         <obs label="Respiratory rate" provider="Sounisa THONGMEEXAY" time="04:29:28"
+              type="Numeric">20.0</obs>
+         <obs label="Systolic blood pressure" provider="Sounisa THONGMEEXAY" time="04:29:28"
+              type="Numeric">108.0</obs>
+         <obs label="blood pressure set" provider="Sounisa THONGMEEXAY" time="04:29:28"
+              type="N/A">108.0, 68.0</obs>
+         <obs label="Pulse" provider="Sounisa THONGMEEXAY" time="04:29:28" type="Numeric">100.0</obs>
+         <obs label="Blood oxygen saturation" provider="Sounisa THONGMEEXAY" time="04:29:28"
+              type="Numeric">98.0</obs>
+      </encounter>
+      <encounter label="Vitals" provider="Sounisa THONGMEEXAY" time="17 Mar 2016 @ 00:02"
+                 uuid="ca9da875-7a58-4670-9fc6-a38896eae4aa">
+         <obs label="Blood oxygen saturation" provider="Sounisa THONGMEEXAY" time="00:02:25"
+              type="Numeric">97.0</obs>
+         <obs label="Pulse" provider="Sounisa THONGMEEXAY" time="00:02:25" type="Numeric">98.0</obs>
+         <obs label="Temperature (C)" provider="Sounisa THONGMEEXAY" time="00:02:25"
+              type="Numeric">36.0</obs>
+         <obs label="Systolic blood pressure" provider="Sounisa THONGMEEXAY" time="00:02:25"
+              type="Numeric">112.0</obs>
+         <obs label="blood pressure set" provider="Sounisa THONGMEEXAY" time="00:02:25"
+              type="N/A">64.0, 112.0</obs>
+         <obs label="Respiratory rate" provider="Sounisa THONGMEEXAY" time="00:02:25"
+              type="Numeric">20.0</obs>
+         <obs label="Diastolic blood pressure" provider="Sounisa THONGMEEXAY" time="00:02:25"
+              type="Numeric">64.0</obs>
+      </encounter>
+      <encounter label="Vitals" provider="Sounisa THONGMEEXAY" time="16 Mar 2016 @ 20:00"
+                 uuid="1935ba9c-646b-497c-9138-6e30fc3d3dc7">
+         <obs label="Diastolic blood pressure" provider="Sounisa THONGMEEXAY" time="20:00:37"
+              type="Numeric">66.0</obs>
+         <obs label="Systolic blood pressure" provider="Sounisa THONGMEEXAY" time="20:00:37"
+              type="Numeric">110.0</obs>
+         <obs label="Blood oxygen saturation" provider="Sounisa THONGMEEXAY" time="20:00:37"
+              type="Numeric">96.0</obs>
+         <obs label="Respiratory rate" provider="Sounisa THONGMEEXAY" time="20:00:37"
+              type="Numeric">20.0</obs>
+         <obs label="blood pressure set" provider="Sounisa THONGMEEXAY" time="20:00:37"
+              type="N/A">66.0, 110.0</obs>
+         <obs label="Temperature (C)" provider="Sounisa THONGMEEXAY" time="20:00:37"
+              type="Numeric">36.9</obs>
+         <obs label="Pulse" provider="Sounisa THONGMEEXAY" time="20:00:37" type="Numeric">114.0</obs>
+      </encounter>
+      <encounter label="Clinical Notes" provider="Khamhak Phoumesy" time="16 Mar 2016 @ 18:25"
+                 uuid="e03ccf71-621f-4406-bfb8-54f3559b4953">
+         <obs label="Clinical impression comment" provider="Khamhak Phoumesy" time="18:25:01"
+              type="Text">pt look good, vital signs normal but high blood pressure little bit, pt have pain on leg ( L ) little bit, eat and drink good</obs>
+      </encounter>
+      <encounter label="Vitals" provider="Khamhak Phoumesy" time="16 Mar 2016 @ 17:05"
+                 uuid="b8c5e007-b247-48a4-aa3d-b527583b58e9">
+         <obs label="Pulse" provider="Khamhak Phoumesy" time="17:05:27" type="Numeric">108.0</obs>
+         <obs label="Blood oxygen saturation" provider="Khamhak Phoumesy" time="17:05:27"
+              type="Numeric">99.0</obs>
+         <obs label="Temperature (C)" provider="Khamhak Phoumesy" time="17:05:27"
+              type="Numeric">37.0</obs>
+         <obs label="Weight (kg)" provider="Khamhak Phoumesy" time="17:05:27" type="Numeric">42.7</obs>
+         <obs label="Respiratory rate" provider="Khamhak Phoumesy" time="17:05:27"
+              type="Numeric">26.0</obs>
+         <obs label="Level of consciousness" provider="Khamhak Phoumesy" time="17:05:27"
+              type="Coded">Awake</obs>
+         <obs label="Diastolic blood pressure" provider="Khamhak Phoumesy" time="17:05:27"
+              type="Numeric">67.0</obs>
+         <obs label="Systolic blood pressure" provider="Khamhak Phoumesy" time="17:05:27"
+              type="Numeric">125.0</obs>
+         <obs label="blood pressure set" provider="Khamhak Phoumesy" time="17:05:27"
+              type="N/A">125.0, 67.0</obs>
+         <obs label="receiving oxygen therapy" provider="Khamhak Phoumesy" time="17:05:27"
+              type="Coded">No</obs>
+      </encounter>
+      <encounter label="Lab Test Order" provider="Lew Sook WEIH" time="16 Mar 2016 @ 16:56"
+                 uuid="5fb3fc4f-7bb3-4242-b8d5-43151aec35f9">
+         <obs label="Lab test ordered" provider="Lew Sook WEIH" time="16:56:31" type="Coded">ERYTHROCYTE SEDIMENTATION RATE</obs>
+         <obs label="ERYTHROCYTE SEDIMENTATION RATE" provider="Anousin PHONEDALA"
+              time="16:56:31"
+              type="Numeric">40.0</obs>
+      </encounter>
+      <encounter label="Diagnosis" provider="Dorkeo Bounpao" time="16 Mar 2016 @ 07:25"
+                 uuid="d972d3d1-48d1-4b1b-bf5b-62af96d746c2">
+         <obs label="DIAGNOSIS LIST" provider="Dorkeo Bounpao" time="07:25:09" type="Coded">Pathologic Fracture of Part of Femur</obs>
+         <obs label="Visit Diagnoses" provider="Dorkeo Bounpao" time="07:25:09" type="N/A">Secondary, Pathologic Fracture of Part of Femur</obs>
+         <obs label="DIAGNOSIS LIST" provider="Dorkeo Bounpao" time="07:25:09" type="Coded">Chronic Osteomyelitis of the Lower Leg</obs>
+         <obs label="Diagnosis order" provider="Dorkeo Bounpao" time="07:25:09" type="Coded">Secondary</obs>
+         <obs label="Visit Diagnoses" provider="Dorkeo Bounpao" time="07:25:09" type="N/A">Chronic Osteomyelitis of the Lower Leg, Primary</obs>
+         <obs label="Diagnosis order" provider="Dorkeo Bounpao" time="07:25:09" type="Coded">Primary</obs>
+      </encounter>
+      <encounter label="Clinical Notes" provider="Dorkeo Bounpao" time="16 Mar 2016 @ 07:13"
+                 uuid="23c7902b-2fe6-4f65-819d-b1a242a56b8f">
+         <obs label="Clinical impression comment" provider="Dorkeo Bounpao" time="07:13:46"
+              type="Text">- Somkiet Readmission for Chronic Osteomyelitis with pathological fracture of the left femur&#xD;
+- stayed home for 4weeks, he felt down from the bed one time and felt during standing one time, feel pain above the left knee, no fever, no wound.&#xD;
+- taken oral Cotrimoxazole daily, no gastric pain, no jaundice&#xD;
+-  ESR 60 (15.3.2016)---ESR 90 67 30 60 26 24(8 Feb2016).&#xD;
+- xray shows transvers fracture of the left distal femur&#xD;
+&#xD;
+# Plan&#xD;
+1. admit in IPD&#xD;
+2. require surgeon to come and repaire (Dr. Phitsavan 020 22133188)  &#xD;
+3. continue oral Cotrimoxazole twice daily</obs>
+      </encounter>
+      <encounter label="Transfer" provider="Dorkeo Bounpao" time="16 Mar 2016 @ 07:13"
+                 uuid="538c4ba0-0d6f-4dbb-8597-96495c1fc219"/>
       <encounter label="Clinical Notes" provider="Khamthavong Sayavong"
                  time="15 Mar 2016 @ 22:39"
                  uuid="2faa9967-f0a9-4238-a86f-f7108d2cd5d1">
@@ -71,6 +2146,22 @@
               type="Coded">MEAN CELL HEMOGLOBIN CONCENTRATION</obs>
          <obs label="Lab test ordered" provider="Phoumy Manivong" time="17:22:04"
               type="Coded">ERYTHROCYTE SEDIMENTATION RATE</obs>
+         <obs label="Hemoglobin" provider="Mary 1 LEE" time="17:22:04" type="Numeric">134.0</obs>
+         <obs label="HEMATOCRIT" provider="Mary 1 LEE" time="17:22:04" type="Numeric">41.8</obs>
+         <obs label="RED BLOOD CELLS" provider="Mary 1 LEE" time="17:22:04" type="Numeric">5.68</obs>
+         <obs label="RED CELL DISTRIBUTION WIDTH" provider="Mary 1 LEE" time="17:22:04"
+              type="Numeric">14.5</obs>
+         <obs label="WHITE BLOOD CELLS" provider="Mary 1 LEE" time="17:22:04" type="Numeric">11.0</obs>
+         <obs label="ERYTHROCYTE SEDIMENTATION RATE" provider="Mary 1 LEE" time="17:22:04"
+              type="Numeric">60.0</obs>
+         <obs label="MEAN CELL HEMOGLOBIN CONCENTRATION" provider="Mary 1 LEE"
+              time="17:22:04"
+              type="Numeric">321.0</obs>
+         <obs label="MEAN CORPUSCULAR HEMOGLOBIN" provider="Mary 1 LEE" time="17:22:04"
+              type="Numeric">23.6</obs>
+         <obs label="MEAN CORPUSCULAR VOLUME" provider="Mary 1 LEE" time="17:22:04"
+              type="Numeric">73.6</obs>
+         <obs label="PLATELETS" provider="Mary 1 LEE" time="17:22:04" type="Numeric">456.0</obs>
       </encounter>
    </visit>
    <visit location="Lao Friends Hospital for Children" type="Inpatient"

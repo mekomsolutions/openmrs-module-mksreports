@@ -35,10 +35,10 @@ public class PatientHistoryXmlReportRendererTest {
 		String str = IOUtils.toString(inStream, "UTF-8");
 		
 		XStream xstream = new XStream();
-		xstream.alias("org.openmrs.User_$$_jvstd85_41", User.class);
-		xstream.alias("org.openmrs.ConceptDatatype_$$_jvstd85_40", ConceptDatatype.class);
-		xstream.alias("org.openmrs.ConceptClass_$$_jvstd85_16", ConceptClass.class);
-		xstream.alias("org.openmrs.Concept_$$_jvstd85_10", Concept.class);
+		xstream.alias("org.openmrs.User_$$_jvst153_41", User.class);
+		xstream.alias("org.openmrs.ConceptDatatype_$$_jvst153_40", ConceptDatatype.class);
+		xstream.alias("org.openmrs.ConceptClass_$$_jvst153_16", ConceptClass.class);
+		xstream.alias("org.openmrs.Concept_$$_jvst153_10", Concept.class);
 		xstream.omitField(User.class, "log");
 		xstream.omitField(Person.class, "log");
 		xstream.omitField(Person.class, "deathdateEstimated");

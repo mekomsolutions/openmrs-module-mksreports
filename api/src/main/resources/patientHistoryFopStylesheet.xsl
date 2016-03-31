@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet version="2.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:fo="http://www.w3.org/1999/XSL/Format">
 
-	<xsl:param name="numColumns">4</xsl:param>
+	<xsl:param name="numDemCols">2</xsl:param>
+	<xsl:param name="numObsCols">4</xsl:param>
   
 	<xsl:template match="patientHistory">
 	    <fo:root>
@@ -13,11 +14,48 @@
 	      
 			<fo:page-sequence master-reference="A4-portrait">
 				<fo:flow flow-name="xsl-region-body">
+					<fo:block margin-bottom="10mm">
+						<xsl:apply-templates select="demographics"/>
+					</fo:block>fo:block
 					<xsl:apply-templates select="visit"/>
 				</fo:flow>
 			</fo:page-sequence>
 	    </fo:root>
 	</xsl:template>
+	
+	<xsl:template match="demographics">
+		<fo:table>
+			<xsl:call-template name="repeat-fo-table-column">
+			    <xsl:with-param name="count" select="$numDemCols" />
+		    </xsl:call-template>
+			<fo:table-body>
+				<!-- We select the first demographic and and those that match for a row start -->
+				<xsl:apply-templates select="demographic[(position() = 1 or (position() mod $numDemCols) = 1)]" mode="row"/>
+			</fo:table-body>
+		</fo:table>
+	</xsl:template>
+	
+	<!-- In-table demographic: selecting each row's elements -->
+	<xsl:template match="demographic" mode="row">
+		<fo:table-row>
+	        <!-- We select the current demographic and add the following ones whose position doesn't exceed the row's width -->
+	        <xsl:apply-templates select=".|following-sibling::demographic[position() &lt; ($numDemCols + 0)]" mode="cell"/>
+        </fo:table-row>
+    </xsl:template>
+
+    <!-- In-table demographic: in rows cell -->
+    <xsl:template match="demographic" mode="cell">
+        <fo:table-cell>
+			<fo:block margin-bottom="3mm">
+				<fo:block font-size="9" font-style="italic">
+					<xsl:value-of select="@label"/>:
+				</fo:block>
+				<fo:block font-size="13">
+					<xsl:value-of select="."/>
+				</fo:block>
+			</fo:block>
+        </fo:table-cell>
+    </xsl:template>	
 	
 	<xsl:template match="visit">
 		<fo:block margin-bottom="10mm">
@@ -32,18 +70,18 @@
 				<xsl:value-of select="@label"/>
 			</fo:block>
 			<fo:block font-size="9">
-				<xsl:value-of select="@provider"/> <xsl:text>&#x9;</xsl:text>-<xsl:text>&#x9;</xsl:text> <xsl:value-of select="@time"/> 
+				<xsl:value-of select="@provider"/> - <xsl:value-of select="@time"/> 
 			</fo:block>
 			<xsl:choose>
 				<xsl:when test="count(obs[@type!='Text']) &gt; 0">
 					<fo:table>
 						<xsl:call-template name="repeat-fo-table-column">
-						    <xsl:with-param name="count" select="$numColumns" />
+						    <xsl:with-param name="count" select="$numObsCols" />
 					    </xsl:call-template>
 						
 				        <fo:table-body>
 							<!-- We select the first obs and and those that match for a row start -->
-				            <xsl:apply-templates select="obs[(position() = 1 or (position() mod $numColumns) = 1)]" mode="row"/>
+				            <xsl:apply-templates select="obs[(position() = 1 or (position() mod $numObsCols) = 1)]" mode="row"/>
 				    	</fo:table-body>
 					</fo:table> 
 		 		</xsl:when>
@@ -71,7 +109,7 @@
 	<xsl:template match="obs" mode="row">
 		<fo:table-row>
 	        <!-- We select the current obs and add the following ones whose position doesn't exceed the row's width -->
-	        <xsl:apply-templates select=".|following-sibling::obs[position() &lt; ($numColumns + 0)]" mode="cell"/>
+	        <xsl:apply-templates select=".|following-sibling::obs[position() &lt; ($numObsCols + 0)]" mode="cell"/>
         </fo:table-row>
     </xsl:template>	
     

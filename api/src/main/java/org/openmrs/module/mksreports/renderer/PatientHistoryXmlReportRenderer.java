@@ -148,7 +148,9 @@ public class PatientHistoryXmlReportRenderer extends ReportDesignRenderer {
 		
 		dataSetKey = PatientHistoryReportManager.DATASET_KEY_DEMOGRAPHICS;
 		if(results.getDataSets().containsKey(dataSetKey)) {
-			DataSet dataSet = results.getDataSets().get(dataSetKey);
+			DataSet dataSet = null;
+			
+			dataSet = results.getDataSets().get(dataSetKey);
 			Element demographics = doc.createElement("demographics");
 			rootElement.appendChild(demographics);
 			
@@ -158,6 +160,20 @@ public class PatientHistoryXmlReportRenderer extends ReportDesignRenderer {
 					demographics.appendChild(demographicData);
 					demographicData.setAttribute(ATTR_LABEL, column.getLabel());
 					String strValue = getStringValue(row, column);
+					demographicData.appendChild(doc.createTextNode(strValue));
+				}
+			}
+			
+			// Registration encounter latest obs
+			dataSetKey = PatientHistoryReportManager.DATASET_KEY_REG_OBS;
+			if(results.getDataSets().containsKey(dataSetKey)) {
+				dataSet = results.getDataSets().get(dataSetKey);
+				for (DataSetRow row : dataSet) {
+					String label = getStringValue(row, PatientHistoryReportManager.OBS_NAME_LABEL);
+					String strValue = getStringValue(row, PatientHistoryReportManager.OBS_VALUE_LABEL);
+					Element demographicData = doc.createElement("demographic");
+					demographics.appendChild(demographicData);
+					demographicData.setAttribute(ATTR_LABEL, label);
 					demographicData.appendChild(doc.createTextNode(strValue));
 				}
 			}
