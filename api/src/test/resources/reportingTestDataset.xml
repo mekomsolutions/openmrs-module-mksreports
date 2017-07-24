@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<dataset>
+
+	<visit visit_id="242" patient_id="2" visit_type_id="1"
+		date_started="2017-07-06 00:00:00.0" creator="1" date_created="2017-07-01 00:00:00.0"
+		voided="0" uuid="eb5c1e39-f9ea-41f4-9780-438ade34d0e4" />
+
+	<visit visit_id="243" patient_id="2" visit_type_id="1"
+		date_started="2017-07-01 00:00:00.0" location_id="1" creator="1"
+		date_created="2017-07-01 00:00:00.0" voided="0"
+		uuid="61ff5acd-4abe-435f-8a96-4efebeb8a2c3" />
+
+	<visit visit_id="244" patient_id="2" visit_type_id="1"
+		date_started="2017-07-02 00:00:00.0" creator="1" date_created="2017-07-01 00:00:00.0"
+		voided="0" uuid="28cd558d-5968-4642-b3e0-fa3c7534a2e3" />
+
+	<visit visit_id="245" patient_id="2" visit_type_id="2"
+		date_started="2017-07-03 00:00:00.0" creator="1" date_created="2017-07-01 00:00:00.0"
+		voided="0" uuid="24ca861a-0867-405c-872e-34d5e0b902af" />
+
+	<visit visit_id="246" patient_id="6" visit_type_id="1"
+		date_started="2017-07-04 00:00:00.0" creator="1" date_created="2017-07-01 00:00:00.0"
+		voided="0" uuid="1b6fe45d-7069-43f8-b0bd-65e5f6fc4a62" />
+
+	<visit visit_id="247" patient_id="6" visit_type_id="1"
+		date_started="2017-07-05 00:00:00.0" creator="1" date_created="2017-07-01 00:00:00.0"
+		voided="0" uuid="c3c61f78-ea5a-4f9b-b04d-7ae4cc0103e3" />
+
+	<visit visit_id="248" patient_id="2" visit_type_id="1"
+		date_started="2017-07-05 00:00:00.0" creator="1" date_created="2017-07-01 00:00:00.0"
+		voided="1" voided_by="1" date_voided="2017-07-01 00:00:00.0"
+		void_reason="no reason" uuid="2e42c90f-1eb0-4e6f-8de7-6169f99e40c0" />
+
+	<person person_id="3000" gender="O" dead="false" creator="1"
+		date_created="2008-08-15 15:57:09.0" voided="false"
+		uuid="964a887e-7ea7-4e1d-a3b5-e42c414e485e" />
+	<patient patient_id="3000" creator="1" date_created="2006-01-18 00:00:00.0"
+		changed_by="1" date_changed="2008-08-18 12:25:57.0" voided="false"
+		void_reason="" />
+
+	<concept concept_id="3060" retired="false" datatype_id="2"
+		class_id="7" is_set="false" creator="1" date_created="2008-08-15 15:27:51.0"
+		version="" uuid="05371564-f7cb-492a-b8f4-62b738ecf6ec" />
+	<concept concept_id="3061" retired="false" datatype_id="4"
+		class_id="11" is_set="false" creator="1" date_created="2008-08-15 15:51:39.0"
+		version="" changed_by="1" date_changed="2008-08-15 15:52:38.0"
+		uuid="9ad79eea-d2d2-438f-b72b-51141f6caaca" />
+	<concept concept_id="3062" retired="false" datatype_id="4"
+		class_id="11" is_set="false" creator="1" date_created="2008-08-15 15:51:57.0"
+		version="" uuid="64cd3cd7-40b2-4a99-86dc-73a592952dae" />
+	<concept concept_id="3063" retired="false" datatype_id="4"
+		class_id="11" is_set="false" creator="1" date_created="2008-08-15 15:52:17.0"
+		version="" uuid="7e1e06ac-d9ba-4c78-86dc-f70e1af6e777" />
+
+	<concept_name concept_id="3060" name="Distance From HC" locale="en_GB"
+		creator="1" date_created="2004-08-12 00:00:00.0" concept_name_id="3460"
+		concept_name_type="SHORT" locale_preferred="1" voided="false"
+		uuid="39d3c6dc-32f5-4749-bb01-2304bbe226bb" />
+	<concept_name concept_id="3061" name="ZoneA" locale="en_GB"
+		creator="1" date_created="2004-08-12 00:00:00.0" concept_name_id="3861"
+		concept_name_type="SHORT" locale_preferred="1" voided="false"
+		uuid="b3f6f085-3153-4795-9a59-403b8d38c214" />
+	<concept_name concept_id="3062" name="ZoneB" locale="en_GB"
+		creator="1" date_created="2008-08-15 13:52:53.0" concept_name_id="3462"
+		concept_name_type="SHORT" locale_preferred="1" voided="false"
+		uuid="18f6c673-9a81-4925-b213-1652258dbef8" />
+	<concept_name concept_id="3063" name="ZoneC" locale="en_GB"
+		creator="1" date_created="2008-08-15 13:53:31.0" concept_name_id="3463"
+		concept_name_type="SHORT" locale_preferred="1" voided="false"
+		uuid="610c0f5c-5b18-452d-8d6d-817629cf92f2" />
+
+	<concept_answer concept_answer_id="1" concept_id="3060"
+		answer_concept="3061" creator="1" date_created="2008-08-18 12:34:26.0"
+		uuid="9b317a17-1d91-430a-93cd-5b7f91f40955" />
+	<concept_answer concept_answer_id="2" concept_id="3060"
+		answer_concept="3062" creator="1" date_created="2008-08-18 12:34:26.0"
+		uuid="8ee7f405-91b5-4c49-a861-04adbda6d365" />
+	<concept_answer concept_answer_id="3" concept_id="3060"
+		answer_concept="3063" creator="1" date_created="2008-08-18 12:34:58.0"
+		uuid="b82d8f8b-e929-4d41-9af9-ddfa833c58d4" />
+
+	<obs obs_id="3017" person_id="2" concept_id="3060" encounter_id="3"
+		obs_datetime="2008-07-01 00:00:00.0" location_id="1" value_coded="3061"
+		comments="" creator="1" date_created="2008-08-18 14:09:35.0" voided="false"
+		value_coded_name_id="[NULL]" value_complex="[NULL]" value_text="[NULL]"
+		value_datetime="[NULL]" value_drug="[NULL]"
+		uuid="d2209efe-5ea6-4f4c-bf95-7b1cb7906041" />
+
+	<obs obs_id="3018" person_id="6" concept_id="3060" encounter_id="3"
+		obs_datetime="2008-07-01 00:00:00.0" location_id="1" value_coded="3063"
+		comments="" creator="1" date_created="2008-08-18 14:09:35.0" voided="false"
+		value_coded_name_id="[NULL]" value_complex="[NULL]" value_text="[NULL]"
+		value_datetime="[NULL]" value_drug="[NULL]"
+		uuid="135e5a56-2d7f-4d0e-9530-30c5ee6ae43f" />
+
+
+</dataset>

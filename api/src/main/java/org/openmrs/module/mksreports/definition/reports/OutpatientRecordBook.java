@@ -3,12 +3,15 @@ package org.openmrs.module.mksreports.definition.reports;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.openmrs.PatientIdentifierType;
 import org.openmrs.api.PatientService;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.mksreports.MKSReportsConstants;
+import org.openmrs.module.mksreports.query.VisitWithinDateRangeQuery;
 import org.openmrs.module.reporting.common.Age;
 import org.openmrs.module.reporting.common.AgeRange;
 import org.openmrs.module.reporting.common.MessageUtil;
@@ -22,6 +25,7 @@ import org.openmrs.module.reporting.data.visit.library.BuiltInVisitDataLibrary;
 import org.openmrs.module.reporting.dataset.definition.VisitDataSetDefinition;
 import org.openmrs.module.reporting.evaluation.parameter.Mapped;
 import org.openmrs.module.reporting.evaluation.parameter.Parameter;
+import org.openmrs.module.reporting.query.visit.definition.VisitQuery;
 import org.openmrs.module.reporting.report.ReportDesign;
 import org.openmrs.module.reporting.report.definition.ReportDefinition;
 import org.openmrs.module.reporting.report.manager.BaseReportManager;
@@ -85,8 +89,12 @@ public class OutpatientRecordBook extends BaseReportManager {
 		
 		rd.setParameters(getParameters());
 		
-		// Visit details
 		VisitDataSetDefinition vdsd = new VisitDataSetDefinition();
+		vdsd.addParameters(getParameters());
+		rd.addDataSetDefinition("visits", Mapped.mapStraightThrough(vdsd));
+		
+		VisitWithinDateRangeQuery query = new VisitWithinDateRangeQuery();
+		vdsd.addRowFilter(query, ObjectUtil.toString(Mapped.straightThroughMappings(query), "=", ","));
 		
 		// Visit ID
 		VisitDataDefinition vdd = builtInVisitData.getVisitId();
@@ -104,8 +112,6 @@ public class OutpatientRecordBook extends BaseReportManager {
 		
 		vdsd.addColumn(MessageUtil.translate("${project.parent.artifactId}.report.registerLogbook.identifier.label"), pidd,
 		    ObjectUtil.toString(Mapped.straightThroughMappings(pidd), "=", ","));
-		
-		rd.addDataSetDefinition("visits", Mapped.mapStraightThrough(vdsd));
 		
 		// Age Categories
 		AgeDataDefinition ageDD = new AgeDataDefinition();

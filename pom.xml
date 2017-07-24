@@ -23,12 +23,51 @@
 	</modules>
 
 	<properties>
-		<openmrsPlatformVersion>1.11.6</openmrsPlatformVersion>
+		<openMRSVersion>1.11.6</openMRSVersion>
 		<reportingVersion>1.12.0</reportingVersion>
 		<emrapiVersion>1.12</emrapiVersion>
+		<calculationVersion>1.1</calculationVersion>
+		<serialization.xstreamVersion>0.2.8</serialization.xstreamVersion>
+		<providermanagementVersion>2.2</providermanagementVersion>
 	</properties>
 
 	<dependencies>
+
+		<dependency>
+			<groupId>org.openmrs.api</groupId>
+			<artifactId>openmrs-api</artifactId>
+			<version>${openMRSVersion}</version>
+			<scope>provided</scope>
+			<type>jar</type>
+		</dependency>
+		<dependency>
+			<groupId>org.openmrs.web</groupId>
+			<artifactId>openmrs-web</artifactId>
+			<version>${openMRSVersion}</version>
+			<scope>provided</scope>
+			<type>jar</type>
+		</dependency>
+		<dependency>
+			<groupId>org.openmrs.api</groupId>
+			<artifactId>openmrs-api</artifactId>
+			<version>${openMRSVersion}</version>
+			<type>test-jar</type>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.openmrs.web</groupId>
+			<artifactId>openmrs-web</artifactId>
+			<version>${openMRSVersion}</version>
+			<type>test-jar</type>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.openmrs.test</groupId>
+			<artifactId>openmrs-test</artifactId>
+			<version>${openMRSVersion}</version>
+			<type>pom</type>
+			<scope>test</scope>
+		</dependency>
 
 		<dependency>
 			<groupId>org.openmrs.module</groupId>
