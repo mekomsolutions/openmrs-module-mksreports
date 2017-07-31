@@ -76,9 +76,9 @@ public class OutpatientRecordBook extends BaseReportManager {
 		return new Parameter("endDate", "End Date", Date.class);
 	}
 	
-	//	private Parameter getGuardianNameParameter() {
-	//		return new Parameter("guardian", "Guardian Person Attribute Type", PersonAttributeType.class);
-	//	}
+	private Parameter getGuardianNameParameter() {
+		return new Parameter("guardian", "Guardian Person Attribute Type", PersonAttributeType.class);
+	}
 	
 	private Parameter getSymptomsParameter() {
 		return new Parameter("symptoms", "Symptoms Concept", Concept.class);
@@ -101,7 +101,7 @@ public class OutpatientRecordBook extends BaseReportManager {
 		List<Parameter> params = new ArrayList<Parameter>();
 		params.add(getStartDateParameter());
 		params.add(getEndDateParameter());
-		//params.add(getGuardianNameParameter());
+		params.add(getGuardianNameParameter());
 		params.add(getSymptomsParameter());
 		params.add(getDiagnosisParameter());
 		params.add(getReferredFromParameter());
@@ -156,24 +156,16 @@ public class OutpatientRecordBook extends BaseReportManager {
 		    ObjectUtil.toString(Mapped.straightThroughMappings(pidd), "=", ","));
 		
 		// Guardian Name
-		// TODO: For some reason, I am unable to set the personAttribute parameter the usual way, ie, use the setParameters()
-		// method and map it with the input param from the report (see below)
-		// Hard-coding the UUID for now.
-		// 
-		//		paDD.setParameters(Arrays.asList(new Parameter("personAttributeType", "Person Attribute Type",
-		//	        PersonAttributeType.class)));
-		//		{
-		//			Map<String, Object> parameterMappings = new HashMap<String, Object>();
-		//			parameterMappings.put("personAttributeType", "${guardian}");
-		//			vdsd.addColumn(MessageUtil.translate("mksreports.report.outpatientRecordBook.guardianName.label"), paDD,
-		//			    ObjectUtil.toString(parameterMappings, "=", ","));
-		//		}
-		PersonAttributeDataDefinition paDD1 = new PersonAttributeDataDefinition();
+		PersonAttributeDataDefinition paDD = new PersonAttributeDataDefinition();
 		
-		paDD1.setPersonAttributeType(Context.getPersonService().getPersonAttributeTypeByUuid(
-		    "d055d71b-1ace-47a5-87ea-249eb029b592"));
-		vdsd.addColumn(MessageUtil.translate("mksreports.report.outpatientRecordBook.guardianName.label"), paDD1,
-		    (String) null);
+		Parameter personAttributeType = new Parameter("personAttributeType", "Person Attribute Type", PersonAttributeType.class);
+		paDD.setParameters(Arrays.asList(personAttributeType));
+		
+		Map<String, Object> parameterMapping = new HashMap<String, Object>();
+		parameterMapping.put("personAttributeType", "${guardian}");
+
+		vdsd.addColumn(MessageUtil.translate("mksreports.report.outpatientRecordBook.guardianName.label"), paDD,
+		    ObjectUtil.toString(parameterMapping, "=", ","));
 		
 		String isOfCategoryLabel = MessageUtil.translate("mksreports.report.outpatientRecordBook.isOfCategory.label");
 		
