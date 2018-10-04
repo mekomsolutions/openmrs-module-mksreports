@@ -89,53 +89,48 @@ public class OutpatientConsultationReportManagerTest extends BaseReportTest {
 			// one row
 			
 			// Ensure that the report contains 4 possible combinations
-			Cohort col1 = (Cohort) row.getColumnValue("YES." + OutpatientConsultationReportManager.col7);
+			Cohort col1 = (Cohort) row.getColumnValue("MALARIA." + OutpatientConsultationReportManager.col7);
 			assertNotNull(col1);
 			assertEquals(1, col1.getSize());
-			Cohort col2 = (Cohort) row.getColumnValue("YES." + OutpatientConsultationReportManager.col12);
+			Cohort col2 = (Cohort) row.getColumnValue("MALARIA." + OutpatientConsultationReportManager.col12);
 			assertNotNull(col2);
-			assertEquals(1, col2.getSize());
-			Cohort col3 = (Cohort) row.getColumnValue("NO." + OutpatientConsultationReportManager.col7);
+			assertEquals(0, col2.getSize());
+			Cohort col3 = (Cohort) row.getColumnValue("FEVER." + OutpatientConsultationReportManager.col7);
 			assertNotNull(col3);
-			assertEquals(0, col3.getSize());
-			Cohort col4 = (Cohort) row.getColumnValue("NO." + OutpatientConsultationReportManager.col12);
+			assertEquals(1, col3.getSize());
+			Cohort col4 = (Cohort) row.getColumnValue("FEVER." + OutpatientConsultationReportManager.col12);
 			assertNotNull(col4);
-			assertEquals(1, col4.getSize());
+			assertEquals(0, col4.getSize());
 			
 			// Total column
-			Cohort total1 = (Cohort) row.getColumnValue("YES." + OutpatientConsultationReportManager.col17);
+			Cohort total1 = (Cohort) row.getColumnValue("MALARIA." + OutpatientConsultationReportManager.col17);
 			assertNotNull(total1);
 			assertEquals(1, total1.getSize());
 			assertTrue(total1.getMemberIds().contains(6));
-			Cohort total2 = (Cohort) row.getColumnValue("YES." + OutpatientConsultationReportManager.col18);
+			Cohort total2 = (Cohort) row.getColumnValue("MALARIA." + OutpatientConsultationReportManager.col18);
 			assertNotNull(total2);
-			assertEquals(1, total2.getSize());
-			assertTrue(total2.getMemberIds().contains(7));
-			Cohort total3 = (Cohort) row.getColumnValue("NO." + OutpatientConsultationReportManager.col17);
+			assertEquals(0, total2.getSize());
+			Cohort total3 = (Cohort) row.getColumnValue("FEVER." + OutpatientConsultationReportManager.col17);
 			assertNotNull(total3);
-			assertEquals(0, total3.getSize());
-			Cohort total4 = (Cohort) row.getColumnValue("NO." + OutpatientConsultationReportManager.col18);
+			assertEquals(1, total3.getSize());
+			Cohort total4 = (Cohort) row.getColumnValue("FEVER." + OutpatientConsultationReportManager.col18);
 			assertNotNull(total4);
-			assertEquals(1, total4.getSize());
-			assertTrue(total4.getMemberIds().contains(7));
+			assertEquals(0, total4.getSize());
 			
-			// Quick tests on the malaria program which should return empty
-			Cohort col5 = (Cohort) row
-			        .getColumnValue("DATE OF FOOD ASSISTANCE." + OutpatientConsultationReportManager.col17);
+			Cohort col5 = (Cohort) row.getColumnValue("DIABETES." + OutpatientConsultationReportManager.col17);
 			assertNotNull(col5);
-			assertEquals(0, col5.getSize());
-			Cohort col6 = (Cohort) row
-			        .getColumnValue("DATE OF FOOD ASSISTANCE." + OutpatientConsultationReportManager.col18);
+			assertEquals(1, col5.getSize());
+			Cohort col6 = (Cohort) row.getColumnValue("DIABETES." + OutpatientConsultationReportManager.col18);
 			assertNotNull(col6);
 			assertEquals(0, col6.getSize());
 			
 			// Referred To column
-			Cohort referredTo1 = (Cohort) row.getColumnValue("YES." + OutpatientConsultationReportManager.col19);
+			Cohort referredTo1 = (Cohort) row.getColumnValue("MALARIA." + OutpatientConsultationReportManager.col19);
 			assertNotNull(referredTo1);
 			assertEquals(0, referredTo1.getSize());
-			Cohort referredTo2 = (Cohort) row.getColumnValue("YES." + OutpatientConsultationReportManager.col20);
+			Cohort referredTo2 = (Cohort) row.getColumnValue("MALARIA." + OutpatientConsultationReportManager.col20);
 			assertNotNull(referredTo2);
-			assertEquals(1, referredTo2.getSize());
+			assertEquals(0, referredTo2.getSize());
 			
 		}
 	}
