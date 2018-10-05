@@ -1,7 +1,10 @@
 package org.openmrs.module.mksreports.reports;
 
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
@@ -96,7 +99,7 @@ public class OutpatientConsultationReportManagerTest extends BaseReportTest {
 			Cohort twentyFiveYearsTo50YearsFemalesWithMalaria = (Cohort) row
 			        .getColumnValue("MALARIA." + OutpatientConsultationReportManager.col12);
 			assertNotNull(twentyFiveYearsTo50YearsFemalesWithMalaria);
-			assertEquals(0, twentyFiveYearsTo50YearsFemalesWithMalaria.getSize());
+			assertEquals(1, twentyFiveYearsTo50YearsFemalesWithMalaria.getSize());
 			Cohort fiveYearsTo15YearsMalesWithFever = (Cohort) row
 			        .getColumnValue("FEVER." + OutpatientConsultationReportManager.col7);
 			assertNotNull(fiveYearsTo15YearsMalesWithFever);
@@ -114,7 +117,8 @@ public class OutpatientConsultationReportManagerTest extends BaseReportTest {
 			Cohort allFemalesWithMalaria = (Cohort) row
 			        .getColumnValue("MALARIA." + OutpatientConsultationReportManager.col18);
 			assertNotNull(allFemalesWithMalaria);
-			assertEquals(0, allFemalesWithMalaria.getSize());
+			assertEquals(1, allFemalesWithMalaria.getSize());
+			assertTrue(allFemalesWithMalaria.getMemberIds().contains(7));
 			Cohort allMalesWithFever = (Cohort) row.getColumnValue("FEVER." + OutpatientConsultationReportManager.col17);
 			assertNotNull(allMalesWithFever);
 			assertEquals(1, allMalesWithFever.getSize());
@@ -137,8 +141,11 @@ public class OutpatientConsultationReportManagerTest extends BaseReportTest {
 			assertEquals(0, referredTo1.getSize());
 			Cohort referredTo2 = (Cohort) row.getColumnValue("MALARIA." + OutpatientConsultationReportManager.col20);
 			assertNotNull(referredTo2);
-			assertEquals(0, referredTo2.getSize());
+			assertEquals(1, referredTo2.getSize());
 			
+			Cohort everyOneWithMalaria = (Cohort) row.getColumnValue("MALARIA." + OutpatientConsultationReportManager.col23);
+			assertThat(everyOneWithMalaria, is(notNullValue()));
+			assertThat(everyOneWithMalaria.getSize(), is(2));
 		}
 	}
 	

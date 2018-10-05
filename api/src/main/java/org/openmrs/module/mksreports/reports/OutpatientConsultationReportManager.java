@@ -115,6 +115,8 @@ public class OutpatientConsultationReportManager extends MKSReportManager {
 	
 	public static String col22 = "";
 	
+	public static String col23 = "";
+	
 	@Override
 	public List<Parameter> getParameters() {
 		List<Parameter> params = new ArrayList<Parameter>();
@@ -237,6 +239,7 @@ public class OutpatientConsultationReportManager extends MKSReportManager {
 		total.setUnknownGenderIncluded(true);
 		OPDConsult.addColumn(col17, createCohortComposition(total, males), null);
 		OPDConsult.addColumn(col18, createCohortComposition(total, females), null);
+		OPDConsult.addColumn(col23, createCohortComposition(total), null);
 		
 		// Referred To column
 		CodedObsCohortDefinition referredTo = new CodedObsCohortDefinition();
@@ -295,6 +298,7 @@ public class OutpatientConsultationReportManager extends MKSReportManager {
 		        + MessageUtil.translate("mksreports.report.opdconsult.males.label");
 		col22 = MessageUtil.translate("mksreports.report.opdconsult.hefId.label") + " - "
 		        + MessageUtil.translate("mksreports.report.opdconsult.females.label");
+		col23 = MessageUtil.translate("mksreports.report.opdconsult.total.label");
 		
 	}
 	

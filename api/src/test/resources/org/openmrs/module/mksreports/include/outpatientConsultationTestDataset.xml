@@ -62,4 +62,10 @@
 		 value_numeric="[NULL]" value_datetime="[NULL]" value_drug="[NULL]"
 		 uuid="91fc8bff-0c2a-4b4f-b8fe-13abecdee795" />
 
+	<obs obs_id="4006" person_id="7" concept_id="21" encounter_id="3"
+		 obs_datetime="2008-09-02 00:00:00.0" location_id="1" value_coded="1923"
+		 comments="" creator="1" date_created="2008-08-18 14:09:35.0" voided="false"
+		 value_coded_name_id="[NULL]" value_complex="[NULL]" value_text="[NULL]"
+		 value_numeric="[NULL]" value_datetime="[NULL]" value_drug="[NULL]"
+		 uuid="cf613b43-0e89-4c8d-9821-92bff858b087" />
 </dataset>
