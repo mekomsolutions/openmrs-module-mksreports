@@ -136,9 +136,9 @@ public class OutpatientConsultationReportManager extends MKSReportManager {
 		
 		rd.setParameters(getParameters());
 		
-		CohortCrossTabDataSetDefinition OPDConsult = new CohortCrossTabDataSetDefinition();
-		OPDConsult.addParameters(getParameters());
-		rd.addDataSetDefinition(getName(), Mapped.mapStraightThrough(OPDConsult));
+		CohortCrossTabDataSetDefinition opdConsult = new CohortCrossTabDataSetDefinition();
+		opdConsult.addParameters(getParameters());
+		rd.addDataSetDefinition(getName(), Mapped.mapStraightThrough(opdConsult));
 		
 		Concept allDiags = inizService.getConceptFromKey("report.opdconsult.diagnosesList.concept");
 		
@@ -157,7 +157,7 @@ public class OutpatientConsultationReportManager extends MKSReportManager {
 			diag.setQuestion(inizService.getConceptFromKey("report.opdconsult.diagnosisQuestion.concept"));
 			
 			diag.setValueList(Arrays.asList(member));
-			OPDConsult.addRow(member.getDisplayString(), diag, parameterMappings);
+			opdConsult.addRow(member.getDisplayString(), diag, parameterMappings);
 		}
 		
 		setColumnNames();
@@ -168,78 +168,78 @@ public class OutpatientConsultationReportManager extends MKSReportManager {
 		GenderCohortDefinition females = new GenderCohortDefinition();
 		females.setFemaleIncluded(true);
 		
-		AgeCohortDefinition zeroTo1Month = new AgeCohortDefinition();
-		zeroTo1Month.setMinAge(0);
-		zeroTo1Month.setMinAgeUnit(DurationUnit.DAYS);
-		zeroTo1Month.setMaxAge(1);
-		zeroTo1Month.setMaxAgeUnit(DurationUnit.MONTHS);
-		OPDConsult.addColumn(col1, createCohortComposition(zeroTo1Month, males), null);
-		OPDConsult.addColumn(col2, createCohortComposition(zeroTo1Month, females), null);
+		AgeCohortDefinition _0To1m = new AgeCohortDefinition();
+		_0To1m.setMinAge(0);
+		_0To1m.setMinAgeUnit(DurationUnit.DAYS);
+		_0To1m.setMaxAge(1);
+		_0To1m.setMaxAgeUnit(DurationUnit.MONTHS);
+		opdConsult.addColumn(col1, createCohortComposition(_0To1m, males), null);
+		opdConsult.addColumn(col2, createCohortComposition(_0To1m, females), null);
 		
-		AgeCohortDefinition oneMonthTo1Year = new AgeCohortDefinition();
-		oneMonthTo1Year.setMinAge(1);
-		oneMonthTo1Year.setMinAgeUnit(DurationUnit.MONTHS);
-		oneMonthTo1Year.setMaxAge(11);
-		oneMonthTo1Year.setMaxAgeUnit(DurationUnit.MONTHS);
-		OPDConsult.addColumn(col3, createCohortComposition(oneMonthTo1Year, males), null);
-		OPDConsult.addColumn(col4, createCohortComposition(oneMonthTo1Year, females), null);
+		AgeCohortDefinition _1mTo1Y= new AgeCohortDefinition();
+		_1mTo1Y.setMinAge(1);
+		_1mTo1Y.setMinAgeUnit(DurationUnit.MONTHS);
+		_1mTo1Y.setMaxAge(11);
+		_1mTo1Y.setMaxAgeUnit(DurationUnit.MONTHS);
+		opdConsult.addColumn(col3, createCohortComposition(_1mTo1Y, males), null);
+		opdConsult.addColumn(col4, createCohortComposition(_1mTo1Y, females), null);
 		
-		AgeCohortDefinition oneYearTo5Years = new AgeCohortDefinition();
-		oneYearTo5Years.setMinAge(1);
-		oneYearTo5Years.setMinAgeUnit(DurationUnit.YEARS);
-		oneYearTo5Years.setMaxAge(4);
-		oneYearTo5Years.setMaxAgeUnit(DurationUnit.YEARS);
-		OPDConsult.addColumn(col5, createCohortComposition(oneYearTo5Years, males), null);
-		OPDConsult.addColumn(col6, createCohortComposition(oneYearTo5Years, females), null);
+		AgeCohortDefinition _1To5y = new AgeCohortDefinition();
+		_1To5y.setMinAge(1);
+		_1To5y.setMinAgeUnit(DurationUnit.YEARS);
+		_1To5y.setMaxAge(4);
+		_1To5y.setMaxAgeUnit(DurationUnit.YEARS);
+		opdConsult.addColumn(col5, createCohortComposition(_1To5y, males), null);
+		opdConsult.addColumn(col6, createCohortComposition(_1To5y, females), null);
 		
-		AgeCohortDefinition fiveYearsTo15Years = new AgeCohortDefinition();
-		fiveYearsTo15Years.setMinAge(5);
-		fiveYearsTo15Years.setMinAgeUnit(DurationUnit.YEARS);
-		fiveYearsTo15Years.setMaxAge(14);
-		fiveYearsTo15Years.setMaxAgeUnit(DurationUnit.YEARS);
-		OPDConsult.addColumn(col7, createCohortComposition(fiveYearsTo15Years, males), null);
-		OPDConsult.addColumn(col8, createCohortComposition(fiveYearsTo15Years, females), null);
+		AgeCohortDefinition _5To15y = new AgeCohortDefinition();
+		_5To15y.setMinAge(5);
+		_5To15y.setMinAgeUnit(DurationUnit.YEARS);
+		_5To15y.setMaxAge(14);
+		_5To15y.setMaxAgeUnit(DurationUnit.YEARS);
+		opdConsult.addColumn(col7, createCohortComposition(_5To15y, males), null);
+		opdConsult.addColumn(col8, createCohortComposition(_5To15y, females), null);
 		
-		AgeCohortDefinition fifteenYearsTo25Years = new AgeCohortDefinition();
-		fifteenYearsTo25Years.setMinAge(15);
-		fifteenYearsTo25Years.setMinAgeUnit(DurationUnit.YEARS);
-		fifteenYearsTo25Years.setMaxAge(24);
-		fifteenYearsTo25Years.setMaxAgeUnit(DurationUnit.YEARS);
-		OPDConsult.addColumn(col9, createCohortComposition(fifteenYearsTo25Years, males), null);
-		OPDConsult.addColumn(col10, createCohortComposition(fifteenYearsTo25Years, females), null);
+		AgeCohortDefinition _15To25y = new AgeCohortDefinition();
+		_15To25y.setMinAge(15);
+		_15To25y.setMinAgeUnit(DurationUnit.YEARS);
+		_15To25y.setMaxAge(24);
+		_15To25y.setMaxAgeUnit(DurationUnit.YEARS);
+		opdConsult.addColumn(col9, createCohortComposition(_15To25y, males), null);
+		opdConsult.addColumn(col10, createCohortComposition(_15To25y, females), null);
 		
-		AgeCohortDefinition twentyFiveYearsTo50Years = new AgeCohortDefinition();
-		twentyFiveYearsTo50Years.setMinAge(25);
-		twentyFiveYearsTo50Years.setMinAgeUnit(DurationUnit.YEARS);
-		twentyFiveYearsTo50Years.setMaxAge(49);
-		twentyFiveYearsTo50Years.setMaxAgeUnit(DurationUnit.YEARS);
-		OPDConsult.addColumn(col11, createCohortComposition(twentyFiveYearsTo50Years, males), null);
-		OPDConsult.addColumn(col12, createCohortComposition(twentyFiveYearsTo50Years, females), null);
+		AgeCohortDefinition _25To50y = new AgeCohortDefinition();
+		_25To50y.setMinAge(25);
+		_25To50y.setMinAgeUnit(DurationUnit.YEARS);
+		_25To50y.setMaxAge(49);
+		_25To50y.setMaxAgeUnit(DurationUnit.YEARS);
+		opdConsult.addColumn(col11, createCohortComposition(_25To50y, males), null);
+		opdConsult.addColumn(col12, createCohortComposition(_25To50y, females), null);
 		
-		AgeCohortDefinition fiftyYearsTo65Years = new AgeCohortDefinition();
-		fiftyYearsTo65Years.setMinAge(50);
-		fiftyYearsTo65Years.setMinAgeUnit(DurationUnit.YEARS);
-		fiftyYearsTo65Years.setMaxAge(64);
-		fiftyYearsTo65Years.setMaxAgeUnit(DurationUnit.YEARS);
-		OPDConsult.addColumn(col13, createCohortComposition(fiftyYearsTo65Years, males), null);
-		OPDConsult.addColumn(col14, createCohortComposition(fiftyYearsTo65Years, females), null);
+		AgeCohortDefinition _50To65y = new AgeCohortDefinition();
+		_50To65y.setMinAge(50);
+		_50To65y.setMinAgeUnit(DurationUnit.YEARS);
+		_50To65y.setMaxAge(64);
+		_50To65y.setMaxAgeUnit(DurationUnit.YEARS);
+		opdConsult.addColumn(col13, createCohortComposition(_50To65y, males), null);
+		opdConsult.addColumn(col14, createCohortComposition(_50To65y, females), null);
 		
-		AgeCohortDefinition moreThanSixtyFiveYears = new AgeCohortDefinition();
-		moreThanSixtyFiveYears.setMinAge(65);
-		moreThanSixtyFiveYears.setMinAgeUnit(DurationUnit.YEARS);
-		moreThanSixtyFiveYears.setMaxAge(200);
-		moreThanSixtyFiveYears.setMaxAgeUnit(DurationUnit.YEARS);
-		OPDConsult.addColumn(col15, createCohortComposition(moreThanSixtyFiveYears, males), null);
-		OPDConsult.addColumn(col16, createCohortComposition(moreThanSixtyFiveYears, females), null);
+		AgeCohortDefinition moreThan65y = new AgeCohortDefinition();
+		moreThan65y.setMinAge(65);
+		moreThan65y.setMinAgeUnit(DurationUnit.YEARS);
+		moreThan65y.setMaxAge(200);
+		moreThan65y.setMaxAgeUnit(DurationUnit.YEARS);
+		opdConsult.addColumn(col15, createCohortComposition(moreThan65y, males), null);
+		opdConsult.addColumn(col16, createCohortComposition(moreThan65y, females), null);
 		
 		// Total column
 		GenderCohortDefinition total = new GenderCohortDefinition();
 		total.setFemaleIncluded(true);
 		total.setMaleIncluded(true);
 		total.setUnknownGenderIncluded(true);
-		OPDConsult.addColumn(col17, createCohortComposition(total, males), null);
-		OPDConsult.addColumn(col18, createCohortComposition(total, females), null);
-		OPDConsult.addColumn(col23, createCohortComposition(total), null);
+		opdConsult.addColumn(col17, createCohortComposition(total, males), null);
+		opdConsult.addColumn(col18, createCohortComposition(total, females), null);
+		opdConsult.addColumn(col23, createCohortComposition(total), null);
 		
 		// Referred To column
 		CodedObsCohortDefinition referredTo = new CodedObsCohortDefinition();
@@ -247,8 +247,8 @@ public class OutpatientConsultationReportManager extends MKSReportManager {
 		referredTo.addParameter(new Parameter("onOrBefore", "On Or Before", Date.class));
 		referredTo.setOperator(SetComparator.IN);
 		referredTo.setQuestion(inizService.getConceptFromKey("report.opdconsult.referredTo.concept"));
-		OPDConsult.addColumn(col19, createCohortComposition(referredTo, males), null);
-		OPDConsult.addColumn(col20, createCohortComposition(referredTo, females), null);
+		opdConsult.addColumn(col19, createCohortComposition(referredTo, males), null);
+		opdConsult.addColumn(col20, createCohortComposition(referredTo, females), null);
 		
 		return rd;
 	}

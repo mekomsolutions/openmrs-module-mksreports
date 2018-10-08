@@ -92,22 +92,21 @@ public class OutpatientConsultationReportManagerTest extends BaseReportTest {
 			// one row
 			
 			// Ensure that the report contains 4 possible combinations
-			Cohort fiveYearsTo15YearsMalesWithMalaria = (Cohort) row
+			Cohort _5To15yMalesWithMalaria = (Cohort) row
 			        .getColumnValue("MALARIA." + OutpatientConsultationReportManager.col7);
-			assertNotNull(fiveYearsTo15YearsMalesWithMalaria);
-			assertEquals(1, fiveYearsTo15YearsMalesWithMalaria.getSize());
-			Cohort twentyFiveYearsTo50YearsFemalesWithMalaria = (Cohort) row
+			assertNotNull(_5To15yMalesWithMalaria);
+			assertEquals(1, _5To15yMalesWithMalaria.getSize());
+			Cohort _25To50yFemalesWithMalaria = (Cohort) row
 			        .getColumnValue("MALARIA." + OutpatientConsultationReportManager.col12);
-			assertNotNull(twentyFiveYearsTo50YearsFemalesWithMalaria);
-			assertEquals(1, twentyFiveYearsTo50YearsFemalesWithMalaria.getSize());
-			Cohort fiveYearsTo15YearsMalesWithFever = (Cohort) row
-			        .getColumnValue("FEVER." + OutpatientConsultationReportManager.col7);
-			assertNotNull(fiveYearsTo15YearsMalesWithFever);
-			assertEquals(1, fiveYearsTo15YearsMalesWithFever.getSize());
-			Cohort twentyFiveYearsTo50YearsFemalesWithFever = (Cohort) row
+			assertNotNull(_25To50yFemalesWithMalaria);
+			assertEquals(1, _25To50yFemalesWithMalaria.getSize());
+			Cohort _5To15yMalesWithFever = (Cohort) row.getColumnValue("FEVER." + OutpatientConsultationReportManager.col7);
+			assertNotNull(_5To15yMalesWithFever);
+			assertEquals(1, _5To15yMalesWithFever.getSize());
+			Cohort _25To50yFemalesWithFever = (Cohort) row
 			        .getColumnValue("FEVER." + OutpatientConsultationReportManager.col12);
-			assertNotNull(twentyFiveYearsTo50YearsFemalesWithFever);
-			assertEquals(0, twentyFiveYearsTo50YearsFemalesWithFever.getSize());
+			assertNotNull(_25To50yFemalesWithFever);
+			assertEquals(0, _25To50yFemalesWithFever.getSize());
 			
 			// Total column
 			Cohort allMalesWithMalaria = (Cohort) row.getColumnValue("MALARIA." + OutpatientConsultationReportManager.col17);
@@ -122,9 +121,9 @@ public class OutpatientConsultationReportManagerTest extends BaseReportTest {
 			Cohort allMalesWithFever = (Cohort) row.getColumnValue("FEVER." + OutpatientConsultationReportManager.col17);
 			assertNotNull(allMalesWithFever);
 			assertEquals(1, allMalesWithFever.getSize());
-			Cohort total4 = (Cohort) row.getColumnValue("FEVER." + OutpatientConsultationReportManager.col18);
-			assertNotNull(total4);
-			assertEquals(0, total4.getSize());
+			Cohort allFemalesWithFever = (Cohort) row.getColumnValue("FEVER." + OutpatientConsultationReportManager.col18);
+			assertNotNull(allFemalesWithFever);
+			assertEquals(0, allFemalesWithFever.getSize());
 			
 			Cohort allMalesWithDiabetes = (Cohort) row
 			        .getColumnValue("DIABETES." + OutpatientConsultationReportManager.col17);
