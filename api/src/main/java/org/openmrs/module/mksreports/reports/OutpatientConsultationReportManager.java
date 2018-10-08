@@ -176,13 +176,13 @@ public class OutpatientConsultationReportManager extends MKSReportManager {
 		opdConsult.addColumn(col1, createCohortComposition(_0To1m, males), null);
 		opdConsult.addColumn(col2, createCohortComposition(_0To1m, females), null);
 		
-		AgeCohortDefinition _1mTo1Y= new AgeCohortDefinition();
-		_1mTo1Y.setMinAge(1);
-		_1mTo1Y.setMinAgeUnit(DurationUnit.MONTHS);
-		_1mTo1Y.setMaxAge(11);
-		_1mTo1Y.setMaxAgeUnit(DurationUnit.MONTHS);
-		opdConsult.addColumn(col3, createCohortComposition(_1mTo1Y, males), null);
-		opdConsult.addColumn(col4, createCohortComposition(_1mTo1Y, females), null);
+		AgeCohortDefinition _1mTo1y = new AgeCohortDefinition();
+		_1mTo1y.setMinAge(1);
+		_1mTo1y.setMinAgeUnit(DurationUnit.MONTHS);
+		_1mTo1y.setMaxAge(11);
+		_1mTo1y.setMaxAgeUnit(DurationUnit.MONTHS);
+		opdConsult.addColumn(col3, createCohortComposition(_1mTo1y, males), null);
+		opdConsult.addColumn(col4, createCohortComposition(_1mTo1y, females), null);
 		
 		AgeCohortDefinition _1To5y = new AgeCohortDefinition();
 		_1To5y.setMinAge(1);
