@@ -159,6 +159,11 @@ public class OutpatientConsultationReportManager extends MKSReportManager {
 			diag.setValueList(Arrays.asList(member));
 			opdConsult.addRow(member.getDisplayString(), diag, parameterMappings);
 		}
+
+		CodedObsCohortDefinition diag = new CodedObsCohortDefinition();
+		diag.setOperator(SetComparator.IN);
+		diag.setValueList(allDiags.getSetMembers());
+		opdConsult.addRow("VTotals", diag, null);
 		
 		setColumnNames();
 		
