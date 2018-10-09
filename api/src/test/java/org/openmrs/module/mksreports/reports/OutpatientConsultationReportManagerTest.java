@@ -145,8 +145,9 @@ public class OutpatientConsultationReportManagerTest extends BaseReportTest {
 			Cohort allWithMalaria = (Cohort) row.getColumnValue("MALARIA." + OutpatientConsultationReportManager.col23);
 			assertThat(allWithMalaria, is(notNullValue()));
 			assertThat(allWithMalaria.getSize(), is(2));
-
-			Cohort _5To15yMalesForAllDiagnosis = (Cohort) row.getColumnValue("VTotals." + OutpatientConsultationReportManager.col7);
+			
+			Cohort _5To15yMalesForAllDiagnosis = (Cohort) row
+			        .getColumnValue("VTotals." + OutpatientConsultationReportManager.col7);
 			assertThat(_5To15yMalesForAllDiagnosis, is(notNullValue()));
 			assertThat(_5To15yMalesForAllDiagnosis.getSize(), is(3));
 		}
