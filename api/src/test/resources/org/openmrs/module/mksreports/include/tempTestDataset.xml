@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<dataset>
+
+    <concept concept_id="1923" retired="false" datatype_id="4" class_id="7" is_set="false"
+             creator="1" date_created="2008-08-15 15:27:51.0" version=""
+             uuid="f7a7df79-8ecf-4e20-a13d-020adc6d4944"/>
+
+    <concept_name concept_id="1923" name="MALARIA" locale="en_GB" creator="1"
+                  date_created="2004-08-12 00:00:00.0" concept_name_id="1539"
+                  concept_name_type="FULLY_SPECIFIED" locale_preferred="1" voided="false"
+                  uuid="12a6c20a-18f7-4b05-8331-c28f702d829e"/>
+
+    <concept concept_id="1926" retired="false" datatype_id="4" class_id="10"
+             is_set="true" creator="1" date_created="2008-08-18 12:38:58.0"
+             version="" uuid="b3ea209f-9979-481b-9c64-b6dd883c75bf"/>
+
+    <concept_set concept_set_id="3" concept_id="1923" concept_set="1926"
+                 sort_weight="0.0" creator="1" date_created="2017-07-01 00:00:00.0"
+                 uuid="aab0ea42-9e64-4517-a134-36b4e1ed5909" />
+
+    <obs obs_id="4003" person_id="6" concept_id="21" encounter_id="3"
+         obs_datetime="2008-09-02 00:00:00.0" location_id="1" value_coded="1923"
+         comments="" creator="1" date_created="2008-08-18 14:09:35.0" voided="false"
+         value_coded_name_id="[NULL]" value_complex="[NULL]" value_text="[NULL]"
+         value_numeric="[NULL]" value_datetime="[NULL]" value_drug="[NULL]"
+         uuid="a2c84a9b-6181-445f-a106-267cc8641976" />
+
+
+</dataset>

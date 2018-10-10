@@ -165,6 +165,7 @@ public class OutpatientConsultationReportManager extends MKSReportManager {
 		diag.addParameter(new Parameter("onOrBefore", "On Or Before", Date.class));
 		diag.addParameter(new Parameter("locationList", "Visit Location", Location.class, List.class, null));
 		diag.setOperator(SetComparator.IN);
+		diag.setQuestion(inizService.getConceptFromKey("report.opdconsult.diagnosisQuestion.concept"));
 		diag.setValueList(allDiags.getSetMembers());
 		opdConsult.addRow("VTotals", diag, parameterMappings);
 		

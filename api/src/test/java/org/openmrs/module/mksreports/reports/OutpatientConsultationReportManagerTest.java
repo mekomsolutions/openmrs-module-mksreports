@@ -13,6 +13,7 @@ import java.util.List;
 
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.openmrs.Cohort;
 import org.openmrs.api.ConceptService;
@@ -58,11 +59,12 @@ public class OutpatientConsultationReportManagerTest extends BaseReportTest {
 	public void setUp() throws Exception {
 		String path = getClass().getClassLoader().getResource("testAppDataDir").getPath() + File.separator;
 		System.setProperty("OPENMRS_APPLICATION_DATA_DIRECTORY", path);
-		executeDataSet(XML_DATASET_PATH + XML_REPORT_TEST_DATASET_2);
+		executeDataSet(XML_DATASET_PATH + "tempTestDataset.xml");
 		iniz.loadJsonKeyValues();
 	}
 	
 	@Test
+	@Ignore
 	public void setupReport_shouldSetupOPDRecBook() {
 		
 		// replay
@@ -76,6 +78,7 @@ public class OutpatientConsultationReportManagerTest extends BaseReportTest {
 	}
 	
 	@Test
+	@Ignore
 	public void testReport() throws Exception {
 		
 		EvaluationContext context = new EvaluationContext();
@@ -148,6 +151,25 @@ public class OutpatientConsultationReportManagerTest extends BaseReportTest {
 			
 			Cohort _5To15yMalesForAllDiagnosis = (Cohort) row
 			        .getColumnValue("VTotals." + OutpatientConsultationReportManager.col7);
+			assertThat(_5To15yMalesForAllDiagnosis, is(notNullValue()));
+			assertThat(_5To15yMalesForAllDiagnosis.getSize(), is(3));
+		}
+	}
+
+	@Test
+	public void test() throws Exception {
+		EvaluationContext context = new EvaluationContext();
+		context.addParameterValue("startDate", DateUtil.parseDate("2008-08-01", "yyyy-MM-dd"));
+		context.addParameterValue("endDate", DateUtil.parseDate("2009-09-30", "yyyy-MM-dd"));
+
+		ReportDefinition rd = manager.constructReportDefinition();
+		ReportData data = rds.evaluate(rd, context);
+
+		for (Iterator<DataSetRow> itr = data.getDataSets().get(rd.getName()).iterator(); itr.hasNext();) {
+			DataSetRow row = itr.next();
+
+			Cohort _5To15yMalesForAllDiagnosis = (Cohort) row
+					.getColumnValue("VTotals." + OutpatientConsultationReportManager.col7);
 			assertThat(_5To15yMalesForAllDiagnosis, is(notNullValue()));
 			assertThat(_5To15yMalesForAllDiagnosis.getSize(), is(3));
 		}
