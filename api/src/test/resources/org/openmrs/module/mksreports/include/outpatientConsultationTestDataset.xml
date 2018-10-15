@@ -2,6 +2,27 @@
 
 <dataset>
 
+	<person person_id="2" gender="M" birthdate="2006-04-08 00:00:00.0" birthdate_estimated="0"
+			dead="false" creator="1" date_created="2005-09-22 00:00:00.0" voided="false"
+			uuid="0ea283cf-1ec2-47f5-b47f-aca88d2cc43e"/>
+
+	<person person_id="6" gender="M" birthdate="2006-05-27 00:00:00.0" birthdate_estimated="0"
+			dead="false" creator="1" date_created="2006-01-18 00:00:00.0" voided="false"
+			uuid="8f324136-7c4b-4d18-8435-732adfc610fe"/>
+
+	<person person_id="7" gender="F" birthdate="1976-08-25 00:00:00.0" birthdate_estimated="1"
+			dead="false" creator="1" date_created="2006-01-18 00:00:00.0" voided="false"
+			uuid="75f8b732-d80d-4e24-8654-473503ea3fc3"/>
+
+	<patient patient_id="2" creator="1" date_created="2005-09-22 00:00:00.0" changed_by="1"
+			 date_changed="2008-08-18 12:29:59.0" voided="false" void_reason=""/>
+
+	<patient patient_id="6" creator="1" date_created="2006-01-18 00:00:00.0" changed_by="1"
+			 date_changed="2008-08-18 12:25:31.0" voided="false" void_reason=",,,,"/>
+
+	<patient patient_id="7" creator="1" date_created="2006-01-18 00:00:00.0" changed_by="1"
+			 date_changed="2008-08-18 12:25:57.0" voided="false" void_reason=""/>
+
 	<concept concept_id="1923" retired="false" datatype_id="4" class_id="7" is_set="false"
 			 creator="1" date_created="2008-08-15 15:27:51.0" version=""
 			 uuid="f7a7df79-8ecf-4e20-a13d-020adc6d4944"/>
@@ -68,4 +89,11 @@
 		 value_coded_name_id="[NULL]" value_complex="[NULL]" value_text="[NULL]"
 		 value_numeric="[NULL]" value_datetime="[NULL]" value_drug="[NULL]"
 		 uuid="cf613b43-0e89-4c8d-9821-92bff858b087" />
+
+	<obs obs_id="4007" person_id="2" concept_id="21" encounter_id="3"
+		 obs_datetime="2008-09-02 00:00:00.0" location_id="1" value_coded="1923"
+		 comments="" creator="1" date_created="2008-08-18 14:09:35.0" voided="false"
+		 value_coded_name_id="[NULL]" value_complex="[NULL]" value_text="[NULL]"
+		 value_numeric="[NULL]" value_datetime="[NULL]" value_drug="[NULL]"
+		 uuid="603a7da2-78e4-4042-93d7-287ecadb098f" />
 </dataset>

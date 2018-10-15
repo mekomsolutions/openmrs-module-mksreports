@@ -59,12 +59,11 @@ public class OutpatientConsultationReportManagerTest extends BaseReportTest {
 	public void setUp() throws Exception {
 		String path = getClass().getClassLoader().getResource("testAppDataDir").getPath() + File.separator;
 		System.setProperty("OPENMRS_APPLICATION_DATA_DIRECTORY", path);
-		executeDataSet(XML_DATASET_PATH + "tempTestDataset.xml");
+		executeDataSet(XML_DATASET_PATH + XML_REPORT_TEST_DATASET_2);
 		iniz.loadJsonKeyValues();
 	}
 	
 	@Test
-	@Ignore
 	public void setupReport_shouldSetupOPDRecBook() {
 		
 		// replay
@@ -78,7 +77,6 @@ public class OutpatientConsultationReportManagerTest extends BaseReportTest {
 	}
 	
 	@Test
-	@Ignore
 	public void testReport() throws Exception {
 		
 		EvaluationContext context = new EvaluationContext();
@@ -98,7 +96,7 @@ public class OutpatientConsultationReportManagerTest extends BaseReportTest {
 			Cohort _5To15yMalesWithMalaria = (Cohort) row
 			        .getColumnValue("MALARIA." + OutpatientConsultationReportManager.col7);
 			assertNotNull(_5To15yMalesWithMalaria);
-			assertEquals(1, _5To15yMalesWithMalaria.getSize());
+			assertEquals(2, _5To15yMalesWithMalaria.getSize());
 			Cohort _25To50yFemalesWithMalaria = (Cohort) row
 			        .getColumnValue("MALARIA." + OutpatientConsultationReportManager.col12);
 			assertNotNull(_25To50yFemalesWithMalaria);
@@ -114,7 +112,7 @@ public class OutpatientConsultationReportManagerTest extends BaseReportTest {
 			// Total column
 			Cohort allMalesWithMalaria = (Cohort) row.getColumnValue("MALARIA." + OutpatientConsultationReportManager.col17);
 			assertNotNull(allMalesWithMalaria);
-			assertEquals(1, allMalesWithMalaria.getSize());
+			assertEquals(2, allMalesWithMalaria.getSize());
 			assertTrue(allMalesWithMalaria.getMemberIds().contains(6));
 			Cohort allFemalesWithMalaria = (Cohort) row
 			        .getColumnValue("MALARIA." + OutpatientConsultationReportManager.col18);
@@ -147,32 +145,7 @@ public class OutpatientConsultationReportManagerTest extends BaseReportTest {
 			
 			Cohort allWithMalaria = (Cohort) row.getColumnValue("MALARIA." + OutpatientConsultationReportManager.col23);
 			assertThat(allWithMalaria, is(notNullValue()));
-			assertThat(allWithMalaria.getSize(), is(2));
-			
-			Cohort _5To15yMalesForAllDiagnosis = (Cohort) row
-			        .getColumnValue("VTotals." + OutpatientConsultationReportManager.col7);
-			assertThat(_5To15yMalesForAllDiagnosis, is(notNullValue()));
-			assertThat(_5To15yMalesForAllDiagnosis.getSize(), is(3));
+			assertThat(allWithMalaria.getSize(), is(3));
 		}
 	}
-
-	@Test
-	public void test() throws Exception {
-		EvaluationContext context = new EvaluationContext();
-		context.addParameterValue("startDate", DateUtil.parseDate("2008-08-01", "yyyy-MM-dd"));
-		context.addParameterValue("endDate", DateUtil.parseDate("2009-09-30", "yyyy-MM-dd"));
-
-		ReportDefinition rd = manager.constructReportDefinition();
-		ReportData data = rds.evaluate(rd, context);
-
-		for (Iterator<DataSetRow> itr = data.getDataSets().get(rd.getName()).iterator(); itr.hasNext();) {
-			DataSetRow row = itr.next();
-
-			Cohort _5To15yMalesForAllDiagnosis = (Cohort) row
-					.getColumnValue("VTotals." + OutpatientConsultationReportManager.col7);
-			assertThat(_5To15yMalesForAllDiagnosis, is(notNullValue()));
-			assertThat(_5To15yMalesForAllDiagnosis.getSize(), is(3));
-		}
-	}
-	
 }
