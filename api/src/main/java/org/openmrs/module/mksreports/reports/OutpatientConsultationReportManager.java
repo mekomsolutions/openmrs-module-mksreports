@@ -12,6 +12,7 @@ import org.openmrs.Location;
 import org.openmrs.module.initializer.api.InitializerService;
 import org.openmrs.module.mksreports.MKSReportManager;
 import org.openmrs.module.mksreports.MKSReportsConstants;
+import org.openmrs.module.mksreports.definition.ObsSummaryRowCohortDefinition;
 import org.openmrs.module.reporting.cohort.definition.AgeCohortDefinition;
 import org.openmrs.module.reporting.cohort.definition.CodedObsCohortDefinition;
 import org.openmrs.module.reporting.cohort.definition.CompositionCohortDefinition;
@@ -160,7 +161,7 @@ public class OutpatientConsultationReportManager extends MKSReportManager {
 			opdConsult.addRow(member.getDisplayString(), diag, parameterMappings);
 		}
 		
-		CodedObsCohortDefinition diag = new CodedObsCohortDefinition();
+		ObsSummaryRowCohortDefinition diag = new ObsSummaryRowCohortDefinition();
 		diag.addParameter(new Parameter("onOrAfter", "On Or After", Date.class));
 		diag.addParameter(new Parameter("onOrBefore", "On Or Before", Date.class));
 		diag.addParameter(new Parameter("locationList", "Visit Location", Location.class, List.class, null));
