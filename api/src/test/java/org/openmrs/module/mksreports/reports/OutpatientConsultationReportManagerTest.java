@@ -20,6 +20,7 @@ import org.openmrs.api.ConceptService;
 import org.openmrs.module.initializer.api.InitializerService;
 import org.openmrs.module.mksreports.MKSReportManager;
 import org.openmrs.module.mksreports.MKSReportsConstants;
+import org.openmrs.module.mksreports.ObsSummaryEvaluatedCohort;
 import org.openmrs.module.reporting.common.DateUtil;
 import org.openmrs.module.reporting.dataset.DataSetRow;
 import org.openmrs.module.reporting.evaluation.EvaluationContext;
@@ -146,6 +147,10 @@ public class OutpatientConsultationReportManagerTest extends BaseReportTest {
 			Cohort allWithMalaria = (Cohort) row.getColumnValue("MALARIA." + OutpatientConsultationReportManager.col23);
 			assertThat(allWithMalaria, is(notNullValue()));
 			assertThat(allWithMalaria.getSize(), is(3));
+
+			ObsSummaryEvaluatedCohort _5To15yMalesForAllDiagnosis = (ObsSummaryEvaluatedCohort) row.getColumnValue("VTotals." + OutpatientConsultationReportManager.col7);
+			assertThat(_5To15yMalesForAllDiagnosis, is(notNullValue()));
+			assertThat(_5To15yMalesForAllDiagnosis.getObsCount(), is(4l));
 		}
 	}
 }

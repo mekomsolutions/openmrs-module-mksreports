@@ -30,10 +30,9 @@ public class ObsSummaryRowCohortDefinitionEvaluator extends BaseObsCohortDefinit
 	        throws EvaluationException {
 		ObsSummaryRowCohortDefinition cd = (ObsSummaryRowCohortDefinition) cohortDefinition;
 		long obsCount = getObsCount(cd, null, null, null, null, cd.getOperator(), cd.getValueList(), context);
-		cd.setObsCount(obsCount);
 		Cohort c = getPatientsHavingObs(cd, (RangeComparator) null, (Object) null, (RangeComparator) null, (Object) null,
 		    cd.getOperator(), cd.getValueList(), context);
-		return new ObsSummaryEvaluatedCohort(c, cohortDefinition, context);
+		return new ObsSummaryEvaluatedCohort(c, cohortDefinition, context, obsCount);
 	}
 	
 	private long getObsCount(BaseObsCohortDefinition cd, RangeComparator operator1, Object value1, RangeComparator operator2,

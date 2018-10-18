@@ -16,8 +16,6 @@ import java.util.List;
 @Localized("mksreports.ObsSummaryRowCohortDefinition")
 public class ObsSummaryRowCohortDefinition extends BaseObsCohortDefinition {
 	
-	private long obsCount;
-	
 	public static final long serialVersionUID = 1L;
 	
 	@ConfigurationProperty(group = "constraint")
@@ -51,13 +49,5 @@ public class ObsSummaryRowCohortDefinition extends BaseObsCohortDefinition {
 		}
 		
 		this.valueList.add(concept);
-	}
-	
-	public long getObsCount() {
-		return obsCount;
-	}
-	
-	public void setObsCount(long obsCount) {
-		this.obsCount = obsCount;
 	}
 }

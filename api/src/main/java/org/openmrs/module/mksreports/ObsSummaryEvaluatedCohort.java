@@ -6,11 +6,22 @@ import org.openmrs.module.reporting.cohort.definition.CohortDefinition;
 import org.openmrs.module.reporting.evaluation.EvaluationContext;
 
 public class ObsSummaryEvaluatedCohort extends EvaluatedCohort {
-	
+
+	private long obsCount;
+
 	public ObsSummaryEvaluatedCohort() {
 	}
 	
-	public ObsSummaryEvaluatedCohort(Cohort c, CohortDefinition definition, EvaluationContext context) {
+	public ObsSummaryEvaluatedCohort(Cohort c, CohortDefinition definition, EvaluationContext context, long obsCount) {
 		super(c, definition, context);
+		setObsCount(obsCount);
+	}
+
+	public long getObsCount() {
+		return obsCount;
+	}
+
+	public void setObsCount(long obsCount) {
+		this.obsCount = obsCount;
 	}
 }
