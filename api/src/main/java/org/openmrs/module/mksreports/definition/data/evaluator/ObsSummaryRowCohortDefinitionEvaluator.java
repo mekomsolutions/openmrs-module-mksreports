@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-@Handler(supports = ObsSummaryRowCohortDefinition.class)
+@Handler(supports = ObsSummaryRowCohortDefinition.class, order = 50)
 public class ObsSummaryRowCohortDefinitionEvaluator extends BaseObsCohortDefinitionEvaluator {
 	
 	@Override
