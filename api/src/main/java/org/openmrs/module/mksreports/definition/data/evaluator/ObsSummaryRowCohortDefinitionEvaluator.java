@@ -29,14 +29,13 @@ public class ObsSummaryRowCohortDefinitionEvaluator extends BaseObsCohortDefinit
 	public EvaluatedCohort evaluate(CohortDefinition cohortDefinition, EvaluationContext context)
 	        throws EvaluationException {
 		ObsSummaryRowCohortDefinition cd = (ObsSummaryRowCohortDefinition) cohortDefinition;
-		long obsCount = getObsCount(cd, null, null, null, null, cd.getOperator(), cd.getValueList(), context);
-		Cohort c = getPatientsHavingObs(cd, (RangeComparator) null, (Object) null, (RangeComparator) null, (Object) null,
-		    cd.getOperator(), cd.getValueList(), context);
+		long obsCount = getObsCount(cd, cd.getOperator(), cd.getValueList(), context);
+		Cohort c = getPatientsHavingObs(cd, null, null, null, null, cd.getOperator(), cd.getValueList(), context);
 		return new ObsSummaryEvaluatedCohort(c, cohortDefinition, context, obsCount);
 	}
 	
-	private long getObsCount(BaseObsCohortDefinition cd, RangeComparator operator1, Object value1, RangeComparator operator2,
-	        Object value2, SetComparator setOperator, List<? extends Object> valueList, EvaluationContext context) {
+	private long getObsCount(BaseObsCohortDefinition cd, SetComparator setOperator, List<? extends Object> valueList,
+	        EvaluationContext context) {
 		if (cd.getGroupingConcept() != null) {
 			throw new RuntimeException("grouping concept not yet implemented");
 		} else {
@@ -75,58 +74,44 @@ public class ObsSummaryRowCohortDefinitionEvaluator extends BaseObsCohortDefinit
 			String valueSql = null;
 			List<String> valueClauses = new ArrayList();
 			List<Object> valueListForQuery = null;
-			if (value1 == null && value2 == null) {
-				if (valueList != null && valueList.size() > 0) {
-					valueListForQuery = new ArrayList();
-					Iterator i$;
-					Object o;
-					if (valueList.get(0) instanceof String) {
-						valueSql = " o.value_text ";
-						i$ = valueList.iterator();
-						
-						while (i$.hasNext()) {
-							o = i$.next();
-							valueListForQuery.add(o);
-						}
-					} else {
-						valueSql = " o.value_coded ";
-						i$ = valueList.iterator();
-						
-						while (i$.hasNext()) {
-							o = i$.next();
-							if (o instanceof Concept) {
-								valueListForQuery.add(((Concept) o).getConceptId());
-							} else {
-								if (!(o instanceof Number)) {
-									throw new IllegalArgumentException(
-									        "Don't know how to handle " + o.getClass() + " in valueList");
-								}
-								
-								valueListForQuery.add(((Number) o).intValue());
+			if (valueList != null && valueList.size() > 0) {
+				valueListForQuery = new ArrayList();
+				Iterator i$;
+				Object o;
+				if (valueList.get(0) instanceof String) {
+					valueSql = " o.value_text ";
+					i$ = valueList.iterator();
+					
+					while (i$.hasNext()) {
+						o = i$.next();
+						valueListForQuery.add(o);
+					}
+				} else {
+					valueSql = " o.value_coded ";
+					i$ = valueList.iterator();
+					
+					while (i$.hasNext()) {
+						o = i$.next();
+						if (o instanceof Concept) {
+							valueListForQuery.add(((Concept) o).getConceptId());
+						} else {
+							if (!(o instanceof Number)) {
+								throw new IllegalArgumentException(
+								        "Don't know how to handle " + o.getClass() + " in valueList");
 							}
+							
+							valueListForQuery.add(((Number) o).intValue());
 						}
 					}
 				}
-			} else {
-				valueSql = value1 != null && value1 instanceof Number ? " o.value_numeric " : " o.value_datetime ";
 			}
 			
 			if (doSqlAggregation) {
 				valueSql = " " + tm.toString() + "(" + valueSql + ") ";
 			}
 			
-			if (value1 == null && value2 == null) {
-				if (valueList != null && valueList.size() > 0) {
-					valueClauses.add(valueSql + setOperator.getSqlRepresentation() + " (:valueList) ");
-				}
-			} else {
-				if (value1 != null) {
-					valueClauses.add(valueSql + operator1.getSqlRepresentation() + " :value1 ");
-				}
-				
-				if (value2 != null) {
-					valueClauses.add(valueSql + operator2.getSqlRepresentation() + " :value2 ");
-				}
+			if (valueList != null && valueList.size() > 0) {
+				valueClauses.add(valueSql + setOperator.getSqlRepresentation() + " (:valueList) ");
 			}
 			
 			StringBuilder sql = new StringBuilder();
@@ -186,14 +171,6 @@ public class ObsSummaryRowCohortDefinitionEvaluator extends BaseObsCohortDefinit
 			qb.append(sql.toString());
 			if (cd.getQuestion() != null) {
 				qb.addParameter("questionConceptId", cd.getQuestion());
-			}
-			
-			if (value1 != null) {
-				qb.addParameter("value1", value1);
-			}
-			
-			if (value2 != null) {
-				qb.addParameter("value2", value2);
 			}
 			
 			if (valueListForQuery != null) {
