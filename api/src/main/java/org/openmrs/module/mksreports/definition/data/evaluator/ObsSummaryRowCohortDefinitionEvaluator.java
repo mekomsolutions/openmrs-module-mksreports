@@ -52,17 +52,6 @@ public class ObsSummaryRowCohortDefinitionEvaluator extends BaseObsCohortDefinit
 				dateAndLocationSqlForSubquery = dateAndLocationSqlForSubquery + " and obs.obs_datetime <= :onOrBefore ";
 			}
 			
-			if (cd.getLocationIds() != null) {
-				dateAndLocationSql = dateAndLocationSql + " and o.location_id in (:locationIds) ";
-				dateAndLocationSqlForSubquery = dateAndLocationSqlForSubquery + " and obs.location_id in (:locationIds) ";
-			}
-			
-			if (cd.getEncounterTypeIds() != null) {
-				dateAndLocationSql = dateAndLocationSql + " and e.encounter_type in (:encounterTypeIds) ";
-				dateAndLocationSqlForSubquery = dateAndLocationSqlForSubquery
-				        + " and encounter.encounter_type in (:encounterTypeIds) ";
-			}
-			
 			BaseObsCohortDefinition.TimeModifier tm = cd.getTimeModifier();
 			if (tm == null) {
 				tm = BaseObsCohortDefinition.TimeModifier.ANY;
