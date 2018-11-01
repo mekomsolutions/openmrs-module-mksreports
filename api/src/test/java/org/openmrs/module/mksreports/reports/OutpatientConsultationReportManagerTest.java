@@ -8,6 +8,8 @@ import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -16,14 +18,26 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.openmrs.Cohort;
+import org.openmrs.Concept;
+import org.openmrs.Location;
 import org.openmrs.api.ConceptService;
 import org.openmrs.module.initializer.api.InitializerService;
 import org.openmrs.module.mksreports.MKSReportManager;
 import org.openmrs.module.mksreports.MKSReportsConstants;
 import org.openmrs.module.mksreports.ObsSummaryEvaluatedCohort;
+import org.openmrs.module.mksreports.dataset.definition.ObsSummaryRowDataSetDefinition;
+import org.openmrs.module.reporting.cohort.definition.AgeCohortDefinition;
+import org.openmrs.module.reporting.cohort.definition.CodedObsCohortDefinition;
+import org.openmrs.module.reporting.cohort.definition.CompositionCohortDefinition;
+import org.openmrs.module.reporting.cohort.definition.GenderCohortDefinition;
 import org.openmrs.module.reporting.common.DateUtil;
+import org.openmrs.module.reporting.common.DurationUnit;
+import org.openmrs.module.reporting.common.SetComparator;
 import org.openmrs.module.reporting.dataset.DataSetRow;
+import org.openmrs.module.reporting.dataset.definition.CohortCrossTabDataSetDefinition;
 import org.openmrs.module.reporting.evaluation.EvaluationContext;
+import org.openmrs.module.reporting.evaluation.parameter.Mapped;
+import org.openmrs.module.reporting.evaluation.parameter.Parameter;
 import org.openmrs.module.reporting.report.ReportData;
 import org.openmrs.module.reporting.report.ReportDesign;
 import org.openmrs.module.reporting.report.definition.ReportDefinition;
@@ -51,6 +65,9 @@ public class OutpatientConsultationReportManagerTest extends BaseReportTest {
 	@Autowired
 	@Qualifier(MKSReportsConstants.COMPONENT_REPORTMANAGER_OPDCONSULT)
 	private MKSReportManager manager;
+	
+	@Autowired
+	private InitializerService inizService;
 	
 	protected static final String XML_DATASET_PATH = "org/openmrs/module/mksreports/include/";
 	
@@ -147,13 +164,44 @@ public class OutpatientConsultationReportManagerTest extends BaseReportTest {
 			Cohort allWithMalaria = (Cohort) row.getColumnValue("MALARIA." + OutpatientConsultationReportManager.col23);
 			assertThat(allWithMalaria, is(notNullValue()));
 			assertThat(allWithMalaria.getSize(), is(3));
-
-			/**
-			ObsSummaryEvaluatedCohort _5To15yMalesForAllDiagnosis = (ObsSummaryEvaluatedCohort) row
-			        .getColumnValue("VTotals." + OutpatientConsultationReportManager.col7);
-			assertThat(_5To15yMalesForAllDiagnosis, is(notNullValue()));
-			assertThat(_5To15yMalesForAllDiagnosis.getObsCount(), is(4l));
-			 */
 		}
+	}
+	
+	@Test
+	public void test() throws Exception {
+		Concept allDiags = inizService.getConceptFromKey("report.opdconsult.diagnosesList.concept");
+		
+		EvaluationContext context = new EvaluationContext();
+		context.addParameterValue("diagnosisList", allDiags.getSetMembers());
+		context.addParameterValue("onOrAfter", DateUtil.parseDate("2008-08-01", "yyyy-MM-dd"));
+		context.addParameterValue("onOrBefore", DateUtil.parseDate("2009-09-30", "yyyy-MM-dd"));
+		context.addParameterValue("questionConceptId",
+		    inizService.getConceptFromKey("report.opdconsult.diagnosisQuestion.concept").getId());
+		ReportDefinition rd = constructReportDefinition();
+		ReportData data = rds.evaluate(rd, context);
+		
+		for (Iterator<DataSetRow> itr = data.getDataSets().get(rd.getName()).iterator(); itr.hasNext();) {
+			DataSetRow row = itr.next();
+			
+			List<Integer> _0To1mMalesForAllDiagnosis = (List<Integer>) row.getColumnValue("5-14years Male");
+			assertThat(_0To1mMalesForAllDiagnosis.size(), is(4));
+			assertTrue(_0To1mMalesForAllDiagnosis.contains(6));
+		}
+	}
+	
+	private ReportDefinition constructReportDefinition() {
+		ReportDefinition rd = new ReportDefinition();
+		rd.setName("Test report");
+		rd.setUuid("673e4055-888c-49bd-800a-3af6233e896f");
+		rd.setDescription("Test report description");
+		
+		ObsSummaryRowDataSetDefinition obsSummaryDS = new ObsSummaryRowDataSetDefinition();
+		obsSummaryDS.addParameter(new Parameter("diagnosisList", "List of Diagnosis", Concept.class, List.class, null));
+		obsSummaryDS.addParameter(new Parameter("onOrBefore", "On Or Before", Date.class));
+		obsSummaryDS.addParameter(new Parameter("onOrAfter", "On Or After", Date.class));
+		obsSummaryDS.addParameter(new Parameter("questionConceptId", "Question Concept", Integer.class));
+		
+		rd.addDataSetDefinition("Test report", Mapped.mapStraightThrough(obsSummaryDS));
+		return rd;
 	}
 }
