@@ -97,7 +97,7 @@ public class OutpatientConsultationReportManagerTest extends BaseReportTest {
 	@Test
 	public void testReport() throws Exception {
 		Concept allDiags = inizService.getConceptFromKey("report.opdconsult.diagnosesList.concept");
-
+		
 		EvaluationContext context = new EvaluationContext();
 		context.addParameterValue("startDate", DateUtil.parseDate("2008-08-01", "yyyy-MM-dd"));
 		context.addParameterValue("endDate", DateUtil.parseDate("2009-09-30", "yyyy-MM-dd"));
@@ -105,8 +105,8 @@ public class OutpatientConsultationReportManagerTest extends BaseReportTest {
 		context.addParameterValue("onOrAfter", DateUtil.parseDate("2008-08-01", "yyyy-MM-dd"));
 		context.addParameterValue("onOrBefore", DateUtil.parseDate("2009-09-30", "yyyy-MM-dd"));
 		context.addParameterValue("questionConceptId",
-				inizService.getConceptFromKey("report.opdconsult.diagnosisQuestion.concept").getId());
-
+		    inizService.getConceptFromKey("report.opdconsult.diagnosisQuestion.concept").getId());
+		
 		ReportDefinition rd = manager.constructReportDefinition();
 		ReportData data = rds.evaluate(rd, context);
 		
@@ -171,11 +171,11 @@ public class OutpatientConsultationReportManagerTest extends BaseReportTest {
 			assertThat(allWithMalaria, is(notNullValue()));
 			assertThat(allWithMalaria.getSize(), is(3));
 		}
-
+		
 		DataSetRow obsSummaryRow = data.getDataSets().get("Obs Summary").iterator().next();
 		assertThat(obsSummaryRow, is(notNullValue()));
-
-		List<Integer> _0To1mMalesForAllDiagnosis = (List<Integer>) obsSummaryRow.getColumnValue("5-14years Male");
+		
+		List<Integer> _0To1mMalesForAllDiagnosis = (List<Integer>) obsSummaryRow.getColumnValue("5-14 years - Males");
 		assertThat(_0To1mMalesForAllDiagnosis, is(notNullValue()));
 		assertThat(_0To1mMalesForAllDiagnosis.size(), is(4));
 		assertThat(_0To1mMalesForAllDiagnosis.contains(6), is(true));

@@ -142,14 +142,14 @@ public class OutpatientConsultationReportManager extends MKSReportManager {
 		rd.addDataSetDefinition(getName(), Mapped.mapStraightThrough(opdConsult));
 		
 		Concept allDiags = inizService.getConceptFromKey("report.opdconsult.diagnosesList.concept");
-
+		
 		ObsSummaryRowDataSetDefinition obsSummaryDS = new ObsSummaryRowDataSetDefinition();
 		obsSummaryDS.addParameter(new Parameter("diagnosisList", "List of Diagnosis", Concept.class, List.class, null));
 		obsSummaryDS.addParameter(new Parameter("onOrBefore", "On Or Before", Date.class));
 		obsSummaryDS.addParameter(new Parameter("onOrAfter", "On Or After", Date.class));
 		obsSummaryDS.addParameter(new Parameter("questionConceptId", "Question Concept", Integer.class));
 		rd.addDataSetDefinition("Obs Summary", Mapped.mapStraightThrough(obsSummaryDS));
-
+		
 		Map<String, Object> parameterMappings = new HashMap<String, Object>();
 		parameterMappings.put("onOrAfter", "${startDate}");
 		parameterMappings.put("onOrBefore", "${endDate}");
@@ -183,6 +183,8 @@ public class OutpatientConsultationReportManager extends MKSReportManager {
 		_0To1m.setMaxAgeUnit(DurationUnit.MONTHS);
 		opdConsult.addColumn(col1, createCohortComposition(_0To1m, males), null);
 		opdConsult.addColumn(col2, createCohortComposition(_0To1m, females), null);
+		obsSummaryDS.addColumn(col1, createCohortComposition(_0To1m, males));
+		obsSummaryDS.addColumn(col2, createCohortComposition(_0To1m, females));
 		
 		AgeCohortDefinition _1mTo1y = new AgeCohortDefinition();
 		_1mTo1y.setMinAge(1);
@@ -191,6 +193,8 @@ public class OutpatientConsultationReportManager extends MKSReportManager {
 		_1mTo1y.setMaxAgeUnit(DurationUnit.MONTHS);
 		opdConsult.addColumn(col3, createCohortComposition(_1mTo1y, males), null);
 		opdConsult.addColumn(col4, createCohortComposition(_1mTo1y, females), null);
+		obsSummaryDS.addColumn(col3, createCohortComposition(_1mTo1y, males));
+		obsSummaryDS.addColumn(col4, createCohortComposition(_1mTo1y, females));
 		
 		AgeCohortDefinition _1To5y = new AgeCohortDefinition();
 		_1To5y.setMinAge(1);
@@ -199,6 +203,8 @@ public class OutpatientConsultationReportManager extends MKSReportManager {
 		_1To5y.setMaxAgeUnit(DurationUnit.YEARS);
 		opdConsult.addColumn(col5, createCohortComposition(_1To5y, males), null);
 		opdConsult.addColumn(col6, createCohortComposition(_1To5y, females), null);
+		obsSummaryDS.addColumn(col5, createCohortComposition(_1To5y, males));
+		obsSummaryDS.addColumn(col6, createCohortComposition(_1To5y, females));
 		
 		AgeCohortDefinition _5To15y = new AgeCohortDefinition();
 		_5To15y.setMinAge(5);
@@ -207,6 +213,8 @@ public class OutpatientConsultationReportManager extends MKSReportManager {
 		_5To15y.setMaxAgeUnit(DurationUnit.YEARS);
 		opdConsult.addColumn(col7, createCohortComposition(_5To15y, males), null);
 		opdConsult.addColumn(col8, createCohortComposition(_5To15y, females), null);
+		obsSummaryDS.addColumn(col7, createCohortComposition(_5To15y, males));
+		obsSummaryDS.addColumn(col8, createCohortComposition(_5To15y, females));
 		
 		AgeCohortDefinition _15To25y = new AgeCohortDefinition();
 		_15To25y.setMinAge(15);
@@ -215,6 +223,8 @@ public class OutpatientConsultationReportManager extends MKSReportManager {
 		_15To25y.setMaxAgeUnit(DurationUnit.YEARS);
 		opdConsult.addColumn(col9, createCohortComposition(_15To25y, males), null);
 		opdConsult.addColumn(col10, createCohortComposition(_15To25y, females), null);
+		obsSummaryDS.addColumn(col9, createCohortComposition(_15To25y, males));
+		obsSummaryDS.addColumn(col10, createCohortComposition(_15To25y, females));
 		
 		AgeCohortDefinition _25To50y = new AgeCohortDefinition();
 		_25To50y.setMinAge(25);
@@ -223,6 +233,8 @@ public class OutpatientConsultationReportManager extends MKSReportManager {
 		_25To50y.setMaxAgeUnit(DurationUnit.YEARS);
 		opdConsult.addColumn(col11, createCohortComposition(_25To50y, males), null);
 		opdConsult.addColumn(col12, createCohortComposition(_25To50y, females), null);
+		obsSummaryDS.addColumn(col11, createCohortComposition(_25To50y, males));
+		obsSummaryDS.addColumn(col12, createCohortComposition(_25To50y, females));
 		
 		AgeCohortDefinition _50To65y = new AgeCohortDefinition();
 		_50To65y.setMinAge(50);
@@ -231,6 +243,8 @@ public class OutpatientConsultationReportManager extends MKSReportManager {
 		_50To65y.setMaxAgeUnit(DurationUnit.YEARS);
 		opdConsult.addColumn(col13, createCohortComposition(_50To65y, males), null);
 		opdConsult.addColumn(col14, createCohortComposition(_50To65y, females), null);
+		obsSummaryDS.addColumn(col13, createCohortComposition(_50To65y, males));
+		obsSummaryDS.addColumn(col14, createCohortComposition(_50To65y, females));
 		
 		AgeCohortDefinition moreThan65y = new AgeCohortDefinition();
 		moreThan65y.setMinAge(65);
@@ -239,6 +253,8 @@ public class OutpatientConsultationReportManager extends MKSReportManager {
 		moreThan65y.setMaxAgeUnit(DurationUnit.YEARS);
 		opdConsult.addColumn(col15, createCohortComposition(moreThan65y, males), null);
 		opdConsult.addColumn(col16, createCohortComposition(moreThan65y, females), null);
+		obsSummaryDS.addColumn(col15, createCohortComposition(moreThan65y, males));
+		obsSummaryDS.addColumn(col16, createCohortComposition(moreThan65y, females));
 		
 		// Total column
 		GenderCohortDefinition total = new GenderCohortDefinition();
@@ -248,6 +264,7 @@ public class OutpatientConsultationReportManager extends MKSReportManager {
 		opdConsult.addColumn(col17, createCohortComposition(total, males), null);
 		opdConsult.addColumn(col18, createCohortComposition(total, females), null);
 		opdConsult.addColumn(col23, createCohortComposition(total), null);
+		obsSummaryDS.addColumn(col23, createCohortComposition(total));
 		
 		// Referred To column
 		CodedObsCohortDefinition referredTo = new CodedObsCohortDefinition();
