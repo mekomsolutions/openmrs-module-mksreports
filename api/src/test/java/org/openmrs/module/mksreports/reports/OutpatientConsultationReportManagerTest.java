@@ -96,11 +96,17 @@ public class OutpatientConsultationReportManagerTest extends BaseReportTest {
 	
 	@Test
 	public void testReport() throws Exception {
-		
+		Concept allDiags = inizService.getConceptFromKey("report.opdconsult.diagnosesList.concept");
+
 		EvaluationContext context = new EvaluationContext();
 		context.addParameterValue("startDate", DateUtil.parseDate("2008-08-01", "yyyy-MM-dd"));
 		context.addParameterValue("endDate", DateUtil.parseDate("2009-09-30", "yyyy-MM-dd"));
-		
+		context.addParameterValue("diagnosisList", allDiags.getSetMembers());
+		context.addParameterValue("onOrAfter", DateUtil.parseDate("2008-08-01", "yyyy-MM-dd"));
+		context.addParameterValue("onOrBefore", DateUtil.parseDate("2009-09-30", "yyyy-MM-dd"));
+		context.addParameterValue("questionConceptId",
+				inizService.getConceptFromKey("report.opdconsult.diagnosisQuestion.concept").getId());
+
 		ReportDefinition rd = manager.constructReportDefinition();
 		ReportData data = rds.evaluate(rd, context);
 		
@@ -165,43 +171,13 @@ public class OutpatientConsultationReportManagerTest extends BaseReportTest {
 			assertThat(allWithMalaria, is(notNullValue()));
 			assertThat(allWithMalaria.getSize(), is(3));
 		}
-	}
-	
-	@Test
-	public void test() throws Exception {
-		Concept allDiags = inizService.getConceptFromKey("report.opdconsult.diagnosesList.concept");
-		
-		EvaluationContext context = new EvaluationContext();
-		context.addParameterValue("diagnosisList", allDiags.getSetMembers());
-		context.addParameterValue("onOrAfter", DateUtil.parseDate("2008-08-01", "yyyy-MM-dd"));
-		context.addParameterValue("onOrBefore", DateUtil.parseDate("2009-09-30", "yyyy-MM-dd"));
-		context.addParameterValue("questionConceptId",
-		    inizService.getConceptFromKey("report.opdconsult.diagnosisQuestion.concept").getId());
-		ReportDefinition rd = constructReportDefinition();
-		ReportData data = rds.evaluate(rd, context);
-		
-		for (Iterator<DataSetRow> itr = data.getDataSets().get(rd.getName()).iterator(); itr.hasNext();) {
-			DataSetRow row = itr.next();
-			
-			List<Integer> _0To1mMalesForAllDiagnosis = (List<Integer>) row.getColumnValue("5-14years Male");
-			assertThat(_0To1mMalesForAllDiagnosis.size(), is(4));
-			assertTrue(_0To1mMalesForAllDiagnosis.contains(6));
-		}
-	}
-	
-	private ReportDefinition constructReportDefinition() {
-		ReportDefinition rd = new ReportDefinition();
-		rd.setName("Test report");
-		rd.setUuid("673e4055-888c-49bd-800a-3af6233e896f");
-		rd.setDescription("Test report description");
-		
-		ObsSummaryRowDataSetDefinition obsSummaryDS = new ObsSummaryRowDataSetDefinition();
-		obsSummaryDS.addParameter(new Parameter("diagnosisList", "List of Diagnosis", Concept.class, List.class, null));
-		obsSummaryDS.addParameter(new Parameter("onOrBefore", "On Or Before", Date.class));
-		obsSummaryDS.addParameter(new Parameter("onOrAfter", "On Or After", Date.class));
-		obsSummaryDS.addParameter(new Parameter("questionConceptId", "Question Concept", Integer.class));
-		
-		rd.addDataSetDefinition("Test report", Mapped.mapStraightThrough(obsSummaryDS));
-		return rd;
+
+		DataSetRow obsSummaryRow = data.getDataSets().get("Obs Summary").iterator().next();
+		assertThat(obsSummaryRow, is(notNullValue()));
+
+		List<Integer> _0To1mMalesForAllDiagnosis = (List<Integer>) obsSummaryRow.getColumnValue("5-14years Male");
+		assertThat(_0To1mMalesForAllDiagnosis, is(notNullValue()));
+		assertThat(_0To1mMalesForAllDiagnosis.size(), is(4));
+		assertThat(_0To1mMalesForAllDiagnosis.contains(6), is(true));
 	}
 }

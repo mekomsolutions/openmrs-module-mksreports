@@ -12,6 +12,7 @@ import org.openmrs.Location;
 import org.openmrs.module.initializer.api.InitializerService;
 import org.openmrs.module.mksreports.MKSReportManager;
 import org.openmrs.module.mksreports.MKSReportsConstants;
+import org.openmrs.module.mksreports.dataset.definition.ObsSummaryRowDataSetDefinition;
 import org.openmrs.module.reporting.cohort.definition.AgeCohortDefinition;
 import org.openmrs.module.reporting.cohort.definition.CodedObsCohortDefinition;
 import org.openmrs.module.reporting.cohort.definition.CompositionCohortDefinition;
@@ -141,7 +142,14 @@ public class OutpatientConsultationReportManager extends MKSReportManager {
 		rd.addDataSetDefinition(getName(), Mapped.mapStraightThrough(opdConsult));
 		
 		Concept allDiags = inizService.getConceptFromKey("report.opdconsult.diagnosesList.concept");
-		
+
+		ObsSummaryRowDataSetDefinition obsSummaryDS = new ObsSummaryRowDataSetDefinition();
+		obsSummaryDS.addParameter(new Parameter("diagnosisList", "List of Diagnosis", Concept.class, List.class, null));
+		obsSummaryDS.addParameter(new Parameter("onOrBefore", "On Or Before", Date.class));
+		obsSummaryDS.addParameter(new Parameter("onOrAfter", "On Or After", Date.class));
+		obsSummaryDS.addParameter(new Parameter("questionConceptId", "Question Concept", Integer.class));
+		rd.addDataSetDefinition("Obs Summary", Mapped.mapStraightThrough(obsSummaryDS));
+
 		Map<String, Object> parameterMappings = new HashMap<String, Object>();
 		parameterMappings.put("onOrAfter", "${startDate}");
 		parameterMappings.put("onOrBefore", "${endDate}");
