@@ -3,7 +3,7 @@ package org.openmrs.module.mksreports.dataset.evaluator;
 import org.openmrs.Cohort;
 import org.openmrs.annotation.Handler;
 import org.openmrs.module.mksreports.dataset.definition.ObsSummaryRowDataSetDefinition;
-import org.openmrs.module.reporting.cohort.definition.CompositionCohortDefinition;
+import org.openmrs.module.reporting.cohort.definition.CohortDefinition;
 import org.openmrs.module.reporting.cohort.definition.service.CohortDefinitionService;
 import org.openmrs.module.reporting.dataset.DataSet;
 import org.openmrs.module.reporting.dataset.DataSetColumn;
@@ -42,8 +42,8 @@ public class ObsSummaryRowDataSetDefinitionEvaluator implements DataSetEvaluator
 		
 		List<Object[]> personIds = evaluationService.evaluateToList(queryBuilder, context);
 		DataSetRow row = new DataSetRow();
-		Map<String, CompositionCohortDefinition> columnDefinitions = definition.getColumns();
-		for (Map.Entry<String, CompositionCohortDefinition> entry : columnDefinitions.entrySet()) {
+		Map<String, CohortDefinition> columnDefinitions = definition.getCohortColumnDefinitions();
+		for (Map.Entry<String, CohortDefinition> entry : columnDefinitions.entrySet()) {
 			DataSetColumn col = new DataSetColumn();
 			col.setName(entry.getKey());
 			col.setDataType(List.class);
@@ -54,9 +54,8 @@ public class ObsSummaryRowDataSetDefinitionEvaluator implements DataSetEvaluator
 		return dataSet;
 	}
 	
-	private Cohort evaluateCohort(CompositionCohortDefinition cohortComposition, EvaluationContext context)
-	        throws EvaluationException {
-		return cohortDefinitionService.evaluate(cohortComposition, context);
+	private Cohort evaluateCohort(CohortDefinition cohortDefinition, EvaluationContext context) throws EvaluationException {
+		return cohortDefinitionService.evaluate(cohortDefinition, context);
 	}
 	
 	private Object getPersonsWithDiagnosisInCohort(Cohort cohort, List<Object[]> patientsWithDiagnosis) {

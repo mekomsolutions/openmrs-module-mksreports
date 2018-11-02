@@ -1,6 +1,6 @@
 package org.openmrs.module.mksreports.dataset.definition;
 
-import org.openmrs.module.reporting.cohort.definition.CompositionCohortDefinition;
+import org.openmrs.module.reporting.cohort.definition.CohortDefinition;
 import org.openmrs.module.reporting.dataset.definition.BaseDataSetDefinition;
 import org.openmrs.module.reporting.definition.configuration.ConfigurationProperty;
 
@@ -9,18 +9,22 @@ import java.util.Map;
 
 public class ObsSummaryRowDataSetDefinition extends BaseDataSetDefinition {
 	
+	/**
+	 * Column Definitions where the keys are the column names and values are CohortDefinitions which are
+	 * used to evaluate the value of the column
+	 */
 	@ConfigurationProperty
-	private Map<String, CompositionCohortDefinition> columns = new HashMap<String, CompositionCohortDefinition>();
+	private Map<String, CohortDefinition> cohortColumnDefinitions = new HashMap<String, CohortDefinition>();
 	
-	public void addColumn(String name, CompositionCohortDefinition cohortDefinition) {
-		columns.put(name, cohortDefinition);
+	public void addColumn(String name, CohortDefinition cohortDefinition) {
+		cohortColumnDefinitions.put(name, cohortDefinition);
 	}
 	
-	public Map<String, CompositionCohortDefinition> getColumns() {
-		return columns;
+	public Map<String, CohortDefinition> getCohortColumnDefinitions() {
+		return cohortColumnDefinitions;
 	}
 	
-	public void setColumns(Map<String, CompositionCohortDefinition> columns) {
-		this.columns = columns;
+	public void setCohortColumnDefinitions(Map<String, CohortDefinition> columns) {
+		this.cohortColumnDefinitions = columns;
 	}
 }
