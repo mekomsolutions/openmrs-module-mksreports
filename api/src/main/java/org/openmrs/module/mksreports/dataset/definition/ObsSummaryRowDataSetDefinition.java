@@ -10,8 +10,8 @@ import java.util.Map;
 public class ObsSummaryRowDataSetDefinition extends BaseDataSetDefinition {
 	
 	/**
-	 * Column Definitions where the keys are the column names and values are CohortDefinitions which are
-	 * used to evaluate the value of the column
+	 * Cohort column definitions: a map where the keys are the column names and the values are
+	 * CohortDefinitions.
 	 */
 	@ConfigurationProperty
 	private Map<String, CohortDefinition> cohortColumnDefinitions = new HashMap<String, CohortDefinition>();
