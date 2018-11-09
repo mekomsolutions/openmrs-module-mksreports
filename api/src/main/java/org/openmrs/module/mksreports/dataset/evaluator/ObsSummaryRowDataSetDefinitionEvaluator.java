@@ -58,8 +58,8 @@ public class ObsSummaryRowDataSetDefinitionEvaluator implements DataSetEvaluator
 	 */
 	protected List<Integer> getPatientsWithObs(EvaluationContext context) {
 		SqlQueryBuilder queryBuilder = new SqlQueryBuilder();
-		queryBuilder.append(" select o.person_id from obs o  inner join patient p on o.person_id = p.patient_id  "
-		        + "where o.voided = false and p.voided = false and concept_id = :questionConceptId "
+		queryBuilder.append("select o.person_id from obs o  inner join patient p on o.person_id = p.patient_id  "
+		        + "where o.voided = false and p.voided = false and concept_id IN (:questionConceptIds) "
 		        + "and o.obs_datetime >= :onOrAfter  and o.obs_datetime <= :onOrBefore "
 		        + "and o.value_coded IN (:diagnosisList)");
 		queryBuilder.setParameters(context.getParameterValues());

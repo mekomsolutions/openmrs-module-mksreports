@@ -46,7 +46,7 @@
 		<serialization.xstreamVersion>0.2.11</serialization.xstreamVersion>
 		<providermanagementVersion>2.2</providermanagementVersion>
 		<idgenVersion>4.3</idgenVersion>
-		<initializerVersion>1.0.1</initializerVersion>
+		<initializerVersion>1.0.2-SNAPSHOT</initializerVersion>
 		<openmrsTestutilsVersion>1.3</openmrsTestutilsVersion>
 	</properties>
 

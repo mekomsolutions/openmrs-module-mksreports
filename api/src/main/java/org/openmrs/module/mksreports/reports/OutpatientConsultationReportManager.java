@@ -155,17 +155,19 @@ public class OutpatientConsultationReportManager extends MKSReportManager {
 		parameterMappings.put("onOrBefore", "${endDate}");
 		parameterMappings.put("locationList", "${locationList}");
 		
-		// Add a row for each member of allDiags concept
-		for (Concept member : allDiags.getSetMembers()) {
-			CodedObsCohortDefinition diag = new CodedObsCohortDefinition();
-			diag.addParameter(new Parameter("onOrAfter", "On Or After", Date.class));
-			diag.addParameter(new Parameter("onOrBefore", "On Or Before", Date.class));
-			diag.addParameter(new Parameter("locationList", "Visit Location", Location.class, List.class, null));
-			diag.setOperator(SetComparator.IN);
-			diag.setQuestion(inizService.getConceptFromKey("report.opdconsult.diagnosisQuestion.concept"));
-			
-			diag.setValueList(Arrays.asList(member));
-			opdConsult.addRow(member.getDisplayString(), diag, parameterMappings);
+		List<Concept> questionConcepts = inizService.getConceptsFromKey("report.opdconsult.diagnosisQuestion.concepts");
+		for (Concept question : questionConcepts) {
+			for (Concept member : allDiags.getSetMembers()) {
+				CodedObsCohortDefinition diag = new CodedObsCohortDefinition();
+				diag.addParameter(new Parameter("onOrAfter", "On Or After", Date.class));
+				diag.addParameter(new Parameter("onOrBefore", "On Or Before", Date.class));
+				diag.addParameter(new Parameter("locationList", "Visit Location", Location.class, List.class, null));
+				diag.setOperator(SetComparator.IN);
+				diag.setQuestion(question);
+				
+				diag.setValueList(Arrays.asList(member));
+				opdConsult.addRow(member.getDisplayString(), diag, parameterMappings);
+			}
 		}
 		
 		setColumnNames();
