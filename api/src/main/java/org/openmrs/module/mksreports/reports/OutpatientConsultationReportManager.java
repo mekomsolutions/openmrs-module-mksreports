@@ -147,7 +147,7 @@ public class OutpatientConsultationReportManager extends MKSReportManager {
 		obsSummaryDS.addParameter(new Parameter("diagnosisList", "List of Diagnosis", Concept.class, List.class, null));
 		obsSummaryDS.addParameter(new Parameter("onOrBefore", "On Or Before", Date.class));
 		obsSummaryDS.addParameter(new Parameter("onOrAfter", "On Or After", Date.class));
-		obsSummaryDS.addParameter(new Parameter("questionConceptId", "Question Concept", Integer.class));
+		obsSummaryDS.addParameter(new Parameter("questionConceptIds", "Question Concept", Integer.class, List.class, null));
 		rd.addDataSetDefinition("Obs Summary", Mapped.mapStraightThrough(obsSummaryDS));
 		
 		Map<String, Object> parameterMappings = new HashMap<String, Object>();
