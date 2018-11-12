@@ -83,7 +83,7 @@ public class OutpatientConsultationReportManagerTest extends BaseReportTest {
 	
 	@Test
 	public void testReport() throws Exception {
-		Concept allDiags = inizService.getConceptFromKey("report.opdconsult.diagnosesList.concept");
+		Concept allDiags = inizService.getConceptFromKey("report.opdconsult.diagnoses.conceptSet");
 		
 		EvaluationContext context = new EvaluationContext();
 		context.addParameterValue("startDate", DateUtil.parseDate("2008-08-01", "yyyy-MM-dd"));
@@ -165,7 +165,7 @@ public class OutpatientConsultationReportManagerTest extends BaseReportTest {
 	@Test
 	@Ignore
 	public void test_multipleDiagnosisForTheSamePatientShouldBeCountedOnce() throws Exception {
-		Concept allDiags = inizService.getConceptFromKey("report.opdconsult.diagnosesList.concept");
+		Concept allDiags = inizService.getConceptFromKey("report.opdconsult.diagnoses.conceptSet");
 		
 		EvaluationContext context = new EvaluationContext();
 		context.addParameterValue("startDate", DateUtil.parseDate("2008-08-01", "yyyy-MM-dd"));
@@ -182,7 +182,7 @@ public class OutpatientConsultationReportManagerTest extends BaseReportTest {
 		ReportDefinition rd = manager.constructReportDefinition();
 		ReportData data = rds.evaluate(rd, context);
 		
-		DataSetRow obsSummaryRow = data.getDataSets().get("Obs Su" + "mmary").iterator().next();
+		DataSetRow obsSummaryRow = data.getDataSets().get("Obs Summary").iterator().next();
 		assertThat(obsSummaryRow, is(notNullValue()));
 		
 		List<Integer> _0To1mMalesForAllDiagnosis = (List<Integer>) obsSummaryRow.getColumnValue("5-14 years - Males");

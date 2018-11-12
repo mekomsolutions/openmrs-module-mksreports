@@ -24,6 +24,6 @@
   
   "report.opdconsult.active": "true",
   "report.opdconsult.diagnosisQuestion.concepts":["95312123-e0c2-466d-b6b1-cb6e990d0d65"],
-  "report.opdconsult.diagnosesList.concept":"b3ea209f-9979-481b-9c64-b6dd883c75bf",
+  "report.opdconsult.diagnoses.conceptSet":"b3ea209f-9979-481b-9c64-b6dd883c75bf",
   "report.opdconsult.referredTo.concept":"96408258-000b-424e-af1a-403919332938"
 }

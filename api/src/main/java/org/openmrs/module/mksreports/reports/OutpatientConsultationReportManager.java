@@ -141,7 +141,7 @@ public class OutpatientConsultationReportManager extends MKSReportManager {
 		opdConsult.addParameters(getParameters());
 		rd.addDataSetDefinition(getName(), Mapped.mapStraightThrough(opdConsult));
 		
-		Concept allDiags = inizService.getConceptFromKey("report.opdconsult.diagnosesList.concept");
+		Concept allDiags = inizService.getConceptFromKey("report.opdconsult.diagnoses.conceptSet");
 		
 		ObsSummaryRowDataSetDefinition obsSummaryDS = new ObsSummaryRowDataSetDefinition();
 		obsSummaryDS.addParameter(new Parameter("diagnosisList", "List of Diagnosis", Concept.class, List.class, null));
