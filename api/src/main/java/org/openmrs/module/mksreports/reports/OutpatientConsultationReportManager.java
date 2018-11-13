@@ -153,13 +153,13 @@ public class OutpatientConsultationReportManager extends MKSReportManager {
 		List<Concept> questionConcepts = inizService.getConceptsFromKey("report.opdconsult.diagnosisQuestion.concepts");
 		for (Concept member : allDiags.getSetMembers()) {
 			List<CodedObsCohortDefinition> codedObsList = new ArrayList<>();
-			for (Concept question: questionConcepts) {
+			for (Concept question : questionConcepts) {
 				CodedObsCohortDefinition diag = new CodedObsCohortDefinition();
 				diag.addParameter(new Parameter("onOrAfter", "On Or After", Date.class));
 				diag.addParameter(new Parameter("onOrBefore", "On Or Before", Date.class));
 				diag.addParameter(new Parameter("locationList", "Visit Location", Location.class, List.class, null));
 				diag.setOperator(SetComparator.IN);
-
+				
 				diag.setQuestion(question);
 				diag.setValueList(Arrays.asList(member));
 				codedObsList.add(diag);

@@ -14,6 +14,14 @@
 			dead="false" creator="1" date_created="2006-01-18 00:00:00.0" voided="false"
 			uuid="75f8b732-d80d-4e24-8654-473503ea3fc3"/>
 
+	<person person_id="8" gender="F" birthdate="1970-08-25 00:00:00.0" birthdate_estimated="1"
+			dead="false" creator="1" date_created="2006-01-18 00:00:00.0" voided="false"
+			uuid="1f0e97e9-8a4d-432f-841a-717227ade6a3"/>
+
+	<person person_id="9" gender="F" birthdate="1968-08-25 00:00:00.0" birthdate_estimated="1"
+			dead="false" creator="1" date_created="2006-01-18 00:00:00.0" voided="false"
+			uuid="dd74c838-bfd5-4121-9559-317156704436"/>
+
 	<patient patient_id="2" creator="1" date_created="2005-09-22 00:00:00.0" changed_by="1"
 			 date_changed="2008-08-18 12:29:59.0" voided="false" void_reason=""/>
 
@@ -21,6 +29,12 @@
 			 date_changed="2008-08-18 12:25:31.0" voided="false" void_reason=",,,,"/>
 
 	<patient patient_id="7" creator="1" date_created="2006-01-18 00:00:00.0" changed_by="1"
+			 date_changed="2008-08-18 12:25:57.0" voided="false" void_reason=""/>
+
+	<patient patient_id="8" creator="1" date_created="2006-01-18 00:00:00.0" changed_by="1"
+			 date_changed="2008-08-18 12:25:57.0" voided="false" void_reason=""/>
+
+	<patient patient_id="9" creator="1" date_created="2006-01-18 00:00:00.0" changed_by="1"
 			 date_changed="2008-08-18 12:25:57.0" voided="false" void_reason=""/>
 
 	<concept concept_id="1923" retired="false" datatype_id="4" class_id="7" is_set="false"
@@ -50,11 +64,11 @@
 			 is_set="true" creator="1" date_created="2008-08-18 12:38:58.0"
 			 version="" uuid="b3ea209f-9979-481b-9c64-b6dd883c75bf"/>
 
-	<concept concept_id="1927" retired="false" datatype_id="2" class_id="7" is_set="false"
+	<concept concept_id="22" retired="false" datatype_id="2" class_id="7" is_set="false"
 			 creator="1" date_created="2008-08-18 12:34:26.0" version="" changed_by="1"
 			 date_changed="2008-08-18 12:34:58.0" uuid="f5a541ae-28bc-4471-826f-7e089644cd11"/>
 
-	<concept concept_id="1928" retired="false" datatype_id="2" class_id="7" is_set="false"
+	<concept concept_id="23" retired="false" datatype_id="2" class_id="7" is_set="false"
 			 creator="1" date_created="2008-08-18 12:34:26.0" version="" changed_by="1"
 			 date_changed="2008-08-18 12:34:58.0" uuid="9f6eeff9-bd6e-4132-9cb5-8f522aefaa3c"/>
 
@@ -111,4 +125,18 @@
 		 value_coded_name_id="[NULL]" value_complex="[NULL]" value_text="[NULL]"
 		 value_numeric="[NULL]" value_datetime="[NULL]" value_drug="[NULL]"
 		 uuid="9dc357f1-9640-4e7b-a0ba-69507e372137" />
+
+	<obs obs_id="4008" person_id="8" concept_id="22" encounter_id="3"
+		 obs_datetime="2008-09-03 00:00:00.0" location_id="1" value_coded="1924"
+		 comments="" creator="1" date_created="2008-08-18 14:09:35.0" voided="false"
+		 value_coded_name_id="[NULL]" value_complex="[NULL]" value_text="[NULL]"
+		 value_numeric="[NULL]" value_datetime="[NULL]" value_drug="[NULL]"
+		 uuid="9074380f-0c0f-46c4-89b9-d97296b8b596" />
+
+	<obs obs_id="4009" person_id="9" concept_id="23" encounter_id="3"
+		 obs_datetime="2008-09-03 00:00:00.0" location_id="1" value_coded="1924"
+		 comments="" creator="1" date_created="2008-08-18 14:09:35.0" voided="false"
+		 value_coded_name_id="[NULL]" value_complex="[NULL]" value_text="[NULL]"
+		 value_numeric="[NULL]" value_datetime="[NULL]" value_drug="[NULL]"
+		 uuid="3b977d3d-3a2f-4ceb-b966-a193f2c343cd" />
 </dataset>
