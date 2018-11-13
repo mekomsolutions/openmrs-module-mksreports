@@ -46,7 +46,8 @@ public class ObsSummaryRowDataSetDefinitionEvaluator implements DataSetEvaluator
 			col.setName(entry.getKey());
 			col.setDataType(List.class);
 			
-			row.addColumnValue(col, intersect(patientsWithObs, patientsInCohort));
+			row.addColumnValue(col,
+			    patientsWithObs.stream().filter(patientsInCohort::contains).collect(Collectors.toList()));
 		}
 		SimpleDataSet dataSet = new SimpleDataSet(definition, context);
 		dataSet.addRow(row);
@@ -66,14 +67,5 @@ public class ObsSummaryRowDataSetDefinitionEvaluator implements DataSetEvaluator
 		List<Object[]> result = evaluationService.evaluateToList(queryBuilder, context);
 		List<Integer> patientIds = result.stream().map(x -> (Integer) x[0]).collect(Collectors.toList());
 		return patientIds;
-	}
-	
-	protected List<Integer> intersect(List<Integer> list, Set<Integer> set) {
-		List<Integer> personIds = new ArrayList<>();
-		for (Integer el : list) {
-			if (set.contains(el))
-				personIds.add(el);
-		}
-		return personIds;
 	}
 }
