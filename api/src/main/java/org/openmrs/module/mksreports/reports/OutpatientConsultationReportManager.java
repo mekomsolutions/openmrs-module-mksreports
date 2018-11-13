@@ -1,11 +1,6 @@
 package org.openmrs.module.mksreports.reports;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import org.openmrs.Concept;
 import org.openmrs.Location;
@@ -156,18 +151,22 @@ public class OutpatientConsultationReportManager extends MKSReportManager {
 		parameterMappings.put("locationList", "${locationList}");
 		
 		List<Concept> questionConcepts = inizService.getConceptsFromKey("report.opdconsult.diagnosisQuestion.concepts");
-		for (Concept question : questionConcepts) {
-			for (Concept member : allDiags.getSetMembers()) {
+		for (Concept member : allDiags.getSetMembers()) {
+			List<CodedObsCohortDefinition> codedObsList = new ArrayList<>();
+			for (Concept question: questionConcepts) {
 				CodedObsCohortDefinition diag = new CodedObsCohortDefinition();
 				diag.addParameter(new Parameter("onOrAfter", "On Or After", Date.class));
 				diag.addParameter(new Parameter("onOrBefore", "On Or Before", Date.class));
 				diag.addParameter(new Parameter("locationList", "Visit Location", Location.class, List.class, null));
 				diag.setOperator(SetComparator.IN);
+
 				diag.setQuestion(question);
-				
 				diag.setValueList(Arrays.asList(member));
-				opdConsult.addRow(member.getDisplayString(), diag, parameterMappings);
+				codedObsList.add(diag);
 			}
+			CodedObsCohortDefinition[] codedObs = new CodedObsCohortDefinition[codedObsList.size()];
+			codedObs = codedObsList.toArray(codedObs);
+			opdConsult.addRow(member.getDisplayString(), createCohortComposition(codedObs), parameterMappings);
 		}
 		
 		setColumnNames();
