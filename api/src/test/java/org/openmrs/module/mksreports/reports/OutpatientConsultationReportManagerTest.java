@@ -25,6 +25,7 @@ import org.openmrs.module.mksreports.MKSReportManager;
 import org.openmrs.module.mksreports.MKSReportsConstants;
 import org.openmrs.module.reporting.cohort.definition.CodedObsCohortDefinition;
 import org.openmrs.module.reporting.cohort.definition.CompositionCohortDefinition;
+import org.openmrs.module.reporting.cohort.definition.evaluator.CompositionCohortDefinitionEvaluator;
 import org.openmrs.module.reporting.cohort.definition.service.CohortDefinitionService;
 import org.openmrs.module.reporting.common.DateUtil;
 import org.openmrs.module.reporting.common.SetComparator;
@@ -115,14 +116,13 @@ public class OutpatientConsultationReportManagerTest extends BaseReportTest {
 			Cohort _25To50yFemalesWithMalaria = (Cohort) row
 			        .getColumnValue("MALARIA." + OutpatientConsultationReportManager.col12);
 			assertNotNull(_25To50yFemalesWithMalaria);
-			assertEquals(1, _25To50yFemalesWithMalaria.getSize());
+			assertEquals(2, _25To50yFemalesWithMalaria.getSize());
+			assertThat(_25To50yFemalesWithMalaria.contains(7), is(true));
+			assertThat(_25To50yFemalesWithMalaria.contains(8), is(true));
+			assertThat(_25To50yFemalesWithMalaria.contains(9), is(false));
 			Cohort _5To15yMalesWithFever = (Cohort) row.getColumnValue("FEVER." + OutpatientConsultationReportManager.col7);
 			assertNotNull(_5To15yMalesWithFever);
 			assertEquals(1, _5To15yMalesWithFever.getSize());
-			Cohort _25To50yFemalesWithFever = (Cohort) row
-			        .getColumnValue("FEVER." + OutpatientConsultationReportManager.col12);
-			assertNotNull(_25To50yFemalesWithFever);
-			assertEquals(0, _25To50yFemalesWithFever.getSize());
 			
 			// Total column
 			Cohort allMalesWithMalaria = (Cohort) row.getColumnValue("MALARIA." + OutpatientConsultationReportManager.col17);
@@ -132,14 +132,12 @@ public class OutpatientConsultationReportManagerTest extends BaseReportTest {
 			Cohort allFemalesWithMalaria = (Cohort) row
 			        .getColumnValue("MALARIA." + OutpatientConsultationReportManager.col18);
 			assertNotNull(allFemalesWithMalaria);
-			assertEquals(1, allFemalesWithMalaria.getSize());
+			assertEquals(2, allFemalesWithMalaria.getSize());
 			assertTrue(allFemalesWithMalaria.getMemberIds().contains(7));
+			assertThat(allFemalesWithMalaria.contains(9), is(false));
 			Cohort allMalesWithFever = (Cohort) row.getColumnValue("FEVER." + OutpatientConsultationReportManager.col17);
 			assertNotNull(allMalesWithFever);
 			assertEquals(1, allMalesWithFever.getSize());
-			Cohort allFemalesWithFever = (Cohort) row.getColumnValue("FEVER." + OutpatientConsultationReportManager.col18);
-			assertNotNull(allFemalesWithFever);
-			assertEquals(0, allFemalesWithFever.getSize());
 			
 			Cohort allMalesWithDiabetes = (Cohort) row
 			        .getColumnValue("DIABETES." + OutpatientConsultationReportManager.col17);
@@ -160,8 +158,18 @@ public class OutpatientConsultationReportManagerTest extends BaseReportTest {
 			
 			Cohort allWithMalaria = (Cohort) row.getColumnValue("MALARIA." + OutpatientConsultationReportManager.col23);
 			assertThat(allWithMalaria, is(notNullValue()));
-			assertThat(allWithMalaria.getSize(), is(3));
+			assertThat(allWithMalaria.getSize(), is(4));
 		}
+		
+		DataSetRow obsSummaryRow = data.getDataSets().get("Obs Summary").iterator().next();
+		assertThat(obsSummaryRow, is(notNullValue()));
+		
+		List<Integer> _25To50yFemalesForAllDiagnosis = (List<Integer>) obsSummaryRow.getColumnValue("25-49 years - Females");
+		assertThat(_25To50yFemalesForAllDiagnosis, is(notNullValue()));
+		assertThat(_25To50yFemalesForAllDiagnosis.size(), is(2));
+		assertThat(_25To50yFemalesForAllDiagnosis.contains(7), is(true));
+		assertThat(_25To50yFemalesForAllDiagnosis.contains(8), is(true));
+		assertThat(_25To50yFemalesForAllDiagnosis.contains(9), is(false));
 	}
 	
 	@Test
@@ -191,80 +199,5 @@ public class OutpatientConsultationReportManagerTest extends BaseReportTest {
 		assertThat(_0To1mMalesForAllDiagnosis, is(notNullValue()));
 		assertThat(_0To1mMalesForAllDiagnosis.size(), is(4));
 		assertThat(_0To1mMalesForAllDiagnosis.contains(6), is(true));
-	}
-	
-	@Test
-	public void test_allDiagnosisCountRowShouldOnlyCountDiagnosisForConfiguredQuestions() throws Exception {
-		Concept allDiags = inizService.getConceptFromKey("report.opdconsult.diagnoses.conceptSet");
-		
-		EvaluationContext context = new EvaluationContext();
-		context.addParameterValue("startDate", DateUtil.parseDate("2008-08-01", "yyyy-MM-dd"));
-		context.addParameterValue("endDate", DateUtil.parseDate("2009-09-30", "yyyy-MM-dd"));
-		context.addParameterValue("diagnosisList", allDiags.getSetMembers());
-		context.addParameterValue("onOrAfter", DateUtil.parseDate("2008-08-01", "yyyy-MM-dd"));
-		context.addParameterValue("onOrBefore", DateUtil.parseDate("2009-09-30", "yyyy-MM-dd"));
-		
-		List<Integer> questionConceptIds = inizService.getConceptsFromKey("report.opdconsult.diagnosisQuestion.concepts")
-		        .stream().map(concept -> concept.getId()).collect(Collectors.toList());
-		
-		context.addParameterValue("questionConceptIds", questionConceptIds);
-		
-		ReportDefinition rd = manager.constructReportDefinition();
-		ReportData data = rds.evaluate(rd, context);
-		
-		DataSetRow obsSummaryRow = data.getDataSets().get("Obs Summary").iterator().next();
-		assertThat(obsSummaryRow, is(notNullValue()));
-		
-		List<Integer> _25To50yFemalesForAllDiagnosis = (List<Integer>) obsSummaryRow.getColumnValue("25-49 years - Females");
-		assertThat(_25To50yFemalesForAllDiagnosis, is(notNullValue()));
-		assertThat(_25To50yFemalesForAllDiagnosis.size(), is(2));
-		assertThat(_25To50yFemalesForAllDiagnosis.contains(7), is(true));
-		assertThat(_25To50yFemalesForAllDiagnosis.contains(8), is(true));
-		assertThat(_25To50yFemalesForAllDiagnosis.contains(9), is(false));
-	}
-	
-	@Test
-	public void test_reproduceBugWithEmptyCohorts() throws Exception {
-		Concept question1 = Context.getConceptService().getConceptByUuid("95312123-e0c2-466d-b6b1-cb6e990d0d65");
-		Concept question2 = Context.getConceptService().getConceptByUuid("f5a541ae-28bc-4471-826f-7e089644cd11");
-		
-		Concept malaria = Context.getConceptService().getConceptByUuid("f7a7df79-8ecf-4e20-a13d-020adc6d4944");
-		
-		Map<String, Object> parameterMappings = new HashMap<>();
-		parameterMappings.put("onOrAfter", "${startDate}");
-		parameterMappings.put("onOrBefore", "${endDate}");
-		parameterMappings.put("locationList", "${locationList}");
-		
-		CodedObsCohortDefinition diag1 = new CodedObsCohortDefinition();
-		diag1.addParameter(new Parameter("onOrAfter", "On Or After", Date.class));
-		diag1.addParameter(new Parameter("onOrBefore", "On Or Before", Date.class));
-		diag1.addParameter(new Parameter("locationList", "Visit Location", Location.class, List.class, null));
-		diag1.setOperator(SetComparator.IN);
-		diag1.setQuestion(question1);
-		diag1.setValueList(Arrays.asList(malaria));
-		
-		CodedObsCohortDefinition diag2 = new CodedObsCohortDefinition();
-		diag2.addParameter(new Parameter("onOrAfter", "On Or After", Date.class));
-		diag2.addParameter(new Parameter("onOrBefore", "On Or Before", Date.class));
-		diag2.addParameter(new Parameter("locationList", "Visit Location", Location.class, List.class, null));
-		diag2.setOperator(SetComparator.IN);
-		diag2.setQuestion(question2);
-		diag2.setValueList(Arrays.asList(malaria));
-		
-		CompositionCohortDefinition compD = new CompositionCohortDefinition();
-		compD.initializeFromElements(diag1, diag2);
-		
-		EvaluationContext context = new EvaluationContext();
-		context.addParameterValue("startDate", DateUtil.parseDate("2008-08-01", "yyyy-MM-dd"));
-		context.addParameterValue("endDate", DateUtil.parseDate("2009-09-30", "yyyy-MM-dd"));
-		context.addParameterValue("onOrAfter", DateUtil.parseDate("2008-08-01", "yyyy-MM-dd"));
-		context.addParameterValue("onOrBefore", DateUtil.parseDate("2009-09-30", "yyyy-MM-dd"));
-		
-		CohortDefinitionService cds = Context.getService(CohortDefinitionService.class);
-		Cohort row = cds.evaluate(diag2, context);
-		
-		// this is only here so I can place a breakpoint and evaluate the values of the
-		// previous variables
-		System.out.println(row.size());
 	}
 }

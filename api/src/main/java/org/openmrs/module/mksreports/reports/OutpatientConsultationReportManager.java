@@ -12,6 +12,7 @@ import org.openmrs.module.reporting.cohort.definition.AgeCohortDefinition;
 import org.openmrs.module.reporting.cohort.definition.CodedObsCohortDefinition;
 import org.openmrs.module.reporting.cohort.definition.CompositionCohortDefinition;
 import org.openmrs.module.reporting.cohort.definition.GenderCohortDefinition;
+import org.openmrs.module.reporting.common.BooleanOperator;
 import org.openmrs.module.reporting.common.DurationUnit;
 import org.openmrs.module.reporting.common.MessageUtil;
 import org.openmrs.module.reporting.common.SetComparator;
@@ -164,9 +165,10 @@ public class OutpatientConsultationReportManager extends MKSReportManager {
 				diag.setValueList(Arrays.asList(member));
 				codedObsList.add(diag);
 			}
-			opdConsult.addRow(member.getDisplayString(),
-			    createCohortComposition(codedObsList.toArray(new CodedObsCohortDefinition[codedObsList.size()])),
-			    parameterMappings);
+			CompositionCohortDefinition compCD = new CompositionCohortDefinition();
+			compCD.initializeFromQueries(BooleanOperator.OR,
+			    codedObsList.toArray(new CodedObsCohortDefinition[codedObsList.size()]));
+			opdConsult.addRow(member.getDisplayString(), compCD, parameterMappings);
 		}
 		
 		setColumnNames();

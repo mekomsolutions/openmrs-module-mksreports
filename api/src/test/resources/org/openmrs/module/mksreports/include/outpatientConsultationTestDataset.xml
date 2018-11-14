@@ -127,13 +127,13 @@
 		 uuid="9dc357f1-9640-4e7b-a0ba-69507e372137" />
 
 	<obs obs_id="4008" person_id="8" concept_id="22" encounter_id="3"
-		 obs_datetime="2008-09-03 00:00:00.0" location_id="1" value_coded="1924"
+		 obs_datetime="2008-09-03 00:00:00.0" location_id="1" value_coded="1923"
 		 comments="" creator="1" date_created="2008-08-18 14:09:35.0" voided="false"
 		 value_coded_name_id="[NULL]" value_complex="[NULL]" value_text="[NULL]"
 		 value_numeric="[NULL]" value_datetime="[NULL]" value_drug="[NULL]"
 		 uuid="9074380f-0c0f-46c4-89b9-d97296b8b596" />
 
-	<obs obs_id="4009" person_id="9" concept_id="22" encounter_id="3"
+	<obs obs_id="4009" person_id="9" concept_id="23" encounter_id="3"
 		 obs_datetime="2008-09-03 00:00:00.0" location_id="1" value_coded="1923"
 		 comments="" creator="1" date_created="2008-08-18 14:09:35.0" voided="false"
 		 value_coded_name_id="[NULL]" value_complex="[NULL]" value_text="[NULL]"
