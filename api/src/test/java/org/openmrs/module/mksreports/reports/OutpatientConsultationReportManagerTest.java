@@ -8,8 +8,7 @@ import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import org.junit.Assert;
@@ -18,13 +17,20 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.openmrs.Cohort;
 import org.openmrs.Concept;
+import org.openmrs.Location;
 import org.openmrs.api.ConceptService;
+import org.openmrs.api.context.Context;
 import org.openmrs.module.initializer.api.InitializerService;
 import org.openmrs.module.mksreports.MKSReportManager;
 import org.openmrs.module.mksreports.MKSReportsConstants;
+import org.openmrs.module.reporting.cohort.definition.CodedObsCohortDefinition;
+import org.openmrs.module.reporting.cohort.definition.CompositionCohortDefinition;
+import org.openmrs.module.reporting.cohort.definition.service.CohortDefinitionService;
 import org.openmrs.module.reporting.common.DateUtil;
+import org.openmrs.module.reporting.common.SetComparator;
 import org.openmrs.module.reporting.dataset.DataSetRow;
 import org.openmrs.module.reporting.evaluation.EvaluationContext;
+import org.openmrs.module.reporting.evaluation.parameter.Parameter;
 import org.openmrs.module.reporting.report.ReportData;
 import org.openmrs.module.reporting.report.ReportDesign;
 import org.openmrs.module.reporting.report.definition.ReportDefinition;
@@ -82,7 +88,6 @@ public class OutpatientConsultationReportManagerTest extends BaseReportTest {
 	}
 	
 	@Test
-	@Ignore
 	public void testReport() throws Exception {
 		Concept allDiags = inizService.getConceptFromKey("report.opdconsult.diagnoses.conceptSet");
 		
@@ -103,10 +108,6 @@ public class OutpatientConsultationReportManagerTest extends BaseReportTest {
 		for (Iterator<DataSetRow> itr = data.getDataSets().get(rd.getName()).iterator(); itr.hasNext();) {
 			DataSetRow row = itr.next();
 			
-			// In CrossTabDataSet reports all rows and columns are in fact just columns of
-			// one row
-			
-			// Ensure that the report contains 4 possible combinations
 			Cohort _5To15yMalesWithMalaria = (Cohort) row
 			        .getColumnValue("MALARIA." + OutpatientConsultationReportManager.col7);
 			assertNotNull(_5To15yMalesWithMalaria);
@@ -164,6 +165,35 @@ public class OutpatientConsultationReportManagerTest extends BaseReportTest {
 	}
 	
 	@Test
+	@Ignore
+	public void test_multipleDiagnosisForTheSamePatientShouldBeCountedOnce() throws Exception {
+		Concept allDiags = inizService.getConceptFromKey("report.opdconsult.diagnoses.conceptSet");
+		
+		EvaluationContext context = new EvaluationContext();
+		context.addParameterValue("startDate", DateUtil.parseDate("2008-08-01", "yyyy-MM-dd"));
+		context.addParameterValue("endDate", DateUtil.parseDate("2009-09-30", "yyyy-MM-dd"));
+		context.addParameterValue("diagnosisList", allDiags.getSetMembers());
+		context.addParameterValue("onOrAfter", DateUtil.parseDate("2008-08-01", "yyyy-MM-dd"));
+		context.addParameterValue("onOrBefore", DateUtil.parseDate("2009-09-30", "yyyy-MM-dd"));
+		
+		List<Integer> questionConceptIds = inizService.getConceptsFromKey("report.opdconsult.diagnosisQuestion.concepts")
+		        .stream().map(concept -> concept.getId()).collect(Collectors.toList());
+		
+		context.addParameterValue("questionConceptIds", questionConceptIds);
+		
+		ReportDefinition rd = manager.constructReportDefinition();
+		ReportData data = rds.evaluate(rd, context);
+		
+		DataSetRow obsSummaryRow = data.getDataSets().get("Obs Summary").iterator().next();
+		assertThat(obsSummaryRow, is(notNullValue()));
+		
+		List<Integer> _0To1mMalesForAllDiagnosis = (List<Integer>) obsSummaryRow.getColumnValue("5-14 years - Males");
+		assertThat(_0To1mMalesForAllDiagnosis, is(notNullValue()));
+		assertThat(_0To1mMalesForAllDiagnosis.size(), is(4));
+		assertThat(_0To1mMalesForAllDiagnosis.contains(6), is(true));
+	}
+	
+	@Test
 	public void test_allDiagnosisCountRowShouldOnlyCountDiagnosisForConfiguredQuestions() throws Exception {
 		Concept allDiags = inizService.getConceptFromKey("report.opdconsult.diagnoses.conceptSet");
 		
@@ -194,31 +224,47 @@ public class OutpatientConsultationReportManagerTest extends BaseReportTest {
 	}
 	
 	@Test
-	@Ignore
-	public void test_multipleDiagnosisForTheSamePatientShouldBeCountedOnce() throws Exception {
-		Concept allDiags = inizService.getConceptFromKey("report.opdconsult.diagnoses.conceptSet");
+	public void test_reproduceBugWithEmptyCohorts() throws Exception {
+		Concept question1 = Context.getConceptService().getConceptByUuid("95312123-e0c2-466d-b6b1-cb6e990d0d65");
+		Concept question2 = Context.getConceptService().getConceptByUuid("f5a541ae-28bc-4471-826f-7e089644cd11");
+		
+		Concept malaria = Context.getConceptService().getConceptByUuid("f7a7df79-8ecf-4e20-a13d-020adc6d4944");
+		
+		Map<String, Object> parameterMappings = new HashMap<>();
+		parameterMappings.put("onOrAfter", "${startDate}");
+		parameterMappings.put("onOrBefore", "${endDate}");
+		parameterMappings.put("locationList", "${locationList}");
+		
+		CodedObsCohortDefinition diag1 = new CodedObsCohortDefinition();
+		diag1.addParameter(new Parameter("onOrAfter", "On Or After", Date.class));
+		diag1.addParameter(new Parameter("onOrBefore", "On Or Before", Date.class));
+		diag1.addParameter(new Parameter("locationList", "Visit Location", Location.class, List.class, null));
+		diag1.setOperator(SetComparator.IN);
+		diag1.setQuestion(question1);
+		diag1.setValueList(Arrays.asList(malaria));
+		
+		CodedObsCohortDefinition diag2 = new CodedObsCohortDefinition();
+		diag2.addParameter(new Parameter("onOrAfter", "On Or After", Date.class));
+		diag2.addParameter(new Parameter("onOrBefore", "On Or Before", Date.class));
+		diag2.addParameter(new Parameter("locationList", "Visit Location", Location.class, List.class, null));
+		diag2.setOperator(SetComparator.IN);
+		diag2.setQuestion(question2);
+		diag2.setValueList(Arrays.asList(malaria));
+		
+		CompositionCohortDefinition compD = new CompositionCohortDefinition();
+		compD.initializeFromElements(diag1, diag2);
 		
 		EvaluationContext context = new EvaluationContext();
 		context.addParameterValue("startDate", DateUtil.parseDate("2008-08-01", "yyyy-MM-dd"));
 		context.addParameterValue("endDate", DateUtil.parseDate("2009-09-30", "yyyy-MM-dd"));
-		context.addParameterValue("diagnosisList", allDiags.getSetMembers());
 		context.addParameterValue("onOrAfter", DateUtil.parseDate("2008-08-01", "yyyy-MM-dd"));
 		context.addParameterValue("onOrBefore", DateUtil.parseDate("2009-09-30", "yyyy-MM-dd"));
 		
-		List<Integer> questionConceptIds = inizService.getConceptsFromKey("report.opdconsult.diagnosisQuestion.concepts")
-		        .stream().map(concept -> concept.getId()).collect(Collectors.toList());
+		CohortDefinitionService cds = Context.getService(CohortDefinitionService.class);
+		Cohort row = cds.evaluate(diag2, context);
 		
-		context.addParameterValue("questionConceptIds", questionConceptIds);
-		
-		ReportDefinition rd = manager.constructReportDefinition();
-		ReportData data = rds.evaluate(rd, context);
-		
-		DataSetRow obsSummaryRow = data.getDataSets().get("Obs Summary").iterator().next();
-		assertThat(obsSummaryRow, is(notNullValue()));
-		
-		List<Integer> _0To1mMalesForAllDiagnosis = (List<Integer>) obsSummaryRow.getColumnValue("5-14 years - Males");
-		assertThat(_0To1mMalesForAllDiagnosis, is(notNullValue()));
-		assertThat(_0To1mMalesForAllDiagnosis.size(), is(4));
-		assertThat(_0To1mMalesForAllDiagnosis.contains(6), is(true));
+		// this is only here so I can place a breakpoint and evaluate the values of the
+		// previous variables
+		System.out.println(row.size());
 	}
 }
