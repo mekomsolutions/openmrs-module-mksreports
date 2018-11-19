@@ -17,21 +17,13 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.openmrs.Cohort;
 import org.openmrs.Concept;
-import org.openmrs.Location;
 import org.openmrs.api.ConceptService;
-import org.openmrs.api.context.Context;
 import org.openmrs.module.initializer.api.InitializerService;
 import org.openmrs.module.mksreports.MKSReportManager;
 import org.openmrs.module.mksreports.MKSReportsConstants;
-import org.openmrs.module.reporting.cohort.definition.CodedObsCohortDefinition;
-import org.openmrs.module.reporting.cohort.definition.CompositionCohortDefinition;
-import org.openmrs.module.reporting.cohort.definition.evaluator.CompositionCohortDefinitionEvaluator;
-import org.openmrs.module.reporting.cohort.definition.service.CohortDefinitionService;
 import org.openmrs.module.reporting.common.DateUtil;
-import org.openmrs.module.reporting.common.SetComparator;
 import org.openmrs.module.reporting.dataset.DataSetRow;
 import org.openmrs.module.reporting.evaluation.EvaluationContext;
-import org.openmrs.module.reporting.evaluation.parameter.Parameter;
 import org.openmrs.module.reporting.report.ReportData;
 import org.openmrs.module.reporting.report.ReportDesign;
 import org.openmrs.module.reporting.report.definition.ReportDefinition;
@@ -90,18 +82,9 @@ public class OutpatientConsultationReportManagerTest extends BaseReportTest {
 	
 	@Test
 	public void testReport() throws Exception {
-		Concept allDiags = inizService.getConceptFromKey("report.opdconsult.diagnoses.conceptSet");
-		
 		EvaluationContext context = new EvaluationContext();
 		context.addParameterValue("startDate", DateUtil.parseDate("2008-08-01", "yyyy-MM-dd"));
 		context.addParameterValue("endDate", DateUtil.parseDate("2009-09-30", "yyyy-MM-dd"));
-		context.addParameterValue("diagnosisList", allDiags.getSetMembers());
-		context.addParameterValue("onOrAfter", DateUtil.parseDate("2008-08-01", "yyyy-MM-dd"));
-		context.addParameterValue("onOrBefore", DateUtil.parseDate("2009-09-30", "yyyy-MM-dd"));
-		
-		List<Integer> questionConceptIds = inizService.getConceptsFromKey("report.opdconsult.diagnosisQuestion.concepts")
-		        .stream().map(concept -> concept.getId()).collect(Collectors.toList());
-		context.addParameterValue("questionConceptIds", questionConceptIds);
 		
 		ReportDefinition rd = manager.constructReportDefinition();
 		ReportData data = rds.evaluate(rd, context);
@@ -113,6 +96,9 @@ public class OutpatientConsultationReportManagerTest extends BaseReportTest {
 			        .getColumnValue("MALARIA." + OutpatientConsultationReportManager.col7);
 			assertNotNull(_5To15yMalesWithMalaria);
 			assertEquals(2, _5To15yMalesWithMalaria.getSize());
+			assertThat(_5To15yMalesWithMalaria.contains(6), is(true));
+			assertThat(_5To15yMalesWithMalaria.contains(2), is(true));
+			
 			Cohort _25To50yFemalesWithMalaria = (Cohort) row
 			        .getColumnValue("MALARIA." + OutpatientConsultationReportManager.col12);
 			assertNotNull(_25To50yFemalesWithMalaria);
@@ -120,29 +106,44 @@ public class OutpatientConsultationReportManagerTest extends BaseReportTest {
 			assertThat(_25To50yFemalesWithMalaria.contains(7), is(true));
 			assertThat(_25To50yFemalesWithMalaria.contains(8), is(true));
 			assertThat(_25To50yFemalesWithMalaria.contains(9), is(false));
+			
 			Cohort _5To15yMalesWithFever = (Cohort) row.getColumnValue("FEVER." + OutpatientConsultationReportManager.col7);
 			assertNotNull(_5To15yMalesWithFever);
 			assertEquals(1, _5To15yMalesWithFever.getSize());
+			assertThat(_5To15yMalesWithFever.contains(6), is(true));
+			
+			Cohort _5To15yMalesWithDiabetes = (Cohort) row
+			        .getColumnValue("DIABETES." + OutpatientConsultationReportManager.col7);
+			assertThat(_5To15yMalesWithDiabetes, is(notNullValue()));
+			assertThat(_5To15yMalesWithDiabetes.getSize(), is(1));
+			assertThat(_5To15yMalesWithDiabetes.contains(6), is(true));
 			
 			// Total column
 			Cohort allMalesWithMalaria = (Cohort) row.getColumnValue("MALARIA." + OutpatientConsultationReportManager.col17);
 			assertNotNull(allMalesWithMalaria);
-			assertEquals(2, allMalesWithMalaria.getSize());
-			assertTrue(allMalesWithMalaria.getMemberIds().contains(6));
+			assertThat(allMalesWithMalaria.getSize(), is(2));
+			assertThat(allMalesWithMalaria.contains(6), is(true));
+			assertThat(allMalesWithMalaria.contains(2), is(true));
+			
 			Cohort allFemalesWithMalaria = (Cohort) row
 			        .getColumnValue("MALARIA." + OutpatientConsultationReportManager.col18);
 			assertNotNull(allFemalesWithMalaria);
 			assertEquals(2, allFemalesWithMalaria.getSize());
-			assertTrue(allFemalesWithMalaria.getMemberIds().contains(7));
+			assertThat(allFemalesWithMalaria.contains(7), is(true));
+			assertThat(allFemalesWithMalaria.contains(8), is(true));
 			assertThat(allFemalesWithMalaria.contains(9), is(false));
+			
 			Cohort allMalesWithFever = (Cohort) row.getColumnValue("FEVER." + OutpatientConsultationReportManager.col17);
 			assertNotNull(allMalesWithFever);
 			assertEquals(1, allMalesWithFever.getSize());
+			assertThat(allMalesWithFever.contains(6), is(true));
 			
 			Cohort allMalesWithDiabetes = (Cohort) row
 			        .getColumnValue("DIABETES." + OutpatientConsultationReportManager.col17);
 			assertNotNull(allMalesWithDiabetes);
 			assertEquals(1, allMalesWithDiabetes.getSize());
+			assertThat(allMalesWithDiabetes.contains(6), is(true));
+			
 			Cohort allFemalesWithDiabetes = (Cohort) row
 			        .getColumnValue("DIABETES." + OutpatientConsultationReportManager.col18);
 			assertNotNull(allFemalesWithDiabetes);
@@ -152,6 +153,7 @@ public class OutpatientConsultationReportManagerTest extends BaseReportTest {
 			Cohort referredTo1 = (Cohort) row.getColumnValue("MALARIA." + OutpatientConsultationReportManager.col19);
 			assertNotNull(referredTo1);
 			assertEquals(0, referredTo1.getSize());
+			
 			Cohort referredTo2 = (Cohort) row.getColumnValue("MALARIA." + OutpatientConsultationReportManager.col20);
 			assertNotNull(referredTo2);
 			assertEquals(1, referredTo2.getSize());
@@ -159,6 +161,10 @@ public class OutpatientConsultationReportManagerTest extends BaseReportTest {
 			Cohort allWithMalaria = (Cohort) row.getColumnValue("MALARIA." + OutpatientConsultationReportManager.col23);
 			assertThat(allWithMalaria, is(notNullValue()));
 			assertThat(allWithMalaria.getSize(), is(4));
+			assertThat(allWithMalaria.contains(6), is(true));
+			assertThat(allWithMalaria.contains(2), is(true));
+			assertThat(allWithMalaria.contains(7), is(true));
+			assertThat(allWithMalaria.contains(8), is(true));
 		}
 		
 		DataSetRow obsSummaryRow = data.getDataSets().get("Obs Summary").iterator().next();
@@ -180,9 +186,6 @@ public class OutpatientConsultationReportManagerTest extends BaseReportTest {
 		EvaluationContext context = new EvaluationContext();
 		context.addParameterValue("startDate", DateUtil.parseDate("2008-08-01", "yyyy-MM-dd"));
 		context.addParameterValue("endDate", DateUtil.parseDate("2009-09-30", "yyyy-MM-dd"));
-		context.addParameterValue("diagnosisList", allDiags.getSetMembers());
-		context.addParameterValue("onOrAfter", DateUtil.parseDate("2008-08-01", "yyyy-MM-dd"));
-		context.addParameterValue("onOrBefore", DateUtil.parseDate("2009-09-30", "yyyy-MM-dd"));
 		
 		List<Integer> questionConceptIds = inizService.getConceptsFromKey("report.opdconsult.diagnosisQuestion.concepts")
 		        .stream().map(concept -> concept.getId()).collect(Collectors.toList());

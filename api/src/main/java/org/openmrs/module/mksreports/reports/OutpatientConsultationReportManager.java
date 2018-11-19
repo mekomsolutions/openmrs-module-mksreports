@@ -12,6 +12,7 @@ import org.openmrs.module.reporting.cohort.definition.AgeCohortDefinition;
 import org.openmrs.module.reporting.cohort.definition.CodedObsCohortDefinition;
 import org.openmrs.module.reporting.cohort.definition.CompositionCohortDefinition;
 import org.openmrs.module.reporting.cohort.definition.GenderCohortDefinition;
+import org.openmrs.module.reporting.cohort.definition.evaluator.CodedObsCohortDefinitionEvaluator;
 import org.openmrs.module.reporting.common.BooleanOperator;
 import org.openmrs.module.reporting.common.DurationUnit;
 import org.openmrs.module.reporting.common.MessageUtil;
@@ -138,12 +139,12 @@ public class OutpatientConsultationReportManager extends MKSReportManager {
 		rd.addDataSetDefinition(getName(), Mapped.mapStraightThrough(opdConsult));
 		
 		Concept allDiags = inizService.getConceptFromKey("report.opdconsult.diagnoses.conceptSet");
+		List<Concept> questionConcepts = inizService.getConceptsFromKey("report.opdconsult.diagnosisQuestion.concepts");
 		
 		ObsSummaryRowDataSetDefinition obsSummaryDS = new ObsSummaryRowDataSetDefinition();
-		obsSummaryDS.addParameter(new Parameter("diagnosisList", "List of Diagnosis", Concept.class, List.class, null));
-		obsSummaryDS.addParameter(new Parameter("onOrBefore", "On Or Before", Date.class));
-		obsSummaryDS.addParameter(new Parameter("onOrAfter", "On Or After", Date.class));
-		obsSummaryDS.addParameter(new Parameter("questionConceptIds", "Question Concept", Integer.class, List.class, null));
+		obsSummaryDS.addParameters(getParameters());
+		obsSummaryDS.setConceptList(allDiags.getSetMembers());
+		obsSummaryDS.setQuestions(questionConcepts);
 		rd.addDataSetDefinition("Obs Summary", Mapped.mapStraightThrough(obsSummaryDS));
 		
 		Map<String, Object> parameterMappings = new HashMap<String, Object>();
@@ -151,7 +152,6 @@ public class OutpatientConsultationReportManager extends MKSReportManager {
 		parameterMappings.put("onOrBefore", "${endDate}");
 		parameterMappings.put("locationList", "${locationList}");
 		
-		List<Concept> questionConcepts = inizService.getConceptsFromKey("report.opdconsult.diagnosisQuestion.concepts");
 		for (Concept member : allDiags.getSetMembers()) {
 			List<CodedObsCohortDefinition> codedObsList = new ArrayList<>();
 			for (Concept question : questionConcepts) {
@@ -160,7 +160,6 @@ public class OutpatientConsultationReportManager extends MKSReportManager {
 				diag.addParameter(new Parameter("onOrBefore", "On Or Before", Date.class));
 				diag.addParameter(new Parameter("locationList", "Visit Location", Location.class, List.class, null));
 				diag.setOperator(SetComparator.IN);
-				
 				diag.setQuestion(question);
 				diag.setValueList(Arrays.asList(member));
 				codedObsList.add(diag);
