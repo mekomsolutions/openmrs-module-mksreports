@@ -142,15 +142,18 @@ public class OutpatientConsultationReportManager extends MKSReportManager {
 		List<Concept> questionConcepts = inizService.getConceptsFromKey("report.opdconsult.diagnosisQuestion.concepts");
 		
 		ObsSummaryRowDataSetDefinition obsSummaryDS = new ObsSummaryRowDataSetDefinition();
-		obsSummaryDS.addParameters(getParameters());
+		obsSummaryDS.addParameter(new Parameter("onOrAfter", "On Or After", Date.class));
+		obsSummaryDS.addParameter(new Parameter("onOrBefore", "On Or Before", Date.class));
+		obsSummaryDS.addParameter(new Parameter("locationList", "Visit Location", Location.class, List.class, null));
 		obsSummaryDS.setConceptList(allDiags.getSetMembers());
 		obsSummaryDS.setQuestions(questionConcepts);
-		rd.addDataSetDefinition("Obs Summary", Mapped.mapStraightThrough(obsSummaryDS));
 		
 		Map<String, Object> parameterMappings = new HashMap<String, Object>();
 		parameterMappings.put("onOrAfter", "${startDate}");
 		parameterMappings.put("onOrBefore", "${endDate}");
 		parameterMappings.put("locationList", "${locationList}");
+		
+		rd.addDataSetDefinition("Obs Summary", new Mapped<>(obsSummaryDS, parameterMappings));
 		
 		for (Concept member : allDiags.getSetMembers()) {
 			List<CodedObsCohortDefinition> codedObsList = new ArrayList<>();
@@ -276,6 +279,8 @@ public class OutpatientConsultationReportManager extends MKSReportManager {
 		referredTo.setQuestion(inizService.getConceptFromKey("report.opdconsult.referredTo.concept"));
 		opdConsult.addColumn(col19, createCohortComposition(referredTo, males), null);
 		opdConsult.addColumn(col20, createCohortComposition(referredTo, females), null);
+		obsSummaryDS.addColumn(col19, createCohortComposition(referredTo, males));
+		obsSummaryDS.addColumn(col20, createCohortComposition(referredTo, females));
 		
 		return rd;
 	}

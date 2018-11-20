@@ -59,7 +59,7 @@ public class ObsSummaryRowDataSetEvaluator implements DataSetEvaluator {
 		SqlQueryBuilder queryBuilder = new SqlQueryBuilder();
 		queryBuilder.append("select o.person_id from obs o  inner join patient p on o.person_id = p.patient_id  "
 		        + "where o.voided = false and p.voided = false and concept_id IN (:questionConceptIds) "
-		        + "and o.obs_datetime >= :startDate  and o.obs_datetime <= :endDate "
+		        + "and o.obs_datetime >= :onOrAfter  and o.obs_datetime <= :onOrBefore "
 		        + "and o.value_coded IN (:conceptList)");
 		queryBuilder.setParameters(getParameterValues(definition, context));
 		
