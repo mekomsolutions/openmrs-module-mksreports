@@ -1,6 +1,7 @@
 package org.openmrs.module.mksreports.dataset.evaluator;
 
 import org.openmrs.Concept;
+import org.openmrs.Location;
 import org.openmrs.annotation.Handler;
 import org.openmrs.module.mksreports.dataset.definition.ObsSummaryRowDataSetDefinition;
 import org.openmrs.module.reporting.cohort.definition.CohortDefinition;
@@ -56,11 +57,17 @@ public class ObsSummaryRowDataSetEvaluator implements DataSetEvaluator {
 	 * Get patients with one or more diagnosis
 	 */
 	protected List<Integer> getPatientsWithObs(DataSetDefinition definition, EvaluationContext context) {
-		SqlQueryBuilder queryBuilder = new SqlQueryBuilder();
-		queryBuilder.append("select o.person_id from obs o  inner join patient p on o.person_id = p.patient_id  "
-		        + "where o.voided = false and p.voided = false and concept_id IN (:questionConceptIds) "
-		        + "and o.obs_datetime >= :onOrAfter  and o.obs_datetime <= :onOrBefore "
-		        + "and o.value_coded IN (:conceptList)");
+		SqlQueryBuilder queryBuilder = new SqlQueryBuilder(
+		        "select o.person_id from obs o  inner join patient p on o.person_id = p.patient_id "
+		                + " where o.voided = false and p.voided = false and concept_id IN (:questionConceptIds) "
+		                + " and o.value_coded IN (:conceptList) ");
+		if (context.getParameterValue("onOrAfter") != null)
+			queryBuilder.append(" and o.obs_datetime >= :onOrAfter ");
+		if (context.getParameterValue("onOrBefore") != null)
+			queryBuilder.append(" and o.obs_datetime <= :onOrBefore ");
+		if (context.getParameterValue("locationList") != null)
+			queryBuilder.append(" and location_id IN (:locationIds) ");
+		
 		queryBuilder.setParameters(getParameterValues(definition, context));
 		
 		List<Object[]> result = evaluationService.evaluateToList(queryBuilder, context);
@@ -74,6 +81,10 @@ public class ObsSummaryRowDataSetEvaluator implements DataSetEvaluator {
 		parametersValues.put("conceptList", obsSummaryD.getConceptList());
 		parametersValues.put("questionConceptIds",
 		    obsSummaryD.getQuestions().stream().map(Concept::getId).collect(Collectors.toList()));
+		
+		List<Location> locationList = (List<Location>) context.getParameterValue("locationList");
+		if (locationList != null)
+			parametersValues.put("locationIds", locationList.stream().map(Location::getId).collect(Collectors.toList()));
 		return parametersValues;
 	}
 }
