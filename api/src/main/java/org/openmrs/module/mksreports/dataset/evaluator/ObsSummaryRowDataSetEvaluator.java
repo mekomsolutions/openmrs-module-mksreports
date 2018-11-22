@@ -57,16 +57,20 @@ public class ObsSummaryRowDataSetEvaluator implements DataSetEvaluator {
 	 * Get patients with one or more diagnosis
 	 */
 	protected List<Integer> getPatientsWithObs(DataSetDefinition definition, EvaluationContext context) {
+		ObsSummaryRowDataSetDefinition obsSummaryRowDataSetDefinition = (ObsSummaryRowDataSetDefinition) definition;
 		SqlQueryBuilder queryBuilder = new SqlQueryBuilder(
 		        "select o.person_id from obs o  inner join patient p on o.person_id = p.patient_id "
-		                + " where o.voided = false and p.voided = false and concept_id IN (:questionConceptIds) "
-		                + " and o.value_coded IN (:conceptList) ");
+		                + " where o.voided = false and p.voided = false ");
 		if (context.getParameterValue("onOrAfter") != null)
 			queryBuilder.append(" and o.obs_datetime >= :onOrAfter ");
 		if (context.getParameterValue("onOrBefore") != null)
 			queryBuilder.append(" and o.obs_datetime <= :onOrBefore ");
 		if (context.getParameterValue("locationList") != null)
 			queryBuilder.append(" and location_id IN (:locationIds) ");
+		if (obsSummaryRowDataSetDefinition.getQuestions() != null)
+			queryBuilder.append(" and concept_id IN (:questionConceptIds) ");
+		if (obsSummaryRowDataSetDefinition.getConceptList() != null)
+			queryBuilder.append(" and o.value_coded IN (:conceptList) ");
 		
 		queryBuilder.setParameters(getParameterValues(definition, context));
 		
@@ -79,8 +83,10 @@ public class ObsSummaryRowDataSetEvaluator implements DataSetEvaluator {
 		ObsSummaryRowDataSetDefinition obsSummaryD = (ObsSummaryRowDataSetDefinition) definition;
 		Map<String, Object> parametersValues = context.getParameterValues();
 		parametersValues.put("conceptList", obsSummaryD.getConceptList());
-		parametersValues.put("questionConceptIds",
-		    obsSummaryD.getQuestions().stream().map(Concept::getId).collect(Collectors.toList()));
+		
+		if (obsSummaryD.getQuestions() != null)
+			parametersValues.put("questionConceptIds",
+			    obsSummaryD.getQuestions().stream().map(Concept::getId).collect(Collectors.toList()));
 		
 		List<Location> locationList = (List<Location>) context.getParameterValue("locationList");
 		if (locationList != null)
