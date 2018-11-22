@@ -12,7 +12,6 @@ import org.openmrs.module.reporting.cohort.definition.AgeCohortDefinition;
 import org.openmrs.module.reporting.cohort.definition.CodedObsCohortDefinition;
 import org.openmrs.module.reporting.cohort.definition.CompositionCohortDefinition;
 import org.openmrs.module.reporting.cohort.definition.GenderCohortDefinition;
-import org.openmrs.module.reporting.cohort.definition.evaluator.CodedObsCohortDefinitionEvaluator;
 import org.openmrs.module.reporting.common.BooleanOperator;
 import org.openmrs.module.reporting.common.DurationUnit;
 import org.openmrs.module.reporting.common.MessageUtil;
@@ -145,6 +144,7 @@ public class OutpatientConsultationReportManager extends MKSReportManager {
 		obsSummaryDS.addParameter(new Parameter("onOrAfter", "On Or After", Date.class));
 		obsSummaryDS.addParameter(new Parameter("onOrBefore", "On Or Before", Date.class));
 		obsSummaryDS.addParameter(new Parameter("locationList", "Visit Location", Location.class, List.class, null));
+		obsSummaryDS.addParameter(new Parameter("effectiveDate", "Effective Date", Date.class));
 		obsSummaryDS.setConceptList(allDiags.getSetMembers());
 		obsSummaryDS.setQuestions(questionConcepts);
 		
@@ -152,6 +152,7 @@ public class OutpatientConsultationReportManager extends MKSReportManager {
 		parameterMappings.put("onOrAfter", "${startDate}");
 		parameterMappings.put("onOrBefore", "${endDate}");
 		parameterMappings.put("locationList", "${locationList}");
+		parameterMappings.put("effectiveDate", "${startDate}");
 		
 		rd.addDataSetDefinition("Obs Summary", new Mapped<>(obsSummaryDS, parameterMappings));
 		
@@ -162,6 +163,7 @@ public class OutpatientConsultationReportManager extends MKSReportManager {
 				diag.addParameter(new Parameter("onOrAfter", "On Or After", Date.class));
 				diag.addParameter(new Parameter("onOrBefore", "On Or Before", Date.class));
 				diag.addParameter(new Parameter("locationList", "Visit Location", Location.class, List.class, null));
+				diag.addParameter(new Parameter("effectiveDate", "Effective Date", Date.class));
 				diag.setOperator(SetComparator.IN);
 				diag.setQuestion(question);
 				diag.setValueList(Arrays.asList(member));
@@ -181,13 +183,17 @@ public class OutpatientConsultationReportManager extends MKSReportManager {
 		GenderCohortDefinition females = new GenderCohortDefinition();
 		females.setFemaleIncluded(true);
 		
+		Map<String, Object> effectiveDateMapping = new HashMap<>();
+		effectiveDateMapping.put("effectiveDate", "${startDate}");
+		
 		AgeCohortDefinition _0To1m = new AgeCohortDefinition();
 		_0To1m.setMinAge(0);
 		_0To1m.setMinAgeUnit(DurationUnit.DAYS);
 		_0To1m.setMaxAge(1);
 		_0To1m.setMaxAgeUnit(DurationUnit.MONTHS);
-		opdConsult.addColumn(col1, createCohortComposition(_0To1m, males), null);
-		opdConsult.addColumn(col2, createCohortComposition(_0To1m, females), null);
+		_0To1m.addParameter(new Parameter("effectiveDate", "Effective Date", Date.class));
+		opdConsult.addColumn(col1, createCohortComposition(_0To1m, males), effectiveDateMapping);
+		opdConsult.addColumn(col2, createCohortComposition(_0To1m, females), effectiveDateMapping);
 		obsSummaryDS.addColumn(col1, createCohortComposition(_0To1m, males));
 		obsSummaryDS.addColumn(col2, createCohortComposition(_0To1m, females));
 		
@@ -196,8 +202,9 @@ public class OutpatientConsultationReportManager extends MKSReportManager {
 		_1mTo1y.setMinAgeUnit(DurationUnit.MONTHS);
 		_1mTo1y.setMaxAge(11);
 		_1mTo1y.setMaxAgeUnit(DurationUnit.MONTHS);
-		opdConsult.addColumn(col3, createCohortComposition(_1mTo1y, males), null);
-		opdConsult.addColumn(col4, createCohortComposition(_1mTo1y, females), null);
+		_1mTo1y.addParameter(new Parameter("effectiveDate", "Effective Date", Date.class));
+		opdConsult.addColumn(col3, createCohortComposition(_1mTo1y, males), effectiveDateMapping);
+		opdConsult.addColumn(col4, createCohortComposition(_1mTo1y, females), effectiveDateMapping);
 		obsSummaryDS.addColumn(col3, createCohortComposition(_1mTo1y, males));
 		obsSummaryDS.addColumn(col4, createCohortComposition(_1mTo1y, females));
 		
@@ -206,8 +213,9 @@ public class OutpatientConsultationReportManager extends MKSReportManager {
 		_1To5y.setMinAgeUnit(DurationUnit.YEARS);
 		_1To5y.setMaxAge(4);
 		_1To5y.setMaxAgeUnit(DurationUnit.YEARS);
-		opdConsult.addColumn(col5, createCohortComposition(_1To5y, males), null);
-		opdConsult.addColumn(col6, createCohortComposition(_1To5y, females), null);
+		_1To5y.addParameter(new Parameter("effectiveDate", "Effective Date", Date.class));
+		opdConsult.addColumn(col5, createCohortComposition(_1To5y, males), effectiveDateMapping);
+		opdConsult.addColumn(col6, createCohortComposition(_1To5y, females), effectiveDateMapping);
 		obsSummaryDS.addColumn(col5, createCohortComposition(_1To5y, males));
 		obsSummaryDS.addColumn(col6, createCohortComposition(_1To5y, females));
 		
@@ -216,8 +224,9 @@ public class OutpatientConsultationReportManager extends MKSReportManager {
 		_5To15y.setMinAgeUnit(DurationUnit.YEARS);
 		_5To15y.setMaxAge(14);
 		_5To15y.setMaxAgeUnit(DurationUnit.YEARS);
-		opdConsult.addColumn(col7, createCohortComposition(_5To15y, males), null);
-		opdConsult.addColumn(col8, createCohortComposition(_5To15y, females), null);
+		_5To15y.addParameter(new Parameter("effectiveDate", "Effective Date", Date.class));
+		opdConsult.addColumn(col7, createCohortComposition(_5To15y, males), effectiveDateMapping);
+		opdConsult.addColumn(col8, createCohortComposition(_5To15y, females), effectiveDateMapping);
 		obsSummaryDS.addColumn(col7, createCohortComposition(_5To15y, males));
 		obsSummaryDS.addColumn(col8, createCohortComposition(_5To15y, females));
 		
@@ -226,8 +235,9 @@ public class OutpatientConsultationReportManager extends MKSReportManager {
 		_15To25y.setMinAgeUnit(DurationUnit.YEARS);
 		_15To25y.setMaxAge(24);
 		_15To25y.setMaxAgeUnit(DurationUnit.YEARS);
-		opdConsult.addColumn(col9, createCohortComposition(_15To25y, males), null);
-		opdConsult.addColumn(col10, createCohortComposition(_15To25y, females), null);
+		_15To25y.addParameter(new Parameter("effectiveDate", "Effective Date", Date.class));
+		opdConsult.addColumn(col9, createCohortComposition(_15To25y, males), effectiveDateMapping);
+		opdConsult.addColumn(col10, createCohortComposition(_15To25y, females), effectiveDateMapping);
 		obsSummaryDS.addColumn(col9, createCohortComposition(_15To25y, males));
 		obsSummaryDS.addColumn(col10, createCohortComposition(_15To25y, females));
 		
@@ -236,8 +246,9 @@ public class OutpatientConsultationReportManager extends MKSReportManager {
 		_25To50y.setMinAgeUnit(DurationUnit.YEARS);
 		_25To50y.setMaxAge(49);
 		_25To50y.setMaxAgeUnit(DurationUnit.YEARS);
-		opdConsult.addColumn(col11, createCohortComposition(_25To50y, males), null);
-		opdConsult.addColumn(col12, createCohortComposition(_25To50y, females), null);
+		_25To50y.addParameter(new Parameter("effectiveDate", "Effective Date", Date.class));
+		opdConsult.addColumn(col11, createCohortComposition(_25To50y, males), effectiveDateMapping);
+		opdConsult.addColumn(col12, createCohortComposition(_25To50y, females), effectiveDateMapping);
 		obsSummaryDS.addColumn(col11, createCohortComposition(_25To50y, males));
 		obsSummaryDS.addColumn(col12, createCohortComposition(_25To50y, females));
 		
@@ -246,8 +257,9 @@ public class OutpatientConsultationReportManager extends MKSReportManager {
 		_50To65y.setMinAgeUnit(DurationUnit.YEARS);
 		_50To65y.setMaxAge(64);
 		_50To65y.setMaxAgeUnit(DurationUnit.YEARS);
-		opdConsult.addColumn(col13, createCohortComposition(_50To65y, males), null);
-		opdConsult.addColumn(col14, createCohortComposition(_50To65y, females), null);
+		_50To65y.addParameter(new Parameter("effectiveDate", "Effective Date", Date.class));
+		opdConsult.addColumn(col13, createCohortComposition(_50To65y, males), effectiveDateMapping);
+		opdConsult.addColumn(col14, createCohortComposition(_50To65y, females), effectiveDateMapping);
 		obsSummaryDS.addColumn(col13, createCohortComposition(_50To65y, males));
 		obsSummaryDS.addColumn(col14, createCohortComposition(_50To65y, females));
 		
@@ -256,8 +268,9 @@ public class OutpatientConsultationReportManager extends MKSReportManager {
 		moreThan65y.setMinAgeUnit(DurationUnit.YEARS);
 		moreThan65y.setMaxAge(200);
 		moreThan65y.setMaxAgeUnit(DurationUnit.YEARS);
-		opdConsult.addColumn(col15, createCohortComposition(moreThan65y, males), null);
-		opdConsult.addColumn(col16, createCohortComposition(moreThan65y, females), null);
+		moreThan65y.addParameter(new Parameter("effectiveDate", "Effective Date", Date.class));
+		opdConsult.addColumn(col15, createCohortComposition(moreThan65y, males), effectiveDateMapping);
+		opdConsult.addColumn(col16, createCohortComposition(moreThan65y, females), effectiveDateMapping);
 		obsSummaryDS.addColumn(col15, createCohortComposition(moreThan65y, males));
 		obsSummaryDS.addColumn(col16, createCohortComposition(moreThan65y, females));
 		
@@ -337,6 +350,7 @@ public class OutpatientConsultationReportManager extends MKSReportManager {
 	private CompositionCohortDefinition createCohortComposition(Object... elements) {
 		CompositionCohortDefinition compCD = new CompositionCohortDefinition();
 		compCD.initializeFromElements(elements);
+		compCD.addParameter(new Parameter("effectiveDate", "Effective Date", Date.class));
 		return compCD;
 	}
 	
