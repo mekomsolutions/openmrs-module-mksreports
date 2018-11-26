@@ -155,6 +155,7 @@ public class OutpatientConsultationReportManagerTest extends BaseReportTest {
 			Cohort referredTo2 = (Cohort) row.getColumnValue("MALARIA." + OutpatientConsultationReportManager.col20);
 			assertNotNull(referredTo2);
 			assertEquals(1, referredTo2.getSize());
+			assertThat(referredTo2.contains(77), is(true));
 			
 			Cohort allWithMalaria = (Cohort) row.getColumnValue("MALARIA." + OutpatientConsultationReportManager.col23);
 			assertThat(allWithMalaria, is(notNullValue()));
