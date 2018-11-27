@@ -62,14 +62,26 @@
 	<concept concept_id="1927" retired="false" datatype_id="2" class_id="7" is_set="false"
 			 creator="1" date_created="2008-08-18 12:34:26.0" version="" changed_by="1"
 			 date_changed="2008-08-18 12:34:58.0" uuid="92fa59e2-7c84-4af7-bf30-e9c950fab5d6"/>
+	<concept_name concept_id="1927" name="Patient diagnosis (recorded at the clinic)" locale="en_GB" creator="1"
+				  date_created="2004-08-12 00:00:00.0" concept_name_id="1542"
+				  concept_name_type="FULLY_SPECIFIED" locale_preferred="1" voided="false"
+				  uuid="66c816cb-b791-4669-8495-7fb93973cd70"/>
 	<concept concept_id="1928" retired="false" datatype_id="2" class_id="7" is_set="false"
 			 creator="1" date_created="2008-08-18 12:34:26.0" version="" changed_by="1"
 			 date_changed="2008-08-18 12:34:58.0" uuid="f5a541ae-28bc-4471-826f-7e089644cd11"/>
+	<concept_name concept_id="1928" name="Patient diagnosis (recorded at home)" locale="en_GB" creator="1"
+				  date_created="2004-08-12 00:00:00.0" concept_name_id="1543"
+				  concept_name_type="FULLY_SPECIFIED" locale_preferred="1" voided="false"
+				  uuid="b678cf95-71ce-40fa-a3e8-95bb742f0b83"/>
 
 	<!-- Diagnosis that are answers to this questions should not be counted -->
 	<concept concept_id="1929" retired="false" datatype_id="2" class_id="7" is_set="false"
 			 creator="1" date_created="2008-08-18 12:34:26.0" version="" changed_by="1"
 			 date_changed="2008-08-18 12:34:58.0" uuid="9f6eeff9-bd6e-4132-9cb5-8f522aefaa3c"/>
+	<concept_name concept_id="1929" name="Is the patient being referred to" locale="en_GB" creator="1"
+				  date_created="2004-08-12 00:00:00.0" concept_name_id="1544"
+				  concept_name_type="FULLY_SPECIFIED" locale_preferred="1" voided="false"
+				  uuid="5f83c157-012d-40a6-aafa-63e9e3257b84"/>
 
 	<!-- ReferredTo question concept -->
 	<concept concept_id="1930" retired="false" datatype_id="4" class_id="7" is_set="false"
