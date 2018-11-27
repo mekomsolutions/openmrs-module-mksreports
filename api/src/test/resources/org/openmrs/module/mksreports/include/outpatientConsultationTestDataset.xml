@@ -5,38 +5,31 @@
 	<person person_id="2" gender="M" birthdate="1996-04-08 00:00:00.0" birthdate_estimated="0"
 			dead="false" creator="1" date_created="2005-09-22 00:00:00.0" voided="false"
 			uuid="0ea283cf-1ec2-47f5-b47f-aca88d2cc43e"/>
-
 	<person person_id="6" gender="M" birthdate="1996-05-27 00:00:00.0" birthdate_estimated="0"
 			dead="false" creator="1" date_created="2006-01-18 00:00:00.0" voided="false"
 			uuid="8f324136-7c4b-4d18-8435-732adfc610fe"/>
-
 	<person person_id="77" gender="F" birthdate="1966-08-25 00:00:00.0" birthdate_estimated="1"
 			dead="false" creator="1" date_created="2006-01-18 00:00:00.0" voided="false"
 			uuid="75f8b732-d80d-4e24-8654-473503ea3fc3"/>
-
 	<person person_id="8" gender="F" birthdate="1960-08-25 00:00:00.0" birthdate_estimated="1"
 			dead="false" creator="1" date_created="2006-01-18 00:00:00.0" voided="false"
 			uuid="1f0e97e9-8a4d-432f-841a-717227ade6a3"/>
-
 	<person person_id="9" gender="F" birthdate="1959-08-25 00:00:00.0" birthdate_estimated="1"
 			dead="false" creator="1" date_created="2006-01-18 00:00:00.0" voided="false"
 			uuid="dd74c838-bfd5-4121-9559-317156704436"/>
 
 	<patient patient_id="2" creator="1" date_created="2005-09-22 00:00:00.0" changed_by="1"
 			 date_changed="2008-08-18 12:29:59.0" voided="false" void_reason=""/>
-
 	<patient patient_id="6" creator="1" date_created="2006-01-18 00:00:00.0" changed_by="1"
 			 date_changed="2008-08-18 12:25:31.0" voided="false" void_reason=",,,,"/>
-
 	<patient patient_id="77" creator="1" date_created="2006-01-18 00:00:00.0" changed_by="1"
 			 date_changed="2008-08-18 12:25:57.0" voided="false" void_reason=""/>
-
 	<patient patient_id="8" creator="1" date_created="2006-01-18 00:00:00.0" changed_by="1"
 			 date_changed="2008-08-18 12:25:57.0" voided="false" void_reason=""/>
-
 	<patient patient_id="9" creator="1" date_created="2006-01-18 00:00:00.0" changed_by="1"
 			 date_changed="2008-08-18 12:25:57.0" voided="false" void_reason=""/>
 
+	<!-- Diagnosis Concepts for Malaria, Fever and Diabetes -->
 	<concept concept_id="1923" retired="false" datatype_id="4" class_id="7" is_set="false"
 			 creator="1" date_created="2008-08-15 15:27:51.0" version=""
 			 uuid="f7a7df79-8ecf-4e20-a13d-020adc6d4944"/>
@@ -60,94 +53,104 @@
 				  concept_name_type="FULLY_SPECIFIED" locale_preferred="1" voided="false"
 				  uuid="63329cdd-99c6-4936-bf99-48d992129765"/>
 
+	<!-- Diagnoses concept set -->
 	<concept concept_id="1926" retired="false" datatype_id="4" class_id="10"
 			 is_set="true" creator="1" date_created="2008-08-18 12:38:58.0"
 			 version="" uuid="b3ea209f-9979-481b-9c64-b6dd883c75bf"/>
 
-	<concept concept_id="22" retired="false" datatype_id="2" class_id="7" is_set="false"
+	<!-- Diagnosis that are answers to these concepts should be counted -->
+	<concept concept_id="1927" retired="false" datatype_id="2" class_id="7" is_set="false"
+			 creator="1" date_created="2008-08-18 12:34:26.0" version="" changed_by="1"
+			 date_changed="2008-08-18 12:34:58.0" uuid="92fa59e2-7c84-4af7-bf30-e9c950fab5d6"/>
+	<concept concept_id="1928" retired="false" datatype_id="2" class_id="7" is_set="false"
 			 creator="1" date_created="2008-08-18 12:34:26.0" version="" changed_by="1"
 			 date_changed="2008-08-18 12:34:58.0" uuid="f5a541ae-28bc-4471-826f-7e089644cd11"/>
 
-	<concept concept_id="23" retired="false" datatype_id="2" class_id="7" is_set="false"
+	<!-- Diagnosis that are answers to this questions should not be counted -->
+	<concept concept_id="1929" retired="false" datatype_id="2" class_id="7" is_set="false"
 			 creator="1" date_created="2008-08-18 12:34:26.0" version="" changed_by="1"
 			 date_changed="2008-08-18 12:34:58.0" uuid="9f6eeff9-bd6e-4132-9cb5-8f522aefaa3c"/>
 
+	<!-- ReferredTo question concept -->
+	<concept concept_id="1930" retired="false" datatype_id="4" class_id="7" is_set="false"
+			 creator="1" date_created="2008-08-15 15:27:51.0" version=""
+			 uuid="5e0d838b-7ab4-4011-900d-b6b196069c2f"/>
+
+	<!-- Adding diagnosis concepts to the ConceptSet(#1926) -->
 	<concept_set concept_set_id="3" concept_id="1923" concept_set="1926"
 				 sort_weight="0.0" creator="1" date_created="2017-07-01 00:00:00.0"
 				 uuid="aab0ea42-9e64-4517-a134-36b4e1ed5909" />
-
 	<concept_set concept_set_id="4" concept_id="1924" concept_set="1926"
 				 sort_weight="0.0" creator="1" date_created="2017-07-01 00:00:00.0"
 				 uuid="e5d317cc-e1ab-43d3-92ef-1f5bb12dbb6f" />
-
 	<concept_set concept_set_id="5" concept_id="1925" concept_set="1926"
 				 sort_weight="0.0" creator="1" date_created="2017-07-01 00:00:00.0"
 				 uuid="f9cdecfb-c4ad-4294-bd01-723806a075a2" />
 
-	<obs obs_id="4003" person_id="6" concept_id="21" encounter_id="3"
+	<obs obs_id="4003" person_id="6" concept_id="1927" encounter_id="3"
 		 obs_datetime="2008-09-02 00:00:00.0" location_id="1" value_coded="1923"
 		 comments="" creator="1" date_created="2008-08-18 14:09:35.0" voided="false"
 		 value_coded_name_id="[NULL]" value_complex="[NULL]" value_text="[NULL]"
 		 value_numeric="[NULL]" value_datetime="[NULL]" value_drug="[NULL]"
 		 uuid="a2c84a9b-6181-445f-a106-267cc8641976" />
 
-	<obs obs_id="4004" person_id="6" concept_id="21" encounter_id="3"
+	<obs obs_id="4004" person_id="6" concept_id="1927" encounter_id="3"
 		 obs_datetime="2008-09-03 00:00:00.0" location_id="1" value_coded="1924"
 		 comments="" creator="1" date_created="2008-08-18 14:09:35.0" voided="false"
 		 value_coded_name_id="[NULL]" value_complex="[NULL]" value_text="[NULL]"
 		 value_numeric="[NULL]" value_datetime="[NULL]" value_drug="[NULL]"
 		 uuid="c631d811-e764-46d5-8ee4-4cceb406dcf4" />
 
-	<obs obs_id="4005" person_id="6" concept_id="21" encounter_id="3"
+	<obs obs_id="4005" person_id="6" concept_id="1927" encounter_id="3"
 		 obs_datetime="2008-09-02 00:00:00.0" location_id="1" value_coded="1925"
 		 comments="" creator="1" date_created="2008-08-18 14:09:35.0" voided="false"
 		 value_coded_name_id="[NULL]" value_complex="[NULL]" value_text="[NULL]"
 		 value_numeric="[NULL]" value_datetime="[NULL]" value_drug="[NULL]"
 		 uuid="91fc8bff-0c2a-4b4f-b8fe-13abecdee795" />
 
-	<obs obs_id="4006" person_id="77" concept_id="21" encounter_id="3"
+	<obs obs_id="4006" person_id="77" concept_id="1927" encounter_id="3"
 		 obs_datetime="2008-09-02 00:00:00.0" location_id="1" value_coded="1923"
 		 comments="" creator="1" date_created="2008-08-18 14:09:35.0" voided="false"
 		 value_coded_name_id="[NULL]" value_complex="[NULL]" value_text="[NULL]"
 		 value_numeric="[NULL]" value_datetime="[NULL]" value_drug="[NULL]"
 		 uuid="cf613b43-0e89-4c8d-9821-92bff858b087" />
 
-	<obs obs_id="4007" person_id="2" concept_id="21" encounter_id="3"
+	<obs obs_id="4007" person_id="2" concept_id="1927" encounter_id="3"
 		 obs_datetime="2008-09-02 00:00:00.0" location_id="2" value_coded="1923"
 		 comments="" creator="1" date_created="2008-08-18 14:09:35.0" voided="false"
 		 value_coded_name_id="[NULL]" value_complex="[NULL]" value_text="[NULL]"
 		 value_numeric="[NULL]" value_datetime="[NULL]" value_drug="[NULL]"
 		 uuid="603a7da2-78e4-4042-93d7-287ecadb098f" />
 
-	<obs obs_id="4008" person_id="8" concept_id="22" encounter_id="3"
+	<obs obs_id="4008" person_id="8" concept_id="1928" encounter_id="3"
 		 obs_datetime="2008-09-03 00:00:00.0" location_id="1" value_coded="1923"
 		 comments="" creator="1" date_created="2008-08-18 14:09:35.0" voided="false"
 		 value_coded_name_id="[NULL]" value_complex="[NULL]" value_text="[NULL]"
 		 value_numeric="[NULL]" value_datetime="[NULL]" value_drug="[NULL]"
 		 uuid="9074380f-0c0f-46c4-89b9-d97296b8b596" />
 
-	<obs obs_id="4009" person_id="9" concept_id="23" encounter_id="3"
+	<obs obs_id="4009" person_id="9" concept_id="1929" encounter_id="3"
 		 obs_datetime="2008-09-03 00:00:00.0" location_id="1" value_coded="1923"
 		 comments="" creator="1" date_created="2008-08-18 14:09:35.0" voided="false"
 		 value_coded_name_id="[NULL]" value_complex="[NULL]" value_text="[NULL]"
 		 value_numeric="[NULL]" value_datetime="[NULL]" value_drug="[NULL]"
 		 uuid="3b977d3d-3a2f-4ceb-b966-a193f2c343cd" />
 
-	<obs obs_id="4010" person_id="77" concept_id="19" encounter_id="3"
+	<obs obs_id="4010" person_id="77" concept_id="1930" encounter_id="3"
 		 obs_datetime="2008-09-03 00:00:00.0" location_id="1" value_coded="[NULL]"
 		 comments="" creator="1" date_created="2008-08-18 14:09:35.0" voided="false"
 		 value_coded_name_id="[NULL]" value_complex="[NULL]" value_text="[NULL]"
 		 value_numeric="[NULL]" value_datetime="[NULL]" value_drug="[NULL]"
 		 uuid="5a18bb7a-d57c-4ec3-bde3-238a90c8afd7" />
 
-	<obs obs_id="4011" person_id="2" concept_id="21" encounter_id="3"
+	<obs obs_id="4011" person_id="2" concept_id="1927" encounter_id="3"
 		 obs_datetime="2008-09-02 00:00:00.0" location_id="3" value_coded="1924"
 		 comments="" creator="1" date_created="2008-08-18 14:09:35.0" voided="false"
 		 value_coded_name_id="[NULL]" value_complex="[NULL]" value_text="[NULL]"
 		 value_numeric="[NULL]" value_datetime="[NULL]" value_drug="[NULL]"
 		 uuid="e1315da5-5d2b-4fe2-af40-7fabf950d4a5" />
 
-    <obs obs_id="4012" person_id="6" concept_id="21" encounter_id="3"
+    <obs obs_id="4012" person_id="6" concept_id="1927" encounter_id="3"
          obs_datetime="2008-09-03 00:00:00.0" location_id="1" value_coded="1924"
          comments="" creator="1" date_created="2008-08-18 14:09:35.0" voided="false"
          value_coded_name_id="[NULL]" value_complex="[NULL]" value_text="[NULL]"
