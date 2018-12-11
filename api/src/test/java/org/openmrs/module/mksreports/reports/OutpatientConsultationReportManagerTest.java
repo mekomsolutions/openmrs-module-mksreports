@@ -222,7 +222,8 @@ public class OutpatientConsultationReportManagerTest extends BaseReportTest {
 				assertThat(c.getSize(), is(1));
 				assertThat(c.contains(6), is(true));
 			}
-			
+
+			// All other columns should point to empty cohorts
 			List<Cohort> emptyCohortsList = colNames.stream().map(key -> (Cohort) cohortsMap.get(key))
 			        .collect(Collectors.toList());
 			
@@ -287,7 +288,8 @@ public class OutpatientConsultationReportManagerTest extends BaseReportTest {
 				assertThat(referredToFemales.size(), is(1));
 				assertThat(referredToFemales.contains(77), is(true));
 			}
-			
+
+			// All other columns should point to empty lists
 			List<List<Integer>> emptySummariesList = colNames.stream()
 			        .map(colName -> (List<Integer>) obsSummaryMap.get(colName)).collect(Collectors.toList());
 			
