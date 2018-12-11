@@ -7,11 +7,11 @@ import static org.junit.Assert.assertThat;
 
 import java.io.File;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import org.junit.Assert;
@@ -105,11 +105,11 @@ public class OutpatientConsultationReportManagerTest extends BaseReportTest {
 			DataSetRow row = dataSet.getDataSets().get(rd.getName()).iterator().next();
 			Map<String, Object> cohortsMap = row.getColumnValuesByKey();
 			
-			Set<String> colNames = new HashSet<>(cohortsMap.keySet());
+			Set<String> emptyColNames = new HashSet<>(cohortsMap.keySet());
 			String colName = "";
 			
 			colName = "MALARIA." + OutpatientConsultationReportManager.col7; // _5To15y, males
-			colNames.remove(colName);
+			emptyColNames.remove(colName);
 			{
 				Cohort c = (Cohort) cohortsMap.get(colName);
 				assertNotNull(c);
@@ -119,7 +119,7 @@ public class OutpatientConsultationReportManagerTest extends BaseReportTest {
 			}
 			
 			colName = "MALARIA." + OutpatientConsultationReportManager.col17; // total, males
-			colNames.remove(colName);
+			emptyColNames.remove(colName);
 			{
 				Cohort c = (Cohort) cohortsMap.get(colName);
 				assertNotNull(c);
@@ -129,7 +129,7 @@ public class OutpatientConsultationReportManagerTest extends BaseReportTest {
 			}
 			
 			colName = "MALARIA." + OutpatientConsultationReportManager.col12; // _25To50y, females
-			colNames.remove(colName);
+			emptyColNames.remove(colName);
 			{
 				Cohort c = (Cohort) cohortsMap.get(colName);
 				assertNotNull(c);
@@ -139,7 +139,7 @@ public class OutpatientConsultationReportManagerTest extends BaseReportTest {
 			}
 			
 			colName = "MALARIA." + OutpatientConsultationReportManager.col18; // total, females
-			colNames.remove(colName);
+			emptyColNames.remove(colName);
 			{
 				Cohort c = (Cohort) cohortsMap.get(colName);
 				assertNotNull(c);
@@ -149,7 +149,7 @@ public class OutpatientConsultationReportManagerTest extends BaseReportTest {
 			}
 			
 			colName = "MALARIA." + OutpatientConsultationReportManager.col23; // total
-			colNames.remove(colName);
+			emptyColNames.remove(colName);
 			{
 				Cohort c = (Cohort) cohortsMap.get(colName);
 				assertThat(c, is(notNullValue()));
@@ -161,7 +161,7 @@ public class OutpatientConsultationReportManagerTest extends BaseReportTest {
 			}
 			
 			colName = "MALARIA." + OutpatientConsultationReportManager.col20; // referredTo, females
-			colNames.remove(colName);
+			emptyColNames.remove(colName);
 			{
 				Cohort c = (Cohort) cohortsMap.get(colName);
 				assertNotNull(c);
@@ -170,7 +170,7 @@ public class OutpatientConsultationReportManagerTest extends BaseReportTest {
 			}
 			
 			colName = "FEVER." + OutpatientConsultationReportManager.col7; // _5To15y, males
-			colNames.remove(colName);
+			emptyColNames.remove(colName);
 			{
 				Cohort c = (Cohort) cohortsMap.get(colName);
 				assertNotNull(c);
@@ -179,7 +179,7 @@ public class OutpatientConsultationReportManagerTest extends BaseReportTest {
 			}
 			
 			colName = "FEVER." + OutpatientConsultationReportManager.col17; // total, males
-			colNames.remove(colName);
+			emptyColNames.remove(colName);
 			{
 				Cohort c = (Cohort) cohortsMap.get(colName);
 				assertNotNull(c);
@@ -188,7 +188,7 @@ public class OutpatientConsultationReportManagerTest extends BaseReportTest {
 			}
 			
 			colName = "FEVER." + OutpatientConsultationReportManager.col23; // total
-			colNames.remove(colName);
+			emptyColNames.remove(colName);
 			{
 				Cohort c = (Cohort) cohortsMap.get(colName);
 				assertNotNull(c);
@@ -197,7 +197,7 @@ public class OutpatientConsultationReportManagerTest extends BaseReportTest {
 			}
 			
 			colName = "DIABETES." + OutpatientConsultationReportManager.col7; // _5To15y, males
-			colNames.remove(colName);
+			emptyColNames.remove(colName);
 			{
 				Cohort c = (Cohort) cohortsMap.get(colName);
 				assertNotNull(c);
@@ -206,7 +206,7 @@ public class OutpatientConsultationReportManagerTest extends BaseReportTest {
 			}
 			
 			colName = "DIABETES." + OutpatientConsultationReportManager.col17; // total, males
-			colNames.remove(colName);
+			emptyColNames.remove(colName);
 			{
 				Cohort c = (Cohort) cohortsMap.get(colName);
 				assertNotNull(c);
@@ -215,7 +215,7 @@ public class OutpatientConsultationReportManagerTest extends BaseReportTest {
 			}
 			
 			colName = "DIABETES." + OutpatientConsultationReportManager.col23; // total
-			colNames.remove(colName);
+			emptyColNames.remove(colName);
 			{
 				Cohort c = (Cohort) cohortsMap.get(colName);
 				assertNotNull(c);
@@ -224,7 +224,7 @@ public class OutpatientConsultationReportManagerTest extends BaseReportTest {
 			}
 			
 			// All other columns should point to empty cohorts
-			List<Cohort> emptyCohortsList = colNames.stream().map(key -> (Cohort) cohortsMap.get(key))
+			List<Cohort> emptyCohortsList = emptyColNames.stream().map(clName -> (Cohort) cohortsMap.get(clName))
 			        .collect(Collectors.toList());
 			
 			for (Cohort c : emptyCohortsList) {
@@ -235,84 +235,96 @@ public class OutpatientConsultationReportManagerTest extends BaseReportTest {
 		
 		// Second part of the report: obs summary row
 		{
-			DataSetRow row = dataSet.getDataSets().get("Obs Summary").iterator().next();
+			DataSetRow row = dataSet.getDataSets().get(OutpatientConsultationReportManager.OBS_SUMMARY_DATASET_DEF)
+			        .iterator().next();
 			assertThat(row, is(notNullValue()));
 			
-			Map<String, Object> obsSummaryMap = row.getColumnValuesByKey();
-			Set<String> colNames = new HashSet<>(obsSummaryMap.keySet());
+			Map<String, Object> idListsMap = row.getColumnValuesByKey(); // those are in fact patient ID lists, not
+			                                                             // cohorts
+			Set<String> emptyColNames = new HashSet<>(idListsMap.keySet());
+			String colName = "";
 			
-			colNames.remove(OutpatientConsultationReportManager.col12); // _25To50, females
+			colName = OutpatientConsultationReportManager.col12; // _25To50, females
+			emptyColNames.remove(colName);
 			{
-				List<Integer> cohort = (List<Integer>) row.getColumnValue(OutpatientConsultationReportManager.col12);
-				assertThat(cohort, is(notNullValue()));
-				assertThat(cohort.size(), is(2));
-				assertThat(cohort.contains(77), is(true));
-				assertThat(cohort.contains(8), is(true));
+				List<Integer> idList = (List<Integer>) row.getColumnValue(colName);
+				assertThat(idList, is(notNullValue()));
+				assertThat(idList.size(), is(2));
+				assertThat(Collections.frequency(idList, 77), is(1));
+				assertThat(Collections.frequency(idList, 8), is(1));
 			}
 			
-			colNames.remove(OutpatientConsultationReportManager.col7); // _5To15y, males
+			colName = OutpatientConsultationReportManager.col7; // _5To15y, males
+			emptyColNames.remove(colName);
 			{
-				List<Integer> cohort = (List<Integer>) row.getColumnValue(OutpatientConsultationReportManager.col7);
-				assertThat(cohort, is(notNullValue()));
-				assertThat(cohort.size(), is(5));
-				
-				Set<Integer> cohortNoDuplicates = new HashSet<>(cohort);
-				assertThat(cohortNoDuplicates.size(), is(2));
-				assertThat(cohortNoDuplicates.contains(2), is(true));
-				assertThat(cohortNoDuplicates.contains(6), is(true));
+				List<Integer> idList = (List<Integer>) row.getColumnValue(colName);
+				assertThat(idList, is(notNullValue()));
+				assertThat(idList.size(), is(5));
+				assertThat(Collections.frequency(idList, 6), is(4));
+				assertThat(Collections.frequency(idList, 2), is(1));
 			}
 			
-			colNames.remove(OutpatientConsultationReportManager.col23); // total
+			colName = OutpatientConsultationReportManager.col23; // total
+			emptyColNames.remove(colName);
 			{
-				List<Integer> cohort = (List<Integer>) row.getColumnValue(OutpatientConsultationReportManager.col23);
-				assertThat(cohort, is(notNullValue()));
-				assertThat(cohort.size(), is(7));
-				
-				Set<Integer> cohortNoDuplicates = new HashSet<>(cohort);
-				assertThat(cohortNoDuplicates.size(), is(4));
-				assertThat(cohortNoDuplicates.contains(6), is(true));
-				assertThat(cohortNoDuplicates.contains(2), is(true));
-				assertThat(cohortNoDuplicates.contains(77), is(true));
-				assertThat(cohortNoDuplicates.contains(8), is(true));
+				List<Integer> idList = (List<Integer>) row.getColumnValue(colName);
+				assertThat(idList, is(notNullValue()));
+				assertThat(idList.size(), is(7));
+				assertThat(Collections.frequency(idList, 6), is(4));
+				assertThat(Collections.frequency(idList, 2), is(1));
+				assertThat(Collections.frequency(idList, 77), is(1));
+				assertThat(Collections.frequency(idList, 8), is(1));
 			}
 			
-			colNames.remove(OutpatientConsultationReportManager.col20); // referred, females
+			colName = OutpatientConsultationReportManager.col20; // referred, females
+			emptyColNames.remove(colName);
 			{
-				List<Integer> cohort = (List<Integer>) row.getColumnValue(OutpatientConsultationReportManager.col20);
-				assertThat(cohort, is(notNullValue()));
-				assertThat(cohort.size(), is(1));
-				assertThat(cohort.contains(77), is(true));
+				List<Integer> idList = (List<Integer>) row.getColumnValue(colName);
+				assertThat(idList, is(notNullValue()));
+				assertThat(idList.size(), is(1));
+				assertThat(Collections.frequency(idList, 77), is(1));
 			}
 			
-			// All other columns should point to empty lists
-			List<List<Integer>> emptyCohortsList = colNames.stream()
-			        .map(colName -> (List<Integer>) obsSummaryMap.get(colName)).collect(Collectors.toList());
+			// All other columns should point to empty patient ID lists
+			List<List<Integer>> emptyIdLists = emptyColNames.stream().map(clName -> (List<Integer>) idListsMap.get(clName))
+			        .collect(Collectors.toList());
 			
-			for (List<Integer> cohort : emptyCohortsList) {
-				assertNotNull(cohort);
-				assertThat(cohort.size(), is(0));
+			for (List<Integer> l : emptyIdLists) {
+				assertNotNull(l);
+				assertThat(l.size(), is(0));
 			}
 		}
 	}
 	
 	@Test
 	@Ignore
-	public void test_multipleDiagnosisForTheSamePatientShouldBeCountedOnce() throws Exception {
+	public void evaluate_summaryOfSameDiagnosisShouldBeCountedOnce() throws Exception {
+		//
+		// Setup
+		//
 		EvaluationContext context = new EvaluationContext();
 		context.addParameterValue("startDate", DateUtil.parseDate("2008-08-01", "yyyy-MM-dd"));
 		context.addParameterValue("endDate", DateUtil.parseDate("2009-09-30", "yyyy-MM-dd"));
 		context.addParameterValue("locationList", getLocationList());
 		
+		//
+		// Replay
+		//
 		ReportDefinition rd = manager.constructReportDefinition();
 		ReportData data = rds.evaluate(rd, context);
 		
-		DataSetRow obsSummaryRow = data.getDataSets().get("Obs Summary").iterator().next();
-		assertThat(obsSummaryRow, is(notNullValue()));
+		//
+		// Verif
+		//
+		DataSetRow row = data.getDataSets().get(OutpatientConsultationReportManager.OBS_SUMMARY_DATASET_DEF).iterator()
+		        .next();
+		assertThat(row, is(notNullValue()));
 		
-		List<Integer> _0To1mMalesForAllDiagnosis = (List<Integer>) obsSummaryRow.getColumnValue("5-14 years - Males");
-		assertThat(_0To1mMalesForAllDiagnosis, is(notNullValue()));
-		assertThat(_0To1mMalesForAllDiagnosis.size(), is(4));
-		assertThat(_0To1mMalesForAllDiagnosis.contains(6), is(true));
+		List<Integer> idList = (List<Integer>) row.getColumnValue(OutpatientConsultationReportManager.col7); // _5To15y,
+		                                                                                                     // males
+		assertThat(idList, is(notNullValue()));
+		assertThat(idList.size(), is(4));
+		assertThat(idList.contains(6), is(true));
 	}
 	
 	private List<Location> getLocationList() {

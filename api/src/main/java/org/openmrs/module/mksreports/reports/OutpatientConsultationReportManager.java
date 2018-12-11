@@ -1,6 +1,11 @@
 package org.openmrs.module.mksreports.reports;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import org.openmrs.Concept;
 import org.openmrs.Location;
@@ -27,6 +32,8 @@ import org.springframework.stereotype.Component;
 
 @Component(MKSReportsConstants.COMPONENT_REPORTMANAGER_OPDCONSULT)
 public class OutpatientConsultationReportManager extends MKSReportManager {
+	
+	public static final String OBS_SUMMARY_DATASET_DEF = "Obs Summary";
 	
 	@Autowired
 	private InitializerService inizService;
@@ -154,7 +161,7 @@ public class OutpatientConsultationReportManager extends MKSReportManager {
 		parameterMappings.put("locationList", "${locationList}");
 		parameterMappings.put("effectiveDate", "${startDate}");
 		
-		rd.addDataSetDefinition("Obs Summary", new Mapped<>(obsSummaryDS, parameterMappings));
+		rd.addDataSetDefinition(OBS_SUMMARY_DATASET_DEF, new Mapped<>(obsSummaryDS, parameterMappings));
 		
 		for (Concept member : allDiags.getSetMembers()) {
 			List<CodedObsCohortDefinition> codedObsList = new ArrayList<>();
