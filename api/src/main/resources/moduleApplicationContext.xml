@@ -11,6 +11,7 @@
            http://www.springframework.org/schema/util
            http://www.springframework.org/schema/util/spring-util-2.0.xsd">
 
+<!-- 
     <context:annotation-config/>
 	<context:component-scan base-package="org.openmrs.module.mksreports" />
 
@@ -37,5 +38,5 @@
 			</list>
 		</property>
 	</bean>
-
+ -->
 </beans>

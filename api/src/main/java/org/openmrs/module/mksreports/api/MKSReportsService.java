@@ -13,11 +13,9 @@
  */
 package org.openmrs.module.mksreports.api;
 
-import org.openmrs.api.OpenmrsService;
-import org.springframework.transaction.annotation.Transactional;
-
 /**
- * This service exposes module's core functionality. It is a Spring managed bean which is configured in moduleApplicationContext.xml.
+ * This service exposes module's core functionality. It is a Spring managed bean
+ * which is configured in moduleApplicationContext.xml.
  * <p>
  * It can be accessed only via Context:<br>
  * <code>
@@ -26,9 +24,9 @@ import org.springframework.transaction.annotation.Transactional;
  * 
  * @see org.openmrs.api.context.Context
  */
-@Transactional
-public interface MKSReportsService extends OpenmrsService {
-     
+
+public interface MKSReportsService {
+
 	/*
 	 * Add service methods here
 	 * 

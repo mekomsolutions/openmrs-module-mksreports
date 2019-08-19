@@ -46,7 +46,6 @@ import org.openmrs.module.reporting.report.ReportRequest;
 import org.openmrs.module.reporting.report.renderer.RenderingException;
 import org.openmrs.module.reporting.report.renderer.ReportDesignRenderer;
 import org.openmrs.module.reporting.serializer.ReportingSerializer;
-import org.openmrs.report.ReportRenderer;
 import org.openmrs.serialization.SerializationException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;

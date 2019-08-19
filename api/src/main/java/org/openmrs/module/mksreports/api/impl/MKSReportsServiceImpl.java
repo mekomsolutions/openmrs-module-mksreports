@@ -22,23 +22,23 @@ import org.openmrs.module.mksreports.api.db.MKSReportsDAO;
 /**
  * It is a default implementation of {@link MKSReportsService}.
  */
-public class MKSReportsServiceImpl extends BaseOpenmrsService implements MKSReportsService {
-	
+public class MKSReportsServiceImpl { // extends BaseOpenmrsService implements MKSReportsService {
+
 	protected final Log log = LogFactory.getLog(this.getClass());
-	
+
 	private MKSReportsDAO dao;
-	
+
 	/**
-     * @param dao the dao to set
-     */
-    public void setDao(MKSReportsDAO dao) {
-	    this.dao = dao;
-    }
-    
-    /**
-     * @return the dao
-     */
-    public MKSReportsDAO getDao() {
-	    return dao;
-    }
+	 * @param dao the dao to set
+	 */
+	public void setDao(MKSReportsDAO dao) {
+		this.dao = dao;
+	}
+
+	/**
+	 * @return the dao
+	 */
+	public MKSReportsDAO getDao() {
+		return dao;
+	}
 }
