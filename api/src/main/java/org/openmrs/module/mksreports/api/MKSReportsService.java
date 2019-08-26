@@ -13,6 +13,13 @@
  */
 package org.openmrs.module.mksreports.api;
 
+import java.util.Map;
+
+import org.openmrs.api.OpenmrsService;
+import org.openmrs.module.mksreports.patienthistory.PatientSummaryResult;
+import org.openmrs.module.mksreports.patienthistory.PatientSummaryTemplate;
+import org.springframework.transaction.annotation.Transactional;
+
 /**
  * This service exposes module's core functionality. It is a Spring managed bean
  * which is configured in moduleApplicationContext.xml.
@@ -24,11 +31,20 @@ package org.openmrs.module.mksreports.api;
  * 
  * @see org.openmrs.api.context.Context
  */
-
-public interface MKSReportsService {
+@Transactional(readOnly = true)
+public interface MKSReportsService extends OpenmrsService {
 
 	/*
 	 * Add service methods here
 	 * 
 	 */
+
+	public PatientSummaryTemplate getPatientSummaryTemplate(Integer id);
+
+	/**
+	 * @return the resulting patient summary result from evaluating the passed
+	 *         patient summary template for the given patient and parameters
+	 */
+	public PatientSummaryResult evaluatePatientSummaryTemplate(PatientSummaryTemplate patientSummaryTemplate,
+			Integer patientId, Map<String, Object> parameters);
 }

@@ -44,65 +44,68 @@ import com.thoughtworks.xstream.io.HierarchicalStreamWriter;
 public class BasePatientDataLibrary extends BaseDefinitionLibrary<PatientDataDefinition> {
 
 	/*
-	 * XStream converter for unmarshalling the Address Template XML
-	 * 		into a Map<String, String> of what is inside <nameMappings/>. 
+	 * XStream converter for unmarshalling the Address Template XML into a
+	 * Map<String, String> of what is inside <nameMappings/>.
 	 */
 	/**
 	 * @see {@link https://github.com/mekomsolutions/openmrs-module-coreapps/blob/3603eaf433d1d426cd8c9748956a5a0eaebd7ef9/omod/src/main/java/org/openmrs/module/coreapps/fragment/controller/patientheader/RegistrationDataHelper.java#L146-L173}
 	 */
 	protected static class AddressTemplateConverter implements Converter {
 
-        public boolean canConvert(Class clazz) {
-            return AbstractMap.class.isAssignableFrom(clazz);
-        }
+		public boolean canConvert(Class clazz) {
+			return AbstractMap.class.isAssignableFrom(clazz);
+		}
 
-        @Override
-		public void marshal(Object arg0, HierarchicalStreamWriter writer, MarshallingContext context) {}
+		@Override
+		public void marshal(Object arg0, HierarchicalStreamWriter writer, MarshallingContext context) {
+		}
 
-        @Override
-        public Object unmarshal(HierarchicalStreamReader reader, UnmarshallingContext context) {
+		@Override
+		public Object unmarshal(HierarchicalStreamReader reader, UnmarshallingContext context) {
 
-            Map<String, String> map = new LinkedHashMap<String, String>();	// LinkedHashMap to keep the Address Template XML order. 
-            reader.moveDown();	// Get down the nameMappings, sizeMappings... etc level
+			Map<String, String> map = new LinkedHashMap<String, String>(); // LinkedHashMap to keep the Address Template
+																			// XML order.
+			reader.moveDown(); // Get down the nameMappings, sizeMappings... etc level
 
-            while(reader.hasMoreChildren()) {
-            	if(reader.getNodeName().equals("nameMappings")) {
-            		while(reader.hasMoreChildren()) {
-            			reader.moveDown();
-            			String key = reader.getAttribute("name");
-            			String value = reader.getAttribute("value");
-            			map.put(key, value);
-            			reader.moveUp();
-            		}
-            	}
-            }
-            return map;
-        }
-    }
-	
+			while (reader.hasMoreChildren()) {
+				if (reader.getNodeName().equals("nameMappings")) {
+					while (reader.hasMoreChildren()) {
+						reader.moveDown();
+						String key = reader.getAttribute("name");
+						String value = reader.getAttribute("value");
+						map.put(key, value);
+						reader.moveUp();
+					}
+				}
+			}
+			return map;
+		}
+	}
+
 	protected Map<String, String> getAddressTemplateNameMappings(final LocationService locationService) {
-		
+
 		XStream xstream = new XStream();
-		xstream.alias("org.openmrs.layout.web.address.AddressTemplate", java.util.Map.class);
+		xstream.alias("org.openmrs.layout.address.AddressTemplate", java.util.Map.class);
 		xstream.registerConverter(new AddressTemplateConverter());
-		
+
 		String addressTemplateXml = locationService.getAddressTemplate();
+		
 		@SuppressWarnings("unchecked")
 		Map<String, String> nameMappings = (Map<String, String>) xstream.fromXML(addressTemplateXml);
-		
+
 		return nameMappings;
 	}
-	
-	//@Autowired
+
+	// @Autowired
 	private DataFactory dataFactory = new DataFactory();
 
-	//@Autowired
+	// @Autowired
 	private BuiltInPatientDataLibrary builtInPatientData = new BuiltInPatientDataLibrary();
 
-    @Override
-    public String getKeyPrefix() {
-        return "mksreports.patientData.";
-    }
+	@Override
+	public String getKeyPrefix() {
+		return "mksreports.patientData.";
+	}
 
 	@Override
 	public Class<? super PatientDataDefinition> getDefinitionType() {
@@ -120,9 +123,10 @@ public class BasePatientDataLibrary extends BaseDefinitionLibrary<PatientDataDef
 	public PatientDataDefinition getAddressFull() {
 		Map<String, String> nameMappings = getAddressTemplateNameMappings(Context.getLocationService());
 		Set<String> addressLevels = nameMappings.keySet();
-		
+
 		PreferredAddressDataDefinition pdd = new PreferredAddressDataDefinition();
-		return dataFactory.convert(pdd, new ConcatenatedPropertyConverter(", ", addressLevels.toArray(new String[addressLevels.size()])));
+		return dataFactory.convert(pdd,
+				new ConcatenatedPropertyConverter(", ", addressLevels.toArray(new String[addressLevels.size()])));
 //		return dataFactory.convert(pdd, new ConcatenatedPropertyConverter(", ", "cityVillage", "countyDistrict", "stateProvince", "country"));
 	}
 

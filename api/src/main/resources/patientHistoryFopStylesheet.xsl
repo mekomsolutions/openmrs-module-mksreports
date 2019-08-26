@@ -19,6 +19,22 @@
 	    </fo:root>
 	</xsl:template>
 	
+	<xsl:template match="report/dataset[@name='demographics']">
+		<xsl:for-each select="rows/row">
+			<xsl:for-each select="./*">
+				<fo:table-row>
+					<fo:table-cell>
+						<fo:block>
+							<xsl:value-of select="name(.)" />
+							:
+							<xsl:value-of select="." />
+						</fo:block>
+					</fo:table-cell>
+				</fo:table-row>
+			</xsl:for-each>
+		</xsl:for-each>
+	</xsl:template>
+	
 	<xsl:template match="visit">
 		<fo:block margin-bottom="10mm">
 			<fo:block font-size="18"> <xsl:value-of select="@type"/> </fo:block>

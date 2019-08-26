@@ -13,78 +13,44 @@
  */
 package org.openmrs.module.mksreports;
 
-
-import org.apache.commons.logging.Log; 
+import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.openmrs.module.BaseModuleActivator;
 import org.openmrs.module.ModuleActivator;
 import org.openmrs.module.mksreports.patienthistory.PatientHistoryReportManager;
 
 /**
- * This class contains the logic that is run every time this module is either started or stopped.
+ * This class contains the logic that is run every time this module is either
+ * started or stopped.
  */
-public class MKSReportsActivator implements ModuleActivator {
-	
+public class MKSReportsActivator extends BaseModuleActivator {
+
 	protected Log log = LogFactory.getLog(getClass());
-		
-	/**
-	 * @see ModuleActivator#willRefreshContext()
-	 */
-	public void willRefreshContext() {
-		log.info("Refreshing Mekom Solutions Reports Module");
-	}
-	
-	/**
-	 * @see ModuleActivator#contextRefreshed()
-	 */
-	public void contextRefreshed() {
-		log.info("Mekom Solutions Reports Module refreshed");
-	}
-	
-	/**
-	 * @see ModuleActivator#willStart()
-	 */
-	public void willStart() {
-		log.info("Starting Mekom Solutions Reports Module");
-	}
-	
+
 	/**
 	 * @see ModuleActivator#started()
 	 */
 	public void started() {
+
 		try {
 			registerReports();
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		log.info("Mekom Solutions Reports Module started");
 	}
-	
+
 	/**
-	 * @see ModuleActivator#willStop()
+	 * 
+	 * Allows to automatically register report definitions at when the module is
+	 * started
+	 * 
+	 * @throws Exception
 	 */
-	public void willStop() {
-		log.info("Stopping Mekom Solutions Reports Module");
+	public void registerReports() throws Exception {
+		PatientHistoryReportManager ps = new PatientHistoryReportManager();
+		ps.delete();
+		ps.setup();
 	}
-	
-	/**
-	 * @see ModuleActivator#stopped()
-	 */
-	public void stopped() {
-		log.info("Mekom Solutions Reports Module stopped");
-	}
-	
-	 /**
-     * 
-     * Allows to automatically register report definitions at when the 
-     * module is started
-     * 
-     * @throws Exception
-     */
-    public void registerReports() throws Exception{
-    	PatientHistoryReportManager ps = new PatientHistoryReportManager();
-    	ps.delete();
-    	ps.setup();
-    }
-		
+
 }

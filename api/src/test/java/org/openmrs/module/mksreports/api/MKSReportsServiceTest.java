@@ -13,7 +13,7 @@
  */
 package org.openmrs.module.mksreports.api;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
 
 import org.junit.Ignore;
 import org.junit.Test;
@@ -23,10 +23,11 @@ import org.openmrs.test.BaseModuleContextSensitiveTest;
 /**
  * Tests {@link ${MekomSolutionsReportsService}}.
  */
-@Ignore
+
 public class MKSReportsServiceTest extends BaseModuleContextSensitiveTest {
 
 	@Test
+	@Ignore
 	public void shouldSetupContext() {
 		assertNotNull(Context.getService(MKSReportsService.class));
 	}
