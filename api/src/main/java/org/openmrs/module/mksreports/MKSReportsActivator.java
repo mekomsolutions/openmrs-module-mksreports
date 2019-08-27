@@ -17,7 +17,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.openmrs.module.BaseModuleActivator;
 import org.openmrs.module.ModuleActivator;
-import org.openmrs.module.mksreports.patienthistory.PatientHistoryReportManager;
+import org.openmrs.module.mksreports.patientsummary.patienthistory.PatientHistoryReportManager;
 
 /**
  * This class contains the logic that is run every time this module is either

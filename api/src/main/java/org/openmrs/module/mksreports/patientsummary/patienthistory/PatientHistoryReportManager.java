@@ -12,7 +12,7 @@
  * Copyright (C) OpenMRS, LLC.  All Rights Reserved.
  */
 
-package org.openmrs.module.mksreports.patienthistory;
+package org.openmrs.module.mksreports.patientsummary.patienthistory;
 
 import java.util.HashMap;
 import java.util.Locale;
@@ -37,6 +37,7 @@ import org.openmrs.module.mksreports.library.BasePatientDataLibrary;
 import org.openmrs.module.mksreports.library.DataFactory;
 import org.openmrs.module.mksreports.library.EncounterDataLibrary;
 import org.openmrs.module.mksreports.library.ObsDataLibrary;
+import org.openmrs.module.mksreports.patienthistory.MKSReportsReportManager;
 import org.openmrs.module.reporting.common.SortCriteria;
 import org.openmrs.module.reporting.data.converter.DateConverter;
 import org.openmrs.module.reporting.data.converter.ObjectFormatter;

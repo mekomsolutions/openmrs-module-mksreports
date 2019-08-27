@@ -1,4 +1,4 @@
-package org.openmrs.module.mksreports.patienthistory;
+package org.openmrs.module.mksreports.patientsummary.patienthistory.exception;
 
 import org.openmrs.api.APIException;
 

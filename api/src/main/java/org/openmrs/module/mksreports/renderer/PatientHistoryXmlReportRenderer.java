@@ -36,7 +36,7 @@ import javax.xml.transform.stream.StreamResult;
 
 import org.apache.commons.lang.StringUtils;
 import org.openmrs.annotation.Handler;
-import org.openmrs.module.mksreports.patienthistory.PatientHistoryReportManager;
+import org.openmrs.module.mksreports.patientsummary.patienthistory.PatientHistoryReportManager;
 import org.openmrs.module.reporting.common.Localized;
 import org.openmrs.module.reporting.dataset.DataSet;
 import org.openmrs.module.reporting.dataset.DataSetColumn;
@@ -263,6 +263,7 @@ public class PatientHistoryXmlReportRenderer extends ReportDesignRenderer {
 		}
 		transformer.setOutputProperty(OutputKeys.INDENT, "yes");
 		DOMSource source = new DOMSource(doc);
+
 		try {
 			transformer.transform(source, new StreamResult(out));
 		} catch (TransformerException e) {

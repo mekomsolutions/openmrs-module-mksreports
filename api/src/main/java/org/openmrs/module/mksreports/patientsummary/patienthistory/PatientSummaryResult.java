@@ -1,4 +1,4 @@
-package org.openmrs.module.mksreports.patienthistory;
+package org.openmrs.module.mksreports.patientsummary.patienthistory;
 
 import java.util.Map;
 

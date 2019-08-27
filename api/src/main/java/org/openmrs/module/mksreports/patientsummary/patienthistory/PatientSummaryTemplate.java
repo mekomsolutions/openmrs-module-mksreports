@@ -1,4 +1,4 @@
-package org.openmrs.module.mksreports.patienthistory;
+package org.openmrs.module.mksreports.patientsummary.patienthistory;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

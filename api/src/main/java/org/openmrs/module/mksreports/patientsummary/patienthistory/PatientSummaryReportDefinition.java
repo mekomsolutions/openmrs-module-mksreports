@@ -1,5 +1,6 @@
-package org.openmrs.module.mksreports.patienthistory;
+package org.openmrs.module.mksreports.patientsummary.patienthistory;
 
+import org.openmrs.module.mksreports.patientsummary.patienthistory.exception.PatientSummaryException;
 import org.openmrs.module.reporting.common.Localized;
 import org.openmrs.module.reporting.dataset.definition.DataSetDefinition;
 import org.openmrs.module.reporting.dataset.definition.PatientDataSetDefinition;
