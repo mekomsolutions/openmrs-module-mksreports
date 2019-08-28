@@ -41,7 +41,7 @@
 	<properties>
 		<openMRSVersion>2.2.0</openMRSVersion>
 		<reportingVersion>1.17.0</reportingVersion>
-		<uiframeworkVersion>3.4</uiframeworkVersion>
+		<patientsummaryVersion>2.1</patientsummaryVersion>
 		<reportingcompatibilityVersion>2.0.4</reportingcompatibilityVersion>
 		<emrapiVersion>1.16</emrapiVersion>
 		<calculationVersion>1.2</calculationVersion>
@@ -110,6 +110,14 @@
 			<artifactId>pdfbox</artifactId>
 			<version>1.8.5</version>
 			<type>jar</type>
+		</dependency>
+
+		<dependency>
+			<groupId>org.openmrs.module</groupId>
+			<artifactId>patientsummary-api</artifactId>
+			<version>${patientsummaryVersion}</version>
+			<type>jar</type>
+			<scope>provided</scope>
 		</dependency>
 
 	</dependencies>
