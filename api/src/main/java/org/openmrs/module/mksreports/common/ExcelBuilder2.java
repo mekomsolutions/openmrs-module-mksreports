@@ -154,8 +154,8 @@ public class ExcelBuilder2 {
 	}
 	
 	/**
-	 * Outputs the Excel workbook to the specified output stream, first encrypting with a password
-	 * if supplied See: http://poi.apache.org/encryption.html
+	 * Outputs the Excel workbook to the specified output stream, first encrypting with a password if
+	 * supplied See: http://poi.apache.org/encryption.html
 	 */
 	public void write(OutputStream out, String password) throws IOException {
 		if (StringUtils.isBlank(password)) {

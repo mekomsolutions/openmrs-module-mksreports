@@ -42,8 +42,8 @@ public interface MKSReportsService extends OpenmrsService {
 	public PatientSummaryTemplate getPatientSummaryTemplate(Integer id);
 	
 	/**
-	 * @return the resulting patient summary result from evaluating the passed patient summary
-	 *         template for the given patient and parameters
+	 * @return the resulting patient summary result from evaluating the passed patient summary template
+	 *         for the given patient and parameters
 	 */
 	public PatientSummaryResult evaluatePatientSummaryTemplate(PatientSummaryTemplate patientSummaryTemplate,
 	        Integer patientId, Map<String, Object> parameters);

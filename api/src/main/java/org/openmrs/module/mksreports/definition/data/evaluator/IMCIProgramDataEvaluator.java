@@ -20,7 +20,8 @@ public class IMCIProgramDataEvaluator implements VisitDataEvaluator {
 	private Log log = LogFactory.getLog(this.getClass());
 	
 	@Override
-	public EvaluatedVisitData evaluate(VisitDataDefinition definition, EvaluationContext context) throws EvaluationException {
+	public EvaluatedVisitData evaluate(VisitDataDefinition definition, EvaluationContext context)
+	        throws EvaluationException {
 		
 		IMCIProgramDataDefinition imciDD = (IMCIProgramDataDefinition) definition;
 		

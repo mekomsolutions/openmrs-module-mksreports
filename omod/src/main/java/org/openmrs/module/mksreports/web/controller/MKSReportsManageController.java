@@ -92,16 +92,16 @@ public class MKSReportsManageController {
 			HashMap<String, Object> parameters = new HashMap<String, Object>();
 			parameters.put("patientSummaryMode", print ? "print" : "download");
 			
-			PatientSummaryResult patientSummaryResult = mksReportsService.evaluatePatientSummaryTemplate(
-			    patientSummaryTemplate, patientId, parameters);
+			PatientSummaryResult patientSummaryResult = mksReportsService
+			        .evaluatePatientSummaryTemplate(patientSummaryTemplate, patientId, parameters);
 			
 			if (patientSummaryResult.getErrorDetails() != null) {
 				patientSummaryResult.getErrorDetails().printStackTrace(response.getWriter());
 			} else {
-				StreamSource xmlSourceStream = new StreamSource(new ByteArrayInputStream(
-				        patientSummaryResult.getRawContents()));
-				StreamSource xslTransformStream = new StreamSource(OpenmrsClassLoader.getInstance().getResourceAsStream(
-				    PATIENT_HISTORY_XSL_PATH));
+				StreamSource xmlSourceStream = new StreamSource(
+				        new ByteArrayInputStream(patientSummaryResult.getRawContents()));
+				StreamSource xslTransformStream = new StreamSource(
+				        OpenmrsClassLoader.getInstance().getResourceAsStream(PATIENT_HISTORY_XSL_PATH));
 				ByteArrayOutputStream outStream = new ByteArrayOutputStream();
 				
 				writeToOutputStream(xmlSourceStream, xslTransformStream, outStream);

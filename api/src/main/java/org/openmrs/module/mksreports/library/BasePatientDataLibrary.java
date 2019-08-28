@@ -49,8 +49,8 @@ public class BasePatientDataLibrary extends BaseDefinitionLibrary<PatientDataDef
 	 */
 	/**
 	 * @see {@link https://github.com/mekomsolutions/openmrs-module-coreapps/blob/
-	 *      3603eaf433d1d426cd8c9748956a5a0eaebd7ef9/omod/src/main/java/org/openmrs/module/coreapps/fragment/controller/patientheader/RegistrationDataHelper.java#L146-
-	 *      L 1 7 3 * }
+	 *      3603eaf433d1d426cd8c9748956a5a0eaebd7ef9/omod/src/main/java/org/openmrs/module/coreapps/fragment/controller/patientheader/RegistrationDataHelper.java#L146
+	 *      - L 1 7 3 * }
 	 */
 	protected static class AddressTemplateConverter implements Converter {
 		
@@ -129,7 +129,8 @@ public class BasePatientDataLibrary extends BaseDefinitionLibrary<PatientDataDef
 		PreferredAddressDataDefinition pdd = new PreferredAddressDataDefinition();
 		return dataFactory.convert(pdd,
 		    new ConcatenatedPropertyConverter(", ", addressLevels.toArray(new String[addressLevels.size()])));
-		//		return dataFactory.convert(pdd, new ConcatenatedPropertyConverter(", ", "cityVillage", "countyDistrict", "stateProvince", "country"));
+		// return dataFactory.convert(pdd, new ConcatenatedPropertyConverter(", ",
+		// "cityVillage", "countyDistrict", "stateProvince", "country"));
 	}
 	
 	// Demographic Data

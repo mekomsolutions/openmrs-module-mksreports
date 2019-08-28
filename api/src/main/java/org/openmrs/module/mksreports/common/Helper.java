@@ -50,7 +50,7 @@ public class Helper {
 	public static void saveReportDefinition(ReportDefinition rd) {
 		ReportDefinitionService rds = (ReportDefinitionService) Context.getService(ReportDefinitionService.class);
 		
-		//try to find existing report definitions to replace
+		// try to find existing report definitions to replace
 		List<ReportDefinition> definitions = rds.getDefinitions(rd.getName(), true);
 		if (definitions.size() > 0) {
 			ReportDefinition existingDef = definitions.get(0);

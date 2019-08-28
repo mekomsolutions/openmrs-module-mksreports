@@ -27,8 +27,10 @@ public class MKSReportsManageControllerTest {
 		File file = new File(OUTPUT_PDF_OUTPUT_PATH);
 		file.mkdirs();
 		
-		/* The below code deleting the output PDF should in fact even
-		eventually moved in the tear down routine after tests are performed. */
+		/*
+		 * The below code deleting the output PDF should in fact even eventually moved
+		 * in the tear down routine after tests are performed.
+		 */
 		try {
 			Files.deleteIfExists(file.toPath());
 		}
@@ -47,14 +49,14 @@ public class MKSReportsManageControllerTest {
 		InputStream inStreamXml = getClass().getClassLoader().getResourceAsStream("samplePatientHistory.xml");
 		StreamSource xmlSourceStream = new StreamSource(inStreamXml);
 		
-		InputStream inStreamXsl = getClass().getClassLoader().getResourceAsStream(
-		    MKSReportsManageController.PATIENT_HISTORY_XSL_PATH);
+		InputStream inStreamXsl = getClass().getClassLoader()
+		        .getResourceAsStream(MKSReportsManageController.PATIENT_HISTORY_XSL_PATH);
 		StreamSource xslTransformStream = new StreamSource(inStreamXsl);
 		
 		FileOutputStream outStream = new FileOutputStream(new File(OUTPUT_PDF_OUTPUT_PATH));
 		ctrl.writeToOutputStream(xmlSourceStream, xslTransformStream, outStream);
 		outStream.close();
 		
-		//TODO Actually check somehow that the PDF is ok.
+		// TODO Actually check somehow that the PDF is ok.
 	}
 }

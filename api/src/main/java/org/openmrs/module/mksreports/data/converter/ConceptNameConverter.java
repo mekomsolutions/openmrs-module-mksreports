@@ -17,7 +17,7 @@ public class ConceptNameConverter implements DataConverter {
 	public Object convert(Object original) {
 		ConceptService cs = Context.getConceptService();
 		Concept c = cs.getConcept((Integer) original);
-		//Think of i18n'd name
+		// Think of i18n'd name
 		return c.getName(Context.getLocale());
 	}
 	

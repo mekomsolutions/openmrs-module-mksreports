@@ -103,7 +103,7 @@ public class PatientHistoryExcelTemplateRenderer extends ReportTemplateRenderer 
 				XlsReportRenderer xlsRenderer = new XlsReportRenderer();
 				xlsRenderer.render(reportData, argument, out);
 			} else {
-				//This should be changed to get the dataset name form a parameter 
+				// This should be changed to get the dataset name form a parameter
 				DataSet ds = reportData.getDataSets().get("patient");
 				ArrayList<String> names = new ArrayList<String>();
 				
@@ -112,7 +112,7 @@ public class PatientHistoryExcelTemplateRenderer extends ReportTemplateRenderer 
 				}
 				Sheet s = wb.getSheetAt(0);
 				
-				//Trying to creat a row that has the replacement values pre-populated
+				// Trying to creat a row that has the replacement values pre-populated
 				Row h = s.createRow(8);
 				CellStyle style = wb.createCellStyle();
 				Font font = wb.createFont();
@@ -137,10 +137,12 @@ public class PatientHistoryExcelTemplateRenderer extends ReportTemplateRenderer 
 				
 				Map<String, String> repeatSections = getRepeatingSections(design);
 				
-				// Put together base set of replacements.  Any dataSet with only one row is included.
+				// Put together base set of replacements. Any dataSet with only one row is
+				// included.
 				Map<String, Object> replacements = getBaseReplacementData(reportData, design);
 				
-				// Iterate across all of the sheets in the workbook, and configure all those that need to be added/cloned
+				// Iterate across all of the sheets in the workbook, and configure all those
+				// that need to be added/cloned
 				List<SheetToAdd> sheetsToAdd = new ArrayList<SheetToAdd>();
 				
 				Set<String> usedSheetNames = new HashSet<String>();
@@ -196,21 +198,26 @@ public class PatientHistoryExcelTemplateRenderer extends ReportTemplateRenderer 
 		
 		int sheetIndex = wb.getSheetIndex(sheet);
 		
-		// Configure the sheet name, replacing any values as needed, and ensuring it is unique for the workbook
-		String sheetName = EvaluationUtil.evaluateExpression(sheetToAdd.getOriginalSheetName(),
-		    sheetToAdd.getReplacementData(), prefix, suffix).toString();
+		// Configure the sheet name, replacing any values as needed, and ensuring it is
+		// unique for the workbook
+		String sheetName = EvaluationUtil
+		        .evaluateExpression(sheetToAdd.getOriginalSheetName(), sheetToAdd.getReplacementData(), prefix, suffix)
+		        .toString();
 		sheetName = ExcelUtil.formatSheetTitle(sheetName, usedSheetNames);
 		wb.setSheetName(sheetIndex, sheetName);
 		usedSheetNames.add(sheetName);
 		
 		log.debug("Handling sheet: " + sheetName + " at index " + sheetIndex);
 		
-		// Iterate across all of the rows in the sheet, and configure all those that need to be added/cloned
+		// Iterate across all of the rows in the sheet, and configure all those that
+		// need to be added/cloned
 		List<RowToAdd> rowsToAdd = new ArrayList<RowToAdd>();
 		
 		int totalRows = sheet.getPhysicalNumberOfRows();
 		int rowsFound = 0;
-		for (int rowNum = 0; rowsFound < totalRows && rowNum < 50000; rowNum++) { // check for < 50000 is a hack to prevent infinite loops in edge cases
+		for (int rowNum = 0; rowsFound < totalRows && rowNum < 50000; rowNum++) { // check for < 50000 is a hack to
+		                                                                          // prevent infinite loops in edge
+		                                                                          // cases
 			Row currentRow = sheet.getRow(rowNum);
 			if (log.isDebugEnabled()) {
 				log.debug("Handling row: " + ExcelUtil.formatRow(currentRow));
@@ -218,7 +225,8 @@ public class PatientHistoryExcelTemplateRenderer extends ReportTemplateRenderer 
 			if (currentRow != null) {
 				rowsFound++;
 			}
-			// If we find that the row that we are on is a repeating row, then add the appropriate number of rows to clone
+			// If we find that the row that we are on is a repeating row, then add the
+			// appropriate number of rows to clone
 			String repeatingRowProperty = getRepeatingRowProperty(sheetToAdd.getOriginalSheetNum(), rowNum, repeatSections);
 			if (repeatingRowProperty != null) {
 				String[] dataSetSpanSplit = repeatingRowProperty.split(",");
@@ -238,8 +246,8 @@ public class PatientHistoryExcelTemplateRenderer extends ReportTemplateRenderer 
 						if (repeatNum == 1 && row != null && row != currentRow) {
 							rowsFound++;
 						}
-						Map<String, Object> newReplacements = getReplacementData(sheetToAdd.getReplacementData(),
-						    reportData, design, dataSetName, dataSetRow, repeatNum);
+						Map<String, Object> newReplacements = getReplacementData(sheetToAdd.getReplacementData(), reportData,
+						    design, dataSetName, dataSetRow, repeatNum);
 						rowsToAdd.add(new RowToAdd(row, newReplacements));
 						if (log.isDebugEnabled()) {
 							log.debug("Adding " + ExcelUtil.formatRow(row) + " with dataSetRow: " + dataSetRow);
@@ -287,11 +295,13 @@ public class PatientHistoryExcelTemplateRenderer extends ReportTemplateRenderer 
 			}
 		}
 		catch (Exception e) {
-			// No idea why this is necessary, but this has thrown IndexOutOfBounds errors getting the rowStyle.  Mysteries of POI
+			// No idea why this is necessary, but this has thrown IndexOutOfBounds errors
+			// getting the rowStyle. Mysteries of POI
 		}
 		newRow.setHeight(rowToClone.getHeight());
 		
-		// Iterate across all of the cells in the row, and configure all those that need to be added/cloned
+		// Iterate across all of the cells in the row, and configure all those that need
+		// to be added/cloned
 		List<CellToAdd> cellsToAdd = new ArrayList<CellToAdd>();
 		
 		int totalCells = rowToClone.getPhysicalNumberOfCells();
@@ -302,7 +312,8 @@ public class PatientHistoryExcelTemplateRenderer extends ReportTemplateRenderer 
 			if (currentCell != null) {
 				cellsFound++;
 			}
-			// If we find that the cell that we are on is a repeating cell, then add the appropriate number of cells to clone
+			// If we find that the cell that we are on is a repeating cell, then add the
+			// appropriate number of cells to clone
 			String repeatingColumnProperty = getRepeatingColumnProperty(sheetToAdd.getOriginalSheetNum(), cellNum,
 			    repeatSections);
 			if (repeatingColumnProperty != null) {
@@ -366,8 +377,8 @@ public class PatientHistoryExcelTemplateRenderer extends ReportTemplateRenderer 
 								}
 								CellRangeAddress[] cellRange = new CellRangeAddress[1];
 								cellRange[0] = new CellRangeAddress(rowIndex, rowIndex, i, i);
-								sheetToAdd.getSheet().getSheetConditionalFormatting()
-								        .addConditionalFormatting(cellRange, rules);
+								sheetToAdd.getSheet().getSheetConditionalFormatting().addConditionalFormatting(cellRange,
+								    rules);
 							}
 						}
 					}
@@ -427,8 +438,8 @@ public class PatientHistoryExcelTemplateRenderer extends ReportTemplateRenderer 
 	/**
 	 * @return a Map of String to String that can be used to find repeating sections This converts a
 	 *         user design property in the format: sheet:3,dataset:allPatients |
-	 *         sheet:1,row:6-8,dataset:allPatients | sheet:2,column:4,dataset:malePatients into a
-	 *         Map which can be quickly accessed as each row / column combination is accessed during
+	 *         sheet:1,row:6-8,dataset:allPatients | sheet:2,column:4,dataset:malePatients into a Map
+	 *         which can be quickly accessed as each row / column combination is accessed during
 	 *         processing
 	 */
 	protected Map<String, String> getRepeatingSections(ReportDesign design) {
@@ -476,17 +487,17 @@ public class PatientHistoryExcelTemplateRenderer extends ReportTemplateRenderer 
 	}
 	
 	/**
-	 * @return if the sheet with the passed number (1-indexed) is repeating, returns the dataset
-	 *         name to use for example: repeatSheet0=myIndicatorDataSet would indicate that sheet 0
-	 *         should be repeated for each row in the dataset
+	 * @return if the sheet with the passed number (1-indexed) is repeating, returns the dataset name to
+	 *         use for example: repeatSheet0=myIndicatorDataSet would indicate that sheet 0 should be
+	 *         repeated for each row in the dataset
 	 */
 	protected String getRepeatingSheetProperty(int sheetNumber, Map<String, String> repeatingSections) {
 		return repeatingSections.get("repeatSheet" + (sheetNumber + 1));
 	}
 	
 	/**
-	 * @return if the row with the passed number (1-indexed) is repeating, returns the dataset name
-	 *         to use, optionally with a span for example: repeatSheet0Row7=myPatientDataSet,2 would
+	 * @return if the row with the passed number (1-indexed) is repeating, returns the dataset name to
+	 *         use, optionally with a span for example: repeatSheet0Row7=myPatientDataSet,2 would
 	 *         indicate that rows 7 and 8 in sheet 0 should be repeated for each row in the dataset
 	 */
 	protected String getRepeatingRowProperty(int sheetNumber, int rowNumber, Map<String, String> repeatingSections) {
@@ -494,18 +505,17 @@ public class PatientHistoryExcelTemplateRenderer extends ReportTemplateRenderer 
 	}
 	
 	/**
-	 * @return if the column with the passed number (1-indexed) is repeating, returns the dataset
-	 *         name to use, optionally with a span for example:
-	 *         repeatSheet0Column5=myPatientDataSet,2 would indicate that columns 5 and 6 in sheet 0
-	 *         should be repeated for each row in the dataset
+	 * @return if the column with the passed number (1-indexed) is repeating, returns the dataset name
+	 *         to use, optionally with a span for example: repeatSheet0Column5=myPatientDataSet,2 would
+	 *         indicate that columns 5 and 6 in sheet 0 should be repeated for each row in the dataset
 	 */
 	protected String getRepeatingColumnProperty(int sheetNumber, int columnNumber, Map<String, String> repeatingSections) {
 		return repeatingSections.get("repeatSheet" + (sheetNumber + 1) + "Column" + (columnNumber + 1));
 	}
 	
 	/**
-	 * @return the DataSet with the passed name in the passed ReportData, throwing an Exception if
-	 *         one does not exist
+	 * @return the DataSet with the passed name in the passed ReportData, throwing an Exception if one
+	 *         does not exist
 	 */
 	public DataSet getDataSet(ReportData reportData, String dataSetName, Map<String, Object> replacementData) {
 		DataSet ds = reportData.getDataSets().get(dataSetName);
@@ -521,8 +531,8 @@ public class PatientHistoryExcelTemplateRenderer extends ReportTemplateRenderer 
 	}
 	
 	/**
-	 * @return a new Map with the original map values cloned and new values inserted as appropriate
-	 *         from the passed DataSetRow
+	 * @return a new Map with the original map values cloned and new values inserted as appropriate from
+	 *         the passed DataSetRow
 	 */
 	public Map<String, Object> getReplacementData(Map<String, Object> replacements, ReportData reportData,
 	        ReportDesign design, String dataSetName, DataSetRow dataSetRow, Integer dataSetRowNum) {

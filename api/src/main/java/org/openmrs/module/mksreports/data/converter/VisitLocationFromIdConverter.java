@@ -18,7 +18,7 @@ public class VisitLocationFromIdConverter implements DataConverter {
 		if (original != null) {
 			VisitService vs = Context.getVisitService();
 			Visit v = vs.getVisit((Integer) original);
-			//A visit can exist without location
+			// A visit can exist without location
 			return (v.getLocation() == null) ? "" : v.getLocation().getName();
 		} else {
 			return "";

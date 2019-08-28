@@ -65,19 +65,19 @@ public class PatientHistoryReportManager extends MKSReportsReportManager {
 	
 	public final static String DATASET_KEY_ENCOUNTERS = "encounters";
 	
-	//@Autowired TODO Reconfigure this annotation after
+	// @Autowired TODO Reconfigure this annotation after
 	private DataFactory dataFactory = new DataFactory();
 	
-	//@Autowired TODO Reconfigure this annotation after
+	// @Autowired TODO Reconfigure this annotation after
 	private BuiltInPatientDataLibrary builtInPatientDataLibrary = new BuiltInPatientDataLibrary();
 	
-	//@Autowired TODO Reconfigure this annotation after
+	// @Autowired TODO Reconfigure this annotation after
 	private EncounterDataLibrary encounterDataLibrary = new EncounterDataLibrary();
 	
-	//@Autowired TODO Reconfigure this annotation after
+	// @Autowired TODO Reconfigure this annotation after
 	private ObsDataLibrary obsDataLibrary = new ObsDataLibrary();
 	
-	//@Autowired TODO Reconfigure this annotation after
+	// @Autowired TODO Reconfigure this annotation after
 	private BasePatientDataLibrary basePatientDataLibrary = new BasePatientDataLibrary();
 	
 	public void setup() throws Exception {
@@ -93,19 +93,19 @@ public class PatientHistoryReportManager extends MKSReportsReportManager {
 		
 		Map<String, Object> mappings = new HashMap<String, Object>();
 		MessageSourceService i18nTranslator = Context.getMessageSourceService();
-		Locale locale = Context.getLocale(); //TODO Figure out how to use a 'locale' param when getting msgs
+		Locale locale = Context.getLocale(); // TODO Figure out how to use a 'locale' param when getting msgs
 		
-		// Create dataset definitions 
+		// Create dataset definitions
 		PatientHistoryEncounterAndVisitDataSetDefinition encountersDatasetSetDef = createEncounterAndVisitDataSetDefinition();
 		PatientDataSetDefinition patientDataSetDef = createDemographicsDataSetDefinition(i18nTranslator);
 		PatientHistoryObsAndEncounterDataSetDefinition obsDataSetDef = createObsAndEncounterDataSetDefinition();
 		
-		//Add datasets to the report
+		// Add datasets to the report
 		reportDef.addDataSetDefinition(DATASET_KEY_DEMOGRAPHICS, patientDataSetDef, mappings);
 		reportDef.addDataSetDefinition(DATASET_KEY_OBS, obsDataSetDef, mappings);
 		reportDef.addDataSetDefinition(DATASET_KEY_ENCOUNTERS, encountersDatasetSetDef, new HashMap<String, Object>());
 		
-		//Save the report definition
+		// Save the report definition
 		Helper.saveReportDefinition(reportDef);
 		
 		return reportDef;

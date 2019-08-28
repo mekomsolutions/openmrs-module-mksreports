@@ -45,7 +45,7 @@ public class ObsDatetimeDataDefinition extends BaseDataDefinition implements Obs
 		super(name);
 	}
 	
-	//***** INSTANCE METHODS *****
+	// ***** INSTANCE METHODS *****
 	
 	/**
 	 * @see DataDefinition#getDataType()
