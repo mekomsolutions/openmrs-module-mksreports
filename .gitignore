@@ -1,4 +1,5 @@
 *.class
+<<<<<<< HEAD
 *.iml
 *.idea
 .settings
@@ -9,6 +10,8 @@ target
 *.releaseBackup
 release.properties
 README.html
+=======
+>>>>>>> Patient_History_openmrs2x
 
 # Package Files #
 *.jar
@@ -16,6 +19,12 @@ README.html
 *.ear
 *.iml
 
+<<<<<<< HEAD
+=======
+.classpath
+.idea
+.project
+>>>>>>> Patient_History_openmrs2x
 .settings/*
 api/.classpath
 api/.project
@@ -28,6 +37,7 @@ omod/target/*
 /.settings
 
 # OS X auto-generated files #
+<<<<<<< HEAD
 .DS_Store
 
  *.css
@@ -39,3 +49,6 @@ omod/.rubygems-provided
 
 # Bower resources #
 bower_components
+=======
+.DS_Store
+>>>>>>> Patient_History_openmrs2x

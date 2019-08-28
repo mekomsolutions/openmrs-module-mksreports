@@ -39,8 +39,7 @@ public class CalculatedObsDataEvaluator implements VisitDataEvaluator {
 	PatientService patientService;
 	
 	@Override
-	public EvaluatedVisitData evaluate(VisitDataDefinition definition, EvaluationContext context)
-	        throws EvaluationException {
+	public EvaluatedVisitData evaluate(VisitDataDefinition definition, EvaluationContext context) throws EvaluationException {
 		
 		CalculatedObsDataDefinition calculatedObsDD = (CalculatedObsDataDefinition) definition;
 		Operator operator = calculatedObsDD.getOperator();
@@ -52,10 +51,10 @@ public class CalculatedObsDataEvaluator implements VisitDataEvaluator {
 		
 		if (obsData1.getData() == null || obsData2.getData() == null) {
 			log.warn("The concept observation on which to apply the arithmetic operation " + operator.toString()
-			        + " is null: [Concept #" + obsData1 == null
-			                ? calculatedObsDD.getObsDefinition1().getParameterizable().getQuestion().getConceptId()
-			                : calculatedObsDD.getObsDefinition2().getParameterizable().getQuestion().getConceptId()
-			                        + "]. Skipping it.");
+			        + " is null: [Concept #" + obsData1 == null ? calculatedObsDD.getObsDefinition1().getParameterizable()
+			        .getQuestion().getConceptId() : calculatedObsDD.getObsDefinition2().getParameterizable().getQuestion()
+			        .getConceptId()
+			        + "]. Skipping it.");
 		}
 		for (Integer vid : obsData1.getData().keySet()) {
 			
@@ -90,8 +89,8 @@ public class CalculatedObsDataEvaluator implements VisitDataEvaluator {
 					}
 				} else {
 					log.warn("The observations on which to apply the arithmetic operation " + operator.toString()
-					        + " is not a numeric observation: [Obs #" + o1 == null ? obs1.getObsId()
-					                : obs2.getObsId() + "]. Skipping it.");
+					        + " is not a numeric observation: [Obs #" + o1 == null ? obs1.getObsId() : obs2.getObsId()
+					        + "]. Skipping it.");
 				}
 				evaluatedVisitData.addData(vid, isNA ? null : result);
 			}

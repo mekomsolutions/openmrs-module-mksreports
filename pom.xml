@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
@@ -38,12 +39,13 @@
 	</modules>
 
 	<properties>
-		<openMRSVersion>2.0.0</openMRSVersion>
-		<reportingVersion>1.14.0</reportingVersion>
+		<openMRSVersion>2.2.0</openMRSVersion>
+		<reportingVersion>1.17.0</reportingVersion>
+		<uiframeworkVersion>3.4</uiframeworkVersion>
 		<reportingcompatibilityVersion>2.0.4</reportingcompatibilityVersion>
 		<emrapiVersion>1.16</emrapiVersion>
-		<calculationVersion>1.1</calculationVersion>
-		<serialization.xstreamVersion>0.2.11</serialization.xstreamVersion>
+		<calculationVersion>1.2</calculationVersion>
+		<serialization.xstreamVersion>0.2.14</serialization.xstreamVersion>
 		<providermanagementVersion>2.2</providermanagementVersion>
 		<idgenVersion>4.3</idgenVersion>
 		<initializerVersion>1.0.1</initializerVersion>
@@ -51,32 +53,48 @@
 	</properties>
 
 	<build>
-    <plugins>
-      <plugin>
-        <groupId>net.revelc.code.formatter</groupId>
-        <artifactId>formatter-maven-plugin</artifactId>
-        <version>2.7.1</version>
-        <configuration>
-          <directories>
-            <directory>.</directory>
-          </directories>
-          <configFile>../OpenMRSFormatter.xml</configFile>
-          <includes>
-            <include>**/*.java</include>
-          </includes>
-        </configuration>
-        <executions>
-          <execution>
-            <phase>compile</phase>
-            <goals>
-              <goal>format</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-    </plugins>
-  </build>
+		<!-- <plugins> <plugin> <groupId>net.revelc.code.formatter</groupId> <artifactId>formatter-maven-plugin</artifactId> 
+			<version>2.7.1</version> <configuration> <directories> <directory>.</directory> 
+			</directories> <configFile>../OpenMRSFormatter.xml</configFile> <includes> 
+			<include>**/*.java</include> </includes> </configuration> <executions> <execution> 
+			<phase>compile</phase> <goals> <goal>format</goal> </goals> </execution> 
+			</executions> </plugin> </plugins> -->
+	</build>
 
+	<dependencies>
+		<dependency>
+			<groupId>org.apache.xmlgraphics</groupId>
+			<artifactId>fop</artifactId>
+			<version>1.0</version>
+			<type>jar</type>
+			<exclusions>
+				<exclusion>
+					<artifactId>xalan</artifactId>
+					<groupId>xalan</groupId>
+				</exclusion>
+				<exclusion>
+					<groupId>commons-io</groupId>
+					<artifactId>commons-io</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>commons-logging</groupId>
+					<artifactId>commons-logging</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>xml-apis</groupId>
+					<artifactId>xml-apis</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.pdfbox</groupId>
+			<artifactId>pdfbox</artifactId>
+			<version>1.8.5</version>
+			<type>jar</type>
+		</dependency>
+
+	</dependencies>
 	<repositories>
 		<repository>
 			<id>openmrs-repo</id>

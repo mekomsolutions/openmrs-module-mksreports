@@ -51,8 +51,8 @@ public class OutpatientRecordBookManagerTest extends BaseReportTest {
 		String path = getClass().getClassLoader().getResource("testAppDataDir").getPath() + File.separator;
 		System.setProperty("OPENMRS_APPLICATION_DATA_DIRECTORY", path);
 		
-		PersonAttributeType pat = Context.getPersonService()
-		        .getPersonAttributeTypeByUuid("a0f5521c-dbbd-4c10-81b2-1b7ab18330df");
+		PersonAttributeType pat = Context.getPersonService().getPersonAttributeTypeByUuid(
+		    "a0f5521c-dbbd-4c10-81b2-1b7ab18330df");
 		pat.setForeignKey(Context.getConceptService().getConcept(3).getConceptId());
 		Context.getPersonService().savePersonAttributeType(pat);
 		

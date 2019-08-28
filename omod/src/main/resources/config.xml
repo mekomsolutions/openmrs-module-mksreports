@@ -16,15 +16,15 @@
 	<!-- <updateURL>https://modules.openmrs.org/modules/download/@MODULE_ID@/update.rdf</updateURL> -->
 	<!-- /Base Module Properties -->
 
-	<require_version>2.0.0</require_version>
+	<require_version>${openMRSVersion}</require_version>
 
 	<require_modules>
 		<require_module version="${reportingVersion}">
 			org.openmrs.module.reporting
 		</require_module>
-		<require_module version="${initializerVersion}">
+		 <require_module version="${initializerVersion}">
 			org.openmrs.module.initializer
-		</require_module>
+		</require_module> 
 	</require_modules>
 	<!-- Internationalization -->
 	<!-- All message codes should start with @MODULE_ID@.* -->
@@ -51,4 +51,3 @@
 	</globalProperty>
 
 </module>
-

@@ -310,7 +310,7 @@ public class OutpatientConsultationReportManager extends MKSReportManager {
 	
 	@Override
 	public List<ReportDesign> constructReportDesigns(ReportDefinition reportDefinition) {
-		return Arrays
-		        .asList(ReportManagerUtil.createCsvReportDesign("42b32ac1-fcd0-473d-8fdb-71fd6fc2e26d", reportDefinition));
+		return Arrays.asList(ReportManagerUtil.createCsvReportDesign("42b32ac1-fcd0-473d-8fdb-71fd6fc2e26d",
+		    reportDefinition));
 	}
 }

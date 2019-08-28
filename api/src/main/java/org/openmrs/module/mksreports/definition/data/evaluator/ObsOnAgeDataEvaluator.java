@@ -37,8 +37,7 @@ public class ObsOnAgeDataEvaluator implements VisitDataEvaluator {
 	PatientService patientService;
 	
 	@Override
-	public EvaluatedVisitData evaluate(VisitDataDefinition definition, EvaluationContext context)
-	        throws EvaluationException {
+	public EvaluatedVisitData evaluate(VisitDataDefinition definition, EvaluationContext context) throws EvaluationException {
 		
 		ObsOnAgeDataDefinition obsOnAgeDD = (ObsOnAgeDataDefinition) definition;
 		

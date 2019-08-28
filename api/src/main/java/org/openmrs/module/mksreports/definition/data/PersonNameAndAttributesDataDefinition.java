@@ -12,8 +12,8 @@ import org.openmrs.module.reporting.evaluation.parameter.Mapped;
 public class PersonNameAndAttributesDataDefinition extends BaseDataDefinition implements PersonDataDefinition {
 	
 	/**
-	 * Person data definition that will return a person's name appended with optional person attributes
-	 * values
+	 * Person data definition that will return a person's name appended with optional person
+	 * attributes values
 	 */
 	private static final long serialVersionUID = 1L;
 	

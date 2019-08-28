@@ -59,8 +59,8 @@ public class PersonNameAndAttributesDataEvaluator implements PersonDataEvaluator
 			String paStr = "";
 			for (EvaluatedPersonData paData : evaluedPAData) {
 				if (paData.getData().get(pid) != null) {
-					paStr = paStr.equals("") ? paData.getData().get(pid).toString()
-					        : paStr + ", " + paData.getData().get(pid).toString();
+					paStr = paStr.equals("") ? paData.getData().get(pid).toString() : paStr + ", "
+					        + paData.getData().get(pid).toString();
 				}
 			}
 			if (paStr != "") {

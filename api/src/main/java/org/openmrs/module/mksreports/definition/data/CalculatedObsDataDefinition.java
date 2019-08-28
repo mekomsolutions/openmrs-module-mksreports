@@ -16,10 +16,7 @@ public class CalculatedObsDataDefinition extends BaseDataDefinition implements V
 	private static final long serialVersionUID = 1L;
 	
 	public enum Operator {
-		ADDITION,
-		SUBSTRACTION,
-		MULTIPLICATION,
-		DIVISION
+		ADDITION, SUBSTRACTION, MULTIPLICATION, DIVISION
 	}
 	
 	@ConfigurationProperty(required = true)
