@@ -32,8 +32,10 @@ import org.apache.fop.apps.Fop;
 import org.apache.fop.apps.FopFactory;
 import org.apache.fop.apps.MimeConstants;
 import org.openmrs.api.context.Context;
-import org.openmrs.module.mksreports.api.MKSReportsService;
 import org.openmrs.module.mksreports.patienthistory.PatientHistoryReportManager;
+import org.openmrs.module.patientsummary.PatientSummaryResult;
+import org.openmrs.module.patientsummary.PatientSummaryTemplate;
+import org.openmrs.module.patientsummary.api.PatientSummaryService;
 import org.openmrs.module.reporting.report.ReportDesign;
 import org.openmrs.module.reporting.report.service.ReportService;
 import org.openmrs.util.OpenmrsClassLoader;
@@ -82,15 +84,15 @@ public class MKSReportsManageController {
 				}
 			}
 			
-			MKSReportsService mksReportsService = Context.getService(MKSReportsService.class);
+			PatientSummaryService patientSummaryService = Context.getService(PatientSummaryService.class);
 			
-			PatientSummaryTemplate patientSummaryTemplate = mksReportsService
+			PatientSummaryTemplate patientSummaryTemplate = patientSummaryService
 			        .getPatientSummaryTemplate(reportDesign.getId());
 			
 			HashMap<String, Object> parameters = new HashMap<String, Object>();
 			parameters.put("patientSummaryMode", print ? "print" : "download");
 			
-			PatientSummaryResult patientSummaryResult = mksReportsService
+			PatientSummaryResult patientSummaryResult = patientSummaryService
 			        .evaluatePatientSummaryTemplate(patientSummaryTemplate, patientId, parameters);
 			
 			if (patientSummaryResult.getErrorDetails() != null) {

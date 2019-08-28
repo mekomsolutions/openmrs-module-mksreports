@@ -36,6 +36,7 @@ import javax.xml.transform.stream.StreamResult;
 
 import org.apache.commons.lang.StringUtils;
 import org.openmrs.annotation.Handler;
+import org.openmrs.module.mksreports.patienthistory.PatientHistoryReportManager;
 import org.openmrs.module.reporting.common.Localized;
 import org.openmrs.module.reporting.dataset.DataSet;
 import org.openmrs.module.reporting.dataset.DataSetColumn;
