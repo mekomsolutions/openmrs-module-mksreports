@@ -26,30 +26,5 @@
     <context:component-scan base-package="org.openmrs.module.mksreports" />
 
     <bean id="initializer.InitializerService" class="org.openmrs.module.initializer.api.impl.InitializerServiceImpl"/>
-    
-    	<bean id="mksReportsService"
-		class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
-		<property name="transactionManager">
-			<ref bean="transactionManager" />
-		</property>
-		<property name="target">
-			<bean class="org.openmrs.module.mksreports.api.impl.MKSReportsServiceImpl"/>
-		</property>
-		<property name="preInterceptors">
-			<ref bean="serviceInterceptors" />
-		</property>
-		<property name="transactionAttributeSource">
-			<ref bean="transactionAttributeSource" />
-		</property>
-	</bean>
-
-	<bean parent="serviceContext">
-		<property name="moduleService">
-			<list merge="true">
-				<value>org.openmrs.module.mksreports.api.MKSReportsService</value>
-				<ref local="mksReportsService" />
-			</list>
-		</property>
-	</bean>
 
 </beans>
