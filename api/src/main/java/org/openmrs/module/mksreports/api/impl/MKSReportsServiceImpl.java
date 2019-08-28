@@ -23,8 +23,6 @@ import org.openmrs.Cohort;
 import org.openmrs.api.context.Context;
 import org.openmrs.api.impl.BaseOpenmrsService;
 import org.openmrs.module.mksreports.api.MKSReportsService;
-import org.openmrs.module.mksreports.patientsummary.patienthistory.PatientSummaryResult;
-import org.openmrs.module.mksreports.patientsummary.patienthistory.PatientSummaryTemplate;
 import org.openmrs.module.reporting.evaluation.EvaluationContext;
 import org.openmrs.module.reporting.report.ReportData;
 import org.openmrs.module.reporting.report.ReportDesign;

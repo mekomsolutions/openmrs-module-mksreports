@@ -12,7 +12,7 @@
  * Copyright (C) OpenMRS, LLC.  All Rights Reserved.
  */
 
-package org.openmrs.module.mksreports.patientsummary.patienthistory;
+package org.openmrs.module.mksreports.patienthistory;
 
 import java.util.HashMap;
 import java.util.Locale;

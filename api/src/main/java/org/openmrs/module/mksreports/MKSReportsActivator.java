@@ -11,10 +11,8 @@ package org.openmrs.module.mksreports;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.openmrs.api.context.Context;
 import org.openmrs.module.BaseModuleActivator;
-import org.openmrs.module.mksreports.patientsummary.patienthistory.PatientHistoryReportManager;
-import org.openmrs.module.reporting.report.manager.ReportManagerUtil;
+import org.openmrs.module.mksreports.patienthistory.PatientHistoryReportManager;
 
 /**
  * This class contains the logic that is run every time this module is either started or shutdown

@@ -16,8 +16,6 @@ package org.openmrs.module.mksreports.api;
 import java.util.Map;
 
 import org.openmrs.api.OpenmrsService;
-import org.openmrs.module.mksreports.patientsummary.patienthistory.PatientSummaryResult;
-import org.openmrs.module.mksreports.patientsummary.patienthistory.PatientSummaryTemplate;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
