@@ -20,9 +20,9 @@ import org.openmrs.api.context.Context;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
 
 /**
- * Tests {@link ${MekomSolutionsReportsService}}.
+ * Tests {@link $ MekomSolutionsReportsService} .
  */
-public class  MKSReportsServiceTest extends BaseModuleContextSensitiveTest {
+public class MKSReportsServiceTest extends BaseModuleContextSensitiveTest {
 	
 	@Test
 	public void shouldSetupContext() {

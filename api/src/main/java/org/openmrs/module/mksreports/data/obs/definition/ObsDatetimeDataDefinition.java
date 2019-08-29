@@ -25,7 +25,7 @@ import org.openmrs.module.reporting.evaluation.caching.Caching;
 /**
  * Obs Date Time Column
  */
-@Caching(strategy=ConfigurationPropertyCachingStrategy.class)
+@Caching(strategy = ConfigurationPropertyCachingStrategy.class)
 @Localized("reporting.ObsDatetimeDataDefinition")
 public class ObsDatetimeDataDefinition extends BaseDataDefinition implements ObsDataDefinition {
 	
@@ -44,10 +44,10 @@ public class ObsDatetimeDataDefinition extends BaseDataDefinition implements Obs
 	public ObsDatetimeDataDefinition(String name) {
 		super(name);
 	}
-
-	//***** INSTANCE METHODS *****
 	
-	/** 
+	// ***** INSTANCE METHODS *****
+	
+	/**
 	 * @see DataDefinition#getDataType()
 	 */
 	public Class<?> getDataType() {

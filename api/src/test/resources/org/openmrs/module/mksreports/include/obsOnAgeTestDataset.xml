@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<dataset>
+
+	<visit visit_id="242" patient_id="7" visit_type_id="1"
+		date_started="2017-07-06 00:00:00.0" creator="1" date_created="2017-07-01 00:00:00.0"
+		voided="0" uuid="eb5c1e39-f9ea-41f4-9780-438ade34d0e4" />
+
+	<encounter encounter_id="101" encounter_type="1" patient_id="2"
+		visit_id="242" location_id="1" form_id="1" encounter_datetime="2017-07-07 00:00:00.0"
+		creator="1" date_created="2017-07-07 00:00:00.0" voided="false"
+		uuid="8405e878-4874-404e-9faa-8b277277f547" />
+
+	<obs obs_id="3100" person_id="2" concept_id="5089" encounter_id="101"
+		obs_datetime="2017-07-01 00:00:00.0" location_id="1" value_coded="[NULL]"
+		comments="" creator="1" date_created="2008-08-18 14:09:35.0" voided="false"
+		value_coded_name_id="[NULL]" value_complex="[NULL]" value_text="[NULL]"
+		value_numeric="80" value_datetime="[NULL]" value_drug="[NULL]"
+		uuid="456c5cc9-decb-4434-9f27-99ca841177f0" />
+
+	<obs obs_id="3101" person_id="2" concept_id="5089" encounter_id="101"
+		obs_datetime="2017-07-02 00:00:00.0" location_id="1" value_coded="[NULL]"
+		comments="" creator="1" date_created="2008-08-18 14:09:35.0" voided="false"
+		value_coded_name_id="[NULL]" value_complex="[NULL]" value_text="[NULL]"
+		value_numeric="82" value_datetime="[NULL]" value_drug="[NULL]"
+		uuid="2ba154ad-4ef3-4df0-b5e6-7d9dfb49a118" />
+
+</dataset>

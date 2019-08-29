@@ -9,11 +9,12 @@ import org.openmrs.module.reporting.data.converter.DataConverter;
  * Converts an Obs to it's value using its ID
  */
 public class ObsValueFromIdConverter implements DataConverter {
-
-    public ObsValueFromIdConverter() { }
-
-    @Override
-    public Object convert(Object original) {
+	
+	public ObsValueFromIdConverter() {
+	}
+	
+	@Override
+	public Object convert(Object original) {
 		Obs o = (Obs) Context.getObsService().getObs((Integer) original);
 		if (o == null) {
 			return null;
@@ -46,15 +47,15 @@ public class ObsValueFromIdConverter implements DataConverter {
 			return o.getValueTime();
 		}
 		return o.getValueAsString(Context.getLocale());
-    }
-
-    @Override
-    public Class<?> getInputDataType() {
-        return Integer.class;
-    }
-
-    @Override
-    public Class<?> getDataType() {
-        return Object.class;
-    }
+	}
+	
+	@Override
+	public Class<?> getInputDataType() {
+		return Integer.class;
+	}
+	
+	@Override
+	public Class<?> getDataType() {
+		return Object.class;
+	}
 }

@@ -50,7 +50,7 @@ public class Helper {
 	public static void saveReportDefinition(ReportDefinition rd) {
 		ReportDefinitionService rds = (ReportDefinitionService) Context.getService(ReportDefinitionService.class);
 		
-		//try to find existing report definitions to replace
+		// try to find existing report definitions to replace
 		List<ReportDefinition> definitions = rds.getDefinitions(rd.getName(), true);
 		if (definitions.size() > 0) {
 			ReportDefinition existingDef = definitions.get(0);
@@ -67,10 +67,8 @@ public class Helper {
 		}
 	}
 	
-	
-	public static ReportDesign createRowPerPatientXlsOverviewReportDesign(ReportDefinition rd, String resourceName, String name,
-	                                                               Map<? extends Object, ? extends Object> properties)
-	    throws IOException {
+	public static ReportDesign createRowPerPatientXlsOverviewReportDesign(ReportDefinition rd, String resourceName,
+	        String name, Map<? extends Object, ? extends Object> properties) throws IOException {
 		
 		ReportService rs = Context.getService(ReportService.class);
 		for (ReportDesign rdd : rs.getAllReportDesigns(false)) {
@@ -97,40 +95,42 @@ public class Helper {
 		return design;
 	}
 	
-	 public static ReportDesign xlsReportDesign(ReportDefinition reportDefinition, byte[] excelTemplate, Properties designProperties,String name) {
-	        ReportDesign design = new ReportDesign();
-	        design.setName(name);
-	        design.setReportDefinition(reportDefinition);
-	        design.setRendererType(PatientHistoryExcelTemplateRenderer.class);
-	        if (excelTemplate != null) {
-	            ReportDesignResource resource = new ReportDesignResource();
-	            resource.setName("template");
-	            resource.setExtension("xls");
-	            resource.setContentType("application/vnd.ms-excel");
-	            resource.setContents(excelTemplate);
-	            resource.setReportDesign(design);
-	            design.addResource(resource);
-	            if (designProperties != null) {
-	                design.setProperties(designProperties);
-	            }
-	        }
-	        return design;
-	    }
+	public static ReportDesign xlsReportDesign(ReportDefinition reportDefinition, byte[] excelTemplate,
+	        Properties designProperties, String name) {
+		ReportDesign design = new ReportDesign();
+		design.setName(name);
+		design.setReportDefinition(reportDefinition);
+		design.setRendererType(PatientHistoryExcelTemplateRenderer.class);
+		if (excelTemplate != null) {
+			ReportDesignResource resource = new ReportDesignResource();
+			resource.setName("template");
+			resource.setExtension("xls");
+			resource.setContentType("application/vnd.ms-excel");
+			resource.setContents(excelTemplate);
+			resource.setReportDesign(design);
+			design.addResource(resource);
+			if (designProperties != null) {
+				design.setProperties(designProperties);
+			}
+		}
+		return design;
+	}
 	
 	/**
 	 * @return a new ReportDesign for a standard Excel output
 	 */
-	public static ReportDesign createExcelDesign(ReportDefinition reportDefinition, String reportDesignName,boolean includeParameters) {
+	public static ReportDesign createExcelDesign(ReportDefinition reportDefinition, String reportDesignName,
+	        boolean includeParameters) {
 		ReportDesign design = new ReportDesign();
 		design.setName(reportDesignName);
 		design.setReportDefinition(reportDefinition);
 		
 		design.setRendererType(XlsReportRenderer.class);
-		if(includeParameters)
-		   design.addPropertyValue(XlsReportRenderer.INCLUDE_DATASET_NAME_AND_PARAMETERS_PROPERTY, "true");
+		if (includeParameters)
+			design.addPropertyValue(XlsReportRenderer.INCLUDE_DATASET_NAME_AND_PARAMETERS_PROPERTY, "true");
 		return design;
 	}
-
+	
 	/**
 	 * @return a new ReportDesign for a standard CSV output
 	 */

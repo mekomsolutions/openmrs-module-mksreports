@@ -45,8 +45,8 @@ import org.openmrs.module.reporting.report.ReportData;
 import org.openmrs.module.reporting.report.ReportRequest;
 import org.openmrs.module.reporting.report.renderer.RenderingException;
 import org.openmrs.module.reporting.report.renderer.ReportDesignRenderer;
+import org.openmrs.module.reporting.report.renderer.ReportRenderer;
 import org.openmrs.module.reporting.serializer.ReportingSerializer;
-import org.openmrs.report.ReportRenderer;
 import org.openmrs.serialization.SerializationException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -77,7 +77,7 @@ public class PatientHistoryXmlReportRenderer extends ReportDesignRenderer {
 	
 	protected String getStringValue(Object value) {
 		String strVal = "";
-		if(value != null)
+		if (value != null)
 			return strVal = value.toString();
 		return strVal;
 	}
@@ -93,10 +93,10 @@ public class PatientHistoryXmlReportRenderer extends ReportDesignRenderer {
 	
 	public void render(ReportData results, String argument, OutputStream out) throws IOException, RenderingException {
 		
-		//  - - - - - - - - - - - - - - - - - - - - - - - -  
-		//TODO This should go eventually.
-		//  - - - - - - - - - - - - - - - - - - - - - - - -  
-		if(false == StringUtils.equals(argument, "in_tests")) {
+		// - - - - - - - - - - - - - - - - - - - - - - - -
+		// TODO This should go eventually.
+		// - - - - - - - - - - - - - - - - - - - - - - - -
+		if (false == StringUtils.equals(argument, "in_tests")) {
 			
 			// Marhsalling using Xstream directly
 			try {
@@ -104,7 +104,8 @@ public class PatientHistoryXmlReportRenderer extends ReportDesignRenderer {
 				BufferedWriter outWriter = new BufferedWriter(new FileWriter(xmlFile));
 				XStream xstream = new XStream();
 				xstream.toXML(results, outWriter);
-			} catch (IOException e) {
+			}
+			catch (IOException e) {
 				System.out.println("IOException Occured" + e.getMessage());
 			}
 			
@@ -113,13 +114,14 @@ public class PatientHistoryXmlReportRenderer extends ReportDesignRenderer {
 				File xmlFile = File.createTempFile("sampleReportData_ReportingSerializer_", ".xml");
 				ReportingSerializer serializer = new ReportingSerializer();
 				serializer.serializeToStream(results, new FileOutputStream(xmlFile));
-			} catch (SerializationException e) {
+			}
+			catch (SerializationException e) {
 				System.out.println("SerializationException Occured" + e.getMessage());
-			} 
+			}
 		}
-		//  - - - - - - - - - - - - - - - - - - - - - - - -
+		// - - - - - - - - - - - - - - - - - - - - - - - -
 		//
-		//  - - - - - - - - - - - - - - - - - - - - - - - -
+		// - - - - - - - - - - - - - - - - - - - - - - - -
 		
 		final String ATTR_TYPE = "type";
 		final String ATTR_LABEL = "label";
@@ -135,10 +137,11 @@ public class PatientHistoryXmlReportRenderer extends ReportDesignRenderer {
 		DocumentBuilder docBuilder = null;
 		try {
 			docBuilder = docFactory.newDocumentBuilder();
-		} catch (ParserConfigurationException e) {
+		}
+		catch (ParserConfigurationException e) {
 			throw new RenderingException(e.getLocalizedMessage());
 		}
-
+		
 		// Root element
 		Document doc = docBuilder.newDocument();
 		Element rootElement = doc.createElement("patientHistory");
@@ -147,7 +150,7 @@ public class PatientHistoryXmlReportRenderer extends ReportDesignRenderer {
 		String dataSetKey = "";
 		
 		dataSetKey = PatientHistoryReportManager.DATASET_KEY_DEMOGRAPHICS;
-		if(results.getDataSets().containsKey(dataSetKey)) {
+		if (results.getDataSets().containsKey(dataSetKey)) {
 			DataSet dataSet = results.getDataSets().get(dataSetKey);
 			Element demographics = doc.createElement("demographics");
 			rootElement.appendChild(demographics);
@@ -164,19 +167,19 @@ public class PatientHistoryXmlReportRenderer extends ReportDesignRenderer {
 		}
 		
 		dataSetKey = PatientHistoryReportManager.DATASET_KEY_ENCOUNTERS;
-		if(results.getDataSets().containsKey(dataSetKey)) {
+		if (results.getDataSets().containsKey(dataSetKey)) {
 			DataSet dataSet = results.getDataSets().get(dataSetKey);
 			
 			for (DataSetRow row : dataSet) {
 				String visitUuid = row.getColumnValue(PatientHistoryReportManager.VISIT_UUID_LABEL).toString();
 				Element visit = doc.getElementById(visitUuid);
-				if(visit == null) {	// If the visit node doesn't exist, we create it.
+				if (visit == null) { // If the visit node doesn't exist, we create it.
 					visit = doc.createElement("visit");
 					visit.setAttribute(ATTR_UUID, visitUuid);
 					visit.setIdAttribute(ATTR_UUID, true);
 					rootElement.appendChild(visit);
-				
-					//TODO: Add the visit location and the visit type
+					
+					// TODO: Add the visit location and the visit type
 					String visitType = getStringValue(row, PatientHistoryReportManager.VISIT_TYPE_LABEL);
 					visit.setAttribute(ATTR_TYPE, visitType);
 					String visitLocation = getStringValue(row, PatientHistoryReportManager.VISIT_LOCATION_LABEL);
@@ -195,7 +198,7 @@ public class PatientHistoryXmlReportRenderer extends ReportDesignRenderer {
 				Object value = row.getColumnValue(PatientHistoryReportManager.ENCOUNTER_DATETIME_LABEL);
 				String encounterDatetime = (new SimpleDateFormat(DATETIME_FORMAT)).format(value);
 				encounter.setAttribute(ATTR_TIME, encounterDatetime);
-
+				
 				String encounterProvider = getStringValue(row, PatientHistoryReportManager.ENCOUNTER_PROVIDER_LABEL);
 				encounter.setAttribute(ATTR_PROV, encounterProvider);
 				
@@ -204,7 +207,7 @@ public class PatientHistoryXmlReportRenderer extends ReportDesignRenderer {
 		}
 		
 		dataSetKey = PatientHistoryReportManager.DATASET_KEY_OBS;
-		if(results.getDataSets().containsKey(dataSetKey)) {
+		if (results.getDataSets().containsKey(dataSetKey)) {
 			DataSet dataSet = results.getDataSets().get(dataSetKey);
 			
 			for (DataSetRow row : dataSet) {
@@ -212,7 +215,7 @@ public class PatientHistoryXmlReportRenderer extends ReportDesignRenderer {
 				
 				String encounterUuid = row.getColumnValue(PatientHistoryReportManager.ENCOUNTER_UUID_LABEL).toString();
 				Element encounter = doc.getElementById(encounterUuid);
-				if(encounter == null) {	
+				if (encounter == null) {
 					// TODO: At least log this.
 				}
 				
@@ -221,27 +224,27 @@ public class PatientHistoryXmlReportRenderer extends ReportDesignRenderer {
 					String colName = column.getName();
 					Object value = row.getColumnValue(column);
 					String strValue = getStringValue(value);
-					if(StringUtils.equals(colName, PatientHistoryReportManager.ENCOUNTER_UUID_LABEL)) {
+					if (StringUtils.equals(colName, PatientHistoryReportManager.ENCOUNTER_UUID_LABEL)) {
 						continue;
 					}
-					if(StringUtils.equals(column.getName(), PatientHistoryReportManager.OBS_NAME_LABEL)) {
+					if (StringUtils.equals(column.getName(), PatientHistoryReportManager.OBS_NAME_LABEL)) {
 						obs.setAttribute(ATTR_LABEL, strValue);
 						continue;
 					}
-					if(StringUtils.equals(column.getName(), PatientHistoryReportManager.OBS_DATATYPE_LABEL)) {
+					if (StringUtils.equals(column.getName(), PatientHistoryReportManager.OBS_DATATYPE_LABEL)) {
 						obs.setAttribute(ATTR_TYPE, strValue);
 						continue;
 					}
-					if(StringUtils.equals(column.getName(), PatientHistoryReportManager.OBS_DATETIME_LABEL)) {
+					if (StringUtils.equals(column.getName(), PatientHistoryReportManager.OBS_DATETIME_LABEL)) {
 						String obsDateTime = (new SimpleDateFormat(TIME_FORMAT)).format(value);
 						obs.setAttribute(ATTR_TIME, obsDateTime);
 						continue;
 					}
-					if(StringUtils.equals(column.getName(), PatientHistoryReportManager.OBS_PROVIDER_LABEL)) {
+					if (StringUtils.equals(column.getName(), PatientHistoryReportManager.OBS_PROVIDER_LABEL)) {
 						obs.setAttribute(ATTR_PROV, strValue);
 						continue;
 					}
-					if(StringUtils.equals(column.getName(), PatientHistoryReportManager.OBS_VALUE_LABEL)) {
+					if (StringUtils.equals(column.getName(), PatientHistoryReportManager.OBS_VALUE_LABEL)) {
 						obs.appendChild(doc.createTextNode(strValue));
 						continue;
 					}
@@ -255,16 +258,19 @@ public class PatientHistoryXmlReportRenderer extends ReportDesignRenderer {
 		Transformer transformer = null;
 		try {
 			transformer = TransformerFactory.newInstance().newTransformer();
-		} catch (TransformerConfigurationException e) {
+		}
+		catch (TransformerConfigurationException e) {
 			throw new RenderingException(e.getLocalizedMessage());
-		} catch (TransformerFactoryConfigurationError e) {
+		}
+		catch (TransformerFactoryConfigurationError e) {
 			throw new RenderingException(e.getLocalizedMessage());
 		}
 		transformer.setOutputProperty(OutputKeys.INDENT, "yes");
 		DOMSource source = new DOMSource(doc);
 		try {
 			transformer.transform(source, new StreamResult(out));
-		} catch (TransformerException e) {
+		}
+		catch (TransformerException e) {
 			throw new RenderingException(e.getLocalizedMessage());
 		}
 	}

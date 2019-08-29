@@ -16,7 +16,7 @@ package org.openmrs.module.mksreports.api.db;
 import org.openmrs.module.mksreports.api.MKSReportsService;
 
 /**
- *  Database methods for {@link MKSReportsService}.
+ * Database methods for {@link MKSReportsService}.
  */
 public interface MKSReportsDAO {
 	

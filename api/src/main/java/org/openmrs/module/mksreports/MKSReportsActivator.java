@@ -1,90 +1,66 @@
 /**
- * The contents of this file are subject to the OpenMRS Public License
- * Version 1.0 (the "License"); you may not use this file except in
- * compliance with the License. You may obtain a copy of the License at
- * http://license.openmrs.org
+ * This Source Code Form is subject to the terms of the Mozilla Public License,
+ * v. 2.0. If a copy of the MPL was not distributed with this file, You can
+ * obtain one at http://mozilla.org/MPL/2.0/. OpenMRS is also distributed under
+ * the terms of the Healthcare Disclaimer located at http://openmrs.org/license.
  *
- * Software distributed under the License is distributed on an "AS IS"
- * basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See the
- * License for the specific language governing rights and limitations
- * under the License.
- *
- * Copyright (C) OpenMRS, LLC.  All Rights Reserved.
+ * Copyright (C) OpenMRS Inc. OpenMRS is a registered trademark and the OpenMRS
+ * graphic logo is a trademark of OpenMRS Inc.
  */
 package org.openmrs.module.mksreports;
 
-
-import org.apache.commons.logging.Log; 
+import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.openmrs.module.ModuleActivator;
+import org.openmrs.api.context.Context;
+import org.openmrs.module.BaseModuleActivator;
 import org.openmrs.module.mksreports.patienthistory.PatientHistoryReportManager;
+import org.openmrs.module.reporting.report.manager.ReportManagerUtil;
 
 /**
- * This class contains the logic that is run every time this module is either started or stopped.
+ * This class contains the logic that is run every time this module is either started or shutdown
  */
-public class MKSReportsActivator implements ModuleActivator {
+public class MKSReportsActivator extends BaseModuleActivator {
 	
-	protected Log log = LogFactory.getLog(getClass());
-		
-	/**
-	 * @see ModuleActivator#willRefreshContext()
-	 */
-	public void willRefreshContext() {
-		log.info("Refreshing Mekom Solutions Reports Module");
-	}
+	private Log log = LogFactory.getLog(this.getClass());
 	
 	/**
-	 * @see ModuleActivator#contextRefreshed()
-	 */
-	public void contextRefreshed() {
-		log.info("Mekom Solutions Reports Module refreshed");
-	}
-	
-	/**
-	 * @see ModuleActivator#willStart()
-	 */
-	public void willStart() {
-		log.info("Starting Mekom Solutions Reports Module");
-	}
-	
-	/**
-	 * @see ModuleActivator#started()
+	 * @see #started()
 	 */
 	public void started() {
+		log.info("Started " + MKSReportsConstants.MODULE_NAME);
+		
 		try {
 			registerReports();
-		} catch (Exception e) {
+		}
+		catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		log.info("Mekom Solutions Reports Module started");
-	}
-	
-	/**
-	 * @see ModuleActivator#willStop()
-	 */
-	public void willStop() {
-		log.info("Stopping Mekom Solutions Reports Module");
-	}
-	
-	/**
-	 * @see ModuleActivator#stopped()
-	 */
-	public void stopped() {
-		log.info("Mekom Solutions Reports Module stopped");
-	}
-	
-	 /**
-     * 
-     * Allows to automatically register report definitions at when the 
-     * module is started
-     * 
-     * @throws Exception
-     */
-    public void registerReports() throws Exception{
-    	PatientHistoryReportManager ps = new PatientHistoryReportManager();
-    	ps.delete();
-    	ps.setup();
-    }
 		
+		for (MKSReportManager reportManager : Context.getRegisteredComponents(MKSReportManager.class)) {
+			if (reportManager.isActive()) {
+				log.info("Setting up report " + reportManager.getName() + "...");
+				ReportManagerUtil.setupReport(reportManager); // if this fails the module won't start altogether
+			}
+		}
+	}
+	
+	/**
+	 * @see #shutdown()
+	 */
+	public void shutdown() {
+		log.info("Shutdown " + MKSReportsConstants.MODULE_NAME);
+	}
+	
+	/**
+	 * Allows to automatically register report definitions at when the module is started
+	 * 
+	 * @throws Exception
+	 */
+	public void registerReports() throws Exception {
+		PatientHistoryReportManager ps = new PatientHistoryReportManager();
+		ps.delete();
+		ps.setup();
+	}
+	
 }

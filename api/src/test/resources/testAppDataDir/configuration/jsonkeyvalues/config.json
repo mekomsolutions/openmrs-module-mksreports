@@ -1,0 +1,29 @@
+{
+  "report.opdrecbook.guardian.pat": "",
+  "report.opdrecbook.givenNameLocal.pat":"",
+  "report.opdrecbook.middleNameLocal.pat":"",
+  "report.opdrecbook.familyNameLocal.pat":"",
+  "report.opdrecbook.guardian.pat": "",
+  "report.opdrecbook.drugOrder.orderType": "",
+  "report.opdrecbook.distanceHC.pat": "a0f5521c-dbbd-4c10-81b2-1b7ab18330df",
+  "report.opdrecbook.gestation.concept": "c607c80f-1ea9-4da3-bb88-6276ce8868dd",
+  "report.opdrecbook.referredFrom.concept": "7bfdcbf0-d9e7-11e3-9c1a-0800200c9a66",
+  "report.opdrecbook.newCase.concept": "0dde1358-7fcf-4341-a330-f119241a46e8",
+  "report.opdrecbook.symptoms.concept": "5a2aa3db-68a3-11e3-bd76-0800271c1b75",
+  "report.opdrecbook.diagnosis.concept": "95312123-e0c2-466d-b6b1-cb6e990d0d65",
+  "report.opdrecbook.referredTo.concept": "96408258-000b-424e-af1a-403919332938",
+  "report.opdrecbook.paymentType.concept": "89ca642a-dab6-4f20-b712-e12ca4fc6d36",
+  "report.opdrecbook.otherNotes.concept": "96408258-000b-424e-af1a-403919332938",
+  "report.opdrecbook.height.concept": "c607c80f-1ea9-4da3-bb88-6276ce8868dd",
+  "report.opdrecbook.weight.concept": "a09ab2c5-878e-4905-b25d-5784167d0216",
+  
+  "report.contactInfo.primaryPhone.pat": "",
+  "report.contactInfo.secondaryPhone.pat": "",
+    
+  "report.test.active": "no",
+  
+  "report.opdconsult.active": "true",
+  "report.opdconsult.diagnosisQuestion.concept": "95312123-e0c2-466d-b6b1-cb6e990d0d65",
+  "report.opdconsult.diagnosesList.concept":"b3ea209f-9979-481b-9c64-b6dd883c75bf",
+  "report.opdconsult.referredTo.concept":"96408258-000b-424e-af1a-403919332938"
+}

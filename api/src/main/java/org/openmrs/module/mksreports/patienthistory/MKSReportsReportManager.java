@@ -36,43 +36,44 @@ import org.openmrs.module.reporting.report.util.ReportUtil;
  * Base implementation of ReportManager that provides some common method implementations
  */
 public abstract class MKSReportsReportManager {
-
+	
 	protected void addColumn(PatientDataSetDefinition dsd, String columnName, PatientDataDefinition pdd) {
 		dsd.addColumn(columnName, pdd, Mapped.straightThroughMappings(pdd));
 	}
-
+	
 	protected void addColumn(EncounterDataSetDefinition dsd, String columnName, PatientDataDefinition pdd) {
 		addColumn(dsd, columnName, new PatientToEncounterDataDefinition(pdd));
 	}
-
+	
 	protected void addColumn(EncounterDataSetDefinition dsd, String columnName, EncounterDataDefinition edd) {
 		dsd.addColumn(columnName, edd, ObjectUtil.toString(Mapped.straightThroughMappings(edd), "=", ","));
 	}
-
-    protected void addColumn(ObsDataSetDefinition dsd, String columnName, PatientDataDefinition pdd) {
-        addColumn(dsd, columnName, new PatientToObsDataDefinition(pdd));
-    }
-
-    protected void addColumn(ObsDataSetDefinition dsd, String columnName, EncounterDataDefinition edd) {
-        addColumn(dsd, columnName, new EncounterToObsDataDefinition(edd));
-    }
-
-    protected void addColumn(ObsDataSetDefinition dsd, String columnName, ObsDataDefinition odd) {
-        dsd.addColumn(columnName, odd, ObjectUtil.toString(Mapped.straightThroughMappings(odd), "=", ","));
-    }
-
-	protected ReportDesign createExcelTemplateDesign(String reportDesignUuid, ReportDefinition reportDefinition, String templatePath) {
+	
+	protected void addColumn(ObsDataSetDefinition dsd, String columnName, PatientDataDefinition pdd) {
+		addColumn(dsd, columnName, new PatientToObsDataDefinition(pdd));
+	}
+	
+	protected void addColumn(ObsDataSetDefinition dsd, String columnName, EncounterDataDefinition edd) {
+		addColumn(dsd, columnName, new EncounterToObsDataDefinition(edd));
+	}
+	
+	protected void addColumn(ObsDataSetDefinition dsd, String columnName, ObsDataDefinition odd) {
+		dsd.addColumn(columnName, odd, ObjectUtil.toString(Mapped.straightThroughMappings(odd), "=", ","));
+	}
+	
+	protected ReportDesign createExcelTemplateDesign(String reportDesignUuid, ReportDefinition reportDefinition,
+	        String templatePath) {
 		String resourcePath = ReportUtil.getPackageAsPath(getClass()) + "/" + templatePath;
 		return ReportManagerUtil.createExcelTemplateDesign(reportDesignUuid, reportDefinition, resourcePath);
 	}
-
-    public <T extends Parameterizable> Mapped<T> map(T parameterizable, String mappings) {
-        if (parameterizable == null) {
-            throw new NullPointerException("Programming error: missing parameterizable");
-        }
-        if (mappings == null) {
-            mappings = ""; // probably not necessary, just to be safe
-        }
-        return new Mapped<T>(parameterizable, ParameterizableUtil.createParameterMappings(mappings));
-    }
+	
+	public <T extends Parameterizable> Mapped<T> map(T parameterizable, String mappings) {
+		if (parameterizable == null) {
+			throw new NullPointerException("Programming error: missing parameterizable");
+		}
+		if (mappings == null) {
+			mappings = ""; // probably not necessary, just to be safe
+		}
+		return new Mapped<T>(parameterizable, ParameterizableUtil.createParameterMappings(mappings));
+	}
 }

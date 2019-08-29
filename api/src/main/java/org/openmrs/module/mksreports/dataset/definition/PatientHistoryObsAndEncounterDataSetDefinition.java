@@ -21,9 +21,10 @@ import org.openmrs.module.reporting.evaluation.caching.Caching;
 /**
  * Definition of an ObsAndEncounter DataSet
  */
-@Caching(strategy=ConfigurationPropertyCachingStrategy.class)
+@Caching(strategy = ConfigurationPropertyCachingStrategy.class)
 @Localized("reporting.ObsAndEncounterDataSetDefinition")
 public class PatientHistoryObsAndEncounterDataSetDefinition extends ObsDataSetDefinition {
 	
-	public PatientHistoryObsAndEncounterDataSetDefinition() {}
+	public PatientHistoryObsAndEncounterDataSetDefinition() {
+	}
 }

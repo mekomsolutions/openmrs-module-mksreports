@@ -29,16 +29,16 @@ public class MKSReportsServiceImpl extends BaseOpenmrsService implements MKSRepo
 	private MKSReportsDAO dao;
 	
 	/**
-     * @param dao the dao to set
-     */
-    public void setDao(MKSReportsDAO dao) {
-	    this.dao = dao;
-    }
-    
-    /**
-     * @return the dao
-     */
-    public MKSReportsDAO getDao() {
-	    return dao;
-    }
+	 * @param dao the dao to set
+	 */
+	public void setDao(MKSReportsDAO dao) {
+		this.dao = dao;
+	}
+	
+	/**
+	 * @return the dao
+	 */
+	public MKSReportsDAO getDao() {
+		return dao;
+	}
 }

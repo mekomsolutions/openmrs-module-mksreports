@@ -31,39 +31,38 @@ import org.openmrs.module.reporting.query.obs.ObsIdSet;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
- * Expects that the SQL query returns two columns:
- *   the first should be an Integer returning the obsId
- *   the second should be the data you wish to retrieve for each Obs
- * Expects that you use "obsIds" within your query to limit by the base id set in the evaluation context:
- *   eg. "select obs_datetime from obs where obs_id in (:obsIds)"
+ * Expects that the SQL query returns two columns: the first should be an Integer returning the
+ * obsId the second should be the data you wish to retrieve for each Obs Expects that you use
+ * "obsIds" within your query to limit by the base id set in the evaluation context: eg. "select
+ * obs_datetime from obs where obs_id in (:obsIds)"
  */
-@Handler(supports=SqlObsDataDefinition.class)
+@Handler(supports = SqlObsDataDefinition.class)
 public class SqlObsDataEvaluator implements ObsDataEvaluator {
-
-    @Autowired
+	
+	@Autowired
 	EvaluationService evaluationService;
-
-    @Override
-    public EvaluatedObsData evaluate(ObsDataDefinition def, EvaluationContext context) throws EvaluationException {
-        SqlObsDataDefinition definition = (SqlObsDataDefinition) def;
-        EvaluatedObsData data = new EvaluatedObsData(definition, context);
-
-        ObsIdSet obsIds = new ObsIdSet(ObsDataUtil.getObsIdsForContext(context, false));
-        if (obsIds.getSize() == 0) {
-            return data;
-        }
-
+	
+	@Override
+	public EvaluatedObsData evaluate(ObsDataDefinition def, EvaluationContext context) throws EvaluationException {
+		SqlObsDataDefinition definition = (SqlObsDataDefinition) def;
+		EvaluatedObsData data = new EvaluatedObsData(definition, context);
+		
+		ObsIdSet obsIds = new ObsIdSet(ObsDataUtil.getObsIdsForContext(context, false));
+		if (obsIds.getSize() == 0) {
+			return data;
+		}
+		
 		SqlQueryBuilder q = new SqlQueryBuilder();
 		q.append(definition.getSql());
 		for (Parameter p : definition.getParameters()) {
 			q.addParameter(p.getName(), context.getParameterValue(p.getName()));
 		}
 		q.addParameter("obsIds", obsIds);
-
+		
 		Map<Integer, Object> results = evaluationService.evaluateToMap(q, Integer.class, Object.class, context);
 		data.setData(results);
-
-        return data;
-    }
-
+		
+		return data;
+	}
+	
 }

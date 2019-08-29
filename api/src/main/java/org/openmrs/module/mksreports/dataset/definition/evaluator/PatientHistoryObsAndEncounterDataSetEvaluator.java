@@ -21,10 +21,13 @@ import org.openmrs.module.reporting.dataset.DataSet;
 import org.openmrs.module.reporting.dataset.definition.evaluator.ObsDataSetEvaluator;
 
 /**
- * The logic that evaluates a {@link PatientHistoryObsAndEncounterDataSetDefinition} and produces an {@link DataSet}
+ * The logic that evaluates a {@link PatientHistoryObsAndEncounterDataSetDefinition} and produces an
+ * {@link DataSet}
+ * 
  * @see PatientHistoryObsAndEncounterDataSetDefinition
  */
 @Handler(supports = { PatientHistoryObsAndEncounterDataSetDefinition.class }, order = 25)
 public class PatientHistoryObsAndEncounterDataSetEvaluator extends ObsDataSetEvaluator {
+	
 	protected static final Log log = LogFactory.getLog(PatientHistoryObsAndEncounterDataSetEvaluator.class);
 }
