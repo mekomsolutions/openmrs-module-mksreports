@@ -15,26 +15,29 @@ import org.openmrs.module.BaseModuleActivator;
 import org.openmrs.module.mksreports.patienthistory.PatientHistoryReportManager;
 
 /**
- * This class contains the logic that is run every time this module is either started or shutdown
+ * This class contains the logic that is run every time this module is either
+ * started or shutdown
  */
 public class MKSReportsActivator extends BaseModuleActivator {
-	
+
 	private Log log = LogFactory.getLog(this.getClass());
-	
+
 	/**
 	 * @see #started()
 	 */
 	public void started() {
 		log.info("Started " + MKSReportsConstants.MODULE_NAME);
-		
+
 		try {
 			registerReports();
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
+		// TODO: this piece of code is temporary commented because when the started
+		// method is executed it throws a NPE at this logic, attempting to fix it soon
+
 		// for (MKSReportManager reportManager :
 		// Context.getRegisteredComponents(MKSReportManager.class)) {
 		// if (reportManager.isActive()) {
@@ -44,16 +47,17 @@ public class MKSReportsActivator extends BaseModuleActivator {
 		// }
 		// }
 	}
-	
+
 	/**
 	 * @see #shutdown()
 	 */
 	public void shutdown() {
 		log.info("Shutdown " + MKSReportsConstants.MODULE_NAME);
 	}
-	
+
 	/**
-	 * Allows to automatically register report definitions at when the module is started
+	 * Allows to automatically register report definitions at when the module is
+	 * started
 	 * 
 	 * @throws Exception
 	 */
@@ -62,5 +66,5 @@ public class MKSReportsActivator extends BaseModuleActivator {
 		ps.delete();
 		ps.setup();
 	}
-	
+
 }
