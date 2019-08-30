@@ -72,7 +72,8 @@ public class MKSReportsManageController {
 	        @RequestParam("patientId") Integer patientId,
 	        @RequestParam(value = "download", required = false) boolean download,
 	        @RequestParam(value = "print", required = false) boolean print) throws IOException {
-		System.setProperty("javax.xml.transform.TransformerFactory", "net.sf.saxon.TransformerFactoryImpl");
+		// System.setProperty("javax.xml.transform.TransformerFactory",
+		// "net.sf.saxon.TransformerFactoryImpl");
 		
 		try {
 			
