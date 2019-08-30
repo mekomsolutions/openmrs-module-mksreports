@@ -49,8 +49,8 @@ public class BasePatientDataLibrary extends BaseDefinitionLibrary<PatientDataDef
 	 */
 	/**
 	 * @see {@link https://github.com/mekomsolutions/openmrs-module-coreapps/blob/
-	 *      3603eaf433d1d426cd8c9748956a5a0eaebd7ef9/omod/src/main/java/org/openmrs/module/coreapps/fragment/controller/patientheader/RegistrationDataHelper.java#L146
-	 *      - L 1 7 3 * }
+	 *      3603eaf433d1d426cd8c9748956a5a0eaebd7ef9/omod/src/main/java/org/openmrs/module/coreapps/fragment/controller/patientheader/RegistrationDataHelper.java
+	 *      # L 1 4 6 - L 1 7 3 * }
 	 */
 	protected static class AddressTemplateConverter implements Converter {
 		
@@ -87,7 +87,7 @@ public class BasePatientDataLibrary extends BaseDefinitionLibrary<PatientDataDef
 	protected Map<String, String> getAddressTemplateNameMappings(final LocationService locationService) {
 		
 		XStream xstream = new XStream();
-		xstream.alias("org.openmrs.layout.web.address.AddressTemplate", java.util.Map.class);
+		xstream.alias("org.openmrs.layout.address.AddressTemplate", java.util.Map.class);
 		xstream.registerConverter(new AddressTemplateConverter());
 		
 		String addressTemplateXml = locationService.getAddressTemplate();
