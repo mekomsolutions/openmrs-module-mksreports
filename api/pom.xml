@@ -201,14 +201,6 @@
 		</dependency>
 
 		<dependency>
-			<groupId>org.openmrs.module</groupId>
-			<artifactId>uiframework-api</artifactId>
-			<version>${uiframeworkVersion}</version>
-			<type>jar</type>
-			<scope>provided</scope>
-		</dependency>
-
-		<dependency>
 			<groupId>com.lowagie</groupId>
 			<artifactId>itext</artifactId>
 			<version>2.1.7</version>

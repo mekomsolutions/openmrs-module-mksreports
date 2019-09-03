@@ -42,7 +42,6 @@
 		<openMRSVersion>2.0.0</openMRSVersion>
 		<reportingVersion>1.14.0</reportingVersion>
 		<patientsummaryVersion>2.1</patientsummaryVersion>
-		<uiframeworkVersion>3.4</uiframeworkVersion>
 		<reportingcompatibilityVersion>2.0.4</reportingcompatibilityVersion>
 		<emrapiVersion>1.16</emrapiVersion>
 		<calculationVersion>1.1</calculationVersion>
