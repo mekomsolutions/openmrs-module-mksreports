@@ -8,6 +8,7 @@ import java.nio.file.Files;
 
 import org.apache.commons.io.IOUtils;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.openmrs.Concept;
 import org.openmrs.ConceptClass;
@@ -20,6 +21,7 @@ import org.openmrs.serialization.SerializationException;
 
 import com.thoughtworks.xstream.XStream;
 
+@Ignore
 public class PatientHistoryXmlReportRendererTest {
 	
 	private static String OUTPUT_XML_OUTPUT_DIR = "target/test/";
