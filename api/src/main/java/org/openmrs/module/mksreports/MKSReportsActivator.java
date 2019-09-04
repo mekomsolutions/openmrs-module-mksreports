@@ -11,8 +11,10 @@ package org.openmrs.module.mksreports;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.openmrs.api.context.Context;
 import org.openmrs.module.BaseModuleActivator;
 import org.openmrs.module.mksreports.patienthistory.PatientHistoryReportManager;
+import org.openmrs.module.reporting.report.manager.ReportManagerUtil;
 
 /**
  * This class contains the logic that is run every time this module is either
@@ -35,17 +37,12 @@ public class MKSReportsActivator extends BaseModuleActivator {
 			e.printStackTrace();
 		}
 
-		// TODO: this piece of code is temporary commented because when the started
-		// method is executed it throws a NPE at this logic, attempting to fix it soon
-
-		// for (MKSReportManager reportManager :
-		// Context.getRegisteredComponents(MKSReportManager.class)) {
-		// if (reportManager.isActive()) {
-		// log.info("Setting up report " + reportManager.getName() + "...");
-		// ReportManagerUtil.setupReport(reportManager); // if this fails the module
-		// won't start altogether
-		// }
-		// }
+		for (MKSReportManager reportManager : Context.getRegisteredComponents(MKSReportManager.class)) {
+			if (reportManager.isActive()) {
+				log.info("Setting up report " + reportManager.getName() + "...");
+				ReportManagerUtil.setupReport(reportManager); // if this fails the module won't start altogether
+			}
+		}
 	}
 
 	/**
