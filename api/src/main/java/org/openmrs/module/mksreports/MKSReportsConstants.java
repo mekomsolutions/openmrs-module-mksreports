@@ -27,4 +27,5 @@ public class MKSReportsConstants {
 	
 	public static final String COMPONENT_REPORTMANAGER_OPDCONSULT = MODULE_ARTIFACT_ID + ".outpatientConsultation";
 	
+	public static final String COMPONENT_REPORTMANAGER_OPDHISTORY = MODULE_ARTIFACT_ID + ".outpatientHistory";
 }
