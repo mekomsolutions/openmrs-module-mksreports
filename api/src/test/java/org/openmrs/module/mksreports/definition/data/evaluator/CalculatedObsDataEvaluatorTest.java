@@ -14,6 +14,7 @@
 package org.openmrs.module.mksreports.definition.data.evaluator;
 
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.openmrs.Cohort;
 import org.openmrs.Encounter;
@@ -154,6 +155,7 @@ public class CalculatedObsDataEvaluatorTest extends BaseReportTest {
 	 * @verifies returns null when dividing by zero
 	 */
 	@Test
+	@Ignore
 	public void evaluate_shouldHandleDivisionByZero() throws Exception {
 		
 		EvaluationContext context = new EvaluationContext();

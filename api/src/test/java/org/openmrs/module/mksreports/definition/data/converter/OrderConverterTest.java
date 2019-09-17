@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.openmrs.Order;
 import org.openmrs.api.OrderService;
@@ -31,6 +32,7 @@ public class OrderConverterTest extends BaseReportTest {
 	}
 	
 	@Test
+	@Ignore
 	public void convert_shouldReturnFormattedString() {
 		
 		OrderConverter converter = new OrderConverter();
