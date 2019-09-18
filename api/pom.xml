@@ -64,8 +64,6 @@
 
 		<!-- End OpenMRS core -->
 
-
-
 		<dependency>
 			<groupId>org.openmrs.module</groupId>
 			<artifactId>emrapi-api</artifactId>
@@ -101,26 +99,48 @@
 
 		<dependency>
 			<groupId>org.openmrs.module</groupId>
-			<artifactId>providermanagement-api</artifactId>
-			<version>${providermanagementVersion}</version>
-			<scope>test</scope>
-		</dependency>
-
-
-
-
-		<dependency>
-			<groupId>org.openmrs.module</groupId>
-			<artifactId>idgen-api</artifactId>
-			<version>${idgenVersion}</version>
-			<scope>test</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>org.openmrs.module</groupId>
 			<artifactId>initializer-api</artifactId>
 			<version>${initializerVersion}</version>
 			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.xmlgraphics</groupId>
+			<artifactId>fop</artifactId>
+			<version>1.0</version>
+			<type>jar</type>
+			<exclusions>
+				<exclusion>
+					<artifactId>xalan</artifactId>
+					<groupId>xalan</groupId>
+				</exclusion>
+				<exclusion>
+					<groupId>commons-io</groupId>
+					<artifactId>commons-io</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>commons-logging</groupId>
+					<artifactId>commons-logging</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>xml-apis</groupId>
+					<artifactId>xml-apis</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.pdfbox</groupId>
+			<artifactId>pdfbox</artifactId>
+			<version>1.8.5</version>
+			<type>jar</type>
+		</dependency>
+
+		<dependency>
+			<groupId>org.openmrs.module</groupId>
+			<artifactId>providermanagement-api</artifactId>
+			<version>${providermanagementVersion}</version>
+			<scope>test</scope>
 		</dependency>
 
 		<dependency>
@@ -130,13 +150,20 @@
 			<scope>test</scope>
 		</dependency>
 
-
 		<dependency>
 			<groupId>org.openmrs.module</groupId>
 			<artifactId>reportingcompatibility-api</artifactId>
 			<version>${reportingcompatibilityVersion}</version>
 			<scope>test</scope>
 		</dependency>
+
+		<dependency>
+			<groupId>org.openmrs.module</groupId>
+			<artifactId>idgen-api</artifactId>
+			<version>${idgenVersion}</version>
+			<scope>test</scope>
+		</dependency>
+
 	</dependencies>
 
 </project>

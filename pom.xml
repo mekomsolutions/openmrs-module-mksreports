@@ -53,43 +53,11 @@
 	</properties>
 
 	<dependencies>
-		<dependency>
-			<groupId>org.apache.xmlgraphics</groupId>
-			<artifactId>fop</artifactId>
-			<version>1.0</version>
-			<type>jar</type>
-			<exclusions>
-				<exclusion>
-					<artifactId>xalan</artifactId>
-					<groupId>xalan</groupId>
-				</exclusion>
-				<exclusion>
-					<groupId>commons-io</groupId>
-					<artifactId>commons-io</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>commons-logging</groupId>
-					<artifactId>commons-logging</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>xml-apis</groupId>
-					<artifactId>xml-apis</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-
-		<dependency>
-			<groupId>org.apache.pdfbox</groupId>
-			<artifactId>pdfbox</artifactId>
-			<version>1.8.5</version>
-			<type>jar</type>
-		</dependency>
 
 		<dependency>
 			<groupId>org.openmrs.module</groupId>
-			<artifactId>patientsummary-api</artifactId>
-			<version>${patientsummaryVersion}</version>
-			<type>jar</type>
+			<artifactId>reporting-api</artifactId>
+			<version>${reportingVersion}</version>
 			<scope>provided</scope>
 		</dependency>
 
@@ -102,8 +70,24 @@
 
 		<dependency>
 			<groupId>org.openmrs.module</groupId>
+			<artifactId>patientsummary-api</artifactId>
+			<version>${patientsummaryVersion}</version>
+			<type>jar</type>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.openmrs.module</groupId>
 			<artifactId>reporting-api-2.0</artifactId>
 			<version>${reportingVersion}</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.openmrs.module</groupId>
+			<artifactId>reporting-api-tests</artifactId>
+			<version>${reportingVersion}</version>
+			<type>test-jar</type>
 			<scope>test</scope>
 		</dependency>
 
