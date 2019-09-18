@@ -3,21 +3,55 @@
 
 	<xsl:param name="numColumns">4</xsl:param>
   
-	<xsl:template match="patientHistory">
+		<xsl:template match="patientHistory">
 	    <fo:root>
 	    	<fo:layout-master-set>
 	        	<fo:simple-page-master master-name="A4-portrait" page-height="29.7cm" page-width="21.0cm" margin="2cm">
 					<fo:region-body/>
 				</fo:simple-page-master>
 			</fo:layout-master-set>
-	      
+			
 			<fo:page-sequence master-reference="A4-portrait">
 				<fo:flow flow-name="xsl-region-body">
+					<xsl:apply-templates select="demographics"/>
 					<xsl:apply-templates select="visit"/>
 				</fo:flow>
 			</fo:page-sequence>
 	    </fo:root>
 	</xsl:template>
+	
+	<xsl:template match="demographics">
+		<fo:block  margin-bottom="10mm">
+			<fo:table>
+				<xsl:call-template name="repeat-fo-table-column">
+				    <xsl:with-param name="count" select="$numColumns" />
+			    </xsl:call-template>
+			    <fo:table-body>
+					<xsl:apply-templates select="demographic[(position() = 1 or (position() mod $numColumns) = 1)]" mode="row" />
+		    	</fo:table-body>
+			</fo:table> 
+		</fo:block>
+	</xsl:template>
+	
+	<xsl:template match="demographic" mode="row">
+		<fo:table-row>
+	        <!-- We select the current obs and add the following ones whose position doesn't exceed the row's width -->
+	        <xsl:apply-templates select=".|following-sibling::demographic[position() &lt; ($numColumns + 0)]" mode="cell"/>
+        </fo:table-row>
+    </xsl:template>
+    
+    <xsl:template match="demographic" mode="cell">
+        <fo:table-cell>
+			<fo:block margin="2mm">
+				<fo:block font-size="13">
+					<fo:block font-size="13" font-style="italic" margin-bottom="1mm" margin-right="3mm">
+						<fo:block><xsl:value-of select="@label" /></fo:block>
+					</fo:block>
+					<xsl:value-of select="." />
+				</fo:block>
+			</fo:block> 
+        </fo:table-cell>
+    </xsl:template>	
 	
 	<xsl:template match="visit">
 		<fo:block margin-bottom="10mm">
