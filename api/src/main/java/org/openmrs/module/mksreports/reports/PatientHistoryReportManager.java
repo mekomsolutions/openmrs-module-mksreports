@@ -2,7 +2,6 @@ package org.openmrs.module.mksreports.reports;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,20 +28,15 @@ import org.openmrs.module.mksreports.dataset.definition.PatientHistoryObsAndEnco
 import org.openmrs.module.mksreports.library.BasePatientDataLibrary;
 import org.openmrs.module.mksreports.library.EncounterDataLibrary;
 import org.openmrs.module.mksreports.library.ObsDataLibrary;
-import org.openmrs.module.reporting.common.ObjectUtil;
 import org.openmrs.module.reporting.common.SortCriteria;
 import org.openmrs.module.reporting.data.converter.DateConverter;
 import org.openmrs.module.reporting.data.converter.ObjectFormatter;
-import org.openmrs.module.reporting.data.encounter.definition.EncounterDataDefinition;
 import org.openmrs.module.reporting.data.encounter.definition.EncounterDatetimeDataDefinition;
 import org.openmrs.module.reporting.data.encounter.definition.EncounterIdDataDefinition;
 import org.openmrs.module.reporting.data.encounter.definition.EncounterTypeDataDefinition;
-import org.openmrs.module.reporting.data.obs.definition.ObsDataDefinition;
 import org.openmrs.module.reporting.data.obs.definition.ObsIdDataDefinition;
 import org.openmrs.module.reporting.data.patient.definition.PatientDataDefinition;
 import org.openmrs.module.reporting.data.patient.library.BuiltInPatientDataLibrary;
-import org.openmrs.module.reporting.dataset.definition.EncounterDataSetDefinition;
-import org.openmrs.module.reporting.dataset.definition.ObsDataSetDefinition;
 import org.openmrs.module.reporting.dataset.definition.PatientDataSetDefinition;
 import org.openmrs.module.reporting.evaluation.parameter.Mapped;
 import org.openmrs.module.reporting.evaluation.parameter.Parameter;
@@ -51,8 +45,8 @@ import org.openmrs.module.reporting.report.definition.ReportDefinition;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-@Component(MKSReportsConstants.COMPONENT_REPORTMANAGER_OPDHISTORY)
-public class OutpatientHistoryReportManager extends MKSReportManager {
+@Component(MKSReportsConstants.COMPONENT_REPORTMANAGER_PATIENTHISTORY)
+public class PatientHistoryReportManager extends MKSReportManager {
 	
 	public final static String REPORT_DESIGN_NAME = "mksPatientHistory.xml_";
 	
@@ -127,14 +121,6 @@ public class OutpatientHistoryReportManager extends MKSReportManager {
 		return StringUtils.EMPTY;
 	}
 	
-	private Parameter getStartDateParameter() {
-		return new Parameter("startDate", "Start Date", Date.class);
-	}
-	
-	private Parameter getEndDateParameter() {
-		return new Parameter("endDate", "End Date", Date.class);
-	}
-	
 	private Parameter getLocationParameter() {
 		return new Parameter("locationList", "Visit Location", Location.class, List.class, null);
 	}
@@ -142,8 +128,6 @@ public class OutpatientHistoryReportManager extends MKSReportManager {
 	@Override
 	public List<Parameter> getParameters() {
 		List<Parameter> params = new ArrayList<Parameter>();
-		params.add(getStartDateParameter());
-		params.add(getEndDateParameter());
 		params.add(getLocationParameter());
 		return params;
 	}
@@ -158,9 +142,9 @@ public class OutpatientHistoryReportManager extends MKSReportManager {
 		MessageSourceService i18nTranslator = Context.getMessageSourceService();
 		
 		// Create dataset definitions
-		PatientHistoryEncounterAndVisitDataSetDefinition encountersDatasetSetDef = createEncounterAndVisitDataSetDefinition();
 		PatientDataSetDefinition patientDataSetDef = createDemographicsDataSetDefinition(i18nTranslator);
 		PatientHistoryObsAndEncounterDataSetDefinition obsDataSetDef = createObsAndEncounterDataSetDefinition();
+		PatientHistoryEncounterAndVisitDataSetDefinition encountersDatasetSetDef = createEncounterAndVisitDataSetDefinition();
 		
 		// Add datasets to the report
 		reportDef.addDataSetDefinition(DATASET_KEY_DEMOGRAPHICS, patientDataSetDef, mappings);
@@ -173,7 +157,7 @@ public class OutpatientHistoryReportManager extends MKSReportManager {
 		return reportDef;
 	}
 	
-	public PatientHistoryEncounterAndVisitDataSetDefinition createEncounterAndVisitDataSetDefinition() {
+	private PatientHistoryEncounterAndVisitDataSetDefinition createEncounterAndVisitDataSetDefinition() {
 		PatientHistoryEncounterAndVisitDataSetDefinition encounterAndVistDatasetSetDef = new PatientHistoryEncounterAndVisitDataSetDefinition();
 		encounterAndVistDatasetSetDef.addColumn(VISIT_UUID_LABEL, encounterDataLibrary.getVisitId(), StringUtils.EMPTY,
 		    new VisitUUIDFromIdConverter());
@@ -199,7 +183,7 @@ public class OutpatientHistoryReportManager extends MKSReportManager {
 	 * @param i18nTranslator
 	 * @return
 	 */
-	public PatientDataSetDefinition createDemographicsDataSetDefinition(MessageSourceService i18nTranslator) {
+	private PatientDataSetDefinition createDemographicsDataSetDefinition(MessageSourceService i18nTranslator) {
 		PatientDataSetDefinition patientDataSetDef = new PatientDataSetDefinition();
 		addColumn(patientDataSetDef, i18nTranslator.getMessage("mksreports.patienthistory.demographics.identifier"),
 		    builtInPatientDataLibrary.getPreferredIdentifierIdentifier());
@@ -222,7 +206,7 @@ public class OutpatientHistoryReportManager extends MKSReportManager {
 	/**
 	 * @return
 	 */
-	public PatientHistoryObsAndEncounterDataSetDefinition createObsAndEncounterDataSetDefinition() {
+	private PatientHistoryObsAndEncounterDataSetDefinition createObsAndEncounterDataSetDefinition() {
 		PatientHistoryObsAndEncounterDataSetDefinition obsDataSetDef = new PatientHistoryObsAndEncounterDataSetDefinition();
 		obsDataSetDef.addColumn(ENCOUNTER_UUID_LABEL, encounterDataLibrary.getUUID(), StringUtils.EMPTY,
 		    new ObjectFormatter());
@@ -245,16 +229,7 @@ public class OutpatientHistoryReportManager extends MKSReportManager {
 		return Arrays.asList(reportDesign);
 	}
 	
-	protected void addColumn(PatientDataSetDefinition dsd, String columnName, PatientDataDefinition pdd) {
+	private void addColumn(PatientDataSetDefinition dsd, String columnName, PatientDataDefinition pdd) {
 		dsd.addColumn(columnName, pdd, Mapped.straightThroughMappings(pdd));
 	}
-	
-	protected void addColumn(EncounterDataSetDefinition dsd, String columnName, EncounterDataDefinition edd) {
-		dsd.addColumn(columnName, edd, ObjectUtil.toString(Mapped.straightThroughMappings(edd), "=", ","));
-	}
-	
-	protected void addColumn(ObsDataSetDefinition dsd, String columnName, ObsDataDefinition odd) {
-		dsd.addColumn(columnName, odd, ObjectUtil.toString(Mapped.straightThroughMappings(odd), "=", ","));
-	}
-	
 }

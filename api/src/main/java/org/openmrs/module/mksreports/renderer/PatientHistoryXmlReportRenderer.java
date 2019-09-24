@@ -36,7 +36,7 @@ import javax.xml.transform.stream.StreamResult;
 
 import org.apache.commons.lang.StringUtils;
 import org.openmrs.annotation.Handler;
-import org.openmrs.module.mksreports.reports.OutpatientHistoryReportManager;
+import org.openmrs.module.mksreports.reports.PatientHistoryReportManager;
 import org.openmrs.module.reporting.common.Localized;
 import org.openmrs.module.reporting.dataset.DataSet;
 import org.openmrs.module.reporting.dataset.DataSetColumn;
@@ -150,7 +150,7 @@ public class PatientHistoryXmlReportRenderer extends ReportDesignRenderer {
 		
 		String dataSetKey = "";
 		
-		dataSetKey = OutpatientHistoryReportManager.DATASET_KEY_DEMOGRAPHICS;
+		dataSetKey = PatientHistoryReportManager.DATASET_KEY_DEMOGRAPHICS;
 		if (results.getDataSets().containsKey(dataSetKey)) {
 			DataSet dataSet = results.getDataSets().get(dataSetKey);
 			Element demographics = doc.createElement("demographics");
@@ -167,12 +167,12 @@ public class PatientHistoryXmlReportRenderer extends ReportDesignRenderer {
 			}
 		}
 		
-		dataSetKey = OutpatientHistoryReportManager.DATASET_KEY_ENCOUNTERS;
+		dataSetKey = PatientHistoryReportManager.DATASET_KEY_ENCOUNTERS;
 		if (results.getDataSets().containsKey(dataSetKey)) {
 			DataSet dataSet = results.getDataSets().get(dataSetKey);
 			
 			for (DataSetRow row : dataSet) {
-				String visitUuid = row.getColumnValue(OutpatientHistoryReportManager.VISIT_UUID_LABEL).toString();
+				String visitUuid = row.getColumnValue(PatientHistoryReportManager.VISIT_UUID_LABEL).toString();
 				Element visit = doc.getElementById(visitUuid);
 				if (visit == null) { // If the visit node doesn't exist, we create it.
 					visit = doc.createElement("visit");
@@ -181,40 +181,40 @@ public class PatientHistoryXmlReportRenderer extends ReportDesignRenderer {
 					rootElement.appendChild(visit);
 					
 					// TODO: Add the visit location and the visit type
-					String visitType = getStringValue(row, OutpatientHistoryReportManager.VISIT_TYPE_LABEL);
+					String visitType = getStringValue(row, PatientHistoryReportManager.VISIT_TYPE_LABEL);
 					visit.setAttribute(ATTR_TYPE, visitType);
-					String visitLocation = getStringValue(row, OutpatientHistoryReportManager.VISIT_LOCATION_LABEL);
+					String visitLocation = getStringValue(row, PatientHistoryReportManager.VISIT_LOCATION_LABEL);
 					visit.setAttribute(ATTR_LOC, visitLocation);
 				}
 				
 				// Adding the encounter.
-				String encounterUuid = row.getColumnValue(OutpatientHistoryReportManager.ENCOUNTER_UUID_LABEL).toString();
+				String encounterUuid = row.getColumnValue(PatientHistoryReportManager.ENCOUNTER_UUID_LABEL).toString();
 				Element encounter = doc.createElement("encounter");
 				encounter.setAttribute(ATTR_UUID, encounterUuid);
 				encounter.setIdAttribute(ATTR_UUID, true);
 				
-				String encounterName = getStringValue(row, OutpatientHistoryReportManager.ENCOUNTERTYPE_NAME_LABEL);
+				String encounterName = getStringValue(row, PatientHistoryReportManager.ENCOUNTERTYPE_NAME_LABEL);
 				encounter.setAttribute(ATTR_LABEL, encounterName);
 				
-				Object value = row.getColumnValue(OutpatientHistoryReportManager.ENCOUNTER_DATETIME_LABEL);
+				Object value = row.getColumnValue(PatientHistoryReportManager.ENCOUNTER_DATETIME_LABEL);
 				String encounterDatetime = (new SimpleDateFormat(DATETIME_FORMAT)).format(value);
 				encounter.setAttribute(ATTR_TIME, encounterDatetime);
 				
-				String encounterProvider = getStringValue(row, OutpatientHistoryReportManager.ENCOUNTER_PROVIDER_LABEL);
+				String encounterProvider = getStringValue(row, PatientHistoryReportManager.ENCOUNTER_PROVIDER_LABEL);
 				encounter.setAttribute(ATTR_PROV, encounterProvider);
 				
 				visit.appendChild(encounter);
 			}
 		}
 		
-		dataSetKey = OutpatientHistoryReportManager.DATASET_KEY_OBS;
+		dataSetKey = PatientHistoryReportManager.DATASET_KEY_OBS;
 		if (results.getDataSets().containsKey(dataSetKey)) {
 			DataSet dataSet = results.getDataSets().get(dataSetKey);
 			
 			for (DataSetRow row : dataSet) {
 				Element obs = doc.createElement("obs");
 				
-				String encounterUuid = row.getColumnValue(OutpatientHistoryReportManager.ENCOUNTER_UUID_LABEL).toString();
+				String encounterUuid = row.getColumnValue(PatientHistoryReportManager.ENCOUNTER_UUID_LABEL).toString();
 				Element encounter = doc.getElementById(encounterUuid);
 				if (encounter == null) {
 					// TODO: At least log this.
@@ -225,27 +225,27 @@ public class PatientHistoryXmlReportRenderer extends ReportDesignRenderer {
 					String colName = column.getName();
 					Object value = row.getColumnValue(column);
 					String strValue = getStringValue(value);
-					if (StringUtils.equals(colName, OutpatientHistoryReportManager.ENCOUNTER_UUID_LABEL)) {
+					if (StringUtils.equals(colName, PatientHistoryReportManager.ENCOUNTER_UUID_LABEL)) {
 						continue;
 					}
-					if (StringUtils.equals(column.getName(), OutpatientHistoryReportManager.OBS_NAME_LABEL)) {
+					if (StringUtils.equals(column.getName(), PatientHistoryReportManager.OBS_NAME_LABEL)) {
 						obs.setAttribute(ATTR_LABEL, strValue);
 						continue;
 					}
-					if (StringUtils.equals(column.getName(), OutpatientHistoryReportManager.OBS_DATATYPE_LABEL)) {
+					if (StringUtils.equals(column.getName(), PatientHistoryReportManager.OBS_DATATYPE_LABEL)) {
 						obs.setAttribute(ATTR_TYPE, strValue);
 						continue;
 					}
-					if (StringUtils.equals(column.getName(), OutpatientHistoryReportManager.OBS_DATETIME_LABEL)) {
+					if (StringUtils.equals(column.getName(), PatientHistoryReportManager.OBS_DATETIME_LABEL)) {
 						String obsDateTime = (new SimpleDateFormat(TIME_FORMAT)).format(value);
 						obs.setAttribute(ATTR_TIME, obsDateTime);
 						continue;
 					}
-					if (StringUtils.equals(column.getName(), OutpatientHistoryReportManager.OBS_PROVIDER_LABEL)) {
+					if (StringUtils.equals(column.getName(), PatientHistoryReportManager.OBS_PROVIDER_LABEL)) {
 						obs.setAttribute(ATTR_PROV, strValue);
 						continue;
 					}
-					if (StringUtils.equals(column.getName(), OutpatientHistoryReportManager.OBS_VALUE_LABEL)) {
+					if (StringUtils.equals(column.getName(), PatientHistoryReportManager.OBS_VALUE_LABEL)) {
 						obs.appendChild(doc.createTextNode(strValue));
 						continue;
 					}
