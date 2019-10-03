@@ -12,7 +12,6 @@ import org.openmrs.api.context.Context;
 import org.openmrs.messagesource.MessageSourceService;
 import org.openmrs.module.mksreports.MKSReportManager;
 import org.openmrs.module.mksreports.MKSReportsConstants;
-import org.openmrs.module.mksreports.common.Helper;
 import org.openmrs.module.mksreports.data.converter.ConceptDataTypeConverter;
 import org.openmrs.module.mksreports.data.converter.ConceptNameConverter;
 import org.openmrs.module.mksreports.data.converter.EncounterProviderFromIdConverter;
@@ -28,6 +27,7 @@ import org.openmrs.module.mksreports.dataset.definition.PatientHistoryObsAndEnco
 import org.openmrs.module.mksreports.library.BasePatientDataLibrary;
 import org.openmrs.module.mksreports.library.EncounterDataLibrary;
 import org.openmrs.module.mksreports.library.ObsDataLibrary;
+import org.openmrs.module.mksreports.renderer.PatientHistoryXmlReportRenderer;
 import org.openmrs.module.reporting.common.SortCriteria;
 import org.openmrs.module.reporting.data.converter.DateConverter;
 import org.openmrs.module.reporting.data.converter.ObjectFormatter;
@@ -113,7 +113,7 @@ public class PatientHistoryReportManager extends MKSReportManager {
 	
 	@Override
 	public String getName() {
-		return "HC1 Outpatient History";
+		return "HC1 Patient History";
 	}
 	
 	@Override
@@ -134,9 +134,10 @@ public class PatientHistoryReportManager extends MKSReportManager {
 	
 	@Override
 	public ReportDefinition constructReportDefinition() {
-		
 		ReportDefinition reportDef = new ReportDefinition();
+		reportDef.setUuid(this.getUuid());
 		reportDef.setName(REPORT_DEFINITION_NAME);
+		reportDef.setDescription(this.getDescription());
 		
 		Map<String, Object> mappings = new HashMap<String, Object>();
 		MessageSourceService i18nTranslator = Context.getMessageSourceService();
@@ -150,9 +151,6 @@ public class PatientHistoryReportManager extends MKSReportManager {
 		reportDef.addDataSetDefinition(DATASET_KEY_DEMOGRAPHICS, patientDataSetDef, mappings);
 		reportDef.addDataSetDefinition(DATASET_KEY_OBS, obsDataSetDef, mappings);
 		reportDef.addDataSetDefinition(DATASET_KEY_ENCOUNTERS, encountersDatasetSetDef, new HashMap<String, Object>());
-		
-		// Save the report definition
-		Helper.saveReportDefinition(reportDef);
 		
 		return reportDef;
 	}
@@ -225,7 +223,10 @@ public class PatientHistoryReportManager extends MKSReportManager {
 	
 	@Override
 	public List<ReportDesign> constructReportDesigns(ReportDefinition reportDefinition) {
-		ReportDesign reportDesign = Helper.createXMLReportDesign(reportDefinition, REPORT_DESIGN_NAME);
+		ReportDesign reportDesign = new ReportDesign();
+		reportDesign.setName(REPORT_DESIGN_NAME);
+		reportDesign.setReportDefinition(reportDefinition);
+		reportDesign.setRendererType(PatientHistoryXmlReportRenderer.class);
 		return Arrays.asList(reportDesign);
 	}
 	

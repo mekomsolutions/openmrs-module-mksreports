@@ -28,12 +28,12 @@ public class PatientHistoryManagerTest extends BaseReportTest {
 	
 	@Autowired
 	@Qualifier(MKSReportsConstants.COMPONENT_REPORTMANAGER_PATIENTHISTORY)
-	private MKSReportManager manager;
+	private MKSReportManager reportManager;
 	
 	@Test
 	public void setupReport_shouldSetupPatientHistory() throws Exception {
 		
-		ReportManagerUtil.setupReport(manager);
+		ReportManagerUtil.setupReport(this.reportManager);
 		
 		List<ReportDefinition> reportDefinitions = this.reportDefinitionService
 		        .getDefinitions(PatientHistoryReportManager.REPORT_DEFINITION_NAME, true);
@@ -54,7 +54,5 @@ public class PatientHistoryManagerTest extends BaseReportTest {
 		MatcherAssert.assertThat(reportDesigns, IsCollectionWithSize.hasSize(1));
 		ReportDesign reportDesign = reportDesigns.get(0);
 		Assert.assertEquals(PatientHistoryReportManager.REPORT_DESIGN_NAME, reportDesign.getName());
-		
-		// ReportData data = rds.evaluate(reportDefinition, new EvaluationContext());
 	}
 }
