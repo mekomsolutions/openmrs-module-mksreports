@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<dataset>
+
+	<concept concept_id="100000" retired="false" datatype_id="1"
+		class_id="5" is_set="false" creator="1"
+		date_created="2004-08-12 00:00:00.0" version="0.1" changed_by="1"
+		date_changed="2006-06-09 14:57:33.0"
+		uuid="5090AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" />
+
+	<concept concept_id="100001" retired="false" datatype_id="1"
+		class_id="5" is_set="false" creator="1"
+		date_created="2004-08-12 00:00:00.0" version="0.1" changed_by="1"
+		date_changed="2006-06-09 14:57:33.0"
+		uuid="2190BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB" />
+
+	<concept concept_id="100002" retired="false" datatype_id="1"
+		class_id="5" is_set="false" creator="1"
+		date_created="2004-08-12 00:00:00.0" version="0.1" changed_by="1"
+		date_changed="2006-06-09 14:57:33.0"
+		uuid="2188BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB" />
+
+	<concept concept_id="100003" retired="false" datatype_id="1"
+		class_id="5" is_set="false" creator="1"
+		date_created="2004-08-12 00:00:00.0" version="0.1" changed_by="1"
+		date_changed="2006-06-09 14:57:33.0"
+		uuid="2347BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB" />
+
+	<concept_name concept_id="100000" name="Height (cm)"
+		locale="en" creator="1" date_created="2008-08-18 12:38:58.0"
+		concept_name_id="100000" voided="false"
+		uuid="5090AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" locale_preferred="true" />
+
+	<concept_name concept_id="100001" name="Temperature (C)"
+		locale="en" creator="1" date_created="2008-08-18 12:38:58.0"
+		concept_name_id="100001" voided="false"
+		uuid="2190BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB" locale_preferred="true" />
+
+	<concept_name concept_id="100002" name="Pulse" locale="en"
+		creator="1" date_created="2008-08-18 12:38:58.0"
+		concept_name_id="100002" voided="false"
+		uuid="2188BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB" locale_preferred="true" />
+
+	<concept_name concept_id="100003" name="Pulse" locale="en"
+		creator="1" date_created="2008-08-18 12:38:58.0"
+		concept_name_id="100003" voided="false"
+		uuid="2347BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB" locale_preferred="true" />
+
+	<visit visit_id="100" patient_id="2" visit_type_id="3"
+		date_started="2019-01-01 00:00:00.0" location_id="1" creator="1"
+		date_created="2019-01-01 00:00:00.0" voided="0"
+		uuid="4b5d3817-499b-4494-b46c-5ecec13e618a" />
+
+	<encounter_type encounter_type_id="100" name="Vitals"
+		description="For capturing vital signs" creator="1"
+		date_created="2019-01-01 00:00:00.0" retired="false"
+		uuid="b61ae905-664a-40f4-a638-a8f58ae03753" />
+
+	<encounter encounter_id="100" encounter_type="100"
+		patient_id="2" location_id="1" form_id="2"
+		encounter_datetime="2019-01-01 00:00:00.0" creator="1"
+		date_created="2019-01-01 14:09:05.0" voided="false" void_reason=""
+		uuid="53acc256-a393-42f2-a32c-b45dae4efd25" />
+
+	<encounter_provider encounter_provider_id="100"
+		encounter_id="100" provider_id="2" encounter_role_id="1" creator="1"
+		date_created="2019-01-01 15:57:35.0" voided="false"
+		uuid="9b87ccae-0c6e-406c-891e-dbadd715383d" />
+
+	<obs obs_id="100" person_id="2" concept_id="100000"
+		encounter_id="100" obs_datetime="2019-01-01 00:00:00.0"
+		location_id="1" value_numeric="180.0" comments="" creator="1"
+		date_created="2009-09-19 12:35:30.0" voided="false"
+		uuid="0937b184-0b99-4c06-b671-087eba467330" />
+
+	<obs obs_id="101" person_id="2" concept_id="5089"
+		encounter_id="100" obs_datetime="2019-01-01 00:00:00.0"
+		location_id="1" value_numeric="100.0" comments="" creator="1"
+		date_created="2009-09-19 12:35:30.0" voided="false"
+		uuid="90c9096c-d79d-48e0-b98c-b109b86a7192" />
+
+	<obs obs_id="102" person_id="2" concept_id="100001"
+		encounter_id="100" obs_datetime="2019-01-01 00:00:00.0"
+		location_id="1" value_numeric="34.0" comments="" creator="1"
+		date_created="2009-09-19 12:35:30.0" voided="false"
+		uuid="20467676-cbff-4d9d-a65b-fe406c8d4941" />
+
+	<obs obs_id="103" person_id="2" concept_id="100002"
+		encounter_id="100" obs_datetime="2019-01-01 00:00:00.0"
+		location_id="1" value_numeric="90.0" comments="" creator="1"
+		date_created="2009-09-19 12:35:30.0" voided="false"
+		uuid="52045690-4d08-4d93-8275-eeceaf8e1097" />
+
+	<obs obs_id="104" person_id="2" concept_id="100003"
+		encounter_id="100" obs_datetime="2019-01-01 00:00:00.0"
+		location_id="1" value_numeric="60.0" comments="" creator="1"
+		date_created="2009-09-19 12:35:30.0" voided="false"
+		uuid="3b266e1b-1e08-4564-9ee1-6dae0e208ecb" />
+
+</dataset>
