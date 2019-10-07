@@ -138,7 +138,9 @@ public class PatientHistoryManagerTest extends BaseReportTest {
 		MatcherAssert.assertThat(dataSet.getMetaData().getColumns(), containsInAnyOrder);
 
 		List<DataSetRow> allDataSetRow = new ArrayList<DataSetRow>();
-		dataSet.forEach(d -> allDataSetRow.add(d));
+		for (DataSetRow dataSetRow : dataSet) {
+			allDataSetRow.add(dataSetRow);
+		}
 
 		DataSetRow HeightDataSetRow = allDataSetRow.get(0);
 		assertEquals("Height (cm)", getStringValue(HeightDataSetRow, PatientHistoryReportManager.OBS_NAME_LABEL));
