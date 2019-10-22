@@ -36,6 +36,8 @@ import javax.xml.transform.stream.StreamResult;
 
 import org.apache.commons.lang.StringUtils;
 import org.openmrs.annotation.Handler;
+import org.openmrs.api.context.Context;
+import org.openmrs.module.mksreports.common.MksReportPrivilegeConstants;
 import org.openmrs.module.mksreports.reports.PatientHistoryReportManager;
 import org.openmrs.module.reporting.common.Localized;
 import org.openmrs.module.reporting.dataset.DataSet;
@@ -92,6 +94,8 @@ public class PatientHistoryXmlReportRenderer extends ReportDesignRenderer {
 	}
 	
 	public void render(ReportData results, String argument, OutputStream out) throws IOException, RenderingException {
+		
+		Context.requirePrivilege(MksReportPrivilegeConstants.VIEW_PATIENT_HISTORY);
 		
 		// - - - - - - - - - - - - - - - - - - - - - - - -
 		// TODO This should go eventually.

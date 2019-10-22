@@ -6,6 +6,7 @@
         "label": "mksreports.patienthistory.linklabel",
         "url": "module/mksreports/patientHistory.form?patientId={{patient.patientId}}&download=true",
         "icon": "icon-print",
-        "order": 14
+        "order": 14,
+        "requiredPrivilege": "Can View Patient History"
     }
 ]
