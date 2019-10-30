@@ -22,8 +22,6 @@ import org.openmrs.module.mksreports.data.converter.VisitLocationFromIdConverter
 import org.openmrs.module.mksreports.data.converter.VisitTypeFromIdConverter;
 import org.openmrs.module.mksreports.data.converter.VisitUUIDFromIdConverter;
 import org.openmrs.module.mksreports.data.obs.definition.ObsDatetimeDataDefinition;
-import org.openmrs.module.mksreports.dataset.definition.PatientHistoryEncounterAndVisitDataSetDefinition;
-import org.openmrs.module.mksreports.dataset.definition.PatientHistoryObsAndEncounterDataSetDefinition;
 import org.openmrs.module.mksreports.library.BasePatientDataLibrary;
 import org.openmrs.module.mksreports.library.EncounterDataLibrary;
 import org.openmrs.module.mksreports.library.ObsDataLibrary;
@@ -37,6 +35,8 @@ import org.openmrs.module.reporting.data.encounter.definition.EncounterTypeDataD
 import org.openmrs.module.reporting.data.obs.definition.ObsIdDataDefinition;
 import org.openmrs.module.reporting.data.patient.definition.PatientDataDefinition;
 import org.openmrs.module.reporting.data.patient.library.BuiltInPatientDataLibrary;
+import org.openmrs.module.reporting.dataset.definition.EncounterDataSetDefinition;
+import org.openmrs.module.reporting.dataset.definition.ObsDataSetDefinition;
 import org.openmrs.module.reporting.dataset.definition.PatientDataSetDefinition;
 import org.openmrs.module.reporting.evaluation.parameter.Mapped;
 import org.openmrs.module.reporting.evaluation.parameter.Parameter;
@@ -144,8 +144,8 @@ public class PatientHistoryReportManager extends MKSReportManager {
 		
 		// Create dataset definitions
 		PatientDataSetDefinition patientDataSetDef = createDemographicsDataSetDefinition(i18nTranslator);
-		PatientHistoryObsAndEncounterDataSetDefinition obsDataSetDef = createObsAndEncounterDataSetDefinition();
-		PatientHistoryEncounterAndVisitDataSetDefinition encountersDatasetSetDef = createEncounterAndVisitDataSetDefinition();
+		ObsDataSetDefinition obsDataSetDef = createObsAndEncounterDataSetDefinition();
+		EncounterDataSetDefinition encountersDatasetSetDef = createEncounterAndVisitDataSetDefinition();
 		
 		// Add datasets to the report
 		reportDef.addDataSetDefinition(DATASET_KEY_DEMOGRAPHICS, patientDataSetDef, mappings);
@@ -155,8 +155,8 @@ public class PatientHistoryReportManager extends MKSReportManager {
 		return reportDef;
 	}
 	
-	private PatientHistoryEncounterAndVisitDataSetDefinition createEncounterAndVisitDataSetDefinition() {
-		PatientHistoryEncounterAndVisitDataSetDefinition encounterAndVistDatasetSetDef = new PatientHistoryEncounterAndVisitDataSetDefinition();
+	private EncounterDataSetDefinition createEncounterAndVisitDataSetDefinition() {
+		EncounterDataSetDefinition encounterAndVistDatasetSetDef = new EncounterDataSetDefinition();
 		encounterAndVistDatasetSetDef.addColumn(VISIT_UUID_LABEL, encounterDataLibrary.getVisitId(), StringUtils.EMPTY,
 		    new VisitUUIDFromIdConverter());
 		encounterAndVistDatasetSetDef.addColumn(VISIT_LOCATION_LABEL, encounterDataLibrary.getVisitId(), StringUtils.EMPTY,
@@ -204,8 +204,8 @@ public class PatientHistoryReportManager extends MKSReportManager {
 	/**
 	 * @return
 	 */
-	private PatientHistoryObsAndEncounterDataSetDefinition createObsAndEncounterDataSetDefinition() {
-		PatientHistoryObsAndEncounterDataSetDefinition obsDataSetDef = new PatientHistoryObsAndEncounterDataSetDefinition();
+	private ObsDataSetDefinition createObsAndEncounterDataSetDefinition() {
+		ObsDataSetDefinition obsDataSetDef = new ObsDataSetDefinition();
 		obsDataSetDef.addColumn(ENCOUNTER_UUID_LABEL, encounterDataLibrary.getUUID(), StringUtils.EMPTY,
 		    new ObjectFormatter());
 		obsDataSetDef.addColumn(OBS_PROVIDER_LABEL, new ObsIdDataDefinition(), StringUtils.EMPTY,
