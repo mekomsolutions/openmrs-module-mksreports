@@ -17,7 +17,6 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -31,7 +30,6 @@ import org.apache.fop.apps.FOUserAgent;
 import org.apache.fop.apps.Fop;
 import org.apache.fop.apps.FopFactory;
 import org.apache.fop.apps.MimeConstants;
-import org.openmrs.api.context.Context;
 import org.openmrs.module.mksreports.reports.PatientHistoryReportManager;
 import org.openmrs.module.patientsummary.PatientSummaryResult;
 import org.openmrs.module.patientsummary.PatientSummaryTemplate;
@@ -39,6 +37,7 @@ import org.openmrs.module.patientsummary.api.PatientSummaryService;
 import org.openmrs.module.reporting.report.ReportDesign;
 import org.openmrs.module.reporting.report.service.ReportService;
 import org.openmrs.util.OpenmrsClassLoader;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -53,7 +52,13 @@ public class MKSReportsManageController {
 	/**
 	 * The path to the style sheet for Patient History reports.
 	 */
-	public static final String PATIENT_HISTORY_XSL_PATH = "patientHistoryFopStylesheet.xsl";
+	private static final String PATIENT_HISTORY_XSL_PATH = "patientHistoryFopStylesheet.xsl";
+	
+	@Autowired
+	private PatientSummaryService patientSummaryService;
+	
+	@Autowired
+	private ReportService reportService;
 	
 	/**
 	 * Receives requests to run a patient summary.
@@ -63,29 +68,22 @@ public class MKSReportsManageController {
 	 */
 	@RequestMapping(value = "/module/mksreports/patientHistory")
 	public void renderPatientHistory(ModelMap model, HttpServletRequest request, HttpServletResponse response,
-	        @RequestParam("patientId") Integer patientId,
-	        @RequestParam(value = "download", required = false) boolean download,
-	        @RequestParam(value = "print", required = false) boolean print) throws IOException {
+	        @RequestParam("patientId") Integer patientId) throws IOException {
 		
 		try {
 			
-			PatientSummaryService patientSummaryService = Context.getService(PatientSummaryService.class);
-			ReportService reportService = Context.getService(ReportService.class);
-			
 			ReportDesign reportDesign = null;
-			for (ReportDesign rd : reportService.getAllReportDesigns(false)) {
+			for (ReportDesign rd : this.reportService.getAllReportDesigns(false)) {
 				if (rd.getName().equals(PatientHistoryReportManager.REPORT_DESIGN_NAME)) {
 					reportDesign = rd;
 				}
 			}
 			
-			PatientSummaryTemplate patientSummaryTemplate = patientSummaryService
+			PatientSummaryTemplate patientSummaryTemplate = this.patientSummaryService
 			        .getPatientSummaryTemplate(reportDesign.getId());
 			
-			HashMap<String, Object> parameters = new HashMap<String, Object>();
-			parameters.put("patientSummaryMode", print ? "print" : "download");
-			PatientSummaryResult patientSummaryResult = patientSummaryService
-			        .evaluatePatientSummaryTemplate(patientSummaryTemplate, patientId, parameters);
+			PatientSummaryResult patientSummaryResult = this.patientSummaryService
+			        .evaluatePatientSummaryTemplate(patientSummaryTemplate, patientId, null);
 			if (patientSummaryResult.getErrorDetails() != null) {
 				patientSummaryResult.getErrorDetails().printStackTrace(response.getWriter());
 			} else {
