@@ -25,7 +25,7 @@
 		<require_module version="${initializerVersion}">
 			org.openmrs.module.initializer
 		</require_module>
-		<require_module version="${initializerVersion}">
+		<require_module version="${patientsummaryVersion}">
 			org.openmrs.module.patientsummary
 		</require_module>
 	</require_modules>
