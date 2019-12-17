@@ -18,22 +18,22 @@ import static org.junit.Assert.assertEquals;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.Ignore;
+import org.junit.Before;
 import org.junit.Test;
 import org.openmrs.Cohort;
+import org.openmrs.Order;
 import org.openmrs.api.PersonService;
 import org.openmrs.module.mksreports.definition.data.PersonNameAndAttributesDataDefinition;
-import org.openmrs.module.mksreports.reports.BaseReportTest;
 import org.openmrs.module.reporting.data.person.EvaluatedPersonData;
 import org.openmrs.module.reporting.data.person.definition.PersonAttributeDataDefinition;
-import org.openmrs.module.reporting.data.person.definition.PersonDataDefinition;
 import org.openmrs.module.reporting.data.person.definition.PreferredNameDataDefinition;
 import org.openmrs.module.reporting.data.person.service.PersonDataService;
 import org.openmrs.module.reporting.evaluation.EvaluationContext;
 import org.openmrs.module.reporting.evaluation.parameter.Mapped;
+import org.openmrs.test.BaseModuleContextSensitiveTest;
 import org.springframework.beans.factory.annotation.Autowired;
 
-public class PersonNameAndAttributesDataEvaluatorTest extends BaseReportTest {
+public class PersonNameAndAttributesDataEvaluatorTest extends BaseModuleContextSensitiveTest {
 	
 	@Autowired
 	private PersonService personService;
@@ -41,12 +41,12 @@ public class PersonNameAndAttributesDataEvaluatorTest extends BaseReportTest {
 	@Autowired
 	private PersonDataService personDataService;
 	
-	/**
-	 * @see PersonNameAndAttributesDataEvaluator#evaluate(PersonDataDefinition,EvaluationContext)
-	 * @verifies returns the patient's name followed by the attributes passed
-	 */
+	@Before
+	public void setUp() throws Exception {
+		executeDataSet("org/openmrs/module/reporting/include/ReportTestDataset-openmrs-2.0.xml");
+	}
+	
 	@Test
-	@Ignore
 	public void evaluate_shouldCalcuateObservations() throws Exception {
 		
 		EvaluationContext context = new EvaluationContext();

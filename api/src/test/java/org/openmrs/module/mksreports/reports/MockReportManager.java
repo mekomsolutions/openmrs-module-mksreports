@@ -9,8 +9,8 @@ import org.openmrs.module.reporting.report.definition.ReportDefinition;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-@Component(TestReportManagerTest.COMPONENT_REPORTMANAGER_TEST)
-public class TestReportManager extends MKSReportManager {
+@Component(TestReportManagerTest.COMPONENT_MOCK_REPORTMANAGER)
+public class MockReportManager extends MKSReportManager {
 	
 	@Autowired
 	private InitializerService iniz;

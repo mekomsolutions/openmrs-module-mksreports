@@ -7,15 +7,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.openmrs.Order;
 import org.openmrs.api.OrderService;
 import org.openmrs.module.mksreports.data.converter.OrderConverter;
-import org.openmrs.module.mksreports.reports.BaseReportTest;
+import org.openmrs.test.BaseModuleContextSensitiveTest;
 import org.springframework.beans.factory.annotation.Autowired;
 
-public class OrderConverterTest extends BaseReportTest {
+public class OrderConverterTest extends BaseModuleContextSensitiveTest {
 	
 	@Autowired
 	private OrderService orderService;
@@ -25,6 +24,8 @@ public class OrderConverterTest extends BaseReportTest {
 	@Before
 	public void setUp() throws Exception {
 		
+		executeDataSet("org/openmrs/module/reporting/include/ReportTestDataset-openmrs-2.0.xml");
+		
 		orders = new ArrayList<Order>();
 		orders.add(orderService.getOrder(1));
 		orders.add(orderService.getOrder(2));
@@ -32,7 +33,6 @@ public class OrderConverterTest extends BaseReportTest {
 	}
 	
 	@Test
-	@Ignore
 	public void convert_shouldReturnFormattedString() {
 		
 		OrderConverter converter = new OrderConverter();

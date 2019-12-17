@@ -28,10 +28,11 @@ import org.openmrs.module.reporting.report.definition.ReportDefinition;
 import org.openmrs.module.reporting.report.definition.service.ReportDefinitionService;
 import org.openmrs.module.reporting.report.manager.ReportManagerUtil;
 import org.openmrs.module.reporting.report.service.ReportService;
+import org.openmrs.test.BaseModuleContextSensitiveTest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
-public class OutpatientConsultationReportManagerTest extends BaseReportTest {
+public class OutpatientConsultationReportManagerTest extends BaseModuleContextSensitiveTest {
 	
 	@Autowired
 	private InitializerService iniz;
@@ -50,15 +51,14 @@ public class OutpatientConsultationReportManagerTest extends BaseReportTest {
 	@Qualifier(MKSReportsConstants.COMPONENT_REPORTMANAGER_OPDCONSULT)
 	private MKSReportManager manager;
 	
-	protected static final String XML_DATASET_PATH = "org/openmrs/module/mksreports/include/";
-	
-	protected static final String XML_REPORT_TEST_DATASET_2 = "outpatientConsultationTestDataset.xml";
-	
 	@Before
 	public void setUp() throws Exception {
+		executeDataSet("org/openmrs/module/reporting/include/ReportTestDataset-openmrs-2.0.xml");
+		executeDataSet("org/openmrs/module/mksreports/include/outpatientConsultationTestDataset.xml");
+		
 		String path = getClass().getClassLoader().getResource("testAppDataDir").getPath() + File.separator;
 		System.setProperty("OPENMRS_APPLICATION_DATA_DIRECTORY", path);
-		executeDataSet(XML_DATASET_PATH + XML_REPORT_TEST_DATASET_2);
+		
 		iniz.loadJsonKeyValues();
 	}
 	

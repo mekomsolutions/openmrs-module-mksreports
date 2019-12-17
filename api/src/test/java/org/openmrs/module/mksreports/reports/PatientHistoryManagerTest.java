@@ -28,10 +28,11 @@ import org.openmrs.module.reporting.report.definition.ReportDefinition;
 import org.openmrs.module.reporting.report.definition.service.ReportDefinitionService;
 import org.openmrs.module.reporting.report.manager.ReportManagerUtil;
 import org.openmrs.module.reporting.report.service.ReportService;
+import org.openmrs.test.BaseModuleContextSensitiveTest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
-public class PatientHistoryManagerTest extends BaseReportTest {
+public class PatientHistoryManagerTest extends BaseModuleContextSensitiveTest {
 	
 	@Autowired
 	private ReportService reportService;
@@ -43,13 +44,10 @@ public class PatientHistoryManagerTest extends BaseReportTest {
 	@Qualifier(MKSReportsConstants.COMPONENT_REPORTMANAGER_PATIENTHISTORY)
 	private MKSReportManager reportManager;
 	
-	private static final String XML_DATASET_PATH = "org/openmrs/module/mksreports/include/";
-	
-	private static final String XML_REPORT_TEST_DATASET = "patientHistoryManagerTestDataset.xml";
-	
 	@Before
 	public void setUp() throws Exception {
-		executeDataSet(XML_DATASET_PATH + XML_REPORT_TEST_DATASET);
+		executeDataSet("org/openmrs/module/reporting/include/ReportTestDataset-openmrs-2.0.xml");
+		executeDataSet("org/openmrs/module/mksreports/include/patientHistoryManagerTestDataset.xml");
 	}
 	
 	@Test

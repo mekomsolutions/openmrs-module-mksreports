@@ -11,7 +11,6 @@ import org.junit.Test;
 import org.openmrs.PersonAttributeType;
 import org.openmrs.api.ConceptService;
 import org.openmrs.api.context.Context;
-import org.openmrs.contrib.testdata.TestDataManager;
 import org.openmrs.module.initializer.api.InitializerService;
 import org.openmrs.module.mksreports.MKSReportManager;
 import org.openmrs.module.mksreports.MKSReportsConstants;
@@ -23,11 +22,12 @@ import org.openmrs.module.reporting.report.definition.ReportDefinition;
 import org.openmrs.module.reporting.report.definition.service.ReportDefinitionService;
 import org.openmrs.module.reporting.report.manager.ReportManagerUtil;
 import org.openmrs.module.reporting.report.service.ReportService;
+import org.openmrs.test.BaseModuleContextSensitiveTest;
 import org.openmrs.util.OpenmrsConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
-public class OutpatientRecordBookManagerTest extends BaseReportTest {
+public class OutpatientRecordBookManagerTest extends BaseModuleContextSensitiveTest {
 	
 	@Autowired
 	private InitializerService iniz;
@@ -48,6 +48,8 @@ public class OutpatientRecordBookManagerTest extends BaseReportTest {
 	
 	@Before
 	public void setUp() throws Exception {
+		executeDataSet("org/openmrs/module/reporting/include/ReportTestDataset-openmrs-2.0.xml");
+		
 		String path = getClass().getClassLoader().getResource("testAppDataDir").getPath() + File.separator;
 		System.setProperty("OPENMRS_APPLICATION_DATA_DIRECTORY", path);
 		
@@ -57,10 +59,8 @@ public class OutpatientRecordBookManagerTest extends BaseReportTest {
 		Context.getPersonService().savePersonAttributeType(pat);
 		
 		iniz.loadJsonKeyValues();
-		
 	}
 	
-	@Ignore
 	@Test
 	public void setupReport_shouldSetupOPDRecBook() {
 		

@@ -21,25 +21,18 @@ import org.junit.Test;
 import org.openmrs.Cohort;
 import org.openmrs.api.ConceptService;
 import org.openmrs.module.mksreports.definition.data.ObsOnAgeDataDefinition;
-import org.openmrs.module.mksreports.reports.BaseReportTest;
 import org.openmrs.module.reporting.common.DateUtil;
 import org.openmrs.module.reporting.common.TimeQualifier;
 import org.openmrs.module.reporting.data.person.definition.AgeDataDefinition;
 import org.openmrs.module.reporting.data.visit.EvaluatedVisitData;
 import org.openmrs.module.reporting.data.visit.definition.ObsForVisitDataDefinition;
-import org.openmrs.module.reporting.data.visit.definition.VisitDataDefinition;
-import org.openmrs.module.reporting.data.visit.evaluator.ObsForVisitDataEvaluator;
 import org.openmrs.module.reporting.data.visit.service.VisitDataService;
 import org.openmrs.module.reporting.evaluation.EvaluationContext;
 import org.openmrs.module.reporting.evaluation.parameter.Mapped;
-import org.openmrs.test.BaseContextSensitiveTest;
+import org.openmrs.test.BaseModuleContextSensitiveTest;
 import org.springframework.beans.factory.annotation.Autowired;
 
-public class ObsOnAgeDataEvaluatorTest extends BaseReportTest {
-	
-	protected static final String XML_DATASET_PATH = "org/openmrs/module/mksreports/include/";
-	
-	protected static final String XML_REPORT_TEST_DATASET = "obsOnAgeTestDataset.xml";
+public class ObsOnAgeDataEvaluatorTest extends BaseModuleContextSensitiveTest {
 	
 	@Autowired
 	private VisitDataService visitDataService;
@@ -47,21 +40,11 @@ public class ObsOnAgeDataEvaluatorTest extends BaseReportTest {
 	@Autowired
 	private ConceptService conceptService;
 	
-	/**
-	 * Run this before each unit test in this class. The "@Before" method in
-	 * {@link BaseContextSensitiveTest} is run right before this method.
-	 * 
-	 * @throws Exception
-	 */
 	@Before
 	public void setup() throws Exception {
-		executeDataSet(XML_DATASET_PATH + XML_REPORT_TEST_DATASET);
+		executeDataSet("org/openmrs/module/mksreports/include/obsOnAgeTestDataset.xml");
 	}
 	
-	/**
-	 * @see ObsForVisitDataEvaluator#evaluate(VisitDataDefinition,EvaluationContext)
-	 * @verifies return the obs that match the passed definition configuration
-	 */
 	@Test
 	public void evaluate_shouldReturnAllObsForVisit() throws Exception {
 		
