@@ -25,6 +25,6 @@
 
     <context:component-scan base-package="org.openmrs.module.mksreports" />
 
-    <bean id="initializer.InitializerService" class="org.openmrs.module.initializer.api.impl.InitializerServiceImpl"/>
+    <bean id="initializer.InitializerService" class="org.openmrs.module.initializer.api.InitializerServiceImpl"/>
 
 </beans>

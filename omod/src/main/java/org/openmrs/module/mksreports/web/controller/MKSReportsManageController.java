@@ -17,6 +17,7 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -26,15 +27,25 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.sax.SAXResult;
 import javax.xml.transform.stream.StreamSource;
 
+import org.apache.commons.io.IOUtils;
 import org.apache.fop.apps.FOUserAgent;
 import org.apache.fop.apps.Fop;
 import org.apache.fop.apps.FopFactory;
 import org.apache.fop.apps.MimeConstants;
+import org.openmrs.Cohort;
+import org.openmrs.Encounter;
+import org.openmrs.api.context.Context;
 import org.openmrs.module.mksreports.reports.PatientHistoryReportManager;
 import org.openmrs.module.patientsummary.PatientSummaryResult;
 import org.openmrs.module.patientsummary.PatientSummaryTemplate;
 import org.openmrs.module.patientsummary.api.PatientSummaryService;
+import org.openmrs.module.reporting.evaluation.EvaluationContext;
+import org.openmrs.module.reporting.evaluation.context.EncounterEvaluationContext;
+import org.openmrs.module.reporting.query.encounter.EncounterIdSet;
+import org.openmrs.module.reporting.report.ReportData;
 import org.openmrs.module.reporting.report.ReportDesign;
+import org.openmrs.module.reporting.report.definition.service.ReportDefinitionService;
+import org.openmrs.module.reporting.report.renderer.ReportRenderer;
 import org.openmrs.module.reporting.report.service.ReportService;
 import org.openmrs.util.OpenmrsClassLoader;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,10 +76,12 @@ public class MKSReportsManageController {
 	 * 
 	 * @param patientId the id of patient whose summary you wish to view
 	 * @param summaryId the id of the patientsummary you wish to view
+	 * @param encounterUuid (optional) the uuid of the encounter you wish to include
 	 */
 	@RequestMapping(value = "/module/mksreports/patientHistory")
 	public void renderPatientHistory(ModelMap model, HttpServletRequest request, HttpServletResponse response,
-	        @RequestParam("patientId") Integer patientId) throws IOException {
+	        @RequestParam("patientId") Integer patientId,
+	        @RequestParam(value = "encounterUuid", required = false) String encounterUuid) throws IOException {
 		
 		try {
 			
@@ -82,8 +95,17 @@ public class MKSReportsManageController {
 			PatientSummaryTemplate patientSummaryTemplate = this.patientSummaryService
 			        .getPatientSummaryTemplate(reportDesign.getId());
 			
-			PatientSummaryResult patientSummaryResult = this.patientSummaryService
-			        .evaluatePatientSummaryTemplate(patientSummaryTemplate, patientId, null);
+			PatientSummaryResult patientSummaryResult = null;
+			
+			if (!"".equals(encounterUuid) && encounterUuid != null) {
+				Encounter encounter = Context.getEncounterService().getEncounterByUuid(encounterUuid);
+				patientSummaryResult = evaluatePatientSummaryTemplateWithEncounterFilter(patientSummaryTemplate, patientId,
+				    encounter.getEncounterId(), null);
+			} else {
+				patientSummaryResult = this.patientSummaryService.evaluatePatientSummaryTemplate(patientSummaryTemplate,
+				    patientId, null);
+			}
+			
 			if (patientSummaryResult.getErrorDetails() != null) {
 				patientSummaryResult.getErrorDetails().printStackTrace(response.getWriter());
 			} else {
@@ -106,6 +128,52 @@ public class MKSReportsManageController {
 		catch (Exception e) {
 			e.printStackTrace(response.getWriter());
 		}
+	}
+	
+	public PatientSummaryResult evaluatePatientSummaryTemplateWithEncounterFilter(
+	        PatientSummaryTemplate patientSummaryTemplate, Integer patientId, Integer encounterId,
+	        Map<String, Object> parameters) {
+		PatientSummaryResult result = new PatientSummaryResult(patientSummaryTemplate, patientId, parameters);
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		try {
+			// Populate a new EncounterEvaluationContext with the patient, encounter and
+			// parameters passed in
+			EncounterEvaluationContext context = new EncounterEvaluationContext();
+			Cohort baseCohort = new Cohort();
+			baseCohort.addMember(patientId);
+			context.setBaseCohort(baseCohort);
+			context.setBaseEncounters(new EncounterIdSet(encounterId));
+			if (parameters != null) {
+				for (Map.Entry<String, Object> paramEntry : parameters.entrySet()) {
+					context.addParameterValue(paramEntry.getKey(), paramEntry.getValue());
+				}
+			}
+			
+			// Evaluate the PatientSummary with this Context to produce data, then
+			// use that data to populate the summary
+			ReportDefinitionService rds = Context.getService(ReportDefinitionService.class);
+			ReportData data = rds.evaluate(patientSummaryTemplate.getReportDesign().getReportDefinition(), context);
+			
+			// Render the template with this data to produce the raw data result
+			Class<? extends ReportRenderer> rendererType = patientSummaryTemplate.getReportDesign().getRendererType();
+			ReportRenderer renderer = rendererType.newInstance();
+			String rendererArg = patientSummaryTemplate.getReportDesign().getUuid();
+			renderer.render(data, rendererArg, baos);
+			
+			// Return a PatientSummaryResult which contains the raw output and contextual
+			// data
+			result.setContentType(patientSummaryTemplate.getContentType());
+			result.setRawContents(baos.toByteArray());
+		}
+		catch (Throwable t) {
+			// log.error("An error occurred trying to evaluate a patient summary template",
+			// t);
+			result.setErrorDetails(t);
+		}
+		finally {
+			IOUtils.closeQuietly(baos);
+		}
+		return result;
 	}
 	
 	/**
