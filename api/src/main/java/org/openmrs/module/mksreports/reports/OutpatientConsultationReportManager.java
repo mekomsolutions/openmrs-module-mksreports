@@ -36,7 +36,7 @@ public class OutpatientConsultationReportManager extends MKSReportManager {
 	
 	@Override
 	public boolean isActive() {
-		return inizService.getBooleanFromKey("report.opdconsult.active", true);
+		return inizService.getBooleanFromKey("report.opdconsult.active", false);
 	}
 	
 	@Override

@@ -77,7 +77,7 @@ public class OutpatientRecordBookManager extends MKSReportManager {
 	
 	@Override
 	public boolean isActive() {
-		return inizService.getBooleanFromKey("report.opdrecbook.active", true);
+		return inizService.getBooleanFromKey("report.opdrecbook.active", false);
 	}
 	
 	@Override
