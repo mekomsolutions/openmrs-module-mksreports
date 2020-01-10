@@ -222,40 +222,40 @@ public class PatientHistoryXmlReportRenderer extends ReportDesignRenderer {
 				Element encounter = doc.getElementById(encounterUuid);
 				if (encounter == null) {
 					// TODO: At least log this.
+				} else {
+					List<DataSetColumn> columns = dataSet.getMetaData().getColumns();
+					for (DataSetColumn column : columns) {
+						String colName = column.getName();
+						Object value = row.getColumnValue(column);
+						String strValue = getStringValue(value);
+						if (StringUtils.equals(colName, PatientHistoryReportManager.ENCOUNTER_UUID_LABEL)) {
+							continue;
+						}
+						if (StringUtils.equals(column.getName(), PatientHistoryReportManager.OBS_NAME_LABEL)) {
+							obs.setAttribute(ATTR_LABEL, strValue);
+							continue;
+						}
+						if (StringUtils.equals(column.getName(), PatientHistoryReportManager.OBS_DATATYPE_LABEL)) {
+							obs.setAttribute(ATTR_TYPE, strValue);
+							continue;
+						}
+						if (StringUtils.equals(column.getName(), PatientHistoryReportManager.OBS_DATETIME_LABEL)) {
+							String obsDateTime = (new SimpleDateFormat(TIME_FORMAT)).format(value);
+							obs.setAttribute(ATTR_TIME, obsDateTime);
+							continue;
+						}
+						if (StringUtils.equals(column.getName(), PatientHistoryReportManager.OBS_PROVIDER_LABEL)) {
+							obs.setAttribute(ATTR_PROV, strValue);
+							continue;
+						}
+						if (StringUtils.equals(column.getName(), PatientHistoryReportManager.OBS_VALUE_LABEL)) {
+							obs.appendChild(doc.createTextNode(strValue));
+							continue;
+						}
+					}
+					
+					encounter.appendChild(obs);
 				}
-				
-				List<DataSetColumn> columns = dataSet.getMetaData().getColumns();
-				for (DataSetColumn column : columns) {
-					String colName = column.getName();
-					Object value = row.getColumnValue(column);
-					String strValue = getStringValue(value);
-					if (StringUtils.equals(colName, PatientHistoryReportManager.ENCOUNTER_UUID_LABEL)) {
-						continue;
-					}
-					if (StringUtils.equals(column.getName(), PatientHistoryReportManager.OBS_NAME_LABEL)) {
-						obs.setAttribute(ATTR_LABEL, strValue);
-						continue;
-					}
-					if (StringUtils.equals(column.getName(), PatientHistoryReportManager.OBS_DATATYPE_LABEL)) {
-						obs.setAttribute(ATTR_TYPE, strValue);
-						continue;
-					}
-					if (StringUtils.equals(column.getName(), PatientHistoryReportManager.OBS_DATETIME_LABEL)) {
-						String obsDateTime = (new SimpleDateFormat(TIME_FORMAT)).format(value);
-						obs.setAttribute(ATTR_TIME, obsDateTime);
-						continue;
-					}
-					if (StringUtils.equals(column.getName(), PatientHistoryReportManager.OBS_PROVIDER_LABEL)) {
-						obs.setAttribute(ATTR_PROV, strValue);
-						continue;
-					}
-					if (StringUtils.equals(column.getName(), PatientHistoryReportManager.OBS_VALUE_LABEL)) {
-						obs.appendChild(doc.createTextNode(strValue));
-						continue;
-					}
-				}
-				
-				encounter.appendChild(obs);
 			}
 		}
 		

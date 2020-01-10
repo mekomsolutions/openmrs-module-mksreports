@@ -20,6 +20,8 @@ import java.io.OutputStream;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.HashMap;
+import java.util.Map;
 import javax.xml.transform.Result;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
@@ -30,6 +32,8 @@ import org.apache.fop.apps.FOUserAgent;
 import org.apache.fop.apps.Fop;
 import org.apache.fop.apps.FopFactory;
 import org.apache.fop.apps.MimeConstants;
+import org.openmrs.Encounter;
+import org.openmrs.api.context.Context;
 import org.openmrs.module.mksreports.reports.PatientHistoryReportManager;
 import org.openmrs.module.patientsummary.PatientSummaryResult;
 import org.openmrs.module.patientsummary.PatientSummaryTemplate;
@@ -68,7 +72,8 @@ public class MKSReportsManageController {
 	 */
 	@RequestMapping(value = "/module/mksreports/patientHistory")
 	public void renderPatientHistory(ModelMap model, HttpServletRequest request, HttpServletResponse response,
-	        @RequestParam("patientId") Integer patientId) throws IOException {
+	        @RequestParam("patientId") Integer patientId,
+	        @RequestParam(value = "encounterUuid", required = false) String encounterUuid) throws IOException {
 		
 		try {
 			
@@ -82,8 +87,17 @@ public class MKSReportsManageController {
 			PatientSummaryTemplate patientSummaryTemplate = this.patientSummaryService
 			        .getPatientSummaryTemplate(reportDesign.getId());
 			
+			Map<String, Object> params = null;
+			
+			if (!"".equals(encounterUuid) && encounterUuid != null) {
+				params = new HashMap<String, Object>();
+				Encounter encounter = Context.getEncounterService().getEncounterByUuid(encounterUuid);
+				params.put("encounterIds", encounter.getEncounterId());
+			}
+			
 			PatientSummaryResult patientSummaryResult = this.patientSummaryService
-			        .evaluatePatientSummaryTemplate(patientSummaryTemplate, patientId, null);
+			        .evaluatePatientSummaryTemplate(patientSummaryTemplate, patientId, params);
+			
 			if (patientSummaryResult.getErrorDetails() != null) {
 				patientSummaryResult.getErrorDetails().printStackTrace(response.getWriter());
 			} else {
