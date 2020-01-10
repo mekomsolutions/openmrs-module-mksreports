@@ -16,7 +16,9 @@ import org.junit.Before;
 import org.junit.Test;
 import org.openmrs.Cohort;
 import org.openmrs.api.ConceptService;
+import org.openmrs.module.initializer.Domain;
 import org.openmrs.module.initializer.api.InitializerService;
+import org.openmrs.module.initializer.api.loaders.Loader;
 import org.openmrs.module.mksreports.MKSReportManager;
 import org.openmrs.module.mksreports.MKSReportsConstants;
 import org.openmrs.module.reporting.common.DateUtil;
@@ -59,7 +61,11 @@ public class OutpatientConsultationReportManagerTest extends BaseModuleContextSe
 		String path = getClass().getClassLoader().getResource("testAppDataDir").getPath() + File.separator;
 		System.setProperty("OPENMRS_APPLICATION_DATA_DIRECTORY", path);
 		
-		iniz.loadJsonKeyValues();
+		for (Loader loader : iniz.getLoaders()) {
+			if (loader.getDomainName().equals(Domain.JSON_KEY_VALUES.getName())) {
+				loader.load();
+			}
+		}
 	}
 	
 	@Test
