@@ -38,6 +38,7 @@ import org.openmrs.module.mksreports.reports.PatientHistoryReportManager;
 import org.openmrs.module.patientsummary.PatientSummaryResult;
 import org.openmrs.module.patientsummary.PatientSummaryTemplate;
 import org.openmrs.module.patientsummary.api.PatientSummaryService;
+import org.openmrs.module.reporting.query.encounter.EncounterIdSet;
 import org.openmrs.module.reporting.report.ReportDesign;
 import org.openmrs.module.reporting.report.service.ReportService;
 import org.openmrs.util.OpenmrsClassLoader;
@@ -97,7 +98,7 @@ public class MKSReportsManageController {
 		if (!"".equals(encounterUuid) && encounterUuid != null) {
 			params = new HashMap<String, Object>();
 			Encounter encounter = Context.getEncounterService().getEncounterByUuid(encounterUuid);
-			params.put("encounterIds", encounter.getEncounterId());
+			params.put("encounterIds", new EncounterIdSet(encounter.getEncounterId()));
 		}
 		
 		PatientSummaryResult patientSummaryResult = this.patientSummaryService
