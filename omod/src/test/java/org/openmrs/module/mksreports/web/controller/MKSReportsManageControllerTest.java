@@ -1,5 +1,6 @@
 package org.openmrs.module.mksreports.web.controller;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
@@ -103,8 +104,8 @@ public class MKSReportsManageControllerTest extends BaseModuleWebContextSensitiv
 		
 		String inputXml = ctrl.getPatientSummaryResultText();
 		
-		// assertFalse(inputXml.contains("e403fafb-e5e4-42d0-9d11-4f52e89d148c"));
-		// assertFalse(inputXml.contains("eec646cb-c847-45a7-98bc-91c8c4f70add"));
+		assertFalse(inputXml.contains("e403fafb-e5e4-42d0-9d11-4f52e89d148c"));
+		assertFalse(inputXml.contains("eec646cb-c847-45a7-98bc-91c8c4f70add"));
 		assertTrue(inputXml.contains("6519d653-393b-4118-9c83-a3715b82d4ac"));
 		
 		// verify // insure unknown patients with minimal info do not cause any NPEs
