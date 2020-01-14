@@ -17,11 +17,11 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.HashMap;
-import java.util.Map;
 import javax.xml.transform.Result;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
@@ -64,62 +64,83 @@ public class MKSReportsManageController {
 	@Autowired
 	private ReportService reportService;
 	
+	private String patientSummaryResultText;
+	
+	public String getPatientSummaryResultText() {
+		return patientSummaryResultText;
+	}
+	
 	/**
 	 * Receives requests to run a patient summary.
 	 * 
 	 * @param patientId the id of patient whose summary you wish to view
 	 * @param summaryId the id of the patientsummary you wish to view
+	 * @throws Exception
 	 */
 	@RequestMapping(value = "/module/mksreports/patientHistory")
 	public void renderPatientHistory(ModelMap model, HttpServletRequest request, HttpServletResponse response,
 	        @RequestParam("patientId") Integer patientId,
-	        @RequestParam(value = "encounterUuid", required = false) String encounterUuid) throws IOException {
+	        @RequestParam(value = "encounterUuid", required = false) String encounterUuid) {
 		
-		try {
-			
-			ReportDesign reportDesign = null;
-			for (ReportDesign rd : this.reportService.getAllReportDesigns(false)) {
-				if (rd.getName().equals(PatientHistoryReportManager.REPORT_DESIGN_NAME)) {
-					reportDesign = rd;
-				}
+		ReportDesign reportDesign = null;
+		for (ReportDesign rd : this.reportService.getAllReportDesigns(false)) {
+			if (rd.getName().equals(PatientHistoryReportManager.REPORT_DESIGN_NAME)) {
+				reportDesign = rd;
 			}
-			
-			PatientSummaryTemplate patientSummaryTemplate = this.patientSummaryService
-			        .getPatientSummaryTemplate(reportDesign.getId());
-			
-			Map<String, Object> params = null;
-			
-			if (!"".equals(encounterUuid) && encounterUuid != null) {
-				params = new HashMap<String, Object>();
-				Encounter encounter = Context.getEncounterService().getEncounterByUuid(encounterUuid);
-				params.put("encounterIds", encounter.getEncounterId());
-			}
-			
-			PatientSummaryResult patientSummaryResult = this.patientSummaryService
-			        .evaluatePatientSummaryTemplate(patientSummaryTemplate, patientId, params);
-			
-			if (patientSummaryResult.getErrorDetails() != null) {
+		}
+		
+		PatientSummaryTemplate patientSummaryTemplate = this.patientSummaryService
+		        .getPatientSummaryTemplate(reportDesign.getId());
+		
+		Map<String, Object> params = null;
+		
+		if (!"".equals(encounterUuid) && encounterUuid != null) {
+			params = new HashMap<String, Object>();
+			Encounter encounter = Context.getEncounterService().getEncounterByUuid(encounterUuid);
+			params.put("encounterIds", encounter.getEncounterId());
+		}
+		
+		PatientSummaryResult patientSummaryResult = this.patientSummaryService
+		        .evaluatePatientSummaryTemplate(patientSummaryTemplate, patientId, params);
+		
+		if (patientSummaryResult.getErrorDetails() != null) {
+			try {
 				patientSummaryResult.getErrorDetails().printStackTrace(response.getWriter());
-			} else {
-				StreamSource xmlSourceStream = new StreamSource(
-				        new ByteArrayInputStream(patientSummaryResult.getRawContents()));
-				StreamSource xslTransformStream = new StreamSource(
-				        OpenmrsClassLoader.getInstance().getResourceAsStream(PATIENT_HISTORY_XSL_PATH));
-				ByteArrayOutputStream outStream = new ByteArrayOutputStream();
-				
+			}
+			catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		} else {
+			patientSummaryResultText = new String(patientSummaryResult.getRawContents());
+			StreamSource xmlSourceStream = new StreamSource(new ByteArrayInputStream(patientSummaryResult.getRawContents()));
+			StreamSource xslTransformStream = new StreamSource(
+			        OpenmrsClassLoader.getInstance().getResourceAsStream(PATIENT_HISTORY_XSL_PATH));
+			ByteArrayOutputStream outStream = new ByteArrayOutputStream();
+			
+			try {
 				writeToOutputStream(xmlSourceStream, xslTransformStream, outStream);
-				
-				byte[] pdfBytes = outStream.toByteArray();
-				response.setContentLength(pdfBytes.length);
-				response.setContentType("application/pdf");
-				response.addHeader("Content-Disposition", "attachment;filename=patientHistory.pdf");
+			}
+			catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			byte[] pdfBytes = outStream.toByteArray();
+			response.setContentLength(pdfBytes.length);
+			response.setContentType("application/pdf");
+			response.addHeader("Content-Disposition", "attachment;filename=patientHistory.pdf");
+			try {
 				response.getOutputStream().write(pdfBytes);
+				
 				response.getOutputStream().flush();
 			}
+			catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
-		catch (Exception e) {
-			e.printStackTrace(response.getWriter());
-		}
+		
 	}
 	
 	/**

@@ -18,7 +18,6 @@
 		<dependency>
 			<groupId>org.openmrs.api</groupId>
 			<artifactId>openmrs-api</artifactId>
-			<version>${openMRSVersion}</version>
 			<scope>provided</scope>
 			<type>jar</type>
 			<exclusions>
@@ -31,8 +30,8 @@
 		<dependency>
 			<groupId>org.openmrs.api</groupId>
 			<artifactId>openmrs-api</artifactId>
-			<version>${openMRSVersion}</version>
 			<type>test-jar</type>
+			<version>${openmrsPlatformVersion}</version>
 			<scope>test</scope>
 			<exclusions>
 				<exclusion>
@@ -44,7 +43,6 @@
 		<dependency>
 			<groupId>org.openmrs.test</groupId>
 			<artifactId>openmrs-test</artifactId>
-			<version>${openMRSVersion}</version>
 			<type>pom</type>
 			<scope>test</scope>
 			<exclusions>
@@ -57,7 +55,6 @@
 		<dependency>
 			<groupId>org.openmrs.web</groupId>
 			<artifactId>openmrs-web</artifactId>
-			<version>${openMRSVersion}</version>
 			<scope>provided</scope>
 			<type>jar</type>
 		</dependency>
