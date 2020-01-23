@@ -37,6 +37,7 @@ import javax.xml.transform.stream.StreamResult;
 import org.apache.commons.lang.StringUtils;
 import org.openmrs.annotation.Handler;
 import org.openmrs.api.context.Context;
+import org.openmrs.messagesource.MessageSourceService;
 import org.openmrs.module.mksreports.common.MksReportPrivilegeConstants;
 import org.openmrs.module.mksreports.reports.PatientHistoryReportManager;
 import org.openmrs.module.reporting.common.Localized;
@@ -62,6 +63,22 @@ import com.thoughtworks.xstream.XStream;
 @Localized("reporting.XmlReportRenderer")
 public class PatientHistoryXmlReportRenderer extends ReportDesignRenderer {
 	
+	//@Autowired, immediate, static, and ctor based initialization 
+	//of this reference all fail or cause the server to freeze
+	//when this module is loaded
+	
+	//using "class local singleton"/Flyweight reference
+	private MessageSourceService mss;
+	
+	private MessageSourceService getMss() {
+		
+		if (mss == null) {
+			mss = Context.getMessageSourceService();
+		}
+		
+		return mss;
+	}
+	
 	/**
 	 * @see ReportRenderer#getFilename(org.openmrs.module.reporting.report.ReportRequest)
 	 */
@@ -73,6 +90,7 @@ public class PatientHistoryXmlReportRenderer extends ReportDesignRenderer {
 	/**
 	 * @see ReportRenderer#getRenderedContentType(org.openmrs.module.reporting.report.ReportRequest)
 	 */
+	@Override
 	public String getRenderedContentType(ReportRequest request) {
 		return "text/xml";
 	}
@@ -80,7 +98,7 @@ public class PatientHistoryXmlReportRenderer extends ReportDesignRenderer {
 	protected String getStringValue(Object value) {
 		String strVal = "";
 		if (value != null)
-			return strVal = value.toString();
+			return strVal = getMss().getMessage(value.toString());
 		return strVal;
 	}
 	
@@ -93,6 +111,7 @@ public class PatientHistoryXmlReportRenderer extends ReportDesignRenderer {
 		return getStringValue(row, column.getName());
 	}
 	
+	@Override
 	public void render(ReportData results, String argument, OutputStream out) throws IOException, RenderingException {
 		
 		Context.requirePrivilege(MksReportPrivilegeConstants.VIEW_PATIENT_HISTORY);

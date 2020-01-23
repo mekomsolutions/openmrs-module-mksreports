@@ -3,9 +3,21 @@ package org.openmrs.module.mksreports.reports;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
+import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.xpath.XPath;
+import javax.xml.xpath.XPathConstants;
+import javax.xml.xpath.XPathFactory;
 
 import org.apache.commons.lang3.StringUtils;
 import org.hamcrest.Matcher;
@@ -16,12 +28,18 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.openmrs.Cohort;
+import org.openmrs.Encounter;
+import org.openmrs.api.context.Context;
 import org.openmrs.module.mksreports.MKSReportManager;
 import org.openmrs.module.mksreports.MKSReportsConstants;
 import org.openmrs.module.mksreports.renderer.PatientHistoryXmlReportRenderer;
+import org.openmrs.module.patientsummary.PatientSummaryResult;
+import org.openmrs.module.patientsummary.PatientSummaryTemplate;
+import org.openmrs.module.patientsummary.api.PatientSummaryService;
 import org.openmrs.module.reporting.dataset.DataSet;
 import org.openmrs.module.reporting.dataset.DataSetRow;
 import org.openmrs.module.reporting.evaluation.EvaluationContext;
+import org.openmrs.module.reporting.query.encounter.EncounterIdSet;
 import org.openmrs.module.reporting.report.ReportData;
 import org.openmrs.module.reporting.report.ReportDesign;
 import org.openmrs.module.reporting.report.definition.ReportDefinition;
@@ -31,6 +49,11 @@ import org.openmrs.module.reporting.report.service.ReportService;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NamedNodeMap;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 public class PatientHistoryManagerTest extends BaseModuleContextSensitiveTest {
 	
@@ -39,6 +62,9 @@ public class PatientHistoryManagerTest extends BaseModuleContextSensitiveTest {
 	
 	@Autowired
 	private ReportDefinitionService reportDefinitionService;
+	
+	@Autowired
+	private PatientSummaryService patientSummaryService;
 	
 	@Autowired
 	@Qualifier(MKSReportsConstants.COMPONENT_REPORTMANAGER_PATIENTHISTORY)
@@ -50,9 +76,7 @@ public class PatientHistoryManagerTest extends BaseModuleContextSensitiveTest {
 		executeDataSet("org/openmrs/module/mksreports/include/patientHistoryManagerTestDataset.xml");
 	}
 	
-	@Test
-	public void setupReport_shouldSetupPatientHistory() throws Exception {
-		
+	private ReportDesign setupAndReturnReportDesign() {
 		ReportManagerUtil.setupReport(this.reportManager);
 		
 		List<ReportDefinition> reportDefinitions = this.reportDefinitionService
@@ -72,7 +96,13 @@ public class PatientHistoryManagerTest extends BaseModuleContextSensitiveTest {
 		    PatientHistoryXmlReportRenderer.class, false);
 		Assert.assertNotNull(reportDesigns);
 		MatcherAssert.assertThat(reportDesigns, IsCollectionWithSize.hasSize(1));
-		ReportDesign reportDesign = reportDesigns.get(0);
+		
+		return reportDesigns.get(0);
+	}
+	
+	@Test
+	public void setupReport_shouldSetupPatientHistory() throws Exception {
+		ReportDesign reportDesign = setupAndReturnReportDesign();
 		Assert.assertEquals(PatientHistoryReportManager.REPORT_DESIGN_NAME, reportDesign.getName());
 	}
 	
@@ -179,6 +209,104 @@ public class PatientHistoryManagerTest extends BaseModuleContextSensitiveTest {
 		assertEquals("2019-01-01 00:00:00.0",
 		    getStringValue(pulseDataSetRow, PatientHistoryReportManager.OBS_DATETIME_LABEL));
 		assertEquals("Numeric", getStringValue(pulseDataSetRow, PatientHistoryReportManager.OBS_DATATYPE_LABEL));
+	}
+	
+	@Test
+	public void evaluate_shouldReturnOnlySpecificEncounter() throws Throwable {
+		
+		ReportDesign reportDesign = setupAndReturnReportDesign();
+		
+		PatientSummaryTemplate patientSummaryTemplate = this.patientSummaryService
+		        .getPatientSummaryTemplate(reportDesign.getId());
+		
+		Map<String, Object> params = null;
+		
+		String encounterUuid = "6519d653-393b-4118-9c83-a3715b82d4ac";
+		
+		if (!"".equals(encounterUuid) && encounterUuid != null) {
+			params = new HashMap<String, Object>();
+			Encounter encounter = Context.getEncounterService().getEncounterByUuid(encounterUuid);
+			params.put("encounterIds", new EncounterIdSet(encounter.getEncounterId()));
+		}
+		
+		// patient 7 has 3 encounters
+		Integer patientId = 7;
+		
+		PatientSummaryResult patientSummaryResult = this.patientSummaryService
+		        .evaluatePatientSummaryTemplate(patientSummaryTemplate, patientId, params);
+		
+		if (patientSummaryResult.getErrorDetails() != null) {
+			throw patientSummaryResult.getErrorDetails();
+		} else {
+			
+			String xmlText = new String(patientSummaryResult.getRawContents());
+			ByteArrayInputStream patientSummaryResultStream = new ByteArrayInputStream(
+			        patientSummaryResult.getRawContents());
+			
+			Document xmlDoc = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(patientSummaryResultStream);
+			
+			assertNotNull(xmlText);
+			
+			assertNotNull(patientSummaryResultStream);
+			
+			XPath encounterXmlPath = XPathFactory.newInstance().newXPath();
+			
+			String baseXmlPath = "/patientHistory";
+			
+			String expectedEncounterPath = baseXmlPath + "//encounter[@uuid=\"" + encounterUuid + "\"]";
+			
+			NodeList expectedResult = (NodeList) encounterXmlPath.evaluate(expectedEncounterPath, xmlDoc,
+			    XPathConstants.NODESET);
+			
+			assertEquals("Only one encounter node with encounter uuid=" + encounterUuid + " should be returned", 1,
+			    expectedResult.getLength());
+			
+			Element encounter = (Element) expectedResult.item(0);
+			
+			assertEquals("Encounter label should match", "Emergency", encounter.getAttribute("label"));
+			
+			NodeList children = encounter.getChildNodes();
+			
+			int numChildren = children.getLength();
+			
+			List<Node> obs = new ArrayList<Node>();
+			
+			for (int i = 0; i < numChildren; i++) {
+				Node child = children.item(i);
+				if (child.getNodeName().equals("obs")) {
+					obs.add(child);
+				}
+			}
+			
+			// besides the two original obs in the standardDataSet.xml
+			// api/src/test/resources/org/openmrs/module/mksreports/include/outpatientConsultationTestDataset.xml
+			// also adds a third obs
+			assertEquals(3, obs.size());
+			
+			String[] obsLabels = { "CD4 COUNT", "WEIGHT (KG)", "FOOD ASSISTANCE FOR ENTIRE FAMILY" };
+			
+			Set<String> labelSet = new HashSet<String>(Arrays.asList(obsLabels));
+			
+			for (int i = 0; i < obs.size(); i++) {
+				Node child = obs.get(i);
+				NamedNodeMap attrMap = child.getAttributes();
+				assertTrue(labelSet.contains(attrMap.getNamedItem("label").getNodeValue()));
+			}
+			
+			String[] uuidsNotReturned = { "eec646cb-c847-45a7-98bc-91c8c4f70add", "e403fafb-e5e4-42d0-9d11-4f52e89d148c" };
+			
+			for (String uuid : uuidsNotReturned) {
+				
+				String unexpectedEncounterPath = baseXmlPath + "//encounter[@uuid=\"" + uuid + "\"]";
+				
+				NodeList result = (NodeList) encounterXmlPath.evaluate(unexpectedEncounterPath, xmlDoc,
+				    XPathConstants.NODESET);
+				
+				assertEquals("No encounter node with encounter uuid=" + uuid + " should be returned", 0, result.getLength());
+				
+			}
+			
+		}
 	}
 	
 	private String getStringValue(DataSetRow row, String columnName) {

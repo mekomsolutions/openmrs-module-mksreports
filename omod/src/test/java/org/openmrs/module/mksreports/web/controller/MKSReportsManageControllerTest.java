@@ -1,18 +1,21 @@
 package org.openmrs.module.mksreports.web.controller;
 
-import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
+import java.util.Properties;
 
-import org.hamcrest.core.IsNot;
-import org.hamcrest.core.StringContains;
+import org.hamcrest.text.StringContainsInOrder;
+import org.hibernate.cfg.Environment;
 import org.junit.Before;
 import org.junit.Test;
 import org.openmrs.api.VisitService;
+import org.openmrs.api.context.Context;
+import org.openmrs.messagesource.MessageSourceService;
 import org.openmrs.module.mksreports.MKSReportManager;
 import org.openmrs.module.mksreports.MKSReportsConstants;
 import org.openmrs.module.patientsummary.api.PatientSummaryService;
@@ -43,35 +46,51 @@ public class MKSReportsManageControllerTest extends BaseModuleWebContextSensitiv
 	PatientSummaryService patientSummaryService;
 	
 	@Autowired
+	MessageSourceService messageSourceService;
+	
+	@Autowired
 	@Qualifier(MKSReportsConstants.COMPONENT_REPORTMANAGER_PATIENTHISTORY)
 	private MKSReportManager reportManager;
 	
+	@Override
+	public Properties getRuntimeProperties() {
+		Properties props = super.getRuntimeProperties();
+		
+		String dbUrl = props.getProperty(Environment.URL);
+		
+		dbUrl += ";DB_CLOSE_ON_EXIT=FALSE";
+		
+		props.setProperty(Environment.URL, dbUrl);
+		
+		return props;
+	}
+	
 	@Before
-	public void setup() {
+	public void setup() throws Exception {
+		executeDataSet("testDataset.xml");
 		ReportManagerUtil.setupReport(this.reportManager);
 	}
 	
 	@Test
-	public void renderPatientHistory_shouldRenderAllEncounters() throws IOException {
+	public void renderPatientHistory_shouldProducePDFWithEncounterTranslations_en() throws IOException {
 		// setup
 		ModelMap model = new ModelMap();
 		MockHttpServletRequest request = new MockHttpServletRequest();
 		MockHttpServletResponse response = new MockHttpServletResponse();
 		
-		Integer patientId = 7;
+		Context.setLocale(Locale.ENGLISH);
+		
+		Integer patientId = 100000;
 		
 		// replay
 		ctrl.renderPatientHistory(model, request, response, patientId, null);
 		
-		String inputXml = ctrl.getPatientSummaryResultText();
-		
-		assertTrue(inputXml.contains("e403fafb-e5e4-42d0-9d11-4f52e89d148c"));
-		assertTrue(inputXml.contains("eec646cb-c847-45a7-98bc-91c8c4f70add"));
-		assertTrue(inputXml.contains("6519d653-393b-4118-9c83-a3715b82d4ac"));
-		
 		// verify // insure unknown patients with minimal info do not cause any NPEs
 		
 		byte[] pdfData = response.getContentAsByteArray();
+		
+		assertNotNull(pdfData);
+		
 		PdfReader reader = new PdfReader(pdfData);
 		PdfTextExtractor extractor = new PdfTextExtractor(reader, true);
 		
@@ -81,35 +100,35 @@ public class MKSReportsManageControllerTest extends BaseModuleWebContextSensitiv
 			allText += extractor.getTextFromPage(pageNum) + "\n\r";
 		}
 		
-		List<String> values = Arrays.asList("61.0", "55.0", "175.0", "PB", "and", "J", "150.0", "50.0");
+		List<String> encounterValues = Arrays.asList("Encounter", "Type", "Name:", "English", "Translation");
+		List<String> visitValues = Arrays.asList("Visit", "Type", "Name:", "English", "Translation");
 		
-		for (String value : values) {
-			assertThat(allText, StringContains.containsString(value));
-		}
+		assertThat(allText, StringContainsInOrder.stringContainsInOrder(encounterValues));
+		assertThat(allText, StringContainsInOrder.stringContainsInOrder(visitValues));
 		
 		reader.close();
 	}
 	
 	@Test
-	public void renderPatientHistory_shouldRenderOnlySpecificEncounter() throws IOException {
+	public void renderPatientHistory_shouldProducePDFWithEncounterTranslations_es() throws IOException {
 		// setup
 		ModelMap model = new ModelMap();
 		MockHttpServletRequest request = new MockHttpServletRequest();
 		MockHttpServletResponse response = new MockHttpServletResponse();
 		
-		Integer patientId = 7;
+		Context.setLocale(new Locale("es", "ES"));
+		
+		Integer patientId = 100000;
 		
 		// replay
-		ctrl.renderPatientHistory(model, request, response, patientId, "6519d653-393b-4118-9c83-a3715b82d4ac");
-		
-		String inputXml = ctrl.getPatientSummaryResultText();
-		
-		assertFalse(inputXml.contains("e403fafb-e5e4-42d0-9d11-4f52e89d148c"));
-		assertFalse(inputXml.contains("eec646cb-c847-45a7-98bc-91c8c4f70add"));
-		assertTrue(inputXml.contains("6519d653-393b-4118-9c83-a3715b82d4ac"));
+		ctrl.renderPatientHistory(model, request, response, patientId, null);
 		
 		// verify // insure unknown patients with minimal info do not cause any NPEs
+		
 		byte[] pdfData = response.getContentAsByteArray();
+		
+		assertNotNull(pdfData);
+		
 		PdfReader reader = new PdfReader(pdfData);
 		PdfTextExtractor extractor = new PdfTextExtractor(reader, true);
 		
@@ -119,18 +138,12 @@ public class MKSReportsManageControllerTest extends BaseModuleWebContextSensitiv
 			allText += extractor.getTextFromPage(pageNum) + "\n\r";
 		}
 		
-		List<String> doesContain = Arrays.asList("150.0", "50.0");
-		List<String> doesNotContain = Arrays.asList("61.0", "55.0", "175.0", "PB", "and", "J");
+		List<String> encValues = Arrays.asList("Nombre", "del", "tipo", "de", "encuentro:", "traducción", "al", "español");
+		List<String> visitValues = Arrays.asList("Nombre", "del", "tipo", "de", "visita:", "Traducción", "al", "español");
 		
-		for (String value : doesContain) {
-			assertThat(allText, StringContains.containsString(value));
-		}
-		
-		for (String value : doesNotContain) {
-			assertThat(allText, IsNot.not(StringContains.containsString(value)));
-		}
+		assertThat(allText, StringContainsInOrder.stringContainsInOrder(encValues));
+		assertThat(allText, StringContainsInOrder.stringContainsInOrder(visitValues));
 		
 		reader.close();
 	}
-	
 }

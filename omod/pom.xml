@@ -103,7 +103,17 @@
 
 	<build>
 		<finalName>${project.parent.artifactId}-${project.parent.version}</finalName>
-
+		<testResources>
+			<testResource>
+				<directory>src/test/resources</directory>
+				<filtering>true</filtering>
+			</testResource>
+			<testResource>
+				<directory>../omod/src/main/webapp/resources</directory>
+				<targetPath>web/module/resources/</targetPath>
+				<filtering>true</filtering>
+			</testResource>
+		</testResources>
 		<plugins>
 			<plugin>
 				<groupId>org.openmrs.maven.plugins</groupId>
