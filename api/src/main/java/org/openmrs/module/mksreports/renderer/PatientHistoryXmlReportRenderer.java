@@ -63,11 +63,11 @@ import com.thoughtworks.xstream.XStream;
 @Localized("reporting.XmlReportRenderer")
 public class PatientHistoryXmlReportRenderer extends ReportDesignRenderer {
 	
-	//@Autowired, immediate, static, and ctor based initialization 
-	//of this reference all fail or cause the server to freeze
-	//when this module is loaded
+	// @Autowired, immediate, static, and ctor based initialization
+	// of this reference all fail or cause the server to freeze
+	// when this module is loaded
 	
-	//using "class local singleton"/Flyweight reference
+	// using "class local singleton"/Flyweight reference
 	private MessageSourceService mss;
 	
 	private MessageSourceService getMss() {

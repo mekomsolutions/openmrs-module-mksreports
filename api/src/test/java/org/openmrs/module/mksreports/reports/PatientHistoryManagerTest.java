@@ -2,6 +2,7 @@ package org.openmrs.module.mksreports.reports;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
@@ -214,6 +215,7 @@ public class PatientHistoryManagerTest extends BaseModuleContextSensitiveTest {
 	@Test
 	public void evaluate_shouldReturnOnlySpecificEncounter() throws Throwable {
 		
+		// Setup
 		ReportDesign reportDesign = setupAndReturnReportDesign();
 		
 		PatientSummaryTemplate patientSummaryTemplate = this.patientSummaryService
@@ -223,7 +225,7 @@ public class PatientHistoryManagerTest extends BaseModuleContextSensitiveTest {
 		
 		String encounterUuid = "6519d653-393b-4118-9c83-a3715b82d4ac";
 		
-		if (!"".equals(encounterUuid) && encounterUuid != null) {
+		if (!StringUtils.isBlank(encounterUuid)) {
 			params = new HashMap<String, Object>();
 			Encounter encounter = Context.getEncounterService().getEncounterByUuid(encounterUuid);
 			params.put("encounterIds", new EncounterIdSet(encounter.getEncounterId()));
@@ -232,9 +234,11 @@ public class PatientHistoryManagerTest extends BaseModuleContextSensitiveTest {
 		// patient 7 has 3 encounters
 		Integer patientId = 7;
 		
+		// Replay
 		PatientSummaryResult patientSummaryResult = this.patientSummaryService
 		        .evaluatePatientSummaryTemplate(patientSummaryTemplate, patientId, params);
 		
+		// Verify
 		if (patientSummaryResult.getErrorDetails() != null) {
 			throw patientSummaryResult.getErrorDetails();
 		} else {
@@ -246,8 +250,7 @@ public class PatientHistoryManagerTest extends BaseModuleContextSensitiveTest {
 			Document xmlDoc = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(patientSummaryResultStream);
 			
 			assertNotNull(xmlText);
-			
-			assertNotNull(patientSummaryResultStream);
+			assertFalse(StringUtils.isBlank(xmlText));
 			
 			XPath encounterXmlPath = XPathFactory.newInstance().newXPath();
 			

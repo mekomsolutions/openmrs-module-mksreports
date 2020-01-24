@@ -67,7 +67,7 @@ public class MKSReportsManageControllerTest extends BaseModuleWebContextSensitiv
 	
 	@Before
 	public void setup() throws Exception {
-		executeDataSet("testDataset.xml");
+		executeDataSet("ControllerTestDataset.xml");
 		ReportManagerUtil.setupReport(this.reportManager);
 	}
 	

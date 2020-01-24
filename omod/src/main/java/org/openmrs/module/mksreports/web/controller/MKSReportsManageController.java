@@ -17,7 +17,10 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -28,6 +31,7 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.sax.SAXResult;
 import javax.xml.transform.stream.StreamSource;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.fop.apps.FOUserAgent;
 import org.apache.fop.apps.Fop;
 import org.apache.fop.apps.FopFactory;
@@ -65,12 +69,6 @@ public class MKSReportsManageController {
 	@Autowired
 	private ReportService reportService;
 	
-	private String patientSummaryResultText;
-	
-	public String getPatientSummaryResultText() {
-		return patientSummaryResultText;
-	}
-	
 	/**
 	 * Receives requests to run a patient summary.
 	 * 
@@ -81,7 +79,7 @@ public class MKSReportsManageController {
 	@RequestMapping(value = "/module/mksreports/patientHistory")
 	public void renderPatientHistory(ModelMap model, HttpServletRequest request, HttpServletResponse response,
 	        @RequestParam("patientId") Integer patientId,
-	        @RequestParam(value = "encounterUuid", required = false) String encounterUuid) {
+	        @RequestParam(value = "encounterUuid", required = false) String encounterUuidParam) {
 		
 		ReportDesign reportDesign = null;
 		for (ReportDesign rd : this.reportService.getAllReportDesigns(false)) {
@@ -95,10 +93,19 @@ public class MKSReportsManageController {
 		
 		Map<String, Object> params = null;
 		
-		if (!"".equals(encounterUuid) && encounterUuid != null) {
+		if (!StringUtils.isBlank(encounterUuidParam)) {
+			
+			// support csv style list of encounters
+			List<String> encounterUuidList = Arrays.asList(encounterUuidParam.split(","));
+			List<Integer> encounterIdList = new ArrayList<Integer>();
+			
+			for (String encounterUuid : encounterUuidList) {
+				Encounter encounter = Context.getEncounterService().getEncounterByUuid(encounterUuid);
+				encounterIdList.add(encounter.getEncounterId());
+			}
+			
 			params = new HashMap<String, Object>();
-			Encounter encounter = Context.getEncounterService().getEncounterByUuid(encounterUuid);
-			params.put("encounterIds", new EncounterIdSet(encounter.getEncounterId()));
+			params.put("encounterIds", new EncounterIdSet(encounterIdList));
 		}
 		
 		PatientSummaryResult patientSummaryResult = this.patientSummaryService
@@ -113,7 +120,6 @@ public class MKSReportsManageController {
 				e.printStackTrace();
 			}
 		} else {
-			patientSummaryResultText = new String(patientSummaryResult.getRawContents());
 			StreamSource xmlSourceStream = new StreamSource(new ByteArrayInputStream(patientSummaryResult.getRawContents()));
 			StreamSource xslTransformStream = new StreamSource(
 			        OpenmrsClassLoader.getInstance().getResourceAsStream(PATIENT_HISTORY_XSL_PATH));
