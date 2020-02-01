@@ -19,9 +19,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -37,11 +35,13 @@ import org.apache.fop.apps.Fop;
 import org.apache.fop.apps.FopFactory;
 import org.apache.fop.apps.MimeConstants;
 import org.openmrs.Encounter;
-import org.openmrs.api.context.Context;
+import org.openmrs.api.EncounterService;
+import org.openmrs.module.mksreports.MKSReportsConstants;
 import org.openmrs.module.mksreports.reports.PatientHistoryReportManager;
 import org.openmrs.module.patientsummary.PatientSummaryResult;
 import org.openmrs.module.patientsummary.PatientSummaryTemplate;
 import org.openmrs.module.patientsummary.api.PatientSummaryService;
+import org.openmrs.module.reporting.evaluation.context.EncounterEvaluationContext;
 import org.openmrs.module.reporting.query.encounter.EncounterIdSet;
 import org.openmrs.module.reporting.report.ReportDesign;
 import org.openmrs.module.reporting.report.service.ReportService;
@@ -57,6 +57,9 @@ import org.springframework.web.bind.annotation.RequestParam;
  */
 @Controller
 public class MKSReportsManageController {
+	
+	@Autowired
+	private EncounterService encounterService;
 	
 	/**
 	 * The path to the style sheet for Patient History reports.
@@ -76,10 +79,14 @@ public class MKSReportsManageController {
 	 * @param summaryId the id of the patientsummary you wish to view
 	 * @throws Exception
 	 */
-	@RequestMapping(value = "/module/mksreports/patientHistory")
+	@RequestMapping(value = MKSReportsConstants.CONTROLLER_PATIENTHISTORY_ROUTE)
 	public void renderPatientHistory(ModelMap model, HttpServletRequest request, HttpServletResponse response,
 	        @RequestParam("patientId") Integer patientId,
-	        @RequestParam(value = "encounterUuid", required = false) String encounterUuidParam) {
+	        @RequestParam(value = "encounterUuid", required = false) String encounterUuidParam,
+	        @RequestParam(value = "target", required = false) String target) {
+		
+		// User authenticatedUser = Context.getAuthenticatedUser();
+		// String userRequestingReport = authenticatedUser.getDisplayString();
 		
 		ReportDesign reportDesign = null;
 		for (ReportDesign rd : this.reportService.getAllReportDesigns(false)) {
@@ -91,7 +98,7 @@ public class MKSReportsManageController {
 		PatientSummaryTemplate patientSummaryTemplate = this.patientSummaryService
 		        .getPatientSummaryTemplate(reportDesign.getId());
 		
-		Map<String, Object> params = null;
+		EncounterEvaluationContext context = new EncounterEvaluationContext();
 		
 		if (!StringUtils.isBlank(encounterUuidParam)) {
 			
@@ -100,16 +107,18 @@ public class MKSReportsManageController {
 			List<Integer> encounterIdList = new ArrayList<Integer>();
 			
 			for (String encounterUuid : encounterUuidList) {
-				Encounter encounter = Context.getEncounterService().getEncounterByUuid(encounterUuid);
+				Encounter encounter = encounterService.getEncounterByUuid(encounterUuid);
 				encounterIdList.add(encounter.getEncounterId());
 			}
 			
-			params = new HashMap<String, Object>();
-			params.put("encounterIds", new EncounterIdSet(encounterIdList));
+			EncounterIdSet encIdSet = new EncounterIdSet(encounterIdList);
+			
+			context.addParameterValue("encounterIds", encIdSet);
+			context.setBaseEncounters(encIdSet);
 		}
 		
 		PatientSummaryResult patientSummaryResult = this.patientSummaryService
-		        .evaluatePatientSummaryTemplate(patientSummaryTemplate, patientId, params);
+		        .evaluatePatientSummaryTemplate(patientSummaryTemplate, patientId, context);
 		
 		if (patientSummaryResult.getErrorDetails() != null) {
 			try {
@@ -136,7 +145,13 @@ public class MKSReportsManageController {
 			byte[] pdfBytes = outStream.toByteArray();
 			response.setContentLength(pdfBytes.length);
 			response.setContentType("application/pdf");
-			response.addHeader("Content-Disposition", "attachment;filename=patientHistory.pdf");
+			
+			// set the file as an attachment with the suggested filename if the GET params
+			// did not indicate it's being opened in another tab
+			if (StringUtils.isBlank(target)) {
+				response.addHeader("Content-Disposition", "attachment;filename=patientHistory.pdf");
+			}
+			
 			try {
 				response.getOutputStream().write(pdfBytes);
 				

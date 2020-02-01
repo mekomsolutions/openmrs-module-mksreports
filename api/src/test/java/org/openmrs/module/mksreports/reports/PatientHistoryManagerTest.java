@@ -9,10 +9,8 @@ import static org.junit.Assert.assertTrue;
 import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -30,7 +28,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.openmrs.Cohort;
 import org.openmrs.Encounter;
-import org.openmrs.api.context.Context;
+import org.openmrs.api.EncounterService;
 import org.openmrs.module.mksreports.MKSReportManager;
 import org.openmrs.module.mksreports.MKSReportsConstants;
 import org.openmrs.module.mksreports.renderer.PatientHistoryXmlReportRenderer;
@@ -40,6 +38,7 @@ import org.openmrs.module.patientsummary.api.PatientSummaryService;
 import org.openmrs.module.reporting.dataset.DataSet;
 import org.openmrs.module.reporting.dataset.DataSetRow;
 import org.openmrs.module.reporting.evaluation.EvaluationContext;
+import org.openmrs.module.reporting.evaluation.context.EncounterEvaluationContext;
 import org.openmrs.module.reporting.query.encounter.EncounterIdSet;
 import org.openmrs.module.reporting.report.ReportData;
 import org.openmrs.module.reporting.report.ReportDesign;
@@ -66,6 +65,9 @@ public class PatientHistoryManagerTest extends BaseModuleContextSensitiveTest {
 	
 	@Autowired
 	private PatientSummaryService patientSummaryService;
+	
+	@Autowired
+	private EncounterService encounterService;
 	
 	@Autowired
 	@Qualifier(MKSReportsConstants.COMPONENT_REPORTMANAGER_PATIENTHISTORY)
@@ -221,14 +223,25 @@ public class PatientHistoryManagerTest extends BaseModuleContextSensitiveTest {
 		PatientSummaryTemplate patientSummaryTemplate = this.patientSummaryService
 		        .getPatientSummaryTemplate(reportDesign.getId());
 		
-		Map<String, Object> params = null;
+		String encounterUuidParam = "6519d653-393b-4118-9c83-a3715b82d4ac";
 		
-		String encounterUuid = "6519d653-393b-4118-9c83-a3715b82d4ac";
+		EncounterEvaluationContext context = new EncounterEvaluationContext();
 		
-		if (!StringUtils.isBlank(encounterUuid)) {
-			params = new HashMap<String, Object>();
-			Encounter encounter = Context.getEncounterService().getEncounterByUuid(encounterUuid);
-			params.put("encounterIds", new EncounterIdSet(encounter.getEncounterId()));
+		if (!StringUtils.isBlank(encounterUuidParam)) {
+			
+			// support csv style list of encounters
+			List<String> encounterUuidList = Arrays.asList(encounterUuidParam.split(","));
+			List<Integer> encounterIdList = new ArrayList<Integer>();
+			
+			for (String encounterUuid : encounterUuidList) {
+				Encounter encounter = encounterService.getEncounterByUuid(encounterUuid);
+				encounterIdList.add(encounter.getEncounterId());
+			}
+			
+			EncounterIdSet encIdSet = new EncounterIdSet(encounterIdList);
+			
+			context.addParameterValue("encounterIds", encIdSet);
+			context.setBaseEncounters(encIdSet);
 		}
 		
 		// patient 7 has 3 encounters
@@ -236,7 +249,7 @@ public class PatientHistoryManagerTest extends BaseModuleContextSensitiveTest {
 		
 		// Replay
 		PatientSummaryResult patientSummaryResult = this.patientSummaryService
-		        .evaluatePatientSummaryTemplate(patientSummaryTemplate, patientId, params);
+		        .evaluatePatientSummaryTemplate(patientSummaryTemplate, patientId, context);
 		
 		// Verify
 		if (patientSummaryResult.getErrorDetails() != null) {
@@ -256,12 +269,12 @@ public class PatientHistoryManagerTest extends BaseModuleContextSensitiveTest {
 			
 			String baseXmlPath = "/patientHistory";
 			
-			String expectedEncounterPath = baseXmlPath + "//encounter[@uuid=\"" + encounterUuid + "\"]";
+			String expectedEncounterPath = baseXmlPath + "//encounter[@uuid=\"" + encounterUuidParam + "\"]";
 			
 			NodeList expectedResult = (NodeList) encounterXmlPath.evaluate(expectedEncounterPath, xmlDoc,
 			    XPathConstants.NODESET);
 			
-			assertEquals("Only one encounter node with encounter uuid=" + encounterUuid + " should be returned", 1,
+			assertEquals("Only one encounter node with encounter uuid=" + encounterUuidParam + " should be returned", 1,
 			    expectedResult.getLength());
 			
 			Element encounter = (Element) expectedResult.item(0);

@@ -83,7 +83,7 @@ public class MKSReportsManageControllerTest extends BaseModuleWebContextSensitiv
 		Integer patientId = 100000;
 		
 		// replay
-		ctrl.renderPatientHistory(model, request, response, patientId, null);
+		ctrl.renderPatientHistory(model, request, response, patientId, null, null);
 		
 		// verify // insure unknown patients with minimal info do not cause any NPEs
 		
@@ -121,7 +121,7 @@ public class MKSReportsManageControllerTest extends BaseModuleWebContextSensitiv
 		Integer patientId = 100000;
 		
 		// replay
-		ctrl.renderPatientHistory(model, request, response, patientId, null);
+		ctrl.renderPatientHistory(model, request, response, patientId, null, null);
 		
 		// verify // insure unknown patients with minimal info do not cause any NPEs
 		
