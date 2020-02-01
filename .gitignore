@@ -9,6 +9,7 @@ target
 *.releaseBackup
 release.properties
 README.html
+.vscode
 
 # Package Files #
 *.jar
