@@ -41,8 +41,9 @@ public class MKSReportsActivator extends BaseModuleActivator {
 		// since there's no dependence on uiframework, mksreports is not registered as a
 		// view provider
 		// set the GP to "" and use the entire controller route as the URL
-		adminSrvc.setGlobalProperty("htmlformentryui.customPrintModule", "module/" + MKSReportsConstants.MODULE_ARTIFACT_ID);
-		adminSrvc.setGlobalProperty("htmlformentryui.customPrintUrl", MKSReportsConstants.PATIENTHISTORY_ID);
+		adminSrvc.setGlobalProperty("htmlformentryui.customPrintProvider",
+		    "module/" + MKSReportsConstants.MODULE_ARTIFACT_ID);
+		adminSrvc.setGlobalProperty("htmlformentryui.customPrintPageName", MKSReportsConstants.PATIENTHISTORY_ID);
 		adminSrvc.setGlobalProperty("htmlformentryui.customPrintTarget", "_blank");
 		
 	}
