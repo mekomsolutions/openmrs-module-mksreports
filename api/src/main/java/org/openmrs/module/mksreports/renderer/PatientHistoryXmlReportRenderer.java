@@ -36,6 +36,7 @@ import javax.xml.transform.stream.StreamResult;
 
 import org.apache.commons.lang.StringUtils;
 import org.openmrs.annotation.Handler;
+import org.openmrs.api.AdministrationService;
 import org.openmrs.api.context.Context;
 import org.openmrs.messagesource.MessageSourceService;
 import org.openmrs.module.mksreports.common.MksReportPrivilegeConstants;
@@ -170,6 +171,22 @@ public class PatientHistoryXmlReportRenderer extends ReportDesignRenderer {
 		Document doc = docBuilder.newDocument();
 		Element rootElement = doc.createElement("patientHistory");
 		doc.appendChild(rootElement);
+		
+		Element header = doc.createElement("header");
+		
+		header.setTextContent("Requested By " + Context.getAuthenticatedUser().getDisplayString());
+		rootElement.appendChild(header);
+		
+		AdministrationService adminService = Context.getAdministrationService();
+		String logoPath = adminService.getGlobalProperty("mksreports.brandingLogo");
+		
+		if (!StringUtils.isBlank(logoPath)) {
+			Element branding = doc.createElement("branding");
+			Element image = doc.createElement("logo");
+			image.setTextContent(logoPath);
+			branding.appendChild(image);
+			rootElement.appendChild(branding);
+		}
 		
 		String dataSetKey = "";
 		

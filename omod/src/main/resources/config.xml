@@ -52,6 +52,14 @@
 			reports
 		</description>
 	</globalProperty>
+	<globalProperty>
+		<property>mksreports.brandingLogo</property>
+		<defaultValue></defaultValue>
+		<description>
+			Logo image used to brand generated reports
+		</description>
+	</globalProperty>
+	
 
 </module>
 

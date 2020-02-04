@@ -9,12 +9,18 @@
  */
 package org.openmrs.module.mksreports;
 
+import java.io.IOException;
+import java.nio.file.Paths;
+
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.openmrs.api.AdministrationService;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.BaseModuleActivator;
 import org.openmrs.module.reporting.report.manager.ReportManagerUtil;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 
 /**
  * This class contains the logic that is run every time this module is either started or shutdown
@@ -40,12 +46,30 @@ public class MKSReportsActivator extends BaseModuleActivator {
 		
 		// since there's no dependence on uiframework, mksreports is not registered as a
 		// view provider
-		// set the GP to "" and use the entire controller route as the URL
+		// set the provider GP to "module/mksreports" and use the controller page name
+		// "patientHistory" as the pageName
 		adminSrvc.setGlobalProperty("htmlformentryui.customPrintProvider",
 		    "module/" + MKSReportsConstants.MODULE_ARTIFACT_ID);
 		adminSrvc.setGlobalProperty("htmlformentryui.customPrintPageName", MKSReportsConstants.PATIENTHISTORY_ID);
 		adminSrvc.setGlobalProperty("htmlformentryui.customPrintTarget", "_blank");
 		
+		if (StringUtils.isBlank(adminSrvc.getGlobalProperty("mksreports.brandingLogo"))) {
+			
+			String brandingLogoPath = "";
+			
+			try {
+				PathMatchingResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
+				Resource res = resolver.getResource("OpenMRS_logo.png");
+				
+				brandingLogoPath = Paths.get(res.getFile().toURI()).toString();
+			}
+			catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			adminSrvc.setGlobalProperty("mksreports.brandingLogo", brandingLogoPath);
+		}
 	}
 	
 	/**

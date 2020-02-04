@@ -7,15 +7,36 @@
 	    <fo:root>
 	    	<fo:layout-master-set>
 	        	<fo:simple-page-master master-name="A4-portrait" page-height="29.7cm" page-width="21.0cm" margin="2cm">
-					<fo:region-body/>
+					<fo:region-body region-name="xsl-region-body" margin-top="1cm" margin-bottom="1cm"/>
+					<fo:region-before region-name="xsl-region-header" extent="1cm"/>
+					<!-- <fo:region-after region-name="xsl-region-footer" extent="1cm"/> -->
 				</fo:simple-page-master>
 			</fo:layout-master-set>
+			<xsl:variable name="logoImage"><xsl:value-of select="branding/logo"/></xsl:variable>
 			
 			<fo:page-sequence master-reference="A4-portrait">
+				<fo:static-content flow-name="xsl-region-header">
+					<fo:block-container height="1cm" position="absolute">
+						<fo:block>
+							<fo:external-graphic src="{$logoImage}" content-width="scale-to-fit" content-height="1cm"/>
+						</fo:block>
+					</fo:block-container>
+					<fo:block-container height="1cm" position="absolute">
+						<fo:block text-align="right">
+							<fo:inline font-size="10" vertical-align="top">
+										<xsl:value-of select="header"/>
+							</fo:inline>
+						</fo:block>
+					</fo:block-container>
+				</fo:static-content>
 				<fo:flow flow-name="xsl-region-body">
 					<xsl:apply-templates select="demographics"/>
 					<xsl:apply-templates select="visit"/>
 				</fo:flow>
+<!--			<fo:static-content flow-name="xsl-region-footer">
+					<fo:block><xsl:value-of select="@footer" /></fo:block>
+				</fo:static-content>
+-->
 			</fo:page-sequence>
 	    </fo:root>
 	</xsl:template>
