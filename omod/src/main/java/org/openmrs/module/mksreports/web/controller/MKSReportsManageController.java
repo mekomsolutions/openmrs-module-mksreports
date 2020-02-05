@@ -77,6 +77,9 @@ public class MKSReportsManageController {
 	 * 
 	 * @param patientId the id of patient whose summary you wish to view
 	 * @param summaryId the id of the patientsummary you wish to view
+	 * @param encounterId the id(s) of the encounters you wish to view, multiple encounters should be in
+	 *            the form "<uuid>,<uuid>"
+	 * @param target if used as an href URL, the intended target of the <a> (e.g. _self, _blank)
 	 * @throws Exception
 	 */
 	@RequestMapping(value = MKSReportsConstants.CONTROLLER_PATIENTHISTORY_ROUTE)
@@ -107,7 +110,7 @@ public class MKSReportsManageController {
 			List<Integer> encounterIdList = new ArrayList<Integer>();
 			
 			for (String encounterUuid : encounterUuidList) {
-				Encounter encounter = encounterService.getEncounterByUuid(encounterUuid);
+				Encounter encounter = encounterService.getEncounterByUuid(encounterUuid.trim());
 				encounterIdList.add(encounter.getEncounterId());
 			}
 			
