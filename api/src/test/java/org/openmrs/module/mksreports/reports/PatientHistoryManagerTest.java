@@ -155,7 +155,7 @@ public class PatientHistoryManagerTest extends BaseModuleContextSensitiveTest {
 		assertNotNull(dataSet);
 		assertNotNull(dataSet.getMetaData());
 		assertNotNull(dataSet.getMetaData().getColumns());
-		MatcherAssert.assertThat(dataSet.getMetaData().getColumns(), Matchers.hasSize(6));
+		MatcherAssert.assertThat(dataSet.getMetaData().getColumns(), Matchers.hasSize(7));
 		
 		@SuppressWarnings("unchecked")
 		Matcher<Iterable<? extends Object>> containsInAnyOrder = Matchers.containsInAnyOrder(
@@ -164,7 +164,8 @@ public class PatientHistoryManagerTest extends BaseModuleContextSensitiveTest {
 		    Matchers.hasProperty("name", is(PatientHistoryReportManager.OBS_DATETIME_LABEL)),
 		    Matchers.hasProperty("name", is(PatientHistoryReportManager.OBS_DATATYPE_LABEL)),
 		    Matchers.hasProperty("name", is(PatientHistoryReportManager.OBS_NAME_LABEL)),
-		    Matchers.hasProperty("name", is(PatientHistoryReportManager.OBS_VALUE_LABEL)));
+		    Matchers.hasProperty("name", is(PatientHistoryReportManager.OBS_VALUE_LABEL)),
+		    Matchers.hasProperty("name", is(PatientHistoryReportManager.OBS_ID_LABEL)));
 		MatcherAssert.assertThat(dataSet.getMetaData().getColumns(), containsInAnyOrder);
 		
 		List<DataSetRow> allDataSetRow = new ArrayList<DataSetRow>();

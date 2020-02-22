@@ -29,6 +29,7 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.sax.SAXResult;
 import javax.xml.transform.stream.StreamSource;
 
+import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.fop.apps.FOUserAgent;
 import org.apache.fop.apps.Fop;
@@ -132,6 +133,7 @@ public class MKSReportsManageController {
 				e.printStackTrace();
 			}
 		} else {
+			
 			StreamSource xmlSourceStream = new StreamSource(new ByteArrayInputStream(patientSummaryResult.getRawContents()));
 			StreamSource xslTransformStream = new StreamSource(
 			        OpenmrsClassLoader.getInstance().getResourceAsStream(PATIENT_HISTORY_XSL_PATH));
@@ -152,7 +154,11 @@ public class MKSReportsManageController {
 			// set the file as an attachment with the suggested filename if the GET params
 			// did not indicate it's being opened in another tab
 			if (StringUtils.isBlank(target)) {
-				response.addHeader("Content-Disposition", "attachment;filename=patientHistory.pdf");
+				boolean useLetters = true;
+				boolean useNumbers = true;
+				
+				String randomId = RandomStringUtils.random(10, useLetters, useNumbers);
+				response.addHeader("Content-Disposition", "attachment;filename=" + randomId + ".pdf");
 			}
 			
 			try {
