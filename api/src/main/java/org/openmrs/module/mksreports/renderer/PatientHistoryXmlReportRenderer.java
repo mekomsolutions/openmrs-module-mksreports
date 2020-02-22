@@ -19,7 +19,11 @@ import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -35,10 +39,12 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
 import org.apache.commons.lang.StringUtils;
+import org.openmrs.Obs;
 import org.openmrs.annotation.Handler;
 import org.openmrs.api.AdministrationService;
 import org.openmrs.api.context.Context;
 import org.openmrs.messagesource.MessageSourceService;
+import org.openmrs.module.mksreports.MKSReportsConstants;
 import org.openmrs.module.mksreports.common.MksReportPrivilegeConstants;
 import org.openmrs.module.mksreports.reports.PatientHistoryReportManager;
 import org.openmrs.module.reporting.common.Localized;
@@ -51,7 +57,9 @@ import org.openmrs.module.reporting.report.renderer.RenderingException;
 import org.openmrs.module.reporting.report.renderer.ReportDesignRenderer;
 import org.openmrs.module.reporting.report.renderer.ReportRenderer;
 import org.openmrs.module.reporting.serializer.ReportingSerializer;
+import org.openmrs.obs.handler.AbstractHandler;
 import org.openmrs.serialization.SerializationException;
+import org.openmrs.util.OpenmrsClassLoader;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -173,20 +181,67 @@ public class PatientHistoryXmlReportRenderer extends ReportDesignRenderer {
 		doc.appendChild(rootElement);
 		
 		Element header = doc.createElement("header");
+		Element headerText = doc.createElement("headerText");
 		
-		header.setTextContent("Requested By " + Context.getAuthenticatedUser().getDisplayString());
-		rootElement.appendChild(header);
+		String headerStringId = String.join(".", MKSReportsConstants.MODULE_ARTIFACT_ID,
+		    MKSReportsConstants.PATIENTHISTORY_ID.toLowerCase(), "requestedby");
+		
+		headerText.setTextContent(
+		    getMss().getMessage(headerStringId) + " " + Context.getAuthenticatedUser().getDisplayString());
+		header.appendChild(headerText);
 		
 		AdministrationService adminService = Context.getAdministrationService();
+		
 		String logoPath = adminService.getGlobalProperty("mksreports.brandingLogo");
 		
 		if (!StringUtils.isBlank(logoPath)) {
+			
+			File logoFile = new File(logoPath);
+			
+			if (!(logoFile.exists() && logoFile.canRead() && logoFile.isAbsolute())) {
+				
+				try {
+					URL res = OpenmrsClassLoader.getInstance().getResource(logoPath);
+					
+					if (res != null) {
+						logoPath = Paths.get(res.toURI()).toString();
+					}
+				}
+				catch (URISyntaxException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			
 			Element branding = doc.createElement("branding");
 			Element image = doc.createElement("logo");
 			image.setTextContent(logoPath);
 			branding.appendChild(image);
-			rootElement.appendChild(branding);
+			header.appendChild(branding);
 		}
+		
+		boolean useHeader = "true".equals(adminService.getGlobalProperty("mksreports.enableHeader"));
+		
+		if (useHeader) {
+			rootElement.appendChild(header);
+		}
+		
+		Element i18nStrings = doc.createElement("i18n");
+		
+		List<String> i18nIds = Arrays.asList("page", "of");
+		
+		for (String id : i18nIds) {
+			String fqnId = String.join(".", MKSReportsConstants.MODULE_ARTIFACT_ID,
+			    MKSReportsConstants.PATIENTHISTORY_ID.toLowerCase(), id);
+			
+			Element i18nChild = doc.createElement(id + "String");
+			
+			i18nChild.setTextContent(getMss().getMessage(fqnId));
+			
+			i18nStrings.appendChild(i18nChild);
+		}
+		
+		rootElement.appendChild(i18nStrings);
 		
 		String dataSetKey = "";
 		
@@ -254,6 +309,9 @@ public class PatientHistoryXmlReportRenderer extends ReportDesignRenderer {
 			for (DataSetRow row : dataSet) {
 				Element obs = doc.createElement("obs");
 				
+				String type = null;
+				String obsId = null;
+				
 				String encounterUuid = row.getColumnValue(PatientHistoryReportManager.ENCOUNTER_UUID_LABEL).toString();
 				Element encounter = doc.getElementById(encounterUuid);
 				if (encounter == null) {
@@ -264,29 +322,40 @@ public class PatientHistoryXmlReportRenderer extends ReportDesignRenderer {
 						String colName = column.getName();
 						Object value = row.getColumnValue(column);
 						String strValue = getStringValue(value);
-						if (StringUtils.equals(colName, PatientHistoryReportManager.ENCOUNTER_UUID_LABEL)) {
-							continue;
-						}
-						if (StringUtils.equals(column.getName(), PatientHistoryReportManager.OBS_NAME_LABEL)) {
-							obs.setAttribute(ATTR_LABEL, strValue);
-							continue;
-						}
-						if (StringUtils.equals(column.getName(), PatientHistoryReportManager.OBS_DATATYPE_LABEL)) {
-							obs.setAttribute(ATTR_TYPE, strValue);
-							continue;
-						}
-						if (StringUtils.equals(column.getName(), PatientHistoryReportManager.OBS_DATETIME_LABEL)) {
-							String obsDateTime = (new SimpleDateFormat(TIME_FORMAT)).format(value);
-							obs.setAttribute(ATTR_TIME, obsDateTime);
-							continue;
-						}
-						if (StringUtils.equals(column.getName(), PatientHistoryReportManager.OBS_PROVIDER_LABEL)) {
-							obs.setAttribute(ATTR_PROV, strValue);
-							continue;
-						}
-						if (StringUtils.equals(column.getName(), PatientHistoryReportManager.OBS_VALUE_LABEL)) {
-							obs.appendChild(doc.createTextNode(strValue));
-							continue;
+						
+						switch (colName) {
+							case PatientHistoryReportManager.ENCOUNTER_UUID_LABEL:
+								break;
+							case PatientHistoryReportManager.OBS_NAME_LABEL:
+								obs.setAttribute(ATTR_LABEL, strValue);
+								break;
+							case PatientHistoryReportManager.OBS_DATATYPE_LABEL:
+								type = strValue;
+								obs.setAttribute(ATTR_TYPE, strValue);
+								break;
+							case PatientHistoryReportManager.OBS_DATETIME_LABEL:
+								String obsDateTime = (new SimpleDateFormat(TIME_FORMAT)).format(value);
+								obs.setAttribute(ATTR_TIME, obsDateTime);
+								break;
+							case PatientHistoryReportManager.OBS_PROVIDER_LABEL:
+								obs.setAttribute(ATTR_PROV, strValue);
+								break;
+							case PatientHistoryReportManager.OBS_ID_LABEL:
+								obsId = strValue;
+								break;
+							case PatientHistoryReportManager.OBS_VALUE_LABEL:
+								if ("Complex".equals(type)) {
+									Obs complexObs = Context.getObsService().getObs(Integer.parseInt(obsId));
+									
+									if (complexObs.getComplexData().getMimeType().startsWith("image/")) {
+										File complexObsFile = AbstractHandler.getComplexDataFile(complexObs);
+										strValue = complexObsFile.getAbsolutePath();
+										obs.setAttribute(ATTR_TYPE, "Complex Image");
+									}
+								}
+								
+								obs.appendChild(doc.createTextNode(strValue));
+								break;
 						}
 					}
 					

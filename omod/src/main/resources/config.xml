@@ -52,9 +52,17 @@
 			reports
 		</description>
 	</globalProperty>
+	
+	<globalProperty>
+		<property>mksreports.enableHeader</property>
+		<defaultValue>true</defaultValue>
+		<description>
+			Show header on reports
+		</description>
+	</globalProperty>
 	<globalProperty>
 		<property>mksreports.brandingLogo</property>
-		<defaultValue></defaultValue>
+		<defaultValue>web/module/resources/OpenMRS_logo.png</defaultValue>
 		<description>
 			Logo image used to brand generated reports
 		</description>
