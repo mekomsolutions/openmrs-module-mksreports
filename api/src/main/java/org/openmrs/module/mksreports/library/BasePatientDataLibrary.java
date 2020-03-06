@@ -57,9 +57,9 @@ public class BasePatientDataLibrary extends BaseDefinitionLibrary<PatientDataDef
 	 */
 	/**
 	 * @see {@link https://github.com/mekomsolutions/openmrs-module-coreapps/blob/
-	 *      3603eaf433d1d426cd8c9748956a5a0eaebd7ef9/omod/src/main/java/org/openmrs/module/coreapps/fragment/contro
-	 *      l l e r / p a t i e n t h e a d e r / R e g i s t r a t i o n D a t a H e l p e r . j a v a
-	 *      # L 1 4 6 - L 1 7 3 * * }
+	 *      3603eaf433d1d426cd8c9748956a5a0eaebd7ef9/omod/src/main/java/org/openmrs/module/coreapps/fragm
+	 *      e n t / c o n t r o l l e r / p a t i e n t h e a d e r / R e g i s t r a t i o n D a t a H
+	 *      e l p e r . j a v a # L 1 4 6 - L 1 7 3 * * }
 	 */
 	protected static class AddressTemplateConverter implements Converter {
 		
