@@ -84,6 +84,8 @@ public class PatientHistoryReportManager extends MKSReportManager {
 	
 	public final static String OBS_PROVIDER_LABEL = "provider_name";
 	
+	public final static String OBS_ID_LABEL = "obs_id";
+	
 	@Autowired
 	private EncounterDataLibrary encounterDataLibrary;
 	
@@ -103,7 +105,7 @@ public class PatientHistoryReportManager extends MKSReportManager {
 	
 	@Override
 	public String getVersion() {
-		return "1.0.0-SNAPSHOT";
+		return "1.1.0-SNAPSHOT";
 	}
 	
 	@Override
@@ -215,6 +217,7 @@ public class PatientHistoryReportManager extends MKSReportManager {
 		    new ConceptDataTypeConverter());
 		obsDataSetDef.addColumn(OBS_NAME_LABEL, obsDataLibrary.getConceptId(), StringUtils.EMPTY,
 		    new ConceptNameConverter());
+		obsDataSetDef.addColumn(OBS_ID_LABEL, new ObsIdDataDefinition(), null, null);
 		obsDataSetDef.addColumn(OBS_VALUE_LABEL, new ObsIdDataDefinition(), StringUtils.EMPTY,
 		    new ObsValueFromIdConverter());
 		obsDataSetDef.addSortCriteria(OBS_DATETIME_LABEL, SortCriteria.SortDirection.DESC);
