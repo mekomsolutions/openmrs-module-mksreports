@@ -13,14 +13,10 @@ import org.hamcrest.text.StringContainsInOrder;
 import org.hibernate.cfg.Environment;
 import org.junit.Before;
 import org.junit.Test;
-import org.openmrs.api.VisitService;
 import org.openmrs.api.context.Context;
-import org.openmrs.messagesource.MessageSourceService;
 import org.openmrs.module.mksreports.MKSReportManager;
 import org.openmrs.module.mksreports.MKSReportsConstants;
-import org.openmrs.module.patientsummary.api.PatientSummaryService;
 import org.openmrs.module.reporting.report.manager.ReportManagerUtil;
-import org.openmrs.module.reporting.report.service.ReportService;
 import org.openmrs.web.test.BaseModuleWebContextSensitiveTest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -35,18 +31,6 @@ public class MKSReportsManageControllerTest extends BaseModuleWebContextSensitiv
 	
 	@Autowired
 	private MKSReportsManageController ctrl;
-	
-	@Autowired
-	VisitService visitService;
-	
-	@Autowired
-	ReportService reportService;
-	
-	@Autowired
-	PatientSummaryService patientSummaryService;
-	
-	@Autowired
-	MessageSourceService messageSourceService;
 	
 	@Autowired
 	@Qualifier(MKSReportsConstants.COMPONENT_REPORTMANAGER_PATIENTHISTORY)

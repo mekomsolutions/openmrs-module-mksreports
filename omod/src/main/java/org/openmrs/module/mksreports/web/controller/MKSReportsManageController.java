@@ -13,74 +13,74 @@
  */
 package org.openmrs.module.mksreports.web.controller;
 
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.StringUtils;
+import org.openmrs.api.EncounterService;
 import org.openmrs.module.mksreports.MKSReportsConstants;
-import org.openmrs.module.mksreports.output.PatientEncountersPDFGenerator;
+import org.openmrs.module.mksreports.reports.PatientHistoryPdfReport;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-/**
- * The main controller.
- */
 @Controller
 public class MKSReportsManageController {
+	
+	private PatientHistoryPdfReport pdfReport;
+	
+	private EncounterService es;
+	
+	@Autowired
+	public MKSReportsManageController(@Qualifier("encounterService") EncounterService es,
+	    PatientHistoryPdfReport pdfReport) {
+		this.es = es;
+		this.pdfReport = pdfReport;
+	}
 	
 	/**
 	 * Receives requests to run a patient summary.
 	 * 
 	 * @param patientId the id of patient whose summary you wish to view
-	 * @param summaryId the id of the patientsummary you wish to view
-	 * @param encounterId the id(s) of the encounters you wish to view, multiple encounters should be in
-	 *            the form "<uuid>,<uuid>"
+	 * @param encounterUuids the UUID(s) of the encounters you wish to view, CSV format is supported for
+	 *            multiple encounters
 	 * @param target if used as an href URL, the intended target of the <a> (e.g. _self, _blank)
 	 * @throws Exception
 	 */
 	@RequestMapping(value = MKSReportsConstants.CONTROLLER_PATIENTHISTORY_ROUTE)
 	public void renderPatientHistory(ModelMap model, HttpServletRequest request, HttpServletResponse response,
 	        @RequestParam("patientId") Integer patientId,
-	        @RequestParam(value = "encounterUuid", required = false) String encounterUuidParam,
+	        @RequestParam(value = "encounterUuids", required = false) String encounterUuids,
 	        @RequestParam(value = "target", required = false) String target) {
 		
-		PatientEncountersPDFGenerator pdfGen = new PatientEncountersPDFGenerator();
+		Set<Integer> encounterIds = StringUtils.isBlank(encounterUuids) ? Collections.emptySet()
+		        : Arrays.asList(StringUtils.split(encounterUuids, ",")).stream()
+		                .map(uuid -> es.getEncounterByUuid(uuid.trim()).getId()).distinct().collect(Collectors.toSet());
 		
-		PrintWriter errorWriter = null;
-		
-		try {
-			errorWriter = response.getWriter();
-		}
-		catch (IOException e1) {
-			e1.printStackTrace();
-		}
-		
-		byte[] pdfBytes = pdfGen.generatePatientEncountersPdfBytes(patientId, encounterUuidParam, errorWriter);
-		
-		response.setContentLength(pdfBytes.length);
 		response.setContentType("application/pdf");
-		
 		// set the file as an attachment with the suggested filename if the GET params
 		// did not indicate it's being opened in another tab
 		if (StringUtils.isBlank(target)) {
 			response.addHeader("Content-Disposition", "attachment;filename=patientHistory.pdf");
 		}
 		
+		byte[] pdfBytes;
 		try {
+			pdfBytes = pdfReport.getBytes(patientId, encounterIds);
+			response.setContentLength(pdfBytes.length);
 			response.getOutputStream().write(pdfBytes);
-			
 			response.getOutputStream().flush();
 		}
-		catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		catch (Exception e) {
+			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 		}
-		
 	}
-	
 }

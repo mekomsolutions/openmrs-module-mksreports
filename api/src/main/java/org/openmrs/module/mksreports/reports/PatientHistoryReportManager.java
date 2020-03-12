@@ -48,9 +48,9 @@ import org.springframework.stereotype.Component;
 @Component(MKSReportsConstants.COMPONENT_REPORTMANAGER_PATIENTHISTORY)
 public class PatientHistoryReportManager extends MKSReportManager {
 	
-	public final static String REPORT_DESIGN_NAME = "mksPatientHistory.xml_";
+	public final static String REPORT_DESIGN_UUID = "563d9679-ffc1-45e8-b4fd-b1988eaf1895";
 	
-	protected final static String REPORT_DEFINITION_NAME = "Patient History";
+	public final static String REPORT_DEFINITION_NAME = "Patient History";
 	
 	public final static String DATASET_KEY_DEMOGRAPHICS = "demographics";
 	
@@ -224,7 +224,8 @@ public class PatientHistoryReportManager extends MKSReportManager {
 	@Override
 	public List<ReportDesign> constructReportDesigns(ReportDefinition reportDefinition) {
 		ReportDesign reportDesign = new ReportDesign();
-		reportDesign.setName(REPORT_DESIGN_NAME);
+		reportDesign.setName("PDF");
+		reportDesign.setUuid(REPORT_DESIGN_UUID);
 		reportDesign.setReportDefinition(reportDefinition);
 		reportDesign.setRendererType(PatientHistoryXmlReportRenderer.class);
 		return Arrays.asList(reportDesign);

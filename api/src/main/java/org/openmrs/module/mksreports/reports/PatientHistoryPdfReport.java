@@ -1,12 +1,11 @@
-package org.openmrs.module.mksreports.output;
+package org.openmrs.module.mksreports.reports;
+
+import static org.openmrs.module.mksreports.reports.PatientHistoryReportManager.REPORT_DESIGN_UUID;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.OutputStream;
-import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.Set;
 
 import javax.xml.transform.Result;
 import javax.xml.transform.Transformer;
@@ -14,15 +13,12 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.sax.SAXResult;
 import javax.xml.transform.stream.StreamSource;
 
-import org.apache.commons.lang3.StringUtils;
 import org.apache.fop.apps.FOUserAgent;
 import org.apache.fop.apps.Fop;
 import org.apache.fop.apps.FopFactory;
 import org.apache.fop.apps.MimeConstants;
-import org.openmrs.Encounter;
 import org.openmrs.api.EncounterService;
 import org.openmrs.module.mksreports.MKSReportsConstants;
-import org.openmrs.module.mksreports.reports.PatientHistoryReportManager;
 import org.openmrs.module.patientsummary.PatientSummaryResult;
 import org.openmrs.module.patientsummary.PatientSummaryTemplate;
 import org.openmrs.module.patientsummary.api.PatientSummaryService;
@@ -36,76 +32,38 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 @Component
-public class PatientEncountersPDFGenerator {
+public class PatientHistoryPdfReport {
 	
 	@Autowired
-	@Qualifier("patientSummaryService")
-	private PatientSummaryService patientSummaryService;// = Context.getService(PatientSummaryService.class);
+	@Qualifier("patientsummaryPatientSummaryService")
+	private PatientSummaryService pss;
 	
 	@Autowired
-	@Qualifier("reportService")
-	private ReportService reportService;// = Context.getService(ReportService.class);
+	@Qualifier("reportingReportService")
+	private ReportService rs;
 	
 	@Autowired
 	@Qualifier("encounterService")
-	private EncounterService encounterService;
+	private EncounterService es;
 	
-	public byte[] generatePatientEncountersPdfBytes(Integer patientId, String encounterUuidParam, PrintWriter errorWriter) {
-		
-		ByteArrayOutputStream outStream = new ByteArrayOutputStream();
-		
-		ReportDesign reportDesign = null;
-		for (ReportDesign rd : this.reportService.getAllReportDesigns(false)) {
-			if (rd.getName().equals(PatientHistoryReportManager.REPORT_DESIGN_NAME)) {
-				reportDesign = rd;
-			}
-		}
-		
-		PatientSummaryTemplate patientSummaryTemplate = this.patientSummaryService
-		        .getPatientSummaryTemplate(reportDesign.getId());
+	public byte[] getBytes(Integer patientId, Set<Integer> encounterIds) throws Exception {
 		
 		EncounterEvaluationContext context = new EncounterEvaluationContext();
+		EncounterIdSet encIdSet = new EncounterIdSet(encounterIds);
+		context.addParameterValue("encounterIds", encIdSet);
+		context.setBaseEncounters(encIdSet);
 		
-		if (!StringUtils.isBlank(encounterUuidParam)) {
-			
-			// support csv style list of encounters
-			List<String> encounterUuidList = Arrays.asList(encounterUuidParam.split(","));
-			List<Integer> encounterIdList = new ArrayList<Integer>();
-			
-			for (String encounterUuid : encounterUuidList) {
-				Encounter encounter = encounterService.getEncounterByUuid(encounterUuid.trim());
-				encounterIdList.add(encounter.getEncounterId());
-			}
-			
-			EncounterIdSet encIdSet = new EncounterIdSet(encounterIdList);
-			
-			context.addParameterValue("encounterIds", encIdSet);
-			context.setBaseEncounters(encIdSet);
-		}
+		ReportDesign reportDesign = rs.getReportDesignByUuid(REPORT_DESIGN_UUID);
+		PatientSummaryTemplate template = pss.getPatientSummaryTemplate(reportDesign.getId());
+		PatientSummaryResult result = pss.evaluatePatientSummaryTemplate(template, patientId, context);
 		
-		PatientSummaryResult patientSummaryResult = this.patientSummaryService
-		        .evaluatePatientSummaryTemplate(patientSummaryTemplate, patientId, context);
+		StreamSource xmlSourceStream = new StreamSource(new ByteArrayInputStream(result.getRawContents()));
+		StreamSource xslTransformStream = new StreamSource(
+		        OpenmrsClassLoader.getInstance().getResourceAsStream(MKSReportsConstants.PATIENT_HISTORY_XSL_PATH));
 		
-		if (patientSummaryResult.getErrorDetails() != null && errorWriter != null) {
-			
-			patientSummaryResult.getErrorDetails().printStackTrace(errorWriter);
-		} else {
-			StreamSource xmlSourceStream = new StreamSource(new ByteArrayInputStream(patientSummaryResult.getRawContents()));
-			StreamSource xslTransformStream = new StreamSource(
-			        OpenmrsClassLoader.getInstance().getResourceAsStream(MKSReportsConstants.PATIENT_HISTORY_XSL_PATH));
-			
-			try {
-				writeToOutputStream(xmlSourceStream, xslTransformStream, outStream);
-			}
-			catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
-		}
-		
+		ByteArrayOutputStream outStream = new ByteArrayOutputStream();
+		writeToOutputStream(xmlSourceStream, xslTransformStream, outStream);
 		return outStream.toByteArray();
-		
 	}
 	
 	/**

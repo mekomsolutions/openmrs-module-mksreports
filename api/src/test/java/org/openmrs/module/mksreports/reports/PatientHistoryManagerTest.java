@@ -106,7 +106,7 @@ public class PatientHistoryManagerTest extends BaseModuleContextSensitiveTest {
 	@Test
 	public void setupReport_shouldSetupPatientHistory() throws Exception {
 		ReportDesign reportDesign = setupAndReturnReportDesign();
-		Assert.assertEquals(PatientHistoryReportManager.REPORT_DESIGN_NAME, reportDesign.getName());
+		Assert.assertEquals(PatientHistoryReportManager.REPORT_DESIGN_UUID, reportDesign.getUuid());
 	}
 	
 	@Test
