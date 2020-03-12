@@ -6,6 +6,7 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.OutputStream;
 import java.util.Set;
+import java.util.function.Function;
 
 import javax.xml.transform.Result;
 import javax.xml.transform.Transformer;
@@ -46,12 +47,70 @@ public class PatientHistoryPdfReport {
 	@Qualifier("encounterService")
 	private EncounterService es;
 	
+	private Integer verifyEncounterIdSetPatientId(Integer firstEncPatientId, Set<Integer> encounterIds) {
+		
+		// a mismatch between patientIds should never return info for
+		// other patients' encounter
+		// (THIS *SHOULD* ALREADY OCCUR IN OTHER CODE, BUT IS INCLUDED HERE FOR DUE
+		// DILIGENCE)
+		
+		// map-reduce all encounters
+		return encounterIds.stream().map(new Function<Integer, Integer>() {
+			
+			@Override
+			public Integer apply(Integer encId) {
+				return es.getEncounter(encId).getPatient().getId();
+			}
+			
+		}).reduce(firstEncPatientId, (a, b) -> a == b ? a : null);
+		
+	}
+	
+	/**
+	 * Create "application/pdf" byte array based on Reporting XML renderer and transform XSL via Apache
+	 * FOP, one of patientId or encounterIds must not be null/empty, if both are supplied they must
+	 * match, i.e. all encounters must be for the patient specified
+	 * 
+	 * @param patientId If creating a complete patient history, the Patient.getId() id of the patient
+	 *            (may be null)
+	 * @param encounterIds If creating a specific report with only the specified encounters, the set of
+	 *            all encounter ids (i.e. Encounter.getId()), they must all be from the same patient
+	 * @return byte [] of generated PDF bytes
+	 * @throws Exception if neither patientId nor encounterIds were provided
+	 */
 	public byte[] getBytes(Integer patientId, Set<Integer> encounterIds) throws Exception {
 		
 		EncounterEvaluationContext context = new EncounterEvaluationContext();
-		EncounterIdSet encIdSet = new EncounterIdSet(encounterIds);
-		context.addParameterValue("encounterIds", encIdSet);
-		context.setBaseEncounters(encIdSet);
+		
+		// don't create an empty set of base encounters if no encounterIds are provided
+		if (encounterIds != null && !encounterIds.isEmpty()) {
+			EncounterIdSet encIdSet = new EncounterIdSet(encounterIds);
+			
+			// patientId might be null if encounters were provided instead
+			// retrieve the patientId of an encounter
+			Integer firstEncPatientId = es.getEncounter(encIdSet.getMemberIds().toArray(new Integer[1])[0]).getPatient()
+			        .getId();
+			
+			// verify all encounters are for the same patient
+			firstEncPatientId = verifyEncounterIdSetPatientId(firstEncPatientId, encounterIds);
+			
+			// null is returned if there was mismatch in encounters
+			if (firstEncPatientId == null) {
+				throw new Exception("Encounters are from different patients");
+				// if patient id was null, but the encounter ids matched, use that patient id
+			} else if (patientId == null) {
+				patientId = firstEncPatientId;
+				// if the patient ids are mismatched throw an error
+			} else if (patientId != firstEncPatientId) {
+				throw new Exception("Encounters do not match patient");
+			}
+			
+			context.addParameterValue("encounterIds", encIdSet);
+			context.setBaseEncounters(encIdSet);
+			
+		} else if (patientId == null) {
+			throw new Exception("Neither patientId nor encounterUuid(s) were provided to generate a report");
+		}
 		
 		ReportDesign reportDesign = rs.getReportDesignByUuid(REPORT_DESIGN_UUID);
 		PatientSummaryTemplate template = pss.getPatientSummaryTemplate(reportDesign.getId());

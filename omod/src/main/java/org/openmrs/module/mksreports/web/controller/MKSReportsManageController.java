@@ -57,8 +57,8 @@ public class MKSReportsManageController {
 	 */
 	@RequestMapping(value = MKSReportsConstants.CONTROLLER_PATIENTHISTORY_ROUTE)
 	public void renderPatientHistory(ModelMap model, HttpServletRequest request, HttpServletResponse response,
-	        @RequestParam("patientId") Integer patientId,
-	        @RequestParam(value = "encounterUuids", required = false) String encounterUuids,
+	        @RequestParam(value = "patientId", required = false) Integer patientId,
+	        @RequestParam(value = "encounterUuid", required = false) String encounterUuids,
 	        @RequestParam(value = "target", required = false) String target) {
 		
 		Set<Integer> encounterIds = StringUtils.isBlank(encounterUuids) ? Collections.emptySet()
