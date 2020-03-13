@@ -18,23 +18,31 @@
 				<xsl:choose>
 					<xsl:when test="header">
 						<fo:static-content flow-name="xsl-region-header">
-							<fo:block-container height="1cm" position="absolute">
-								<fo:block>
-									<fo:external-graphic src="{$logoImage}" content-width="scale-to-fit" content-height="1cm"/>
-								</fo:block>
-							</fo:block-container>
-							<fo:block-container height="1cm" position="absolute">
-								<fo:block text-align="right">
-									<fo:inline font-size="8" vertical-align="top">
-										<xsl:value-of select="header/headerText"/>
-									</fo:inline>
-								</fo:block>
-								<fo:block text-align="right">
-									<fo:inline font-size="8">
-										<xsl:value-of select="i18n/pageString"/>&#160;<fo:page-number/>&#160;<xsl:value-of select="i18n/ofString"/>&#160;<fo:page-number-citation-last ref-id="last-page"/>
-									</fo:inline>
-								</fo:block>
-							</fo:block-container>
+							<fo:table>
+								<fo:table-column/>
+								<fo:table-column/>
+								<fo:table-body>
+									<fo:table-row>
+										<fo:table-cell>
+											<fo:block>
+												<fo:external-graphic height="1cm" src="{$logoImage}"/>
+											</fo:block>
+										</fo:table-cell>
+										<fo:table-cell>
+											<fo:block text-align="right">
+												<fo:inline font-size="8" vertical-align="top">
+													<xsl:value-of select="header/headerText"/>
+												</fo:inline>
+											</fo:block>
+											<fo:block text-align="right">
+												<fo:inline font-size="8">
+													<xsl:value-of select="i18n/pageString"/>&#160;<fo:page-number/>&#160;<xsl:value-of select="i18n/ofString"/>&#160;<fo:page-number-citation-last ref-id="last-page"/>
+												</fo:inline>
+											</fo:block>
+										</fo:table-cell>
+									</fo:table-row>
+								</fo:table-body>
+							</fo:table>
 						</fo:static-content>
 					</xsl:when>
 					<xsl:otherwise>
