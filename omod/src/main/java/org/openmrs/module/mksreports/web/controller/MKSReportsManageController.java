@@ -21,7 +21,6 @@ import java.util.stream.Collectors;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.openmrs.api.EncounterService;
 import org.openmrs.module.mksreports.MKSReportsConstants;
@@ -58,19 +57,30 @@ public class MKSReportsManageController {
 	 */
 	@RequestMapping(value = MKSReportsConstants.CONTROLLER_PATIENTHISTORY_ROUTE)
 	public void renderPatientHistory(ModelMap model, HttpServletRequest request, HttpServletResponse response,
-	        @RequestParam(value = "patientId", required = false) Integer patientId,
+	        @RequestParam(value = "patientUuid", required = false) Integer patientId,
 	        @RequestParam(value = "encounterUuid", required = false) String encounterUuids,
-	        @RequestParam(value = "target", required = false) String target) {
+	        @RequestParam(value = "contentDisposition", required = false) String contentDisposition) {
 		
 		Set<Integer> encounterIds = StringUtils.isBlank(encounterUuids) ? Collections.emptySet()
 		        : Arrays.asList(StringUtils.split(encounterUuids, ",")).stream()
 		                .map(uuid -> es.getEncounterByUuid(uuid.trim()).getId()).distinct().collect(Collectors.toSet());
 		
 		response.setContentType("application/pdf");
+		
 		// set the file as an attachment with the suggested filename if the GET params
 		// did not indicate it's being opened in another tab
-		if (StringUtils.isBlank(target)) {
+		if (StringUtils.isBlank(contentDisposition) || "attachment".equals(contentDisposition)) {
+			//attachment (indicating it should be downloaded;
+			//most browsers presenting a 'Save as' dialog,
+			//prefilled with the value of the filename parameters if present).
+			
 			response.addHeader("Content-Disposition", "attachment;filename=patientHistory.pdf");
+		} else if ("inline".equals(contentDisposition)) {
+			//this is already default, but it doesn't hurt
+			// inline (default value, indicating it can be displayed inside
+			//the Web page, or as the Web page)
+			
+			response.addHeader("Content-Disposition", "inline");
 		}
 		
 		byte[] pdfBytes;
