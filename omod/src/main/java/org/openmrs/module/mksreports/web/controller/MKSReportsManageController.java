@@ -57,7 +57,7 @@ public class MKSReportsManageController {
 	 */
 	@RequestMapping(value = MKSReportsConstants.CONTROLLER_PATIENTHISTORY_ROUTE)
 	public void renderPatientHistory(ModelMap model, HttpServletRequest request, HttpServletResponse response,
-	        @RequestParam(value = "patientUuid", required = false) Integer patientId,
+	        @RequestParam(value = "patientId", required = false) Integer patientId,
 	        @RequestParam(value = "encounterUuid", required = false) String encounterUuids,
 	        @RequestParam(value = "contentDisposition", required = false) String contentDisposition) {
 		
@@ -66,6 +66,8 @@ public class MKSReportsManageController {
 		                .map(uuid -> es.getEncounterByUuid(uuid.trim()).getId()).distinct().collect(Collectors.toSet());
 		
 		response.setContentType("application/pdf");
+		
+		//See https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Disposition
 		
 		// set the file as an attachment with the suggested filename if the GET params
 		// did not indicate it's being opened in another tab
