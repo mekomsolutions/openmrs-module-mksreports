@@ -31,7 +31,11 @@ public class MKSReportsConstants {
 	
 	public static final String COMPONENT_REPORTMANAGER_PATIENTHISTORY = MODULE_ARTIFACT_ID + "." + PATIENTHISTORY_ID;
 	
-	public static final String CONTROLLER_PATIENTHISTORY_ROUTE = "/module/" + MODULE_ARTIFACT_ID + "/" + PATIENTHISTORY_ID;
+	/*
+	 * URIs URLs
+	 */
+	
+	public static final String ROOT_URL = "/module/" + MODULE_ARTIFACT_ID;
 	
 	/**
 	 * The path to the style sheet for Patient History reports.

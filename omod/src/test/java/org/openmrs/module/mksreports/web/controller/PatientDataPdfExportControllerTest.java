@@ -7,10 +7,8 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
-import java.util.Properties;
 
 import org.hamcrest.text.StringContainsInOrder;
-import org.hibernate.cfg.Environment;
 import org.junit.Before;
 import org.junit.Test;
 import org.openmrs.api.context.Context;
@@ -27,27 +25,14 @@ import org.springframework.ui.ModelMap;
 import com.lowagie.text.pdf.PdfReader;
 import com.lowagie.text.pdf.parser.PdfTextExtractor;
 
-public class MKSReportsManageControllerTest extends BaseModuleWebContextSensitiveTest {
+public class PatientDataPdfExportControllerTest extends BaseModuleWebContextSensitiveTest {
 	
 	@Autowired
-	private MKSReportsManageController ctrl;
+	private PatientDataPdfExportController ctrl;
 	
 	@Autowired
 	@Qualifier(MKSReportsConstants.COMPONENT_REPORTMANAGER_PATIENTHISTORY)
 	private MKSReportManager reportManager;
-	
-	@Override
-	public Properties getRuntimeProperties() {
-		Properties props = super.getRuntimeProperties();
-		
-		String dbUrl = props.getProperty(Environment.URL);
-		
-		dbUrl += ";DB_CLOSE_ON_EXIT=FALSE";
-		
-		props.setProperty(Environment.URL, dbUrl);
-		
-		return props;
-	}
 	
 	@Before
 	public void setup() throws Exception {
@@ -56,7 +41,7 @@ public class MKSReportsManageControllerTest extends BaseModuleWebContextSensitiv
 	}
 	
 	@Test
-	public void renderPatientHistory_shouldProducePDFWithEncounterTranslations_en() throws IOException {
+	public void getPatientHistory_shouldL10nEnglish() throws IOException {
 		// setup
 		ModelMap model = new ModelMap();
 		MockHttpServletRequest request = new MockHttpServletRequest();
@@ -64,10 +49,8 @@ public class MKSReportsManageControllerTest extends BaseModuleWebContextSensitiv
 		
 		Context.setLocale(Locale.ENGLISH);
 		
-		Integer patientId = 100000;
-		
 		// replay
-		ctrl.renderPatientHistory(model, request, response, patientId, null, null);
+		ctrl.getPatientHistory(model, request, response, "1115086f-b525-4199-afb9-729d9088ae89", "");
 		
 		// verify // insure unknown patients with minimal info do not cause any NPEs
 		
@@ -94,7 +77,7 @@ public class MKSReportsManageControllerTest extends BaseModuleWebContextSensitiv
 	}
 	
 	@Test
-	public void renderPatientHistory_shouldProducePDFWithEncounterTranslations_es() throws IOException {
+	public void getPatientHistory_shouldL10nSpanish() throws IOException {
 		// setup
 		ModelMap model = new ModelMap();
 		MockHttpServletRequest request = new MockHttpServletRequest();
@@ -102,10 +85,8 @@ public class MKSReportsManageControllerTest extends BaseModuleWebContextSensitiv
 		
 		Context.setLocale(new Locale("es", "ES"));
 		
-		Integer patientId = 100000;
-		
 		// replay
-		ctrl.renderPatientHistory(model, request, response, patientId, null, null);
+		ctrl.getPatientHistory(model, request, response, "1115086f-b525-4199-afb9-729d9088ae89", "");
 		
 		// verify // insure unknown patients with minimal info do not cause any NPEs
 		
