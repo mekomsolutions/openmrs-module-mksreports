@@ -9,6 +9,10 @@
  */
 package org.openmrs.module.mksreports;
 
+import static org.openmrs.module.mksreports.MKSReportsConstants.MODULE_NAME;
+import static org.openmrs.module.mksreports.MKSReportsConstants.PATIENTHISTORY_ID;
+import static org.openmrs.module.mksreports.MKSReportsConstants.ROOT_URL;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.openmrs.api.AdministrationService;
@@ -28,7 +32,7 @@ public class MKSReportsActivator extends BaseModuleActivator {
 	 */
 	@Override
 	public void started() {
-		log.info("Started " + MKSReportsConstants.MODULE_NAME);
+		log.info("Started " + MODULE_NAME);
 		for (MKSReportManager reportManager : Context.getRegisteredComponents(MKSReportManager.class)) {
 			if (reportManager.isActive()) {
 				log.info("Setting up report " + reportManager.getName() + "...");
@@ -36,24 +40,19 @@ public class MKSReportsActivator extends BaseModuleActivator {
 			}
 		}
 		
-		AdministrationService adminSrvc = Context.getAdministrationService();
-		
-		// since there's no dependence on uiframework, mksreports is not registered as a
-		// view provider
-		// set the provider GP to "module/mksreports" and use the controller page name
-		// "patientHistory" as the pageName
-		adminSrvc.setGlobalProperty("htmlformentryui.customPrintProvider",
-		    "module/" + MKSReportsConstants.MODULE_ARTIFACT_ID);
-		adminSrvc.setGlobalProperty("htmlformentryui.customPrintPageName", MKSReportsConstants.PATIENTHISTORY_ID);
-		adminSrvc.setGlobalProperty("htmlformentryui.customPrintTarget", "_blank");
-		
+		{ // https://issues.openmrs.org/browse/HTML-714
+			AdministrationService as = Context.getAdministrationService();
+			as.setGlobalProperty("htmlformentryui.customPrintProvider", ROOT_URL);
+			as.setGlobalProperty("htmlformentryui.customPrintPageName", PATIENTHISTORY_ID + "/encounter");
+			as.setGlobalProperty("htmlformentryui.customPrintTarget", "_blank");
+		}
 	}
 	
 	/**
 	 * @see #shutdown()
 	 */
 	public void shutdown() {
-		log.info("Shutdown " + MKSReportsConstants.MODULE_NAME);
+		log.info("Shutdown " + MODULE_NAME);
 	}
 	
 }

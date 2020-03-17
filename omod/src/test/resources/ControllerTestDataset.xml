@@ -2,7 +2,7 @@
 
 <dataset>
 
-	<person person_id="100000" date_created="2020-01-21 00:00:00.0" voided="0" dead="0"/>
+	<person uuid="1115086f-b525-4199-afb9-729d9088ae89" person_id="100000" date_created="2020-01-21 00:00:00.0" voided="0" dead="0"/>
 	
 	<patient patient_id="100000" date_created="2020-01-21 00:00:00.0" voided="0"/>
 	
@@ -16,6 +16,5 @@
 
 	<!-- visit id is not required! but patient summary fails without a parent visit for an encounter -->
 	<encounter encounter_id="122000" patient_id="100000" encounter_type="111000" visit_id="133000" creator="1" voided="0" encounter_datetime="2020-01-21 00:00:00.0" date_created="2020-01-21 00:00:00.0" uuid="05fec846-fd06-494a-84ba-c833fd137c80"/>
-
 
 </dataset>
