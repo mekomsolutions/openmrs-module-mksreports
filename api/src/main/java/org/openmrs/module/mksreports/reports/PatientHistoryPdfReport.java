@@ -10,11 +10,13 @@ import java.util.Set;
 
 import javax.xml.transform.Result;
 import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.sax.SAXResult;
 import javax.xml.transform.stream.StreamSource;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.fop.apps.FOPException;
 import org.apache.fop.apps.FOUserAgent;
 import org.apache.fop.apps.Fop;
 import org.apache.fop.apps.FopFactory;
@@ -50,9 +52,15 @@ public class PatientHistoryPdfReport {
 	@Qualifier("encounterService")
 	private EncounterService es;
 	
-	public byte[] getBytes(Patient patient, Set<Encounter> encounters) throws Exception {
+	public byte[] getBytes(Patient patient, Set<Encounter> encounters)
+	        throws IllegalArgumentException, FOPException, TransformerException {
 		
 		EncounterEvaluationContext context = new EncounterEvaluationContext();
+		
+		Integer patientId = null;
+		if (patient != null) {
+			patientId = patient.getId();
+		}
 		
 		if (!CollectionUtils.isEmpty(encounters)) {
 			Set<Integer> encounterIds = new HashSet<Integer>();
@@ -67,12 +75,14 @@ public class PatientHistoryPdfReport {
 				throw new IllegalArgumentException(
 				        "The report could not be run because not all encounters belong to the same patient.");
 			}
-			if (patient != null) {
-				if (!patientIds.contains(patient.getId())) {
+			if (patientId != null) {
+				if (!patientIds.contains(patientId)) {
 					throw new IllegalArgumentException(
 					        "The report could not be run because the encounters do not correspond to the specified patient: '"
 					                + patient.getUuid() + "'");
 				}
+			} else {
+				patientId = patientIds.iterator().next();
 			}
 			
 			EncounterIdSet encIdSet = new EncounterIdSet(encounterIds);
@@ -86,7 +96,7 @@ public class PatientHistoryPdfReport {
 		
 		ReportDesign reportDesign = rs.getReportDesignByUuid(REPORT_DESIGN_UUID);
 		PatientSummaryTemplate template = pss.getPatientSummaryTemplate(reportDesign.getId());
-		PatientSummaryResult result = pss.evaluatePatientSummaryTemplate(template, patient.getId(), context);
+		PatientSummaryResult result = pss.evaluatePatientSummaryTemplate(template, patientId, context);
 		
 		StreamSource xmlSourceStream = new StreamSource(new ByteArrayInputStream(result.getRawContents()));
 		StreamSource xslTransformStream = new StreamSource(
@@ -104,10 +114,11 @@ public class PatientHistoryPdfReport {
 	 * @param xmlSourceStream A {@link StreamSource} built on the input XML.
 	 * @param xslTransformStream A {@link StreamSource} built on the XSL style sheet.
 	 * @param outStream
-	 * @throws Exception
+	 * @throws FOPException
+	 * @throws TransformerException
 	 */
 	protected void writeToOutputStream(StreamSource xmlSourceStream, StreamSource xslTransformStream, OutputStream outStream)
-	        throws Exception {
+	        throws FOPException, TransformerException {
 		
 		// Step 1: Construct a FopFactory
 		FopFactory fopFactory = FopFactory.newInstance();
