@@ -6,7 +6,6 @@ import java.util.Set;
 import javax.xml.transform.TransformerException;
 
 import org.apache.fop.apps.FOPException;
-import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -43,14 +42,12 @@ public class PatientHistoryPdfReportTest extends BaseModuleContextSensitiveTest 
 		encounters.add(es.getEncounter(3));
 		encounters.add(es.getEncounter(6));
 		
+		expectedException.expect(IllegalArgumentException.class);
+		expectedException
+		        .expectMessage("The report could not be run because not all encounters belong to the same patient.");
+		
 		// replay
-		try {
-			pdfReport.getBytes(null, encounters);
-		}
-		catch (IllegalArgumentException e) {
-			Assert.assertEquals("The report could not be run because not all encounters belong to the same patient.",
-			    e.getMessage());
-		}
+		pdfReport.getBytes(null, encounters);
 	}
 	
 	@Test
@@ -62,29 +59,25 @@ public class PatientHistoryPdfReportTest extends BaseModuleContextSensitiveTest 
 		encounters.add(es.getEncounter(3));
 		encounters.add(es.getEncounter(4));
 		
+		expectedException.expect(IllegalArgumentException.class);
+		expectedException.expectMessage(
+		    "The report could not be run because the encounters do not correspond to the specified patient: '"
+		            + patient.getUuid() + "'");
+		
 		// replay
-		try {
-			pdfReport.getBytes(patient, encounters);
-		}
-		catch (IllegalArgumentException e) {
-			Assert.assertEquals(
-			    "The report could not be run because the encounters do not correspond to the specified patient: '"
-			            + patient.getUuid() + "'",
-			    e.getMessage());
-		}
+		pdfReport.getBytes(patient, encounters);
 	}
 	
 	@Test
 	public void getBytes_shouldThrowWhenPatientAndEncountersMissing() throws FOPException, TransformerException {
 		
+		// setup
+		expectedException.expect(IllegalArgumentException.class);
+		expectedException
+		        .expectMessage("The report could not be run because neither the patient nor the encounters were provided.");
+		
 		// replay
-		try {
-			pdfReport.getBytes(null, null);
-		}
-		catch (IllegalArgumentException e) {
-			Assert.assertEquals("The report could not be run because neither the patient nor the encounters were provided.",
-			    e.getMessage());
-		}
+		pdfReport.getBytes(null, null);
 	}
 	
 }
