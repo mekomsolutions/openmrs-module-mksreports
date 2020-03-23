@@ -14,6 +14,8 @@
 
 package org.openmrs.module.commonreports.library;
 
+import static org.openmrs.module.commonreports.CommonReportsConstants.MODULE_ARTIFACT_ID;
+
 import java.util.Map;
 
 import org.openmrs.module.commonreports.common.Helper;
@@ -29,7 +31,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class EncounterDataLibrary extends BaseDefinitionLibrary<EncounterDataDefinition> {
 	
-	public static final String PREFIX = "commonreports.encounterDataCalculation.";
+	public static final String PREFIX = MODULE_ARTIFACT_ID + ".encounterDataCalculation.";
 	
 	@Override
 	public Class<? super EncounterDataDefinition> getDefinitionType() {
@@ -62,7 +64,8 @@ public class EncounterDataLibrary extends BaseDefinitionLibrary<EncounterDataDef
 	}
 	
 	private EncounterDataDefinition sqlEncounterDataDefinition(String resourceName, Replacements replacements) {
-		String sql = Helper.getStringFromResource("org/openmrs/module/commonreports/sql/encounterData/" + resourceName);
+		String sql = Helper
+		        .getStringFromResource("org/openmrs/module/" + MODULE_ARTIFACT_ID + "/sql/encounterData/" + resourceName);
 		if (replacements != null) {
 			for (Map.Entry<String, String> entry : replacements.entrySet()) {
 				sql = sql.replaceAll(":" + entry.getKey(), entry.getValue());

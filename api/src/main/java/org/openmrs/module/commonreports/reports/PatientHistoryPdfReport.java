@@ -24,7 +24,10 @@ import org.apache.fop.apps.MimeConstants;
 import org.openmrs.Encounter;
 import org.openmrs.Patient;
 import org.openmrs.api.EncounterService;
+import org.openmrs.api.context.Context;
+import org.openmrs.api.context.ContextAuthenticationException;
 import org.openmrs.module.commonreports.CommonReportsConstants;
+import org.openmrs.module.commonreports.common.CommonReportsPrivilegeConstants;
 import org.openmrs.module.patientsummary.PatientSummaryResult;
 import org.openmrs.module.patientsummary.PatientSummaryTemplate;
 import org.openmrs.module.patientsummary.api.PatientSummaryService;
@@ -53,12 +56,13 @@ public class PatientHistoryPdfReport {
 	private EncounterService es;
 	
 	public byte[] getBytes(Patient patient, Set<Encounter> encounters)
-	        throws IllegalArgumentException, FOPException, TransformerException {
+	        throws ContextAuthenticationException, IllegalArgumentException, FOPException, TransformerException {
 		
 		EncounterEvaluationContext context = new EncounterEvaluationContext();
 		
 		Integer patientId = null;
 		if (patient != null) {
+			Context.requirePrivilege(CommonReportsPrivilegeConstants.VIEW_PATIENT_HISTORY);
 			patientId = patient.getId();
 		}
 		

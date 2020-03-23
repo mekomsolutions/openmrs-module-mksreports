@@ -13,6 +13,8 @@
  */
 package org.openmrs.module.commonreports.library;
 
+import static org.openmrs.module.commonreports.CommonReportsConstants.MODULE_ARTIFACT_ID;
+
 import java.util.AbstractMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -20,7 +22,6 @@ import java.util.Set;
 
 import org.openmrs.api.LocationService;
 import org.openmrs.api.context.Context;
-import org.openmrs.module.commonreports.library.DataFactory;
 import org.openmrs.module.reporting.common.Birthdate;
 import org.openmrs.module.reporting.data.converter.AgeConverter;
 import org.openmrs.module.reporting.data.converter.ConcatenatedPropertyConverter;
@@ -108,7 +109,7 @@ public class BasePatientDataLibrary extends BaseDefinitionLibrary<PatientDataDef
 	
 	@Override
 	public String getKeyPrefix() {
-		return "commonreports.patientData.";
+		return MODULE_ARTIFACT_ID + ".patientData.";
 	}
 	
 	@Override

@@ -14,6 +14,8 @@
 
 package org.openmrs.module.commonreports.library;
 
+import static org.openmrs.module.commonreports.CommonReportsConstants.MODULE_ARTIFACT_ID;
+
 import java.util.Map;
 
 import org.openmrs.module.commonreports.common.Helper;
@@ -29,7 +31,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class ObsDataLibrary extends BaseDefinitionLibrary<ObsDataDefinition> {
 	
-	public static final String PREFIX = "commonreports.obsDataCalculation.";
+	public static final String PREFIX = MODULE_ARTIFACT_ID + ".obsDataCalculation.";
 	
 	@Override
 	public Class<? super ObsDataDefinition> getDefinitionType() {
@@ -47,7 +49,8 @@ public class ObsDataLibrary extends BaseDefinitionLibrary<ObsDataDefinition> {
 	}
 	
 	private ObsDataDefinition sqlObsDataDefinition(String resourceName, Replacements replacements) {
-		String sql = Helper.getStringFromResource("org/openmrs/module/commonreports/sql/obsData/" + resourceName);
+		String sql = Helper
+		        .getStringFromResource("org/openmrs/module/" + MODULE_ARTIFACT_ID + "/sql/obsData/" + resourceName);
 		if (replacements != null) {
 			for (Map.Entry<String, String> entry : replacements.entrySet()) {
 				sql = sql.replaceAll(":" + entry.getKey(), entry.getValue());

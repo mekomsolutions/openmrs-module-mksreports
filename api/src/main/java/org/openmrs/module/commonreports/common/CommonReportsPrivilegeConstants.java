@@ -7,6 +7,6 @@ import org.openmrs.annotation.HasAddOnStartupPrivileges;
 public class CommonReportsPrivilegeConstants {
 	
 	@AddOnStartup(description = "Able to view patient history report")
-	public static final String VIEW_PATIENT_HISTORY = "Can View Patient History";
+	public static final String VIEW_PATIENT_HISTORY = "Can View Patient History Report";
 	
 }

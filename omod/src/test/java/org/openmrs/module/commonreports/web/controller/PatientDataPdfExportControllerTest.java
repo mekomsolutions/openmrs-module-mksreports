@@ -14,7 +14,6 @@ import org.junit.Test;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.commonreports.ActivatedReportManager;
 import org.openmrs.module.commonreports.CommonReportsConstants;
-import org.openmrs.module.commonreports.web.controller.PatientDataPdfExportController;
 import org.openmrs.module.reporting.report.manager.ReportManagerUtil;
 import org.openmrs.web.test.BaseModuleWebContextSensitiveTest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,7 +52,7 @@ public class PatientDataPdfExportControllerTest extends BaseModuleWebContextSens
 		// replay
 		ctrl.getPatientHistory(model, request, response, "1115086f-b525-4199-afb9-729d9088ae89", "");
 		
-		// verify // insure unknown patients with minimal info do not cause any NPEs
+		// verify // ensure unknown patients with minimal info do not cause any NPEs
 		
 		byte[] pdfData = response.getContentAsByteArray();
 		
@@ -89,7 +88,7 @@ public class PatientDataPdfExportControllerTest extends BaseModuleWebContextSens
 		// replay
 		ctrl.getPatientHistory(model, request, response, "1115086f-b525-4199-afb9-729d9088ae89", "");
 		
-		// verify // insure unknown patients with minimal info do not cause any NPEs
+		// verify // ensure unknown patients with minimal info do not cause any NPEs
 		
 		byte[] pdfData = response.getContentAsByteArray();
 		

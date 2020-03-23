@@ -13,6 +13,9 @@
  */
 package org.openmrs.module.commonreports.renderer;
 
+import static org.openmrs.module.commonreports.CommonReportsConstants.MODULE_ARTIFACT_ID;
+import static org.openmrs.module.commonreports.CommonReportsConstants.PATIENTHISTORY_ID;
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -44,8 +47,6 @@ import org.openmrs.annotation.Handler;
 import org.openmrs.api.AdministrationService;
 import org.openmrs.api.context.Context;
 import org.openmrs.messagesource.MessageSourceService;
-import org.openmrs.module.commonreports.CommonReportsConstants;
-import org.openmrs.module.commonreports.common.CommonReportsPrivilegeConstants;
 import org.openmrs.module.commonreports.reports.PatientHistoryReportManager;
 import org.openmrs.module.reporting.common.Localized;
 import org.openmrs.module.reporting.dataset.DataSet;
@@ -79,7 +80,7 @@ public class PatientHistoryXmlReportRenderer extends ReportDesignRenderer {
 	// using "class local singleton"/Flyweight reference
 	private MessageSourceService mss;
 	
-	private MessageSourceService getMss() {
+	private MessageSourceService getMessageSourceService() {
 		
 		if (mss == null) {
 			mss = Context.getMessageSourceService();
@@ -107,7 +108,7 @@ public class PatientHistoryXmlReportRenderer extends ReportDesignRenderer {
 	protected String getStringValue(Object value) {
 		String strVal = "";
 		if (value != null)
-			return strVal = getMss().getMessage(value.toString());
+			return strVal = getMessageSourceService().getMessage(value.toString());
 		return strVal;
 	}
 	
@@ -122,8 +123,6 @@ public class PatientHistoryXmlReportRenderer extends ReportDesignRenderer {
 	
 	@Override
 	public void render(ReportData results, String argument, OutputStream out) throws IOException, RenderingException {
-		
-		Context.requirePrivilege(CommonReportsPrivilegeConstants.VIEW_PATIENT_HISTORY);
 		
 		// - - - - - - - - - - - - - - - - - - - - - - - -
 		// TODO This should go eventually.
@@ -183,16 +182,15 @@ public class PatientHistoryXmlReportRenderer extends ReportDesignRenderer {
 		Element header = doc.createElement("header");
 		Element headerText = doc.createElement("headerText");
 		
-		String headerStringId = String.join(".", CommonReportsConstants.MODULE_ARTIFACT_ID,
-		    CommonReportsConstants.PATIENTHISTORY_ID.toLowerCase(), "requestedby");
+		String headerStringId = String.join(".", MODULE_ARTIFACT_ID, PATIENTHISTORY_ID.toLowerCase(), "requestedby");
 		
 		headerText.setTextContent(
-		    getMss().getMessage(headerStringId) + " " + Context.getAuthenticatedUser().getDisplayString());
+		    getMessageSourceService().getMessage(headerStringId) + " " + Context.getAuthenticatedUser().getDisplayString());
 		header.appendChild(headerText);
 		
 		AdministrationService adminService = Context.getAdministrationService();
 		
-		String logoPath = adminService.getGlobalProperty("commonreports.brandingLogo");
+		String logoPath = adminService.getGlobalProperty(MODULE_ARTIFACT_ID + ".brandingLogo");
 		
 		if (!StringUtils.isBlank(logoPath)) {
 			
@@ -220,7 +218,7 @@ public class PatientHistoryXmlReportRenderer extends ReportDesignRenderer {
 			header.appendChild(branding);
 		}
 		
-		boolean useHeader = "true".equals(adminService.getGlobalProperty("commonreports.enableHeader"));
+		boolean useHeader = "true".equals(adminService.getGlobalProperty(MODULE_ARTIFACT_ID + ".enableHeader"));
 		
 		if (useHeader) {
 			rootElement.appendChild(header);
@@ -231,12 +229,11 @@ public class PatientHistoryXmlReportRenderer extends ReportDesignRenderer {
 		List<String> i18nIds = Arrays.asList("page", "of");
 		
 		for (String id : i18nIds) {
-			String fqnId = String.join(".", CommonReportsConstants.MODULE_ARTIFACT_ID,
-			    CommonReportsConstants.PATIENTHISTORY_ID.toLowerCase(), id);
+			String fqnId = String.join(".", MODULE_ARTIFACT_ID, PATIENTHISTORY_ID.toLowerCase(), id);
 			
 			Element i18nChild = doc.createElement(id + "String");
 			
-			i18nChild.setTextContent(getMss().getMessage(fqnId));
+			i18nChild.setTextContent(getMessageSourceService().getMessage(fqnId));
 			
 			i18nStrings.appendChild(i18nChild);
 		}
@@ -350,7 +347,7 @@ public class PatientHistoryXmlReportRenderer extends ReportDesignRenderer {
 									if (complexObs.getComplexData().getMimeType().startsWith("image/")) {
 										File complexObsFile = AbstractHandler.getComplexDataFile(complexObs);
 										strValue = complexObsFile.getAbsolutePath();
-										obs.setAttribute(ATTR_TYPE, "Complex Image");
+										obs.setAttribute(ATTR_TYPE, "Image");
 									}
 								}
 								
@@ -369,13 +366,11 @@ public class PatientHistoryXmlReportRenderer extends ReportDesignRenderer {
 		try {
 			transformer = TransformerFactory.newInstance().newTransformer();
 		}
-		catch (TransformerConfigurationException e) {
-			throw new RenderingException(e.getLocalizedMessage());
-		}
-		catch (TransformerFactoryConfigurationError e) {
+		catch (TransformerConfigurationException | TransformerFactoryConfigurationError e) {
 			throw new RenderingException(e.getLocalizedMessage());
 		}
 		transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+		
 		DOMSource source = new DOMSource(doc);
 		try {
 			transformer.transform(source, new StreamResult(out));
