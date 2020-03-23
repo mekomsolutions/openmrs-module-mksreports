@@ -1,0 +1,12 @@
+[
+    {
+        "id" : "${project.parent.artifactId}.downloadPatientHistory",
+        "extensionPointId" : "patientDashboard.overallActions",
+        "type" : "link",
+        "label" : "commonreports.patienthistory.linklabel",
+        "url" : "module/commonreports/patientHistory.form?patientUuid={{patient.uuid}}",
+        "icon" : "icon-print",
+        "order" : 14,
+        "requiredPrivilege" : "Can View Patient History"
+    }
+]

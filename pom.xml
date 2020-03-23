@@ -3,21 +3,18 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-<!-- version 1.1.1 implies use of openmrs-core 1.11.2 and compile target jre6 -->
-
 	<parent>
 		<groupId>org.openmrs.maven.parents</groupId>
 		<artifactId>maven-parent-openmrs-module</artifactId>
-		
 		<version>1.1.1</version>
 	</parent>
 
 	<groupId>org.openmrs.module</groupId>
-	<artifactId>mksreports</artifactId>
-	<version>1.1.3-SNAPSHOT</version>
+	<artifactId>commonreports</artifactId>
+	<version>1.0.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
-	<name>MKS Reports</name>
-	<description>Mekom Solutions reports and reporting tools for OpenMRS</description>
+	<name>Common Reports</name>
+	<description>Common set of reusable, standard or canned reports for OpenMRS that can be activated or deactivated</description>
 
 	<developers>
 		<developer>
@@ -31,9 +28,9 @@
 	</organization>
 
 	<scm>
-		<connection>scm:git:git@github.com:mekomsolutions/openmrs-module-mksreports.git</connection>
-		<developerConnection>scm:git:git@github.com:mekomsolutions/openmrs-module-mksreports.git</developerConnection>
-		<url>https://github.com/mekomsolutions/openmrs-module-mksreports/</url>
+		<connection>scm:git:git@github.com:mekomsolutions/openmrs-module-commonreports.git</connection>
+		<developerConnection>scm:git:git@github.com:mekomsolutions/openmrs-module-commonreports.git</developerConnection>
+		<url>https://github.com/mekomsolutions/openmrs-module-commonreports/</url>
 	</scm>
 
 	<modules>
@@ -94,33 +91,48 @@
 
 	</dependencies>
 
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>net.revelc.code.formatter</groupId>
-				<artifactId>formatter-maven-plugin</artifactId>
-				<version>2.7.1</version>
-				<configuration>
-					<encoding>UTF-8</encoding>
-					<directories>
-						<directory>.</directory>
-					</directories>
-					<configFile>../OpenMRSFormatter.xml</configFile>
-					<includes>
-						<include>**/*.java</include>
-					</includes>
-				</configuration>
-				<executions>
-					<execution>
-						<phase>compile</phase>
-						<goals>
-							<goal>format</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-		</plugins>
-	</build>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>net.revelc.code.formatter</groupId>
+        <artifactId>formatter-maven-plugin</artifactId>
+        <version>2.10.0</version>
+        <executions>
+          <execution>
+            <phase>compile</phase>
+            <goals>
+              <goal>format</goal>
+            </goals>
+            <configuration>
+              <directories>
+                <directory>.</directory>
+              </directories>
+              <configFile>eclipse/OpenMRSFormatter.xml</configFile>
+              <includes>
+                <include>**/*.java</include>
+                <include>**/*.json</include>
+              </includes>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>net.revelc.code.formatter</groupId>
+          <artifactId>formatter-maven-plugin</artifactId>
+          <dependencies>
+            <dependency>
+              <groupId>org.openmrs.tools</groupId>
+              <artifactId>openmrs-tools</artifactId>
+              <version>${openmrsPlatformVersion}</version>
+            </dependency>
+          </dependencies>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+  </build>
 
 	<repositories>
 		<repository>
