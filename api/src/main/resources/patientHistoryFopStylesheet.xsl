@@ -113,11 +113,11 @@
 			<!-- don't start a table, table body etc if there are no obs that will create table rows and cells-->
 			<xsl:choose>
 				<!-- when some other obs exist like coded  -->
-				<xsl:when test="count(obs[@type!='Text' and @type!='Complex Image']) &gt; 0">
+				<xsl:when test="count(obs[@type!='Text' and @type!='Image']) &gt; 0">
 				<!-- filter out the obs that shouldnt go in a table while selecting to a new template,
 				this allows calling position() and getting the expected 1 and mod 1 -->
 					<!-- put text and coded, et c in table -->
-					<xsl:apply-templates select="obs[@type!='Complex Image']" mode="table"/>
+					<xsl:apply-templates select="obs[@type!='Image']" mode="table"/>
 				</xsl:when>
 				<!-- otherwise put text obs on it's own line (e.g. long free text messages, if they're all the encounter has) -->
 				<xsl:otherwise>
@@ -127,7 +127,7 @@
 			 	</xsl:otherwise>
 			</xsl:choose>
 			<!-- after all other obs, add the image obs as external graphics -->
-			<xsl:for-each select="obs[@type='Complex Image']">
+			<xsl:for-each select="obs[@type='Image']">
 				<fo:block margin="2mm" page-break-inside="avoid">
  					<fo:block font-size="8" font-style="italic" margin-bottom="1mm" margin-right="3mm">
 						<fo:block><xsl:value-of select="@label" /></fo:block>
@@ -146,10 +146,10 @@
 				<fo:block font-size="8" font-style="italic" margin-bottom="1mm" margin-right="3mm">
 					<fo:block><xsl:value-of select="@label" /></fo:block>
 <!-- 					<fo:block><xsl:value-of select="@time" /></fo:block> -->
+					</fo:block>
+					<xsl:value-of select="." />
 				</fo:block>
-				<xsl:value-of select="." />
 			</fo:block>
-		</fo:block>
 	</xsl:template>
 	
 	<!-- start a new table -->
@@ -165,7 +165,7 @@
 				<!-- We select the first obs and and those that match for a row start -->
 				<fo:table-body>
 					<xsl:apply-templates select="." mode="row"/>
-	    		</fo:table-body>
+	    	</fo:table-body>
 			</fo:table>
 		</xsl:if>
 	</xsl:template>
@@ -173,26 +173,26 @@
 	<!-- In-table obs.: selecting each row's elements -->
 	<xsl:template match="obs" mode="row">
 		<fo:table-row page-break-inside="avoid">
-		<!-- filter those obs that are handled by other formatting, @type!='Text' and @type!='Complex Image' -->
-	        <!-- We select the current obs and add the following ones whose position doesn't exceed the row's width -->
-	        <xsl:apply-templates select=".|following-sibling::obs[position() &lt; ($numColumns + 0)]" mode="cell"/>
-        </fo:table-row>
-    </xsl:template>	
+		<!-- filter those obs that are handled by other formatting, @type!='Text' and @type!='Image' -->
+      <!-- We select the current obs and add the following ones whose position doesn't exceed the row's width -->
+      <xsl:apply-templates select=".|following-sibling::obs[position() &lt; ($numColumns + 0)]" mode="cell"/>
+    </fo:table-row>
+	</xsl:template>	
     
-    <!-- In-table obs.: in rows cell -->
-    <xsl:template match="obs" mode="cell">
-        <fo:table-cell>
-			<fo:block margin="2mm">
-				<fo:block font-size="10">
-					<fo:block font-size="8" font-style="italic" margin-bottom="1mm" margin-right="3mm">
-						<fo:block><xsl:value-of select="@label" /></fo:block>
-<!-- 						<fo:block><xsl:value-of select="@time" /></fo:block> -->
+  <!-- In-table obs.: in rows cell -->
+  <xsl:template match="obs" mode="cell">
+      <fo:table-cell>
+				<fo:block margin="2mm">
+					<fo:block font-size="10">
+						<fo:block font-size="8" font-style="italic" margin-bottom="1mm" margin-right="3mm">
+							<fo:block><xsl:value-of select="@label" /></fo:block>
+	<!-- 						<fo:block><xsl:value-of select="@time" /></fo:block> -->
+						</fo:block>
+						<xsl:value-of select="." />
 					</fo:block>
-					<xsl:value-of select="." />
-				</fo:block>
-			</fo:block> 
-        </fo:table-cell>
-    </xsl:template>	
+				</fo:block> 
+      </fo:table-cell>
+  </xsl:template>	
 	
 	<!-- Function to loop as many times as necessary to produce: '<fo:table-column/>' -->
 	<xsl:template name="repeat-fo-table-column">
