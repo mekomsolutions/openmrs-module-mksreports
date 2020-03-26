@@ -55,6 +55,14 @@ public class PatientHistoryPdfReport {
 	@Qualifier("encounterService")
 	private EncounterService es;
 	
+	/**
+	 * Renders the PDF bytes for the patient history. Specifying the patient requires the ad-hoc
+	 * privilege since it is assumed that possibly the whole patient history is being fetched.
+	 * 
+	 * @param patient The patient for which the history is to be reported.
+	 * @param encounters The encounters to be reported.
+	 * @return The PDF bytes.
+	 */
 	public byte[] getBytes(Patient patient, Set<Encounter> encounters)
 	        throws ContextAuthenticationException, IllegalArgumentException, FOPException, TransformerException {
 		

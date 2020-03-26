@@ -86,9 +86,8 @@ public class PatientDataPdfExportController {
 	        @RequestParam(value = "contentDisposition", required = false) String contentDisposition) {
 		
 		Patient patient = ps.getPatientByUuid(patientUuid);
-		Set<Encounter> encounters = null;
 		
-		writeReponse(patient, encounters, contentDisposition, response);
+		writeReponse(patient, null, contentDisposition, response);
 	}
 	
 	@RequestMapping(value = ROOT_URL + "/" + PATIENTHISTORY_ID + "/encounter")
@@ -103,10 +102,9 @@ public class PatientDataPdfExportController {
 			return;
 		}
 		
-		Patient patient = encounter.getPatient();
 		Set<Encounter> encounters = new HashSet<Encounter>(Arrays.asList(encounter));
 		
-		writeReponse(patient, encounters, contentDisposition, response);
+		writeReponse(null, encounters, contentDisposition, response);
 	}
 	
 	@RequestMapping(value = ROOT_URL + "/" + PATIENTHISTORY_ID + "/encounters")
@@ -114,7 +112,6 @@ public class PatientDataPdfExportController {
 	        @RequestParam(value = "encounterUuids") String encounterUuids,
 	        @RequestParam(value = "contentDisposition", required = false) String contentDisposition) {
 		
-		Patient patient = null;
 		Set<Encounter> encounters = Arrays.asList(StringUtils.split(encounterUuids, ",")).stream()
 		        .map(uuid -> es.getEncounterByUuid(uuid.trim())).distinct().collect(Collectors.toSet());
 		
@@ -124,6 +121,6 @@ public class PatientDataPdfExportController {
 			return;
 		}
 		
-		writeReponse(patient, encounters, contentDisposition, response);
+		writeReponse(null, encounters, contentDisposition, response);
 	}
 }
