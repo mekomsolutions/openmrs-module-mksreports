@@ -25,7 +25,7 @@
 									<fo:table-row>
 										<fo:table-cell>
 											<fo:block>
-												<fo:external-graphic height="1cm" src="{$logoImage}"/>
+												<fo:external-graphic height="2cm" content-height="scale-to-fit" src="{$logoImage}"/>
 											</fo:block>
 										</fo:table-cell>
 										<fo:table-cell>
