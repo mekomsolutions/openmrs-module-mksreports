@@ -1,5 +1,6 @@
 package org.openmrs.module.commonreports.data.converter;
 
+import org.openmrs.ConceptDatatype;
 import org.openmrs.Obs;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.reporting.common.ObjectUtil;
@@ -15,37 +16,39 @@ public class ObsValueFromIdConverter implements DataConverter {
 	
 	@Override
 	public Object convert(Object original) {
-		Obs o = (Obs) Context.getObsService().getObs((Integer) original);
+		Obs o = Context.getObsService().getObs((Integer) original);
 		if (o == null) {
 			return null;
 		}
-		if (o.getValueBoolean() != null) {
-			return o.getValueBoolean();
+		
+		if (o.hasGroupMembers()) {
+			return "";
 		}
-		if (o.getValueCoded() != null) {
-			return ObjectUtil.format(o.getValueCoded());
-		}
-		if (o.getValueComplex() != null) {
-			return o.getValueComplex();
-		}
-		if (o.getValueDatetime() != null) {
-			return o.getValueDatetime();
-		}
-		if (o.getValueDate() != null) {
-			return o.getValueDate();
-		}
+		
 		if (o.getValueDrug() != null) {
 			return ObjectUtil.format(o.getValueDrug());
 		}
-		if (o.getValueNumeric() != null) {
+		
+		ConceptDatatype dt = o.getConcept().getDatatype();
+		
+		if (dt.isBoolean()) {
+			return o.getValueBoolean();
+		} else if (dt.isCoded()) {
+			return ObjectUtil.format(o.getValueCoded());
+		} else if (dt.isComplex()) {
+			return o.getValueComplex();
+		} else if (dt.isDateTime()) {
+			return o.getValueDatetime();
+		} else if (dt.isDate()) {
+			return o.getValueDate();
+		} else if (dt.isNumeric()) {
 			return o.getValueNumeric();
-		}
-		if (o.getValueText() != null) {
+		} else if (dt.isText()) {
 			return o.getValueText();
-		}
-		if (o.getValueTime() != null) {
+		} else if (dt.isTime()) {
 			return o.getValueTime();
 		}
+		
 		return o.getValueAsString(Context.getLocale());
 	}
 	

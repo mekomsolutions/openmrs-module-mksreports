@@ -155,7 +155,7 @@ public class PatientHistoryManagerTest extends BaseModuleContextSensitiveTest {
 		assertNotNull(dataSet);
 		assertNotNull(dataSet.getMetaData());
 		assertNotNull(dataSet.getMetaData().getColumns());
-		MatcherAssert.assertThat(dataSet.getMetaData().getColumns(), Matchers.hasSize(7));
+		MatcherAssert.assertThat(dataSet.getMetaData().getColumns(), Matchers.hasSize(8));
 		
 		@SuppressWarnings("unchecked")
 		Matcher<Iterable<? extends Object>> containsInAnyOrder = Matchers.containsInAnyOrder(
@@ -165,6 +165,7 @@ public class PatientHistoryManagerTest extends BaseModuleContextSensitiveTest {
 		    Matchers.hasProperty("name", is(PatientHistoryReportManager.OBS_DATATYPE_LABEL)),
 		    Matchers.hasProperty("name", is(PatientHistoryReportManager.OBS_NAME_LABEL)),
 		    Matchers.hasProperty("name", is(PatientHistoryReportManager.OBS_VALUE_LABEL)),
+		    Matchers.hasProperty("name", is(PatientHistoryReportManager.OBS_GROUP_ID_LABEL)),
 		    Matchers.hasProperty("name", is(PatientHistoryReportManager.OBS_ID_LABEL)));
 		MatcherAssert.assertThat(dataSet.getMetaData().getColumns(), containsInAnyOrder);
 		
@@ -323,6 +324,95 @@ public class PatientHistoryManagerTest extends BaseModuleContextSensitiveTest {
 				
 			}
 			
+		}
+	}
+	
+	@Test
+	public void evaluate_shouldNestObsGroups() throws Throwable {
+		
+		// Setup
+		ReportDesign reportDesign = setupAndReturnReportDesign();
+		
+		PatientSummaryTemplate patientSummaryTemplate = this.patientSummaryService
+		        .getPatientSummaryTemplate(reportDesign.getId());
+		
+		String encounterUuidParam = "fdcb05e9-7e51-41c1-9912-b21d19685767";
+		
+		EncounterEvaluationContext context = new EncounterEvaluationContext();
+		
+		if (!StringUtils.isBlank(encounterUuidParam)) {
+			
+			// support csv style list of encounters
+			List<String> encounterUuidList = Arrays.asList(encounterUuidParam.split(","));
+			List<Integer> encounterIdList = new ArrayList<Integer>();
+			
+			for (String encounterUuid : encounterUuidList) {
+				Encounter encounter = encounterService.getEncounterByUuid(encounterUuid);
+				encounterIdList.add(encounter.getEncounterId());
+			}
+			
+			EncounterIdSet encIdSet = new EncounterIdSet(encounterIdList);
+			
+			context.addParameterValue("encounterIds", encIdSet);
+			context.setBaseEncounters(encIdSet);
+		}
+		
+		// patient 7 has 3 encounters
+		Integer patientId = 101;
+		
+		// Replay
+		PatientSummaryResult patientSummaryResult = this.patientSummaryService
+		        .evaluatePatientSummaryTemplate(patientSummaryTemplate, patientId, context);
+		
+		// Verify
+		if (patientSummaryResult.getErrorDetails() != null) {
+			throw patientSummaryResult.getErrorDetails();
+		} else {
+			
+			String xmlText = new String(patientSummaryResult.getRawContents());
+			ByteArrayInputStream patientSummaryResultStream = new ByteArrayInputStream(
+			        patientSummaryResult.getRawContents());
+			
+			Document xmlDoc = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(patientSummaryResultStream);
+			
+			assertFalse(StringUtils.isBlank(xmlText));
+			
+			XPath encounterXmlPath = XPathFactory.newInstance().newXPath();
+			
+			String baseXmlPath = "/patientHistory";
+			
+			String expectedEncounterPath = baseXmlPath + "//encounter[@uuid=\"" + encounterUuidParam + "\"]";
+			
+			NodeList expectedResult = (NodeList) encounterXmlPath.evaluate(expectedEncounterPath, xmlDoc,
+			    XPathConstants.NODESET);
+			
+			assertEquals("Only one encounter node with encounter uuid=" + encounterUuidParam + " should be returned", 1,
+			    expectedResult.getLength());
+			
+			Element encounter = (Element) expectedResult.item(0);
+			
+			assertEquals("Encounter label should match", "ObsGroup", encounter.getAttribute("label"));
+			
+			NodeList children = encounter.getChildNodes();
+			
+			int numChildren = children.getLength();
+			
+			List<Node> obs = new ArrayList<Node>();
+			
+			for (int i = 0; i < numChildren; i++) {
+				Node child = children.item(i);
+				if (child.getNodeName().equals("obs")) {
+					obs.add(child);
+				}
+			}
+			
+			Assert.assertEquals(1, obs.size());
+			
+			Node child = obs.get(0);
+			
+			Assert.assertEquals("obs", child.getNodeName());
+			
+			Assert.assertEquals("child", child.getTextContent().trim());
 		}
 	}
 	

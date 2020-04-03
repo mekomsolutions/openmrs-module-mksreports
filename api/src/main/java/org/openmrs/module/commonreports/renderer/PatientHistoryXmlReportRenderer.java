@@ -311,6 +311,8 @@ public class PatientHistoryXmlReportRenderer extends ReportDesignRenderer {
 				
 				String encounterUuid = row.getColumnValue(PatientHistoryReportManager.ENCOUNTER_UUID_LABEL).toString();
 				Element encounter = doc.getElementById(encounterUuid);
+				Element parent = encounter;
+				
 				if (encounter == null) {
 					// TODO: At least log this.
 				} else {
@@ -322,6 +324,13 @@ public class PatientHistoryXmlReportRenderer extends ReportDesignRenderer {
 						
 						switch (colName) {
 							case PatientHistoryReportManager.ENCOUNTER_UUID_LABEL:
+								break;
+							case PatientHistoryReportManager.OBS_GROUP_ID_LABEL:
+								
+								if (!StringUtils.isBlank(strValue)) {
+									parent = doc.getElementById(strValue);
+								}
+								
 								break;
 							case PatientHistoryReportManager.OBS_NAME_LABEL:
 								obs.setAttribute(ATTR_LABEL, strValue);
@@ -339,6 +348,8 @@ public class PatientHistoryXmlReportRenderer extends ReportDesignRenderer {
 								break;
 							case PatientHistoryReportManager.OBS_ID_LABEL:
 								obsId = strValue;
+								obs.setAttribute("id", strValue);
+								obs.setIdAttribute("id", true);
 								break;
 							case PatientHistoryReportManager.OBS_VALUE_LABEL:
 								if ("Complex".equals(type)) {
@@ -356,8 +367,9 @@ public class PatientHistoryXmlReportRenderer extends ReportDesignRenderer {
 						}
 					}
 					
-					encounter.appendChild(obs);
+					parent.appendChild(obs);
 				}
+				
 			}
 		}
 		

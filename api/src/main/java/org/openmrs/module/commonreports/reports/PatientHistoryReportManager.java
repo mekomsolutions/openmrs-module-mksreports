@@ -16,6 +16,7 @@ import org.openmrs.module.commonreports.data.converter.ConceptDataTypeConverter;
 import org.openmrs.module.commonreports.data.converter.ConceptNameConverter;
 import org.openmrs.module.commonreports.data.converter.EncounterProviderFromIdConverter;
 import org.openmrs.module.commonreports.data.converter.EncounterTypeUUIDFromEncounterIdConverter;
+import org.openmrs.module.commonreports.data.converter.ObsGroupFromIdConvertor;
 import org.openmrs.module.commonreports.data.converter.ObsProviderFromIdConverter;
 import org.openmrs.module.commonreports.data.converter.ObsValueFromIdConverter;
 import org.openmrs.module.commonreports.data.converter.VisitLocationFromIdConverter;
@@ -85,6 +86,8 @@ public class PatientHistoryReportManager extends ActivatedReportManager {
 	public final static String OBS_PROVIDER_LABEL = "provider_name";
 	
 	public final static String OBS_ID_LABEL = "obs_id";
+	
+	public final static String OBS_GROUP_ID_LABEL = "obs_group_id";
 	
 	@Autowired
 	private EncounterDataLibrary encounterDataLibrary;
@@ -213,11 +216,13 @@ public class PatientHistoryReportManager extends ActivatedReportManager {
 		obsDataSetDef.addColumn(OBS_PROVIDER_LABEL, new ObsIdDataDefinition(), StringUtils.EMPTY,
 		    new ObsProviderFromIdConverter());
 		obsDataSetDef.addColumn(OBS_DATETIME_LABEL, new ObsDatetimeDataDefinition(), StringUtils.EMPTY, new DateConverter());
-		obsDataSetDef.addColumn(OBS_DATATYPE_LABEL, obsDataLibrary.getConceptId(), StringUtils.EMPTY,
-		    new ConceptDataTypeConverter());
+		obsDataSetDef.addColumn(OBS_DATATYPE_LABEL, /*obsDataLibrary.getConceptId()*/new ObsIdDataDefinition(),
+		    StringUtils.EMPTY, new ConceptDataTypeConverter());
 		obsDataSetDef.addColumn(OBS_NAME_LABEL, obsDataLibrary.getConceptId(), StringUtils.EMPTY,
 		    new ConceptNameConverter());
 		obsDataSetDef.addColumn(OBS_ID_LABEL, new ObsIdDataDefinition(), null, null);
+		obsDataSetDef.addColumn(OBS_GROUP_ID_LABEL, new ObsIdDataDefinition(), StringUtils.EMPTY,
+		    new ObsGroupFromIdConvertor());
 		obsDataSetDef.addColumn(OBS_VALUE_LABEL, new ObsIdDataDefinition(), StringUtils.EMPTY,
 		    new ObsValueFromIdConverter());
 		obsDataSetDef.addSortCriteria(OBS_DATETIME_LABEL, SortCriteria.SortDirection.DESC);

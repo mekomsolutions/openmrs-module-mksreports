@@ -1,37 +1,31 @@
 package org.openmrs.module.commonreports.data.converter;
 
-import org.openmrs.Concept;
 import org.openmrs.Obs;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.reporting.data.converter.DataConverter;
 
-/**
- * Converts a Concept id to Concept data type
- */
-public class ConceptDataTypeConverter implements DataConverter {
-	
-	public ConceptDataTypeConverter() {
-	}
+public class ObsGroupFromIdConvertor implements DataConverter {
 	
 	@Override
 	public Object convert(Object original) {
 		Obs o = Context.getObsService().getObs((Integer) original);
-		
-		if (o.hasGroupMembers()) {
-			return "Group";
+		if (o != null && o.getObsGroup() != null) {
+			return o.getObsGroup().getId();
 		}
 		
-		Concept c = o.getConcept();
-		return c.getDatatype().getName();
+		return null;
 	}
 	
 	@Override
 	public Class<?> getInputDataType() {
-		return Integer.class;
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 	@Override
 	public Class<?> getDataType() {
-		return Object.class;
+		// TODO Auto-generated method stub
+		return null;
 	}
+	
 }

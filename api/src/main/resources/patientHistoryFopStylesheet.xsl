@@ -117,7 +117,15 @@
 				<!-- filter out the obs that shouldnt go in a table while selecting to a new template,
 				this allows calling position() and getting the expected 1 and mod 1 -->
 					<!-- put text and coded, et c in table -->
-					<xsl:apply-templates select="obs[@type!='Image']" mode="table"/>
+					<xsl:apply-templates select="obs[@type!='Image' and @type!='Group']" mode="table"/>
+					<xsl:for-each select="obs[@type='Group']">
+						<fo:block border="solid 1pt black" margin="0.25cm" padding="0.25cm">
+							<fo:block font-style="italic">
+								<xsl:value-of select="@label"/>
+							</fo:block>
+							<xsl:apply-templates select="./obs" mode="table"/>
+						</fo:block>
+					</xsl:for-each>
 				</xsl:when>
 				<!-- otherwise put text obs on it's own line (e.g. long free text messages, if they're all the encounter has) -->
 				<xsl:otherwise>
@@ -175,7 +183,7 @@
 		<fo:table-row page-break-inside="avoid">
 		<!-- filter those obs that are handled by other formatting, @type!='Text' and @type!='Image' -->
       <!-- We select the current obs and add the following ones whose position doesn't exceed the row's width -->
-      <xsl:apply-templates select=".|following-sibling::obs[position() &lt; ($numColumns + 0)]" mode="cell"/>
+      <xsl:apply-templates select=".|following-sibling::obs[position() &lt; ($numColumns + 0) and @type!='Image' and @type!='Group']" mode="cell"/>
     </fo:table-row>
 	</xsl:template>	
     
