@@ -137,7 +137,7 @@ public class PatientHistoryManagerTest extends BaseModuleContextSensitiveTest {
 		assertEquals("Collet", getStringValue(dataSetRow, "First Name"));
 		assertEquals("Chebaskwony", getStringValue(dataSetRow, "Last Name"));
 		assertEquals("1976-08-25 00:00:00.0", getStringValue(dataSetRow, "Date of Birth"));
-		assertEquals("43", getStringValue(dataSetRow, "Current Age"));
+		assertEquals("44", getStringValue(dataSetRow, "Current Age"));
 		assertEquals("F", getStringValue(dataSetRow, "Gender"));
 		assertEquals("Kapina", getStringValue(dataSetRow, "Address"));
 	}

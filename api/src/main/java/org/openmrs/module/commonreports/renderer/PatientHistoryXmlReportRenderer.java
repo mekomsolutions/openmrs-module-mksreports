@@ -15,6 +15,23 @@ package org.openmrs.module.commonreports.renderer;
 
 import static org.openmrs.module.commonreports.CommonReportsConstants.MODULE_ARTIFACT_ID;
 import static org.openmrs.module.commonreports.CommonReportsConstants.PATIENTHISTORY_ID;
+import static org.openmrs.module.commonreports.reports.PatientHistoryReportManager.DATASET_KEY_DEMOGRAPHICS;
+import static org.openmrs.module.commonreports.reports.PatientHistoryReportManager.DATASET_KEY_ENCOUNTERS;
+import static org.openmrs.module.commonreports.reports.PatientHistoryReportManager.DATASET_KEY_OBS;
+import static org.openmrs.module.commonreports.reports.PatientHistoryReportManager.ENCOUNTERTYPE_NAME_LABEL;
+import static org.openmrs.module.commonreports.reports.PatientHistoryReportManager.ENCOUNTER_DATETIME_LABEL;
+import static org.openmrs.module.commonreports.reports.PatientHistoryReportManager.ENCOUNTER_PROVIDER_LABEL;
+import static org.openmrs.module.commonreports.reports.PatientHistoryReportManager.ENCOUNTER_UUID_LABEL;
+import static org.openmrs.module.commonreports.reports.PatientHistoryReportManager.OBS_DATATYPE_LABEL;
+import static org.openmrs.module.commonreports.reports.PatientHistoryReportManager.OBS_DATETIME_LABEL;
+import static org.openmrs.module.commonreports.reports.PatientHistoryReportManager.OBS_GROUP_ID_LABEL;
+import static org.openmrs.module.commonreports.reports.PatientHistoryReportManager.OBS_ID_LABEL;
+import static org.openmrs.module.commonreports.reports.PatientHistoryReportManager.OBS_NAME_LABEL;
+import static org.openmrs.module.commonreports.reports.PatientHistoryReportManager.OBS_PROVIDER_LABEL;
+import static org.openmrs.module.commonreports.reports.PatientHistoryReportManager.OBS_VALUE_LABEL;
+import static org.openmrs.module.commonreports.reports.PatientHistoryReportManager.VISIT_LOCATION_LABEL;
+import static org.openmrs.module.commonreports.reports.PatientHistoryReportManager.VISIT_TYPE_LABEL;
+import static org.openmrs.module.commonreports.reports.PatientHistoryReportManager.VISIT_UUID_LABEL;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -47,7 +64,6 @@ import org.openmrs.annotation.Handler;
 import org.openmrs.api.AdministrationService;
 import org.openmrs.api.context.Context;
 import org.openmrs.messagesource.MessageSourceService;
-import org.openmrs.module.commonreports.reports.PatientHistoryReportManager;
 import org.openmrs.module.reporting.common.Localized;
 import org.openmrs.module.reporting.dataset.DataSet;
 import org.openmrs.module.reporting.dataset.DataSetColumn;
@@ -105,16 +121,13 @@ public class PatientHistoryXmlReportRenderer extends ReportDesignRenderer {
 		return "text/xml";
 	}
 	
-	protected String getStringValue(Object value) {
-		String strVal = "";
-		if (value != null)
-			return strVal = getMessageSourceService().getMessage(value.toString());
-		return strVal;
+	protected String getStringValue(Object obj) {
+		return obj == null ? "" : getMessageSourceService().getMessage(obj.toString());
 	}
 	
 	protected String getStringValue(DataSetRow row, String columnName) {
-		Object value = row.getColumnValue(columnName);
-		return getStringValue(value);
+		Object obj = row.getColumnValue(columnName);
+		return getStringValue(obj);
 	}
 	
 	protected String getStringValue(DataSetRow row, DataSetColumn column) {
@@ -160,7 +173,7 @@ public class PatientHistoryXmlReportRenderer extends ReportDesignRenderer {
 		final String ATTR_TIME = "time";
 		final String ATTR_UUID = "uuid";
 		final String ATTR_LOC = "location";
-		final String ATTR_PROV = "provider";
+		final String ATTR_PROVIDER = "provider";
 		
 		final String DATETIME_FORMAT = "dd MMM yyyy @ HH:mm";
 		final String TIME_FORMAT = "HH:mm:ss";
@@ -242,7 +255,7 @@ public class PatientHistoryXmlReportRenderer extends ReportDesignRenderer {
 		
 		String dataSetKey = "";
 		
-		dataSetKey = PatientHistoryReportManager.DATASET_KEY_DEMOGRAPHICS;
+		dataSetKey = DATASET_KEY_DEMOGRAPHICS;
 		if (results.getDataSets().containsKey(dataSetKey)) {
 			DataSet dataSet = results.getDataSets().get(dataSetKey);
 			Element demographics = doc.createElement("demographics");
@@ -259,12 +272,12 @@ public class PatientHistoryXmlReportRenderer extends ReportDesignRenderer {
 			}
 		}
 		
-		dataSetKey = PatientHistoryReportManager.DATASET_KEY_ENCOUNTERS;
+		dataSetKey = DATASET_KEY_ENCOUNTERS;
 		if (results.getDataSets().containsKey(dataSetKey)) {
 			DataSet dataSet = results.getDataSets().get(dataSetKey);
 			
 			for (DataSetRow row : dataSet) {
-				String visitUuid = row.getColumnValue(PatientHistoryReportManager.VISIT_UUID_LABEL).toString();
+				String visitUuid = row.getColumnValue(VISIT_UUID_LABEL).toString();
 				Element visit = doc.getElementById(visitUuid);
 				if (visit == null) { // If the visit node doesn't exist, we create it.
 					visit = doc.createElement("visit");
@@ -273,103 +286,85 @@ public class PatientHistoryXmlReportRenderer extends ReportDesignRenderer {
 					rootElement.appendChild(visit);
 					
 					// TODO: Add the visit location and the visit type
-					String visitType = getStringValue(row, PatientHistoryReportManager.VISIT_TYPE_LABEL);
+					String visitType = getStringValue(row, VISIT_TYPE_LABEL);
 					visit.setAttribute(ATTR_TYPE, visitType);
-					String visitLocation = getStringValue(row, PatientHistoryReportManager.VISIT_LOCATION_LABEL);
+					String visitLocation = getStringValue(row, VISIT_LOCATION_LABEL);
 					visit.setAttribute(ATTR_LOC, visitLocation);
 				}
 				
 				// Adding the encounter.
-				String encounterUuid = row.getColumnValue(PatientHistoryReportManager.ENCOUNTER_UUID_LABEL).toString();
+				String encounterUuid = row.getColumnValue(ENCOUNTER_UUID_LABEL).toString();
 				Element encounter = doc.createElement("encounter");
 				encounter.setAttribute(ATTR_UUID, encounterUuid);
 				encounter.setIdAttribute(ATTR_UUID, true);
 				
-				String encounterName = getStringValue(row, PatientHistoryReportManager.ENCOUNTERTYPE_NAME_LABEL);
+				String encounterName = getStringValue(row, ENCOUNTERTYPE_NAME_LABEL);
 				encounter.setAttribute(ATTR_LABEL, encounterName);
 				
-				Object value = row.getColumnValue(PatientHistoryReportManager.ENCOUNTER_DATETIME_LABEL);
+				Object value = row.getColumnValue(ENCOUNTER_DATETIME_LABEL);
 				String encounterDatetime = (new SimpleDateFormat(DATETIME_FORMAT)).format(value);
 				encounter.setAttribute(ATTR_TIME, encounterDatetime);
 				
-				String encounterProvider = getStringValue(row, PatientHistoryReportManager.ENCOUNTER_PROVIDER_LABEL);
-				encounter.setAttribute(ATTR_PROV, encounterProvider);
+				String encounterProvider = getStringValue(row, ENCOUNTER_PROVIDER_LABEL);
+				encounter.setAttribute(ATTR_PROVIDER, encounterProvider);
 				
 				visit.appendChild(encounter);
 			}
 		}
 		
-		dataSetKey = PatientHistoryReportManager.DATASET_KEY_OBS;
+		dataSetKey = DATASET_KEY_OBS;
 		if (results.getDataSets().containsKey(dataSetKey)) {
 			DataSet dataSet = results.getDataSets().get(dataSetKey);
 			
+			// each row is an obs record, columns are the obs properties
 			for (DataSetRow row : dataSet) {
-				Element obs = doc.createElement("obs");
 				
-				String type = null;
-				String obsId = null;
-				
-				String encounterUuid = row.getColumnValue(PatientHistoryReportManager.ENCOUNTER_UUID_LABEL).toString();
+				final String obsId = getStringValue(row, OBS_ID_LABEL);
+				final String encounterUuid = getStringValue(row, ENCOUNTER_UUID_LABEL);
 				Element encounter = doc.getElementById(encounterUuid);
-				Element parent = encounter;
 				
 				if (encounter == null) {
 					// TODO: At least log this.
-				} else {
-					List<DataSetColumn> columns = dataSet.getMetaData().getColumns();
-					for (DataSetColumn column : columns) {
-						String colName = column.getName();
-						Object value = row.getColumnValue(column);
-						String strValue = getStringValue(value);
-						
-						switch (colName) {
-							case PatientHistoryReportManager.ENCOUNTER_UUID_LABEL:
-								break;
-							case PatientHistoryReportManager.OBS_GROUP_ID_LABEL:
-								
-								if (!StringUtils.isBlank(strValue)) {
-									parent = doc.getElementById(strValue);
-								}
-								
-								break;
-							case PatientHistoryReportManager.OBS_NAME_LABEL:
-								obs.setAttribute(ATTR_LABEL, strValue);
-								break;
-							case PatientHistoryReportManager.OBS_DATATYPE_LABEL:
-								type = strValue;
-								obs.setAttribute(ATTR_TYPE, strValue);
-								break;
-							case PatientHistoryReportManager.OBS_DATETIME_LABEL:
-								String obsDateTime = (new SimpleDateFormat(TIME_FORMAT)).format(value);
-								obs.setAttribute(ATTR_TIME, obsDateTime);
-								break;
-							case PatientHistoryReportManager.OBS_PROVIDER_LABEL:
-								obs.setAttribute(ATTR_PROV, strValue);
-								break;
-							case PatientHistoryReportManager.OBS_ID_LABEL:
-								obsId = strValue;
-								obs.setAttribute("id", strValue);
-								obs.setIdAttribute("id", true);
-								break;
-							case PatientHistoryReportManager.OBS_VALUE_LABEL:
-								if ("Complex".equals(type)) {
-									Obs complexObs = Context.getObsService().getObs(Integer.parseInt(obsId));
-									
-									if (complexObs.getComplexData().getMimeType().startsWith("image/")) {
-										File complexObsFile = AbstractHandler.getComplexDataFile(complexObs);
-										strValue = complexObsFile.getAbsolutePath();
-										obs.setAttribute(ATTR_TYPE, "Image");
-									}
-								}
-								
-								obs.appendChild(doc.createTextNode(strValue));
-								break;
-						}
-					}
-					
-					parent.appendChild(obs);
+					continue;
 				}
 				
+				Element parentNode = encounter;
+				final String obsGroupId = getStringValue(row, OBS_GROUP_ID_LABEL);
+				if (!StringUtils.isEmpty(obsGroupId)) {
+					parentNode = doc.getElementById(obsGroupId);
+					if (parentNode == null) { // we create the obs group node if it's not there yet
+						parentNode = doc.createElement("obs");
+						parentNode.setAttribute("id", obsGroupId);
+						parentNode.setIdAttribute("id", true);
+						encounter.appendChild(parentNode);
+					}
+				}
+				
+				Element obs = doc.getElementById(obsId); // if it's an obs group, its node may have been created when the first member was processed
+				if (obs == null) {
+					obs = doc.createElement("obs");
+					obs.setAttribute("id", obsId);
+					obs.setIdAttribute("id", true);
+					parentNode.appendChild(obs);
+				}
+				
+				final String type = getStringValue(row, OBS_DATATYPE_LABEL);
+				obs.setAttribute(ATTR_TYPE, type);
+				obs.setAttribute(ATTR_LABEL, getStringValue(row, OBS_NAME_LABEL));
+				obs.setAttribute(ATTR_PROVIDER, getStringValue(row, OBS_PROVIDER_LABEL));
+				String obsDateTime = (new SimpleDateFormat(TIME_FORMAT)).format(row.getColumnValue(OBS_DATETIME_LABEL));
+				obs.setAttribute(ATTR_TIME, obsDateTime);
+				
+				String obsValue = getStringValue(row, OBS_VALUE_LABEL);
+				if ("Complex".equals(type)) {
+					Obs complexObs = Context.getObsService().getObs(Integer.parseInt(obsId));
+					if (complexObs.getComplexData().getMimeType().startsWith("image/")) {
+						File complexObsFile = AbstractHandler.getComplexDataFile(complexObs);
+						obsValue = complexObsFile.getAbsolutePath();
+						obs.setAttribute(ATTR_TYPE, "Image");
+					}
+				}
+				obs.appendChild(doc.createTextNode(obsValue));
 			}
 		}
 		
@@ -390,5 +385,11 @@ public class PatientHistoryXmlReportRenderer extends ReportDesignRenderer {
 		catch (TransformerException e) {
 			throw new RenderingException(e.getLocalizedMessage());
 		}
+		
+		{
+			System.out.println(out);
+			"".toString();
+		}
+		
 	}
 }
