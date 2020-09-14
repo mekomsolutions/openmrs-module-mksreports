@@ -7,6 +7,6 @@
         "url" : "module/commonreports/patientHistory.form?patientUuid={{patient.uuid}}",
         "icon" : "icon-print",
         "order" : 14,
-        "requiredPrivilege" : "Can View Patient History"
+        "requiredPrivilege" : "App: Can View Patient History Report"
     }
 ]

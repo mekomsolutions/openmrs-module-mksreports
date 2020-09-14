@@ -61,7 +61,13 @@
 			Logo image used to brand patient history reports
 		</description>
 	</globalProperty>
-	
+
+	<!-- Required Privileges -->
+	<privilege>
+		<name>App: Can View Patient History Report</name>
+		<description>Allows user to access the patient history report.</description>
+	</privilege>
+	<!-- /Required Privileges -->
 
 </module>
 
