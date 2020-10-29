@@ -26,6 +26,10 @@
 		</require_module>
 	</require_modules>
 
+	<aware_of_modules>
+		<aware_of_module>org.openmrs.module.referencemetadata</aware_of_module>
+	</aware_of_modules>
+
 	<messages>
 		<lang>en</lang>
 		<file>messages.properties</file>
