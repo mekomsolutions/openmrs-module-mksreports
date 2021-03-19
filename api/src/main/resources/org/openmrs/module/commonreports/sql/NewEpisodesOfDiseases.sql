@@ -70,8 +70,8 @@ INNER JOIN person pr on pr.person_id = o.person_id
 where o.concept_id = 11
 and o.voided = 0 
 
--- To add date params
-AND date(o.obs_datetime) BETWEEN '2021-02-22' AND '2021-03-22'
+-- Adding date params
+AND date(o.obs_datetime) BETWEEN :startDate AND :endDate
 
 -- Only consider latest obs
 and not exists

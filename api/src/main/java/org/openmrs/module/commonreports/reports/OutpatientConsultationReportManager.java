@@ -9,7 +9,6 @@ import java.util.Map;
 
 import org.openmrs.Concept;
 import org.openmrs.Location;
-import org.openmrs.api.ConceptService;
 import org.openmrs.module.commonreports.ActivatedReportManager;
 import org.openmrs.module.commonreports.CommonReportsConstants;
 import org.openmrs.module.initializer.api.InitializerService;
@@ -35,12 +34,9 @@ public class OutpatientConsultationReportManager extends ActivatedReportManager 
 	@Autowired
 	private InitializerService inizService;
 	
-	@Autowired
-	private ConceptService conceptService;
-	
 	@Override
 	public boolean isActivated() {
-		return true;
+		return inizService.getBooleanFromKey("report.opdconsult.active", false);
 	}
 	
 	@Override
@@ -145,10 +141,6 @@ public class OutpatientConsultationReportManager extends ActivatedReportManager 
 		rd.addDataSetDefinition(getName(), Mapped.mapStraightThrough(opdConsult));
 		
 		Concept allDiags = inizService.getConceptFromKey("report.opdconsult.diagnosesList.concept");
-		
-		if (allDiags == null) {
-			allDiags = conceptService.getConceptByUuid("bb8ffe0f-236f-4054-80b5-d4935c176b01");
-		}
 		
 		Map<String, Object> parameterMappings = new HashMap<String, Object>();
 		parameterMappings.put("onOrAfter", "${startDate}");
