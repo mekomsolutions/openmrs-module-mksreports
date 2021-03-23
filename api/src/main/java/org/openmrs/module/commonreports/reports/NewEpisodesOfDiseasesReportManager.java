@@ -27,7 +27,7 @@ import org.springframework.stereotype.Component;
 @Component()
 public class NewEpisodesOfDiseasesReportManager extends ActivatedReportManager {
 	
-	protected static final String REPEATING_SECTION = "sheet:1,row:4,dataset:New Disease Episodes";
+	protected static final String REPEATING_SECTION = "sheet:1,row:4,dataset:New Episodes of Disease";
 	
 	@Autowired
 	private InitializerService inizService;
@@ -49,12 +49,12 @@ public class NewEpisodesOfDiseasesReportManager extends ActivatedReportManager {
 	
 	@Override
 	public String getName() {
-		return "New Disease Episodes";
+		return "New Episodes of Diseases";
 	}
 	
 	@Override
 	public String getDescription() {
-		return "";
+		return "New Episodes of Diseases";
 	}
 	
 	private Parameter getStartDateParameter() {
@@ -93,8 +93,8 @@ public class NewEpisodesOfDiseasesReportManager extends ActivatedReportManager {
 		
 		ReportDefinition rd = new ReportDefinition();
 		
-		rd.setName("New Episodes of Diseases");
-		rd.setDescription("New Episodes of Diseases");
+		rd.setName(getName());
+		rd.setDescription(getDescription());
 		rd.setParameters(getParameters());
 		rd.setUuid(getUuid());
 		
