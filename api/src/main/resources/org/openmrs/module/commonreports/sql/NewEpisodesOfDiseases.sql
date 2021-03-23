@@ -16,13 +16,7 @@ FG50 "F>50",
 HTotal "M_Total",
 FTotal "F_Total"
 from
-(select 'qD' as name
-UNION ALL
-select 'BID'
-UNION ALL
-select 'TID'
-UNION ALL
-select 'QID') maladies
+(:selectStatements) "maladies"
 LEFT OUTER JOIN
 (
 select
@@ -46,28 +40,25 @@ nullif(sum(FL1)+sum(FL4)+sum(FL9)+ sum(FL14)+sum(FL24)+sum(FL49)+sum(FG50),0) "F
 from (
 select
 (CASE 
-  when o.value_coded = 12 then 'qD'
-  when o.value_coded = 13 then 'BID'
-  when o.value_coded = 14 then 'TID'
-  when o.value_coded = 15 then 'QID'
-end) 'diagnosis',
-(CASE when round(DATEDIFF(o.obs_datetime, pr.birthdate)/365.25, 1) < 1 and pr.gender = 'M' then 1 else 0 end) "ML1",
-(CASE when round(DATEDIFF(o.obs_datetime, pr.birthdate)/365.25, 1) < 1 and pr.gender = 'F' then 1 else 0 end) "FL1",
-(CASE when round(DATEDIFF(o.obs_datetime, pr.birthdate)/365.25, 1) >= 1 and round(DATEDIFF(o.obs_datetime, pr.birthdate)/365.25, 1) <5 and pr.gender = 'M' then 1 else 0 end) "ML4",
-(CASE when round(DATEDIFF(o.obs_datetime, pr.birthdate)/365.25, 1) >= 1 and round(DATEDIFF(o.obs_datetime, pr.birthdate)/365.25, 1) <5 and pr.gender = 'F' then 1 else 0 end) "FL4",
-(CASE when round(DATEDIFF(o.obs_datetime, pr.birthdate)/365.25, 1) > 5 and round(DATEDIFF(o.obs_datetime, pr.birthdate)/365.25, 1) <10 and pr.gender = 'M' then 1 else 0 end) "ML9",
-(CASE when round(DATEDIFF(o.obs_datetime, pr.birthdate)/365.25, 1) > 5 and round(DATEDIFF(o.obs_datetime, pr.birthdate)/365.25, 1) <10 and pr.gender = 'F' then 1 else 0 end) "FL9",
-(CASE when round(DATEDIFF(o.obs_datetime, pr.birthdate)/365.25, 1) > 10 and round(DATEDIFF(o.obs_datetime, pr.birthdate)/365.25, 1) <15 and pr.gender = 'M' then 1 else 0 end) "ML14",
-(CASE when round(DATEDIFF(o.obs_datetime, pr.birthdate)/365.25, 1) > 10 and round(DATEDIFF(o.obs_datetime, pr.birthdate)/365.25, 1) <15 and pr.gender = 'F' then 1 else 0 end) "FL14",
-(CASE when round(DATEDIFF(o.obs_datetime, pr.birthdate)/365.25, 1) > 15 and round(DATEDIFF(o.obs_datetime, pr.birthdate)/365.25, 1) <25 and pr.gender = 'M' then 1 else 0 end) "ML24",
-(CASE when round(DATEDIFF(o.obs_datetime, pr.birthdate)/365.25, 1) > 15 and round(DATEDIFF(o.obs_datetime, pr.birthdate)/365.25, 1) <25 and pr.gender = 'F' then 1 else 0 end) "FL24",
-(CASE when round(DATEDIFF(o.obs_datetime, pr.birthdate)/365.25, 1) > 25 and round(DATEDIFF(o.obs_datetime, pr.birthdate)/365.25, 1) <50 and pr.gender = 'M' then 1 else 0 end) "ML49",
-(CASE when round(DATEDIFF(o.obs_datetime, pr.birthdate)/365.25, 1) > 25 and round(DATEDIFF(o.obs_datetime, pr.birthdate)/365.25, 1) <50 and pr.gender = 'F' then 1 else 0 end) "FL49",
-(CASE when round(DATEDIFF(o.obs_datetime, pr.birthdate)/365.25, 1) > 50 and pr.gender = 'M' then 1 else 0 end) "MG50",
-(CASE when round(DATEDIFF(o.obs_datetime, pr.birthdate)/365.25, 1) > 50 and pr.gender = 'F' then 1 else 0 end) "FG50"
+  :whenStatements
+end) "diagnosis",
+(CASE when round(DATEDIFF(o.obs_datetime, pr.birthdate)/365.25, 1) < 1 and pr.gender = "M" then 1 else 0 end) "ML1",
+(CASE when round(DATEDIFF(o.obs_datetime, pr.birthdate)/365.25, 1) < 1 and pr.gender = "F" then 1 else 0 end) "FL1",
+(CASE when round(DATEDIFF(o.obs_datetime, pr.birthdate)/365.25, 1) >= 1 and round(DATEDIFF(o.obs_datetime, pr.birthdate)/365.25, 1) <5 and pr.gender = "M" then 1 else 0 end) "ML4",
+(CASE when round(DATEDIFF(o.obs_datetime, pr.birthdate)/365.25, 1) >= 1 and round(DATEDIFF(o.obs_datetime, pr.birthdate)/365.25, 1) <5 and pr.gender = "F" then 1 else 0 end) "FL4",
+(CASE when round(DATEDIFF(o.obs_datetime, pr.birthdate)/365.25, 1) > 5 and round(DATEDIFF(o.obs_datetime, pr.birthdate)/365.25, 1) <10 and pr.gender = "M" then 1 else 0 end) "ML9",
+(CASE when round(DATEDIFF(o.obs_datetime, pr.birthdate)/365.25, 1) > 5 and round(DATEDIFF(o.obs_datetime, pr.birthdate)/365.25, 1) <10 and pr.gender = "F" then 1 else 0 end) "FL9",
+(CASE when round(DATEDIFF(o.obs_datetime, pr.birthdate)/365.25, 1) > 10 and round(DATEDIFF(o.obs_datetime, pr.birthdate)/365.25, 1) <15 and pr.gender = "M" then 1 else 0 end) "ML14",
+(CASE when round(DATEDIFF(o.obs_datetime, pr.birthdate)/365.25, 1) > 10 and round(DATEDIFF(o.obs_datetime, pr.birthdate)/365.25, 1) <15 and pr.gender = "F" then 1 else 0 end) "FL14",
+(CASE when round(DATEDIFF(o.obs_datetime, pr.birthdate)/365.25, 1) > 15 and round(DATEDIFF(o.obs_datetime, pr.birthdate)/365.25, 1) <25 and pr.gender = "M" then 1 else 0 end) "ML24",
+(CASE when round(DATEDIFF(o.obs_datetime, pr.birthdate)/365.25, 1) > 15 and round(DATEDIFF(o.obs_datetime, pr.birthdate)/365.25, 1) <25 and pr.gender = "F" then 1 else 0 end) "FL24",
+(CASE when round(DATEDIFF(o.obs_datetime, pr.birthdate)/365.25, 1) > 25 and round(DATEDIFF(o.obs_datetime, pr.birthdate)/365.25, 1) <50 and pr.gender = "M" then 1 else 0 end) "ML49",
+(CASE when round(DATEDIFF(o.obs_datetime, pr.birthdate)/365.25, 1) > 25 and round(DATEDIFF(o.obs_datetime, pr.birthdate)/365.25, 1) <50 and pr.gender = "F" then 1 else 0 end) "FL49",
+(CASE when round(DATEDIFF(o.obs_datetime, pr.birthdate)/365.25, 1) > 50 and pr.gender = "M" then 1 else 0 end) "MG50",
+(CASE when round(DATEDIFF(o.obs_datetime, pr.birthdate)/365.25, 1) > 50 and pr.gender = "F" then 1 else 0 end) "FG50"
 from obs o
 INNER JOIN person pr on pr.person_id = o.person_id
-where o.concept_id = 11
+where o.concept_id = :conceptId
 and o.voided = 0 
 
 -- Adding date params

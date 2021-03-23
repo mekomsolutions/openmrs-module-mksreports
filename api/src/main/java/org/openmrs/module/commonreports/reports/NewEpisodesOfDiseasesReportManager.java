@@ -10,7 +10,9 @@ import java.util.Map;
 import java.util.Properties;
 
 import org.apache.commons.io.IOUtils;
+import org.openmrs.Concept;
 import org.openmrs.api.ConceptService;
+import org.openmrs.api.context.Context;
 import org.openmrs.module.commonreports.ActivatedReportManager;
 import org.openmrs.module.initializer.api.InitializerService;
 import org.openmrs.module.reporting.dataset.definition.SqlDataSetDefinition;
@@ -23,19 +25,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component()
-public class NewDiseaseEpisodesReportManager extends ActivatedReportManager {
+public class NewEpisodesOfDiseasesReportManager extends ActivatedReportManager {
 	
-	private static final String REPEATING_SECTION = "sheet:1,row:4,dataset:New Disease Episodes";
+	protected static final String REPEATING_SECTION = "sheet:1,row:4,dataset:New Disease Episodes";
 	
 	@Autowired
 	private InitializerService inizService;
 	
-	@Autowired
-	private ConceptService conceptService;
-	
 	@Override
 	public boolean isActivated() {
-		return true;
+		return inizService.getBooleanFromKey("report.newEpisodesOfDiseases.active", false);
 	}
 	
 	@Override
@@ -94,18 +93,20 @@ public class NewDiseaseEpisodesReportManager extends ActivatedReportManager {
 		
 		ReportDefinition rd = new ReportDefinition();
 		
-		rd.setName("Report Definition Name");
-		rd.setDescription("Report Definition Description");
+		rd.setName("New Episodes of Diseases");
+		rd.setDescription("New Episodes of Diseases");
 		rd.setParameters(getParameters());
 		rd.setUuid(getUuid());
 		
 		SqlDataSetDefinition sqlDsd = new SqlDataSetDefinition();
-		sqlDsd.setName("SQL Dataset Name");
-		sqlDsd.setDescription("SQL Dataset Description");
+		sqlDsd.setName("New Episodes of Diseases SQL Dataset");
+		sqlDsd.setDescription("New Episodes of Diseases SQL Dataset");
 		
 		String rawSql = getSqlString("org/openmrs/module/commonreports/sql/NewEpisodesOfDiseases.sql");
+		Concept allMaladies = inizService.getConceptFromKey("report.newEpisodesOfDiseases.conceptSet");
 		
-		sqlDsd.setSqlQuery(rawSql);
+		String sql = applyMetadataReplacements(rawSql, allMaladies);
+		sqlDsd.setSqlQuery(sql);
 		sqlDsd.addParameters(getParameters());
 		
 		Map<String, Object> parameterMappings = new HashMap<String, Object>();
@@ -121,9 +122,46 @@ public class NewDiseaseEpisodesReportManager extends ActivatedReportManager {
 	public List<ReportDesign> constructReportDesigns(ReportDefinition reportDefinition) {
 		ReportDesign reportDesign = ReportManagerUtil.createExcelTemplateDesign("7688966e-fca5-4fde-abab-1b46a87a1185",
 		    reportDefinition, "org/openmrs/module/commonreports/reportTemplates/NewEpisodesOfDiseasesReportTemplate.xls");
+		
 		Properties designProperties = new Properties();
 		designProperties.put("repeatingSections", REPEATING_SECTION);
+		
 		reportDesign.setProperties(designProperties);
 		return Arrays.asList(reportDesign);
+	}
+	
+	private String applyMetadataReplacements(String rawSql, Concept coneptSet) {
+		Concept questionConcept = inizService.getConceptFromKey("report.newEpisodesOfDiseases.question.concept");
+		String s = rawSql.replace(":selectStatements", constructSelectUnionAllStatements("", coneptSet))
+		        .replace(":whenStatements", constructWhenThenStatements("", coneptSet))
+		        .replace(":conceptId", questionConcept.getId().toString());
+		return s;
+	}
+	
+	private String constructWhenThenStatements(String st, Concept con) {
+		for (Concept c : con.getSetMembers()) {
+			if (c.getSet()) {
+				st = constructWhenThenStatements(st, c);
+			} else {
+				st = st + " when o.value_coded = " + c.getId() + " then \"" + c.getPreferredName(Context.getLocale()) + "\"";
+			}
+		}
+		return st;
+	}
+	
+	private String constructSelectUnionAllStatements(String st, Concept con) {
+		List<Concept> set = con.getSetMembers();
+		for (int i = 0; i < set.size(); i++) {
+			if (set.get(i).getSet()) {
+				st = constructSelectUnionAllStatements(st, set.get(i));
+			} else {
+				if (i == 0 && st.isEmpty()) {
+					st = "select \"" + set.get(i).getPreferredName(Context.getLocale()) + "\" as \"name\"";
+				} else {
+					st = st + " UNION ALL select \"" + set.get(i).getPreferredName(Context.getLocale()) + "\"";
+				}
+			}
+		}
+		return st;
 	}
 }
