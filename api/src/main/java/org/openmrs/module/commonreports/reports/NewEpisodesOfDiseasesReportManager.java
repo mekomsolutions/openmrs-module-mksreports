@@ -11,7 +11,6 @@ import java.util.Properties;
 
 import org.apache.commons.io.IOUtils;
 import org.openmrs.Concept;
-import org.openmrs.api.ConceptService;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.commonreports.ActivatedReportManager;
 import org.openmrs.module.initializer.api.InitializerService;
@@ -27,7 +26,7 @@ import org.springframework.stereotype.Component;
 @Component()
 public class NewEpisodesOfDiseasesReportManager extends ActivatedReportManager {
 	
-	protected static final String REPEATING_SECTION = "sheet:1,row:4,dataset:New Episodes of Disease";
+	protected static final String REPEATING_SECTION = "sheet:1,row:4,dataset:New Episodes of Diseases";
 	
 	@Autowired
 	private InitializerService inizService;
@@ -44,7 +43,7 @@ public class NewEpisodesOfDiseasesReportManager extends ActivatedReportManager {
 	
 	@Override
 	public String getUuid() {
-		return "434c50e8-ee54-429d-9aad-b5014ce513d2";
+		return "8b787bdc-c852-481c-b6fa-6683ec7e30d8";
 	}
 	
 	@Override
@@ -106,6 +105,7 @@ public class NewEpisodesOfDiseasesReportManager extends ActivatedReportManager {
 		Concept allMaladies = inizService.getConceptFromKey("report.newEpisodesOfDiseases.conceptSet");
 		
 		String sql = applyMetadataReplacements(rawSql, allMaladies);
+		
 		sqlDsd.setSqlQuery(sql);
 		sqlDsd.addParameters(getParameters());
 		
@@ -143,7 +143,7 @@ public class NewEpisodesOfDiseasesReportManager extends ActivatedReportManager {
 			if (c.getSet()) {
 				st = constructWhenThenStatements(st, c);
 			} else {
-				st = st + " when o.value_coded = " + c.getId() + " then \"" + c.getPreferredName(Context.getLocale()) + "\"";
+				st = st + " when o.value_coded = " + c.getId() + " then '" + c.getPreferredName(Context.getLocale()) + "'";
 			}
 		}
 		return st;
@@ -156,9 +156,9 @@ public class NewEpisodesOfDiseasesReportManager extends ActivatedReportManager {
 				st = constructSelectUnionAllStatements(st, set.get(i));
 			} else {
 				if (i == 0 && st.isEmpty()) {
-					st = "select \"" + set.get(i).getPreferredName(Context.getLocale()) + "\" as \"name\"";
+					st = "select '" + set.get(i).getPreferredName(Context.getLocale()) + "' as \"name\"";
 				} else {
-					st = st + " UNION ALL select \"" + set.get(i).getPreferredName(Context.getLocale()) + "\"";
+					st = st + " UNION ALL select '" + set.get(i).getPreferredName(Context.getLocale()) + "'";
 				}
 			}
 		}

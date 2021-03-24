@@ -27,6 +27,7 @@ import org.openmrs.module.commonreports.library.BasePatientDataLibrary;
 import org.openmrs.module.commonreports.library.EncounterDataLibrary;
 import org.openmrs.module.commonreports.library.ObsDataLibrary;
 import org.openmrs.module.commonreports.renderer.PatientHistoryXmlReportRenderer;
+import org.openmrs.module.initializer.api.InitializerService;
 import org.openmrs.module.reporting.common.SortCriteria;
 import org.openmrs.module.reporting.data.converter.DateConverter;
 import org.openmrs.module.reporting.data.converter.ObjectFormatter;
@@ -101,9 +102,12 @@ public class PatientHistoryReportManager extends ActivatedReportManager {
 	@Autowired
 	BasePatientDataLibrary basePatientDataLibrary;
 	
+	@Autowired
+	private InitializerService inizService;
+	
 	@Override
 	public boolean isActivated() {
-		return super.isActivated();
+		return inizService.getBooleanFromKey("report.patientHistoryReportManager.active", false);
 	}
 	
 	@Override
