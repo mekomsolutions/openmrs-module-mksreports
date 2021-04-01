@@ -1,14 +1,24 @@
 package org.openmrs.module.commonreports.reports;
 
 import java.io.File;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.Iterator;
 import java.util.List;
-
+import org.dbunit.DatabaseUnitException;
+import org.dbunit.DatabaseUnitRuntimeException;
+import org.dbunit.database.DatabaseConfig;
+import org.dbunit.database.DatabaseConnection;
+import org.dbunit.database.IDatabaseConnection;
+import org.dbunit.dataset.IDataSet;
+import org.dbunit.ext.mysql.MySqlDataTypeFactory;
+import org.dbunit.operation.DatabaseOperation;
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.openmrs.api.ConceptService;
+import org.openmrs.module.commonreports.reports.BaseModuleContextSensitiveMysqlBackedTest;
+import org.openmrs.module.commonreports.reports.NewEpisodesOfDiseasesReportManager;
 import org.openmrs.module.initializer.Domain;
 import org.openmrs.module.initializer.api.InitializerService;
 import org.openmrs.module.initializer.api.loaders.Loader;
@@ -21,17 +31,24 @@ import org.openmrs.module.reporting.report.definition.ReportDefinition;
 import org.openmrs.module.reporting.report.definition.service.ReportDefinitionService;
 import org.openmrs.module.reporting.report.manager.ReportManagerUtil;
 import org.openmrs.module.reporting.report.service.ReportService;
-import org.openmrs.test.BaseModuleContextSensitiveTest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-
 import liquibase.Liquibase;
 import liquibase.database.Database;
 import liquibase.database.DatabaseFactory;
 import liquibase.database.jvm.JdbcConnection;
 import liquibase.resource.ClassLoaderResourceAccessor;
 
-public class NewEpisodesOfDiseasesReportManagerTest extends BaseModuleContextSensitiveTest {
+import static java.math.BigDecimal.ONE;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+
+public class NewEpisodesOfDiseasesReportManagerTest extends BaseModuleContextSensitiveMysqlBackedTest {
+	
+	public NewEpisodesOfDiseasesReportManagerTest() throws SQLException {
+		super();
+	}
 	
 	@Autowired
 	private InitializerService iniz;
@@ -48,6 +65,27 @@ public class NewEpisodesOfDiseasesReportManagerTest extends BaseModuleContextSen
 	
 	@Autowired
 	private NewEpisodesOfDiseasesReportManager manager;
+	
+	@Override
+	public void executeDataSet(IDataSet dataset) {
+		try {
+			Connection connection = getConnection();
+			IDatabaseConnection dbUnitConn = setupDatabaseConnection(connection);
+			DatabaseOperation.REFRESH.execute(dbUnitConn, dataset);
+		}
+		catch (Exception e) {
+			throw new DatabaseUnitRuntimeException(e);
+		}
+	}
+	
+	private IDatabaseConnection setupDatabaseConnection(Connection connection) throws DatabaseUnitException {
+		IDatabaseConnection dbUnitConn = new DatabaseConnection(connection);
+		
+		DatabaseConfig config = dbUnitConn.getConfig();
+		config.setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new MySqlDataTypeFactory());
+		
+		return dbUnitConn;
+	}
 	
 	@Before
 	public void setUp() throws Exception {
@@ -71,7 +109,6 @@ public class NewEpisodesOfDiseasesReportManagerTest extends BaseModuleContextSen
 		
 		// replay
 		ReportManagerUtil.setupReport(manager);
-		System.out.println(manager.isActivated());
 		
 		// verif
 		List<ReportDesign> designs = rs.getAllReportDesigns(false);
@@ -88,12 +125,14 @@ public class NewEpisodesOfDiseasesReportManagerTest extends BaseModuleContextSen
 	}
 	
 	@Test
-	@Ignore("Ignoring test because valid MySQL query is not working well with H2")
 	public void testReport() throws Exception {
 		// setup
 		EvaluationContext context = new EvaluationContext();
 		context.addParameterValue("startDate", DateUtil.parseDate("2008-08-01", "yyyy-MM-dd"));
 		context.addParameterValue("endDate", DateUtil.parseDate("2009-09-30", "yyyy-MM-dd"));
+		boolean malariaVerified = false;
+		boolean feverVerified = false;
+		boolean diabetesVerified = false;
 		
 		// replay
 		ReportDefinition rd = manager.constructReportDefinition();
@@ -102,8 +141,27 @@ public class NewEpisodesOfDiseasesReportManagerTest extends BaseModuleContextSen
 		// verify
 		for (Iterator<DataSetRow> itr = data.getDataSets().get(rd.getName()).iterator(); itr.hasNext();) {
 			DataSetRow row = itr.next();
-			
+			if (row.getColumnValue("Maladies/Symptomes").equals("MALARIA")) {
+				assertEquals(ONE, row.getColumnValue("F_25-49"));
+				assertEquals(ONE, row.getColumnValue("M_1-4"));
+				assertEquals(ONE, row.getColumnValue("M_Total"));
+				assertEquals(ONE, row.getColumnValue("F_Total"));
+				malariaVerified = true;
+			}
+			if (row.getColumnValue("Maladies/Symptomes").equals("FEVER")) {
+				assertEquals(ONE, row.getColumnValue("M_1-4"));
+				assertEquals(ONE, row.getColumnValue("M_Total"));
+				assertNull(row.getColumnValue("F_Total"));
+				feverVerified = true;
+			}
+			if (row.getColumnValue("Maladies/Symptomes").equals("DIABETES")) {
+				assertEquals(ONE, row.getColumnValue("M_1-4"));
+				assertEquals(ONE, row.getColumnValue("M_Total"));
+				assertNull(row.getColumnValue("F_Total"));
+				diabetesVerified = true;
+			}
 		}
+		assertTrue(malariaVerified && feverVerified && diabetesVerified);
 	}
 	
 	private void updateDatabase(String filename) throws Exception {

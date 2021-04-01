@@ -160,6 +160,17 @@
 			<version>${idgenVersion}</version>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+		    <groupId>com.wix</groupId>
+		    <artifactId>wix-embedded-mysql</artifactId>
+		    <version>4.2.0</version>
+		    <scope>test</scope>
+		</dependency>
+		<dependency>
+		    <groupId>commons-io</groupId>
+		    <artifactId>commons-io</artifactId>
+		    <version>2.7</version>
+		</dependency>
 
 	</dependencies>
 

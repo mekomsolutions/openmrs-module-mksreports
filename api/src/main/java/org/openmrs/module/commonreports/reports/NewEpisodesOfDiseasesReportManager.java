@@ -26,7 +26,7 @@ import org.springframework.stereotype.Component;
 @Component()
 public class NewEpisodesOfDiseasesReportManager extends ActivatedReportManager {
 	
-	protected static final String REPEATING_SECTION = "sheet:1,row:4,dataset:New Episodes of Diseases";
+	public static final String REPEATING_SECTION = "sheet:1,row:4,dataset:New Episodes of Diseases";
 	
 	@Autowired
 	private InitializerService inizService;
@@ -132,16 +132,20 @@ public class NewEpisodesOfDiseasesReportManager extends ActivatedReportManager {
 	
 	private String applyMetadataReplacements(String rawSql, Concept coneptSet) {
 		Concept questionConcept = inizService.getConceptFromKey("report.newEpisodesOfDiseases.question.concept");
-		String s = rawSql.replace(":selectStatements", constructSelectUnionAllStatements("", coneptSet))
-		        .replace(":whenStatements", constructWhenThenStatements("", coneptSet))
+		String s = rawSql.replace(":selectStatements", constructSelectUnionAllStatements(coneptSet))
+		        .replace(":whenStatements", constructWhenThenStatements(coneptSet))
 		        .replace(":conceptId", questionConcept.getId().toString());
 		return s;
 	}
 	
-	private String constructWhenThenStatements(String st, Concept con) {
+	private String constructWhenThenStatements(Concept con) {
+		String st = "";
 		for (Concept c : con.getSetMembers()) {
 			if (c.getSet()) {
-				st = constructWhenThenStatements(st, c);
+				for (Concept setMember : c.getSetMembers()) {
+					st = st + " when o.value_coded = " + setMember.getId() + " then '"
+					        + c.getPreferredName(Context.getLocale()) + "'";
+				}
 			} else {
 				st = st + " when o.value_coded = " + c.getId() + " then '" + c.getPreferredName(Context.getLocale()) + "'";
 			}
@@ -149,17 +153,14 @@ public class NewEpisodesOfDiseasesReportManager extends ActivatedReportManager {
 		return st;
 	}
 	
-	private String constructSelectUnionAllStatements(String st, Concept con) {
+	private String constructSelectUnionAllStatements(Concept con) {
+		String st = "";
 		List<Concept> set = con.getSetMembers();
 		for (int i = 0; i < set.size(); i++) {
-			if (set.get(i).getSet()) {
-				st = constructSelectUnionAllStatements(st, set.get(i));
+			if (i == 0 && st.isEmpty()) {
+				st = "select '" + set.get(i).getPreferredName(Context.getLocale()) + "' as \"name\"";
 			} else {
-				if (i == 0 && st.isEmpty()) {
-					st = "select '" + set.get(i).getPreferredName(Context.getLocale()) + "' as \"name\"";
-				} else {
-					st = st + " UNION ALL select '" + set.get(i).getPreferredName(Context.getLocale()) + "'";
-				}
+				st = st + " UNION ALL select '" + set.get(i).getPreferredName(Context.getLocale()) + "'";
 			}
 		}
 		return st;
