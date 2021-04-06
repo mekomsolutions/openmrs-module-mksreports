@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import java.util.stream.Collectors;
 
 import org.apache.commons.io.IOUtils;
 import org.openmrs.Concept;
@@ -23,7 +24,7 @@ import org.openmrs.util.OpenmrsClassLoader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-@Component()
+@Component
 public class NewEpisodesOfDiseasesReportManager extends ActivatedReportManager {
 	
 	public static final String REPEATING_SECTION = "sheet:1,row:4,dataset:New Episodes of Diseases";
@@ -103,6 +104,7 @@ public class NewEpisodesOfDiseasesReportManager extends ActivatedReportManager {
 		
 		String rawSql = getSqlString("org/openmrs/module/commonreports/sql/NewEpisodesOfDiseases.sql");
 		Concept allMaladies = inizService.getConceptFromKey("report.newEpisodesOfDiseases.conceptSet");
+		Concept questionsConcept = inizService.getConceptFromKey("report.newEpisodesOfDiseases.conceptSet");
 		
 		String sql = applyMetadataReplacements(rawSql, allMaladies);
 		
@@ -131,10 +133,10 @@ public class NewEpisodesOfDiseasesReportManager extends ActivatedReportManager {
 	}
 	
 	private String applyMetadataReplacements(String rawSql, Concept coneptSet) {
-		Concept questionConcept = inizService.getConceptFromKey("report.newEpisodesOfDiseases.question.concept");
+		Concept questionsConcept = inizService.getConceptFromKey("report.newEpisodesOfDiseases.questions.conceptSet");
 		String s = rawSql.replace(":selectStatements", constructSelectUnionAllStatements(coneptSet))
 		        .replace(":whenStatements", constructWhenThenStatements(coneptSet))
-		        .replace(":conceptId", questionConcept.getId().toString());
+		        .replace(":conceptIds", questionsConcept.getSetMembers().stream().map(Concept::getId).map(Object::toString).collect(Collectors.joining(",")));
 		return s;
 	}
 	

@@ -58,7 +58,7 @@ end) "diagnosis",
 (CASE when round(DATEDIFF(o.obs_datetime, pr.birthdate)/365.25, 1) > 50 and pr.gender = 'F' then 1 else 0 end) "FG50"
 from obs o
 INNER JOIN person pr on pr.person_id = o.person_id
-where o.concept_id = :conceptId
+where o.concept_id in (:conceptIds)
 and o.voided = 0 
 
 -- Adding date params

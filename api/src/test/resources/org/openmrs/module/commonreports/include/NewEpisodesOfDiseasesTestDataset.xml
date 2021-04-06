@@ -28,6 +28,10 @@
 	<concept concept_id="1926" retired="false" datatype_id="4" class_id="10"
 			 is_set="true" creator="1" date_created="2008-08-18 12:38:58.0"
 			 version="" uuid="c1ee4e1a-96d5-4cb1-82d1-95e367cfee20"/>
+			 
+	<concept concept_id="1927" retired="false" datatype_id="4" class_id="10"
+			 is_set="true" creator="1" date_created="2008-08-18 12:38:58.0"
+			 version="" uuid="8dcb0dd6-b31f-41d1-b144-d49a2c5340ab"/>
 
 	<concept_set concept_set_id="3" concept_id="1923" concept_set="1926"
 				 sort_weight="0.0" creator="1" date_created="2017-07-01 00:00:00.0"
@@ -40,6 +44,10 @@
 	<concept_set concept_set_id="5" concept_id="1925" concept_set="1926"
 				 sort_weight="0.0" creator="1" date_created="2017-07-01 00:00:00.0"
 				 uuid="f9cdecfb-c4ad-4294-bd01-723806a075a2" />
+				 
+	<concept_set concept_set_id="6" concept_id="21" concept_set="1927"
+				 sort_weight="0.0" creator="1" date_created="2017-07-01 00:00:00.0"
+				 uuid="7a397185-740d-4944-b4d4-c83d99d6c6a1" />
 
 	<obs obs_id="4003" person_id="6" concept_id="21" encounter_id="3"
 		 obs_datetime="2008-09-02 00:00:00.0" location_id="1" value_coded="1923"
