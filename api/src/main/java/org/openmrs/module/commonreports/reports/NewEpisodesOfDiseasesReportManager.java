@@ -103,8 +103,7 @@ public class NewEpisodesOfDiseasesReportManager extends ActivatedReportManager {
 		sqlDsd.setDescription("New Episodes of Diseases SQL Dataset");
 		
 		String rawSql = getSqlString("org/openmrs/module/commonreports/sql/NewEpisodesOfDiseases.sql");
-		Concept allMaladies = inizService.getConceptFromKey("report.newEpisodesOfDiseases.conceptSet");
-		Concept questionsConcept = inizService.getConceptFromKey("report.newEpisodesOfDiseases.conceptSet");
+		Concept allMaladies = inizService.getConceptFromKey("report.newEpisodesOfDiseases.diseasesList.conceptSet");
 		
 		String sql = applyMetadataReplacements(rawSql, allMaladies);
 		
