@@ -15,6 +15,7 @@ import org.openmrs.Concept;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.commonreports.ActivatedReportManager;
 import org.openmrs.module.initializer.api.InitializerService;
+import org.openmrs.module.reporting.common.MessageUtil;
 import org.openmrs.module.reporting.dataset.definition.SqlDataSetDefinition;
 import org.openmrs.module.reporting.evaluation.parameter.Parameter;
 import org.openmrs.module.reporting.report.ReportDesign;
@@ -126,6 +127,27 @@ public class NewEpisodesOfDiseasesReportManager extends ActivatedReportManager {
 		
 		Properties designProperties = new Properties();
 		designProperties.put("repeatingSections", REPEATING_SECTION);
+		designProperties.put("title.label", MessageUtil.translate("commonreports.report.newEpisodesOfDiseases.title.label"));
+		designProperties.put("maladies.label",
+		    MessageUtil.translate("commonreports.report.newEpisodesOfDiseases.maladies.label"));
+		designProperties.put("ageCategory1.label",
+		    MessageUtil.translate("commonreports.report.newEpisodesOfDiseases.ageCategory1.label"));
+		designProperties.put("ageCategory2.label",
+		    MessageUtil.translate("commonreports.report.newEpisodesOfDiseases.ageCategory2.label"));
+		designProperties.put("ageCategory3.label",
+		    MessageUtil.translate("commonreports.report.newEpisodesOfDiseases.ageCategory3.label"));
+		designProperties.put("ageCategory4.label",
+		    MessageUtil.translate("commonreports.report.newEpisodesOfDiseases.ageCategory4.label"));
+		designProperties.put("ageCategory5.label",
+		    MessageUtil.translate("commonreports.report.newEpisodesOfDiseases.ageCategory5.label"));
+		designProperties.put("ageCategory6.label",
+		    MessageUtil.translate("commonreports.report.newEpisodesOfDiseases.ageCategory6.label"));
+		designProperties.put("ageCategory7.label",
+		    MessageUtil.translate("commonreports.report.newEpisodesOfDiseases.ageCategory7.label"));
+		designProperties.put("total.label", MessageUtil.translate("commonreports.report.newEpisodesOfDiseases.total.label"));
+		designProperties.put("males.label", MessageUtil.translate("commonreports.report.newEpisodesOfDiseases.males.label"));
+		designProperties.put("females.label",
+		    MessageUtil.translate("commonreports.report.newEpisodesOfDiseases.females.label"));
 		
 		reportDesign.setProperties(designProperties);
 		return Arrays.asList(reportDesign);
@@ -135,7 +157,8 @@ public class NewEpisodesOfDiseasesReportManager extends ActivatedReportManager {
 		Concept questionsConcept = inizService.getConceptFromKey("report.newEpisodesOfDiseases.questions.conceptSet");
 		String s = rawSql.replace(":selectStatements", constructSelectUnionAllStatements(coneptSet))
 		        .replace(":whenStatements", constructWhenThenStatements(coneptSet))
-		        .replace(":conceptIds", questionsConcept.getSetMembers().stream().map(Concept::getId).map(Object::toString).collect(Collectors.joining(",")));
+		        .replace(":conceptIds", questionsConcept.getSetMembers().stream().map(Concept::getId).map(Object::toString)
+		                .collect(Collectors.joining(",")));
 		return s;
 	}
 	

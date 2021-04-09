@@ -11,4 +11,11 @@
 		<comment>Modify column datatype to longblob</comment>
 		<modifyDataType tableName="reporting_report_design_resource" columnName="contents" newDataType="longblob"/>
 	</changeSet>
+	<changeSet id="2021-03-23_08_25_55" author="Test" >
+		<preConditions onFail="MARK_RAN">
+			<columnExists tableName="reporting_report_design" columnName="properties"/>
+		</preConditions>
+		<comment>Modify column datatype to text</comment>
+		<modifyDataType tableName="reporting_report_design" columnName="properties" newDataType="text"/>
+	</changeSet>
 </databaseChangeLog>
