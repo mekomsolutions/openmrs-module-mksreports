@@ -15,10 +15,10 @@ It is setup by setting the following properties in [initializer](https://github.
 }
 ```
 
-`report.newEpisodesOfDiseases.diseasesList.conceptSet` specifies which diseases and/or chief complaints to filter out.
+`report.newEpisodesOfDiseases.diseasesList.conceptSet` specifies the diseases and/or chief complaints to filter from.
 
 `report.newEpisodesOfDiseases.questions.conceptSet` specifies a concept set to the question concepts for which the recorded answer observations are being reported on.
 
 `report.newEpisodesOfDiseases.active` activates the report to be usable when the module is loaded.
 
-**Note:** Only the latest observations are evaluated on a particular disease or chief-complaint on any patients. For example, if more than one observations on say  _Cholora_  was ever recorded on a patient, and  _Cholera_  is among the diseases list, then only the most recent observation is considered in the report.
+**Note:** Only latest observations are evaluated on a particular disease or chief-complaint on any patients. For example, if more than one observations on say  _Cholora_  was ever recorded on a patient, and  _Cholera_  is among the diseases list, then only the most recent observation is considered in the report.
