@@ -54,8 +54,8 @@ end) "diagnosis",
 (CASE when round(DATEDIFF(o.obs_datetime, pr.birthdate)/365.25, 1) > 15 and round(DATEDIFF(o.obs_datetime, pr.birthdate)/365.25, 1) <25 and pr.gender = 'F' then 1 else 0 end) "FL24",
 (CASE when round(DATEDIFF(o.obs_datetime, pr.birthdate)/365.25, 1) > 25 and round(DATEDIFF(o.obs_datetime, pr.birthdate)/365.25, 1) <50 and pr.gender = 'M' then 1 else 0 end) "ML49",
 (CASE when round(DATEDIFF(o.obs_datetime, pr.birthdate)/365.25, 1) > 25 and round(DATEDIFF(o.obs_datetime, pr.birthdate)/365.25, 1) <50 and pr.gender = 'F' then 1 else 0 end) "FL49",
-(CASE when round(DATEDIFF(o.obs_datetime, pr.birthdate)/365.25, 1) > 50 and pr.gender = 'M' then 1 else 0 end) "MG50",
-(CASE when round(DATEDIFF(o.obs_datetime, pr.birthdate)/365.25, 1) > 50 and pr.gender = 'F' then 1 else 0 end) "FG50"
+(CASE when round(DATEDIFF(o.obs_datetime, pr.birthdate)/365.25, 1) >= 50 and pr.gender = 'M' then 1 else 0 end) "MG50",
+(CASE when round(DATEDIFF(o.obs_datetime, pr.birthdate)/365.25, 1) >= 50 and pr.gender = 'F' then 1 else 0 end) "FG50"
 from obs o
 INNER JOIN person pr on pr.person_id = o.person_id
 where o.concept_id in (:conceptIds)
