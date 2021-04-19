@@ -111,11 +111,8 @@ public class NewEpisodesOfDiseasesReportManagerTest extends BaseModuleContextSen
 		ReportManagerUtil.setupReport(manager);
 		
 		// verif
-		List<ReportDesign> designs = rs.getAllReportDesigns(false);
-		Assert.assertEquals(1, rs.getAllReportDesigns(false).size());
+		ReportDesign design = rs.getReportDesignByUuid("7688966e-fca5-4fde-abab-1b46a87a1185");
 		
-		ReportDesign design = designs.get(0);
-		Assert.assertEquals("7688966e-fca5-4fde-abab-1b46a87a1185", design.getUuid());
 		Assert.assertEquals(NewEpisodesOfDiseasesReportManager.REPEATING_SECTION,
 		    design.getProperties().get("repeatingSections"));
 		Assert.assertEquals(1, design.getResources().size());
