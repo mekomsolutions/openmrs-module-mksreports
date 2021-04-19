@@ -44,7 +44,7 @@
 		<javaCompilerTarget>1.8</javaCompilerTarget>
 		<openmrsPlatformVersion>2.0.0</openmrsPlatformVersion>
 		<openmrsPlatformToolsVersion>2.0.0</openmrsPlatformToolsVersion>
-		<reportingVersion>1.14.0</reportingVersion>
+		<reportingVersion>1.21.0</reportingVersion>
 		<patientsummaryVersion>2.2-SNAPSHOT</patientsummaryVersion>
 		<reportingcompatibilityVersion>2.0.4</reportingcompatibilityVersion>
 		<emrapiVersion>1.16</emrapiVersion>

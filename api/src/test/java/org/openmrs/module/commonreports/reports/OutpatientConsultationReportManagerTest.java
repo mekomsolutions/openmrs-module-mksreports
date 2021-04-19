@@ -76,10 +76,8 @@ public class OutpatientConsultationReportManagerTest extends BaseModuleContextSe
 		ReportManagerUtil.setupReport(manager);
 		
 		// verif
-		List<ReportDesign> designs = rs.getAllReportDesigns(false);
-		Assert.assertEquals(1, rs.getAllReportDesigns(false).size());
-		ReportDefinition def = designs.get(0).getReportDefinition();
-		Assert.assertEquals("58d7a2ba-5b62-4e21-ac21-090e3758cce7", def.getUuid());
+		Assert.assertNotNull(rs.getReportDesignByUuid("42b32ac1-fcd0-473d-8fdb-71fd6fc2e26d"));
+		
 	}
 	
 	@Test

@@ -74,10 +74,7 @@ public class OutpatientRecordBookManagerTest extends BaseModuleContextSensitiveT
 		ReportManagerUtil.setupReport(manager);
 		
 		// verif
-		List<ReportDesign> designs = rs.getAllReportDesigns(false);
-		Assert.assertEquals(1, rs.getAllReportDesigns(false).size());
-		ReportDefinition def = designs.get(0).getReportDefinition();
-		Assert.assertEquals("6c74e2ab-0e9b-4469-8901-8221f7d4b498", def.getUuid());
+		Assert.assertNotNull(rs.getReportDesignByUuid("9873e45d-f8a0-4682-be78-243b8c9b848c"));
 	}
 	
 	@Test
