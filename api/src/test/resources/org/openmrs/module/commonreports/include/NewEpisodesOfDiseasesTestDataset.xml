@@ -11,6 +11,9 @@
 	<concept concept_id="1925" retired="false" datatype_id="4" class_id="7" is_set="false"
 			 creator="1" date_created="2008-08-15 15:27:51.0" version=""
 			 uuid="a40104f2-0595-42e7-92dd-a54498c2beff"/>
+	<concept concept_id="1928" retired="false" datatype_id="4" class_id="7" is_set="false"
+			 creator="1" date_created="2008-08-15 15:27:51.0" version=""
+			 uuid="822eac96-ae28-4dd5-9632-12c7056577fd"/>
 
 	<concept_name concept_id="1923" name="MALARIA" locale="en_GB" creator="1"
 				  date_created="2004-08-12 00:00:00.0" concept_name_id="1539"
@@ -24,15 +27,31 @@
 				  date_created="2004-08-12 00:00:00.0" concept_name_id="1541"
 				  concept_name_type="FULLY_SPECIFIED" locale_preferred="1" voided="false"
 				  uuid="63329cdd-99c6-4936-bf99-48d992129765"/>
-
+	<concept_name concept_id="1928" name="CHOLERA" locale="en_GB" creator="1"
+				  date_created="2004-08-12 00:00:00.0" concept_name_id="1542"
+				  concept_name_type="FULLY_SPECIFIED" locale_preferred="1" voided="false"
+				  uuid="7c6f8e42-3d0c-48c7-873e-7f0d9efcfc23"/>
+	
+	<!-- Diagnoses list concept -->
+	
 	<concept concept_id="1926" retired="false" datatype_id="4" class_id="10"
 			 is_set="true" creator="1" date_created="2008-08-18 12:38:58.0"
 			 version="" uuid="c1ee4e1a-96d5-4cb1-82d1-95e367cfee20"/>
+	
+	<!-- Questions concept set-->
 			 
 	<concept concept_id="1927" retired="false" datatype_id="4" class_id="10"
 			 is_set="true" creator="1" date_created="2008-08-18 12:38:58.0"
 			 version="" uuid="8dcb0dd6-b31f-41d1-b144-d49a2c5340ab"/>
-
+	
+	<!-- All diagnoses concept set -->
+	
+	<concept concept_id="1929" retired="false" datatype_id="4" class_id="10"
+			 is_set="true" creator="1" date_created="2008-08-18 12:38:58.0"
+			 version="" uuid="dccb05f6-a27b-4331-989c-9a669e84e467"/>
+	
+	<!-- Diagnosis list set members-->
+	
 	<concept_set concept_set_id="3" concept_id="1923" concept_set="1926"
 				 sort_weight="0.0" creator="1" date_created="2017-07-01 00:00:00.0"
 				 uuid="aab0ea42-9e64-4517-a134-36b4e1ed5909" />
@@ -44,10 +63,33 @@
 	<concept_set concept_set_id="5" concept_id="1925" concept_set="1926"
 				 sort_weight="0.0" creator="1" date_created="2017-07-01 00:00:00.0"
 				 uuid="f9cdecfb-c4ad-4294-bd01-723806a075a2" />
+	
+	<!-- Questions set members-->
 				 
 	<concept_set concept_set_id="6" concept_id="21" concept_set="1927"
 				 sort_weight="0.0" creator="1" date_created="2017-07-01 00:00:00.0"
 				 uuid="7a397185-740d-4944-b4d4-c83d99d6c6a1" />
+	
+	
+	<!-- All diagnoses set members -->
+	
+	<concept_set concept_set_id="7" concept_id="1923" concept_set="1929"
+				 sort_weight="0.0" creator="1" date_created="2017-07-01 00:00:00.0"
+				 uuid="16fae930-e8d8-4a39-96b9-f1d5d54073a5" />
+
+	<concept_set concept_set_id="8" concept_id="1924" concept_set="1929"
+				 sort_weight="0.0" creator="1" date_created="2017-07-01 00:00:00.0"
+				 uuid="4327bf3c-fccd-44d1-af7a-05b89763ca6d" />
+
+	<concept_set concept_set_id="9" concept_id="1925" concept_set="1929"
+				 sort_weight="0.0" creator="1" date_created="2017-07-01 00:00:00.0"
+				 uuid="3e04c3ae-a65e-4339-9689-d0a984c6a7f4" />
+	
+	<concept_set concept_set_id="10" concept_id="1928" concept_set="1929"
+				 sort_weight="0.0" creator="1" date_created="2017-07-01 00:00:00.0"
+				 uuid="889760d2-460e-4fc3-8064-6058235de06e" />
+	
+	<!-- Observations captured -->
 
 	<obs obs_id="4003" person_id="6" concept_id="21" encounter_id="3"
 		 obs_datetime="2008-09-02 00:00:00.0" location_id="1" value_coded="1923"
@@ -76,4 +118,11 @@
 		 value_coded_name_id="[NULL]" value_complex="[NULL]" value_text="[NULL]"
 		 value_numeric="[NULL]" value_datetime="[NULL]" value_drug="[NULL]"
 		 uuid="cf613b43-0e89-4c8d-9821-92bff858b087" />
+	
+	<obs obs_id="4007" person_id="7" concept_id="21" encounter_id="3"
+		 obs_datetime="2008-09-02 00:00:00.0" location_id="1" value_coded="1928"
+		 comments="" creator="1" date_created="2008-08-18 14:09:35.0" voided="false"
+		 value_coded_name_id="[NULL]" value_complex="[NULL]" value_text="[NULL]"
+		 value_numeric="[NULL]" value_datetime="[NULL]" value_drug="[NULL]"
+		 uuid="2920b91c-b62a-4c49-b9f9-b0ba13a437f1" />
 </dataset>

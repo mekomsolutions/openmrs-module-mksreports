@@ -8,8 +8,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import java.util.Set;
 import java.util.stream.Collectors;
 
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.io.IOUtils;
 import org.openmrs.Concept;
 import org.openmrs.api.context.Context;
@@ -50,12 +52,12 @@ public class NewEpisodesOfDiseasesReportManager extends ActivatedReportManager {
 	
 	@Override
 	public String getName() {
-		return "New Episodes of Diseases";
+		return MessageUtil.translate("commonreports.report.newEpisodesOfDiseases.reportName");
 	}
 	
 	@Override
 	public String getDescription() {
-		return "New Episodes of Diseases";
+		return MessageUtil.translate("commonreports.report.newEpisodesOfDiseases.reportDescription");
 	}
 	
 	private Parameter getStartDateParameter() {
@@ -104,7 +106,7 @@ public class NewEpisodesOfDiseasesReportManager extends ActivatedReportManager {
 		sqlDsd.setDescription("New Episodes of Diseases SQL Dataset");
 		
 		String rawSql = getSqlString("org/openmrs/module/commonreports/sql/NewEpisodesOfDiseases.sql");
-		Concept allMaladies = inizService.getConceptFromKey("report.newEpisodesOfDiseases.diseasesList.conceptSet");
+		Concept allMaladies = inizService.getConceptFromKey("report.newEpisodesOfDiseases.diagnosisList.conceptSet");
 		
 		String sql = applyMetadataReplacements(rawSql, allMaladies);
 		
@@ -163,17 +165,41 @@ public class NewEpisodesOfDiseasesReportManager extends ActivatedReportManager {
 	}
 	
 	private String constructWhenThenStatements(Concept con) {
+		Concept allDiagnosesSet = inizService.getConceptFromKey("report.newEpisodesOfDiseases.allDiagnoses.conceptSet");
+		List<Concept> allOtherDiagnoses = null;
+		
+		if (allDiagnosesSet != null) {
+			allOtherDiagnoses = new ArrayList<Concept>(allDiagnosesSet.getSetMembers());
+			
+		}
+		
 		String st = "";
+		
 		for (Concept c : con.getSetMembers()) {
 			if (c.getSet()) {
 				for (Concept setMember : c.getSetMembers()) {
 					st = st + " when o.value_coded = " + setMember.getId() + " then '"
 					        + c.getPreferredName(Context.getLocale()) + "'";
 				}
+				if (CollectionUtils.isNotEmpty(allOtherDiagnoses)) {
+					allOtherDiagnoses.removeAll(c.getSetMembers());
+				}
 			} else {
 				st = st + " when o.value_coded = " + c.getId() + " then '" + c.getPreferredName(Context.getLocale()) + "'";
+				if (CollectionUtils.isNotEmpty(allOtherDiagnoses)) {
+					allOtherDiagnoses.remove(c);
+				}
 			}
 		}
+		
+		// Adding entries for all other diagnoses
+		if (CollectionUtils.isNotEmpty(allOtherDiagnoses)) {
+			for (Concept otherDiagnosis : allOtherDiagnoses) {
+				st = st + " when o.value_coded = " + otherDiagnosis.getId() + " then '"
+				        + MessageUtil.translate("commonreports.report.newEpisodesOfDiseases.allOtherDiagnoses.label") + "'";
+			}
+		}
+		
 		return st;
 	}
 	
@@ -187,6 +213,12 @@ public class NewEpisodesOfDiseasesReportManager extends ActivatedReportManager {
 				st = st + " UNION ALL select '" + set.get(i).getPreferredName(Context.getLocale()) + "'";
 			}
 		}
+		// Adding entry for all other diagnoses
+		if (inizService.getConceptFromKey("report.newEpisodesOfDiseases.allDiagnoses.conceptSet") != null) {
+			st = st + " UNION ALL select '"
+			        + MessageUtil.translate("commonreports.report.newEpisodesOfDiseases.allOtherDiagnoses.label") + "'";
+		}
+		
 		return st;
 	}
 }

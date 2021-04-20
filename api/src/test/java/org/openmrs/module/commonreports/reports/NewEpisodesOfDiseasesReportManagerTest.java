@@ -130,6 +130,7 @@ public class NewEpisodesOfDiseasesReportManagerTest extends BaseModuleContextSen
 		boolean malariaVerified = false;
 		boolean feverVerified = false;
 		boolean diabetesVerified = false;
+		boolean allOtherDiagnoses = false;
 		
 		// replay
 		ReportDefinition rd = manager.constructReportDefinition();
@@ -157,8 +158,13 @@ public class NewEpisodesOfDiseasesReportManagerTest extends BaseModuleContextSen
 				assertNull(row.getColumnValue("F_Total"));
 				diabetesVerified = true;
 			}
+			if (row.getColumnValue("Maladies/Symptomes").equals("All other diagnoses")) {
+				assertEquals(ONE, row.getColumnValue("F_25-49"));
+				assertEquals(ONE, row.getColumnValue("F_Total"));
+				allOtherDiagnoses = true;
+			}
 		}
-		assertTrue(malariaVerified && feverVerified && diabetesVerified);
+		assertTrue(malariaVerified && feverVerified && diabetesVerified && allOtherDiagnoses);
 	}
 	
 	private void updateDatabase(String filename) throws Exception {
