@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <dataset>
-
+	<encounter encounter_id="3000" encounter_type="2" patient_id="7" visit_id="4" location_id="1" form_id="1" 
+	encounter_datetime="2008-08-01 00:00:00.0" creator="1" date_created="2008-08-18 14:09:05.0" 
+	voided="false" uuid="713ab6cf-71e6-4f69-9a8a-747b948a5656"/>
+	
 	<concept concept_id="1923" retired="false" datatype_id="4" class_id="7" is_set="false"
 			 creator="1" date_created="2008-08-15 15:27:51.0" version=""
 			 uuid="f7a7df79-8ecf-4e20-a13d-020adc6d4944"/>
@@ -50,6 +53,18 @@
 			 is_set="true" creator="1" date_created="2008-08-18 12:38:58.0"
 			 version="" uuid="dccb05f6-a27b-4331-989c-9a669e84e467"/>
 	
+	<!-- Referred coded question concept -->
+	
+	<concept concept_id="1930" retired="false" datatype_id="2" class_id="7" 
+			 is_set="false"  creator="1" date_created="2008-08-18 12:38:58.0"
+			 version="" uuid="07783b52-01de-488f-9ad5-1973e943e8ec"/>
+			 
+	<!-- Referred coded answer concept -->
+	
+	<concept concept_id="1931" retired="false" datatype_id="4" class_id="11"
+			 is_set="false" creator="1" date_created="2008-08-18 12:38:58.0"
+			 version="" uuid="d7f6f425-df28-47f4-9474-ba85a462a261"/>
+			 
 	<!-- Diagnosis list set members-->
 	
 	<concept_set concept_set_id="3" concept_id="1923" concept_set="1926"
@@ -91,38 +106,45 @@
 	
 	<!-- Observations captured -->
 
-	<obs obs_id="4003" person_id="6" concept_id="21" encounter_id="3"
+	<obs obs_id="4003" person_id="6" concept_id="21" encounter_id="3000"
 		 obs_datetime="2008-09-02 00:00:00.0" location_id="1" value_coded="1923"
 		 comments="" creator="1" date_created="2008-08-18 14:09:35.0" voided="false"
 		 value_coded_name_id="[NULL]" value_complex="[NULL]" value_text="[NULL]"
 		 value_numeric="[NULL]" value_datetime="[NULL]" value_drug="[NULL]"
 		 uuid="a2c84a9b-6181-445f-a106-267cc8641976" />
 
-	<obs obs_id="4004" person_id="6" concept_id="21" encounter_id="3"
+	<obs obs_id="4004" person_id="6" concept_id="21" encounter_id="3000"
 		 obs_datetime="2008-09-02 00:00:00.0" location_id="1" value_coded="1924"
 		 comments="" creator="1" date_created="2008-08-18 14:09:35.0" voided="false"
 		 value_coded_name_id="[NULL]" value_complex="[NULL]" value_text="[NULL]"
 		 value_numeric="[NULL]" value_datetime="[NULL]" value_drug="[NULL]"
 		 uuid="c631d811-e764-46d5-8ee4-4cceb406dcf4" />
 
-	<obs obs_id="4005" person_id="6" concept_id="21" encounter_id="3"
+	<obs obs_id="4005" person_id="6" concept_id="21" encounter_id="3000"
 		 obs_datetime="2008-09-02 00:00:00.0" location_id="1" value_coded="1925"
 		 comments="" creator="1" date_created="2008-08-18 14:09:35.0" voided="false"
 		 value_coded_name_id="[NULL]" value_complex="[NULL]" value_text="[NULL]"
 		 value_numeric="[NULL]" value_datetime="[NULL]" value_drug="[NULL]"
 		 uuid="91fc8bff-0c2a-4b4f-b8fe-13abecdee795" />
 
-	<obs obs_id="4006" person_id="7" concept_id="21" encounter_id="3"
+	<obs obs_id="4006" person_id="7" concept_id="21" encounter_id="3000"
 		 obs_datetime="2008-09-02 00:00:00.0" location_id="1" value_coded="1923"
 		 comments="" creator="1" date_created="2008-08-18 14:09:35.0" voided="false"
 		 value_coded_name_id="[NULL]" value_complex="[NULL]" value_text="[NULL]"
 		 value_numeric="[NULL]" value_datetime="[NULL]" value_drug="[NULL]"
 		 uuid="cf613b43-0e89-4c8d-9821-92bff858b087" />
 	
-	<obs obs_id="4007" person_id="7" concept_id="21" encounter_id="3"
+	<obs obs_id="4007" person_id="7" concept_id="21" encounter_id="3000"
 		 obs_datetime="2008-09-02 00:00:00.0" location_id="1" value_coded="1928"
 		 comments="" creator="1" date_created="2008-08-18 14:09:35.0" voided="false"
 		 value_coded_name_id="[NULL]" value_complex="[NULL]" value_text="[NULL]"
 		 value_numeric="[NULL]" value_datetime="[NULL]" value_drug="[NULL]"
 		 uuid="2920b91c-b62a-4c49-b9f9-b0ba13a437f1" />
+	
+	<obs obs_id="4008" person_id="7" concept_id="1930" encounter_id="3000"
+		 obs_datetime="2008-09-02 00:00:00.0" location_id="1" value_coded="1931"
+		 comments="" creator="1" date_created="2008-08-18 16:09:35.0" voided="false"
+		 value_coded_name_id="[NULL]" value_complex="[NULL]" value_text="[NULL]"
+		 value_numeric="[NULL]" value_datetime="[NULL]" value_drug="[NULL]"
+		 uuid="6364a8df-1e7c-4338-b73e-23d05f381640" />
 </dataset>

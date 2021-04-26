@@ -105,7 +105,7 @@ public class NewEpisodesOfDiseasesReportManager extends ActivatedReportManager {
 		sqlDsd.setName("New Episodes of Diseases SQL Dataset");
 		sqlDsd.setDescription("New Episodes of Diseases SQL Dataset");
 		
-		String rawSql = getSqlString("org/openmrs/module/commonreports/sql/NewEpisodesOfDiseases.sql");
+		String rawSql = getSqlString("org/openmrs/module/commonreports/sql/newEpisodesOfDiseases.sql");
 		Concept allMaladies = inizService.getConceptFromKey("report.newEpisodesOfDiseases.diagnosisList.conceptSet");
 		
 		String sql = applyMetadataReplacements(rawSql, allMaladies);
@@ -125,7 +125,7 @@ public class NewEpisodesOfDiseasesReportManager extends ActivatedReportManager {
 	@Override
 	public List<ReportDesign> constructReportDesigns(ReportDefinition reportDefinition) {
 		ReportDesign reportDesign = ReportManagerUtil.createExcelTemplateDesign("7688966e-fca5-4fde-abab-1b46a87a1185",
-		    reportDefinition, "org/openmrs/module/commonreports/reportTemplates/NewEpisodesOfDiseasesReportTemplate.xls");
+		    reportDefinition, "org/openmrs/module/commonreports/reportTemplates/newEpisodesOfDiseasesReportTemplate.xls");
 		
 		Properties designProperties = new Properties();
 		designProperties.put("repeatingSections", REPEATING_SECTION);
@@ -150,6 +150,8 @@ public class NewEpisodesOfDiseasesReportManager extends ActivatedReportManager {
 		designProperties.put("males.label", MessageUtil.translate("commonreports.report.newEpisodesOfDiseases.males.label"));
 		designProperties.put("females.label",
 		    MessageUtil.translate("commonreports.report.newEpisodesOfDiseases.females.label"));
+		designProperties.put("totalReferredCases.label",
+		    MessageUtil.translate("commonreports.report.newEpisodesOfDiseases.totalReferredCases.label"));
 		
 		reportDesign.setProperties(designProperties);
 		return Arrays.asList(reportDesign);
@@ -157,10 +159,14 @@ public class NewEpisodesOfDiseasesReportManager extends ActivatedReportManager {
 	
 	private String applyMetadataReplacements(String rawSql, Concept coneptSet) {
 		Concept questionsConcept = inizService.getConceptFromKey("report.newEpisodesOfDiseases.questions.conceptSet");
+		Concept referredCodedanswer = inizService
+		        .getConceptFromKey("report.newEpisodesOfDiseases.referredCodedanswer.concept");
 		String s = rawSql.replace(":selectStatements", constructSelectUnionAllStatements(coneptSet))
 		        .replace(":whenStatements", constructWhenThenStatements(coneptSet))
-		        .replace(":conceptIds", questionsConcept.getSetMembers().stream().map(Concept::getId).map(Object::toString)
-		                .collect(Collectors.joining(",")));
+		        .replace(":conceptIds",
+		            questionsConcept.getSetMembers().stream().map(Concept::getId).map(Object::toString)
+		                    .collect(Collectors.joining(",")))
+		        .replace(":referredValueCodedId", referredCodedanswer.getId().toString());
 		return s;
 	}
 	

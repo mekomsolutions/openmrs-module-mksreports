@@ -144,23 +144,27 @@ public class NewEpisodesOfDiseasesReportManagerTest extends BaseModuleContextSen
 				assertEquals(ONE, row.getColumnValue("M_1-4"));
 				assertEquals(ONE, row.getColumnValue("M_Total"));
 				assertEquals(ONE, row.getColumnValue("F_Total"));
+				assertEquals(ONE, row.getColumnValue("TotalReferredCases"));
 				malariaVerified = true;
 			}
 			if (row.getColumnValue("Maladies/Symptomes").equals("FEVER")) {
 				assertEquals(ONE, row.getColumnValue("M_1-4"));
 				assertEquals(ONE, row.getColumnValue("M_Total"));
 				assertNull(row.getColumnValue("F_Total"));
+				assertEquals(null, row.getColumnValue("TotalReferredCases"));
 				feverVerified = true;
 			}
 			if (row.getColumnValue("Maladies/Symptomes").equals("DIABETES")) {
 				assertEquals(ONE, row.getColumnValue("M_1-4"));
 				assertEquals(ONE, row.getColumnValue("M_Total"));
 				assertNull(row.getColumnValue("F_Total"));
+				assertEquals(null, row.getColumnValue("TotalReferredCases"));
 				diabetesVerified = true;
 			}
 			if (row.getColumnValue("Maladies/Symptomes").equals("All other diagnoses")) {
 				assertEquals(ONE, row.getColumnValue("F_25-49"));
 				assertEquals(ONE, row.getColumnValue("F_Total"));
+				assertEquals(ONE, row.getColumnValue("TotalReferredCases"));
 				allOtherDiagnoses = true;
 			}
 		}

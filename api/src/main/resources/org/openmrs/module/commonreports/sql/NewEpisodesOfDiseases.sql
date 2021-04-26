@@ -14,7 +14,8 @@ FemalesL49 "F_25-49",
 MalesG50 "M>50",
 FemalesG50 "F>50",
 MalesTotal "M_Total",
-FemalesTotal "F_Total"
+FemalesTotal "F_Total",
+TotalReferredCases
 from
 (:selectStatements) maladies
 LEFT OUTER JOIN
@@ -36,7 +37,8 @@ nullif(sum(FL49),0) "FemalesL49",
 nullif(sum(MG50),0) "MalesG50",
 nullif(sum(FG50),0) "FemalesG50",
 nullif(sum(ML1)+sum(ML4)+sum(ML9)+ sum(ML14)+sum(ML24)+sum(ML49)+sum(MG50),0) "MalesTotal",
-nullif(sum(FL1)+sum(FL4)+sum(FL9)+ sum(FL14)+sum(FL24)+sum(FL49)+sum(FG50),0) "FemalesTotal"
+nullif(sum(FL1)+sum(FL4)+sum(FL9)+ sum(FL14)+sum(FL24)+sum(FL49)+sum(FG50),0) "FemalesTotal",
+nullif(sum(TotalRefCases),0) "TotalReferredCases"
 from (
 select
 (CASE 
@@ -55,9 +57,13 @@ end) "diagnosis",
 (CASE when round(DATEDIFF(o.obs_datetime, pr.birthdate)/365.25, 1) > 25 and round(DATEDIFF(o.obs_datetime, pr.birthdate)/365.25, 1) <50 and pr.gender = 'M' then 1 else 0 end) "ML49",
 (CASE when round(DATEDIFF(o.obs_datetime, pr.birthdate)/365.25, 1) > 25 and round(DATEDIFF(o.obs_datetime, pr.birthdate)/365.25, 1) <50 and pr.gender = 'F' then 1 else 0 end) "FL49",
 (CASE when round(DATEDIFF(o.obs_datetime, pr.birthdate)/365.25, 1) >= 50 and pr.gender = 'M' then 1 else 0 end) "MG50",
-(CASE when round(DATEDIFF(o.obs_datetime, pr.birthdate)/365.25, 1) >= 50 and pr.gender = 'F' then 1 else 0 end) "FG50"
+(CASE when round(DATEDIFF(o.obs_datetime, pr.birthdate)/365.25, 1) >= 50 and pr.gender = 'F' then 1 else 0 end) "FG50",
+(CASE when o_referred.obs_id IS NOT NULL then 1 else 0 end) "TotalRefCases"
 from obs o
 INNER JOIN person pr on pr.person_id = o.person_id
+
+-- Adding referred cases
+LEFT OUTER JOIN obs o_referred on o_referred.person_id = o.person_id and o_referred.voided = 0 and o_referred.value_coded = :referredValueCodedId and (date(o_referred.obs_datetime) >= date(o.obs_datetime)) and (select visit_id from encounter e1 where e1.encounter_id = o_referred.encounter_id) = (select visit_id from encounter e2 where e2.encounter_id = o.encounter_id) 
 where o.concept_id in (:conceptIds)
 and o.voided = 0 
 
