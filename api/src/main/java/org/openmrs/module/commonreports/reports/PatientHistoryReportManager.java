@@ -102,12 +102,9 @@ public class PatientHistoryReportManager extends ActivatedReportManager {
 	@Autowired
 	BasePatientDataLibrary basePatientDataLibrary;
 	
-	@Autowired
-	private InitializerService inizService;
-	
 	@Override
 	public boolean isActivated() {
-		return inizService.getBooleanFromKey("report.patientHistoryReportManager.active", false);
+		return super.isActivated();
 	}
 	
 	@Override
