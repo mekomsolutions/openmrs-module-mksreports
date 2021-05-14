@@ -157,12 +157,12 @@ public class NewEpisodesOfDiseasesReportManager extends ActivatedReportManager {
 		return Arrays.asList(reportDesign);
 	}
 	
-	private String applyMetadataReplacements(String rawSql, Concept coneptSet) {
+	private String applyMetadataReplacements(String rawSql, Concept conceptSet) {
 		Concept questionsConcept = inizService.getConceptFromKey("report.newEpisodesOfDiseases.questions.conceptSet");
 		Concept referredCodedanswer = inizService
 		        .getConceptFromKey("report.newEpisodesOfDiseases.referredCodedanswer.concept");
-		String s = rawSql.replace(":selectStatements", constructSelectUnionAllStatements(coneptSet))
-		        .replace(":whenStatements", constructWhenThenStatements(coneptSet))
+		String s = rawSql.replace(":selectStatements", constructSelectUnionAllStatements(conceptSet))
+		        .replace(":whenStatements", constructWhenThenStatements(conceptSet))
 		        .replace(":conceptIds",
 		            questionsConcept.getSetMembers().stream().map(Concept::getId).map(Object::toString)
 		                    .collect(Collectors.joining(",")))
