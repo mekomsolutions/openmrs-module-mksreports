@@ -93,7 +93,7 @@ public class EmergenciesReportManager extends ActivatedReportManager {
 		parameterMappings.put("onOrAfter", "${startDate}");
 		parameterMappings.put("onOrBefore", "${endDate}");
 		
-		Concept questionConcept = inizService.getConceptFromKey("report.emergencies.question.concept");//CIEL:5219
+		Concept questionConcept = inizService.getConceptFromKey("report.emergencies.question.concept");
 		
 		// adding rows
 		
@@ -122,7 +122,7 @@ public class EmergenciesReportManager extends ActivatedReportManager {
 		
 		{
 			// Public road accident
-			Concept roadAccidents = inizService.getConceptFromKey("report.emergencies.roadAccidents.concept");//CIEL:86
+			Concept roadAccidents = inizService.getConceptFromKey("report.emergencies.roadAccidents.concept");
 			
 			for (Concept accident : roadAccidents.getSetMembers()) {
 				
@@ -140,7 +140,7 @@ public class EmergenciesReportManager extends ActivatedReportManager {
 		{
 			// Work accident
 			CodedObsCohortDefinition workAccident = new CodedObsCohortDefinition();
-			Concept wac = inizService.getConceptFromKey("report.emergencies.workAccident.concept");//CIEL:154497
+			Concept wac = inizService.getConceptFromKey("report.emergencies.workAccident.concept");
 			
 			workAccident.addParameter(new Parameter("onOrAfter", "On Or After", Date.class));
 			workAccident.addParameter(new Parameter("onOrBefore", "On Or Before", Date.class));
@@ -153,7 +153,7 @@ public class EmergenciesReportManager extends ActivatedReportManager {
 		{
 			// Sexual violence
 			CodedObsCohortDefinition sexualViolence = new CodedObsCohortDefinition();
-			Concept svc = inizService.getConceptFromKey("report.emergencies.sexualViolence.concept");//CIEL:154497
+			Concept svc = inizService.getConceptFromKey("report.emergencies.sexualViolence.concept");
 			
 			sexualViolence.addParameter(new Parameter("onOrAfter", "On Or After", Date.class));
 			sexualViolence.addParameter(new Parameter("onOrBefore", "On Or Before", Date.class));
@@ -182,8 +182,7 @@ public class EmergenciesReportManager extends ActivatedReportManager {
 		{
 			// Physical violence
 			CodedObsCohortDefinition physicalViolence = new CodedObsCohortDefinition();
-			Concept pvc = inizService.getConceptFromKey("report.emergencies.physicalViolence.concept");//CIEL:154497
-			
+			Concept pvc = inizService.getConceptFromKey("report.emergencies.physicalViolence.concept");
 			physicalViolence.addParameter(new Parameter("onOrAfter", "On Or After", Date.class));
 			physicalViolence.addParameter(new Parameter("onOrBefore", "On Or Before", Date.class));
 			physicalViolence.setOperator(SetComparator.IN);
@@ -208,7 +207,7 @@ public class EmergenciesReportManager extends ActivatedReportManager {
 		{
 			// Other types of violence
 			CodedObsCohortDefinition otherViolenceType = new CodedObsCohortDefinition();
-			Concept ovtc = inizService.getConceptFromKey("report.emergencies.otherViolenceType.concept");//CIEL:154497
+			Concept ovtc = inizService.getConceptFromKey("report.emergencies.otherViolenceType.concept");
 			
 			otherViolenceType.addParameter(new Parameter("onOrAfter", "On Or After", Date.class));
 			otherViolenceType.addParameter(new Parameter("onOrBefore", "On Or Before", Date.class));
@@ -233,9 +232,9 @@ public class EmergenciesReportManager extends ActivatedReportManager {
 		
 		{
 			// Medical and surgical emergencies
-			Concept mseq = inizService.getConceptFromKey("report.emergencies.medicalAndSurgicalEmergenciesQuesion.concept");//CIEL:154497
+			Concept mseq = inizService.getConceptFromKey("report.emergencies.medicalAndSurgicalEmergenciesQuesion.concept");
 			Concept msecs = inizService
-			        .getConceptFromKey("report.emergencies.medicalAndSurgicalEmergenciesSetOfSets.concept");//CIEL:154497
+			        .getConceptFromKey("report.emergencies.medicalAndSurgicalEmergenciesSetOfSets.concept");
 			
 			for (Concept emergency : msecs.getSetMembers()) {
 				
@@ -246,8 +245,8 @@ public class EmergenciesReportManager extends ActivatedReportManager {
 				medicalAndSurgicalEmergencies.setQuestion(mseq);
 				medicalAndSurgicalEmergencies.setValueList(new ArrayList<Concept>(emergency.getSetMembers()));
 				
-				emergencies.addRow(MessageUtil.translate("commonreports.report.emergencies.medicalAndSurgicalEmergencies.label") + " - "
-				        + emergency.getDisplayString(),
+				emergencies.addRow(MessageUtil.translate("commonreports.report.emergencies.medicalAndSurgicalEmergencies")
+				        + " - " + emergency.getDisplayString(),
 				    medicalAndSurgicalEmergencies, parameterMappings);
 			}
 		}
@@ -255,8 +254,8 @@ public class EmergenciesReportManager extends ActivatedReportManager {
 		{
 			//Other causes of emergencies
 			CodedObsCohortDefinition otherEmergencies = new CodedObsCohortDefinition();
-			Concept oec = inizService.getConceptFromKey("report.emergencies.otherEmergencies.concept");//CIEL:154497
-			Concept oeq = inizService.getConceptFromKey("report.emergencies.otherEmergenciesQuestion.concept");//CIEL:154497
+			Concept oec = inizService.getConceptFromKey("report.emergencies.otherEmergencies.concept");
+			Concept oeq = inizService.getConceptFromKey("report.emergencies.otherEmergenciesQuestion.concept");
 			
 			otherEmergencies.addParameter(new Parameter("onOrAfter", "On Or After", Date.class));
 			otherEmergencies.addParameter(new Parameter("onOrBefore", "On Or Before", Date.class));

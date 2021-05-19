@@ -26,5 +26,19 @@
     "report.newEpisodesOfDiseases.questions.conceptSet" : "8dcb0dd6-b31f-41d1-b144-d49a2c5340ab",
     "report.newEpisodesOfDiseases.allDiagnoses.conceptSet" : "dccb05f6-a27b-4331-989c-9a669e84e467",
     "report.newEpisodesOfDiseases.referredCodedanswer.concept" : "d7f6f425-df28-47f4-9474-ba85a462a261",
-    "report.newEpisodesOfDiseases.active" : "true"
+    "report.newEpisodesOfDiseases.active" : "true",
+    "report.emergencies.active " : "true",
+    "report.emergencies.question.concept" : "33c31827-1f0d-4843-a84c-e98db2406b27",
+    "report.emergencies.roadAccidents.concept" : "b8aa1b81-b155-4b64-9439-4b7e92257dd5",
+    "report.emergencies.workAccident.concept" : "e3c21cda-c34c-490d-8f35-d5ecf7065f55",
+    "report.emergencies.sexualViolence.concept" : "32d73992-5d50-4515-b3d7-1163926f0dd8",
+    "report.emergencies.physicalViolence.concept" : "3b5eeccb-dbcf-4a7b-8441-82877df0f620",
+    "report.emergencies.otherViolenceType.concept" : "14dd822f-cda0-44b8-9b46-84f2f0eb2be8",
+    "report.emergencies.medicalAndSurgicalEmergenciesQuesion.concept" : "33c31827-1f0d-4843-a84c-e98db2406b27",
+    "report.emergencies.medicalAndSurgicalEmergenciesSetOfSets.concept" : "5113a725-ce48-47e6-b6fb-0251ad6b39ff",
+    "report.emergencies.otherEmergencies.concept" : "1a82be9e-06cc-47f5-9df2-eeb5580953cc",
+    "report.emergencies.otherEmergenciesQuestion.concept" : "33c31827-1f0d-4843-a84c-e98db2406b27",
+    "report.emergencies.referredTo.concept" : "276cccb6-0c0b-4f84-8947-298aceea5e62",
+    "report.emergencies.leftWithoutPermission.concept" : "2ffc2e24-fa5c-4cb1-9366-8faec8225ee6",
+    "report.emergencies.yes.concept" : "bf885a9d-9f98-4990-8c20-ac4ace816bfe"
 }
