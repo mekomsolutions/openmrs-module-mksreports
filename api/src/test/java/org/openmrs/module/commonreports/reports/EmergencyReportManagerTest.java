@@ -88,7 +88,7 @@ public class EmergencyReportManagerTest extends BaseModuleContextSensitiveTest {
 			System.out.println(row);
 			Map<String, Integer> columnValuePairs = getColumnValues();
 			for (String column : columnValuePairs.keySet()) {
-				assertThat(((Cohort) row.getColumnValue(column)).getSize(), is(columnValuePairs.get(column)));
+				assertThat(column,((Cohort) row.getColumnValue(column)).getSize(), is(columnValuePairs.get(column)));
 			}
 		}
 	}
