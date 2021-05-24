@@ -276,8 +276,8 @@ public class EmergencyReportManager extends ActivatedReportManager {
 		
 		{	
 			// Deceased
-			BirthAndDeathCohortDefinition deceasedCategory = new BirthAndDeathCohortDefinition();
-			deceasedCategory.setDied(true);
+			BirthAndDeathCohortDefinition deceased = new BirthAndDeathCohortDefinition();
+			deceased.setDied(true);
 			
 			// Left without permission
 			CodedObsCohortDefinition leftWithoutPermissionCategory = new CodedObsCohortDefinition();
@@ -291,7 +291,7 @@ public class EmergencyReportManager extends ActivatedReportManager {
 			leftWithoutPermissionCategory.setValueList(Arrays.asList(yesAns));
 			
 			PresenceOrAbsenceCohortDefinition absentInDceasedCategory = new PresenceOrAbsenceCohortDefinition();
-			absentInDceasedCategory.addCohortToCheck(Mapped.mapStraightThrough(deceasedCategory));
+			absentInDceasedCategory.addCohortToCheck(Mapped.mapStraightThrough(deceased));
 			absentInDceasedCategory.setPresentInAtMost(0);
 			CompositionCohortDefinition leftWithoutPermission = createCohortComposition(leftWithoutPermissionCategory, absentInDceasedCategory);
 			
@@ -305,27 +305,28 @@ public class EmergencyReportManager extends ActivatedReportManager {
 			referredToCategory.setQuestion(referredToConcept);
 			
 			PresenceOrAbsenceCohortDefinition absentInDceasedLeftAndWithoutPermissionCategories = new PresenceOrAbsenceCohortDefinition();
-			absentInDceasedLeftAndWithoutPermissionCategories.addCohortToCheck(Mapped.mapStraightThrough(deceasedCategory));
-			absentInDceasedLeftAndWithoutPermissionCategories.addCohortToCheck(Mapped.mapStraightThrough(leftWithoutPermissionCategory));
+			absentInDceasedLeftAndWithoutPermissionCategories.addCohortToCheck(Mapped.mapStraightThrough(deceased));
+			absentInDceasedLeftAndWithoutPermissionCategories.addCohortToCheck(Mapped.mapStraightThrough(leftWithoutPermission));
 			absentInDceasedLeftAndWithoutPermissionCategories.setPresentInAtMost(0);
 			CompositionCohortDefinition referrals = createCohortComposition(referredToCategory, absentInDceasedLeftAndWithoutPermissionCategories);
 			
 			// Cared for (not in above categories)
 			PresenceOrAbsenceCohortDefinition notInCategory = new PresenceOrAbsenceCohortDefinition();
 			
-			notInCategory.addCohortToCheck(Mapped.mapStraightThrough(referredToCategory));
-			notInCategory.addCohortToCheck(Mapped.mapStraightThrough(deceasedCategory));
-			notInCategory.addCohortToCheck(Mapped.mapStraightThrough(leftWithoutPermissionCategory));
+			notInCategory.addCohortToCheck(Mapped.mapStraightThrough(referrals));
+			notInCategory.addCohortToCheck(Mapped.mapStraightThrough(deceased));
+			notInCategory.addCohortToCheck(Mapped.mapStraightThrough(leftWithoutPermission));
 			notInCategory.setPresentInAtMost(0);
+			CompositionCohortDefinition caredFor = createCohortComposition(notInCategory);
 			
 			emergencies.addColumn(
 				    MessageUtil.translate("commonreports.report.emergency.leftWithoutPermissionCategory.label"),
 				    leftWithoutPermission, null);
 			emergencies.addColumn(MessageUtil.translate("commonreports.report.emergency.deceasedCategory.label"),
-				    deceasedCategory, null);
+				    deceased, null);
 			emergencies.addColumn(MessageUtil.translate("commonreports.report.emergency.referredCategory.label"),
 					referrals, null);
-			emergencies.addColumn(MessageUtil.translate("commonreports.report.emergency.notInCategory.label"), notInCategory,
+			emergencies.addColumn(MessageUtil.translate("commonreports.report.emergency.notInCategory.label"), caredFor,
 			    null);
 			
 		}
