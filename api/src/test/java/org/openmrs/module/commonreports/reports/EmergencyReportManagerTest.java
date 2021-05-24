@@ -85,6 +85,7 @@ public class EmergencyReportManagerTest extends BaseModuleContextSensitiveTest {
 		
 		for (Iterator<DataSetRow> itr = data.getDataSets().get(rd.getName()).iterator(); itr.hasNext();) {
 			DataSetRow row = itr.next();
+			System.out.println(row);
 			Map<String, Integer> columnValuePairs = getColumnValues();
 			for (String column : columnValuePairs.keySet()) {
 				assertThat(((Cohort) row.getColumnValue(column)).getSize(), is(columnValuePairs.get(column)));
@@ -140,7 +141,7 @@ public class EmergencyReportManagerTest extends BaseModuleContextSensitiveTest {
 		map.put("Physical Violence - Men (15 years and above).Left without permission", 0);
 		map.put("Physical Violence - Men (15 years and above).Cared for", 0);
 		map.put("Physical Violence - Women (15 years and above).Total number", 1);
-		map.put("Physical Violence - Women (15 years and above).Referred", 1);
+		map.put("Physical Violence - Women (15 years and above).Referred", 0);
 		map.put("Physical Violence - Women (15 years and above).Deceased", 1);
 		map.put("Physical Violence - Women (15 years and above).Left without permission", 0);
 		map.put("Physical Violence - Women (15 years and above).Cared for", 0);
@@ -155,12 +156,12 @@ public class EmergencyReportManagerTest extends BaseModuleContextSensitiveTest {
 		map.put("Other Violence Type - Men (15 years and above).Left without permission", 0);
 		map.put("Other Violence Type - Men (15 years and above).Cared for", 0);
 		map.put("Other Violence Type - Women (15 years and above).Total number", 1);
-		map.put("Other Violence Type - Women (15 years and above).Referred", 1);
+		map.put("Other Violence Type - Women (15 years and above).Referred", 0);
 		map.put("Other Violence Type - Women (15 years and above).Deceased", 1);
 		map.put("Other Violence Type - Women (15 years and above).Left without permission", 0);
 		map.put("Other Violence Type - Women (15 years and above).Cared for", 0);
 		map.put("Medical and surgical emergency - Digestive.Total number", 2);
-		map.put("Medical and surgical emergency - Digestive.Referred", 1);
+		map.put("Medical and surgical emergency - Digestive.Referred", 0);
 		map.put("Medical and surgical emergency - Digestive.Deceased", 1);
 		map.put("Medical and surgical emergency - Digestive.Left without permission", 1);
 		map.put("Medical and surgical emergency - Digestive.Cared for", 0);

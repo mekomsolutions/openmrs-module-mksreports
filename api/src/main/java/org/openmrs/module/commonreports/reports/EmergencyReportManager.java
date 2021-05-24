@@ -268,28 +268,16 @@ public class EmergencyReportManager extends ActivatedReportManager {
 		
 		// adding columns
 		{
+			// Total
 			AllPatientsCohortDefinition allPatients = new AllPatientsCohortDefinition();
 			emergencies.addColumn(MessageUtil.translate("commonreports.report.emergency.totalNumber.label"), allPatients,
 			    null);
 		}
 		
-		{
-			// Referrals
-			CodedObsCohortDefinition referredToCategory = new CodedObsCohortDefinition();
-			Concept referredToConcept = inizService.getConceptFromKey("report.emergency.referredTo.concept");
-			
-			referredToCategory.addParameter(new Parameter("onOrAfter", "On Or After", Date.class));
-			referredToCategory.addParameter(new Parameter("onOrBefore", "On Or Before", Date.class));
-			referredToCategory.setOperator(SetComparator.IN);
-			referredToCategory.setQuestion(referredToConcept);
-			emergencies.addColumn(MessageUtil.translate("commonreports.report.emergency.referredCategory.label"),
-			    referredToCategory, null);
-			
+		{	
 			// Deceased
 			BirthAndDeathCohortDefinition deceasedCategory = new BirthAndDeathCohortDefinition();
 			deceasedCategory.setDied(true);
-			emergencies.addColumn(MessageUtil.translate("commonreports.report.emergency.deceasedCategory.label"),
-			    deceasedCategory, null);
 			
 			// Left without permission
 			CodedObsCohortDefinition leftWithoutPermissionCategory = new CodedObsCohortDefinition();
@@ -301,9 +289,26 @@ public class EmergencyReportManager extends ActivatedReportManager {
 			leftWithoutPermissionCategory.setOperator(SetComparator.IN);
 			leftWithoutPermissionCategory.setQuestion(lwpc);
 			leftWithoutPermissionCategory.setValueList(Arrays.asList(yesAns));
-			emergencies.addColumn(
-			    MessageUtil.translate("commonreports.report.emergency.leftWithoutPermissionCategory.label"),
-			    leftWithoutPermissionCategory, null);
+			
+			PresenceOrAbsenceCohortDefinition absentInDceasedCategory = new PresenceOrAbsenceCohortDefinition();
+			absentInDceasedCategory.addCohortToCheck(Mapped.mapStraightThrough(deceasedCategory));
+			absentInDceasedCategory.setPresentInAtMost(0);
+			CompositionCohortDefinition leftWithoutPermission = createCohortComposition(leftWithoutPermissionCategory, absentInDceasedCategory);
+			
+			// Referrals
+			CodedObsCohortDefinition referredToCategory = new CodedObsCohortDefinition();
+			Concept referredToConcept = inizService.getConceptFromKey("report.emergency.referredTo.concept");
+			
+			referredToCategory.addParameter(new Parameter("onOrAfter", "On Or After", Date.class));
+			referredToCategory.addParameter(new Parameter("onOrBefore", "On Or Before", Date.class));
+			referredToCategory.setOperator(SetComparator.IN);
+			referredToCategory.setQuestion(referredToConcept);
+			
+			PresenceOrAbsenceCohortDefinition absentInDceasedLeftAndWithoutPermissionCategories = new PresenceOrAbsenceCohortDefinition();
+			absentInDceasedLeftAndWithoutPermissionCategories.addCohortToCheck(Mapped.mapStraightThrough(deceasedCategory));
+			absentInDceasedLeftAndWithoutPermissionCategories.addCohortToCheck(Mapped.mapStraightThrough(leftWithoutPermissionCategory));
+			absentInDceasedLeftAndWithoutPermissionCategories.setPresentInAtMost(0);
+			CompositionCohortDefinition referrals = createCohortComposition(referredToCategory, absentInDceasedLeftAndWithoutPermissionCategories);
 			
 			// Cared for (not in above categories)
 			PresenceOrAbsenceCohortDefinition notInCategory = new PresenceOrAbsenceCohortDefinition();
@@ -312,6 +317,14 @@ public class EmergencyReportManager extends ActivatedReportManager {
 			notInCategory.addCohortToCheck(Mapped.mapStraightThrough(deceasedCategory));
 			notInCategory.addCohortToCheck(Mapped.mapStraightThrough(leftWithoutPermissionCategory));
 			notInCategory.setPresentInAtMost(0);
+			
+			emergencies.addColumn(
+				    MessageUtil.translate("commonreports.report.emergency.leftWithoutPermissionCategory.label"),
+				    leftWithoutPermission, null);
+			emergencies.addColumn(MessageUtil.translate("commonreports.report.emergency.deceasedCategory.label"),
+				    deceasedCategory, null);
+			emergencies.addColumn(MessageUtil.translate("commonreports.report.emergency.referredCategory.label"),
+					referrals, null);
 			emergencies.addColumn(MessageUtil.translate("commonreports.report.emergency.notInCategory.label"), notInCategory,
 			    null);
 			
