@@ -29,14 +29,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class EmergenciesReportManager extends ActivatedReportManager {
+public class EmergencyReportManager extends ActivatedReportManager {
 	
 	@Autowired
 	private InitializerService inizService;
 	
 	@Override
 	public boolean isActivated() {
-		return inizService.getBooleanFromKey("report.emergencies.active", false);
+		return inizService.getBooleanFromKey("report.emergency.active", false);
 	}
 	
 	@Override
@@ -93,7 +93,7 @@ public class EmergenciesReportManager extends ActivatedReportManager {
 		parameterMappings.put("onOrAfter", "${startDate}");
 		parameterMappings.put("onOrBefore", "${endDate}");
 		
-		Concept questionConcept = inizService.getConceptFromKey("report.emergencies.question.concept");
+		Concept questionConcept = inizService.getConceptFromKey("report.emergency.question.concept");
 		
 		// adding rows
 		
@@ -122,7 +122,7 @@ public class EmergenciesReportManager extends ActivatedReportManager {
 		
 		{
 			// Public road accident
-			Concept roadAccidents = inizService.getConceptFromKey("report.emergencies.roadAccidents.concept");
+			Concept roadAccidents = inizService.getConceptFromKey("report.emergency.roadAccidents.concept");
 			
 			for (Concept accident : roadAccidents.getSetMembers()) {
 				
@@ -140,7 +140,7 @@ public class EmergenciesReportManager extends ActivatedReportManager {
 		{
 			// Work accident
 			CodedObsCohortDefinition workAccident = new CodedObsCohortDefinition();
-			Concept wac = inizService.getConceptFromKey("report.emergencies.workAccident.concept");
+			Concept wac = inizService.getConceptFromKey("report.emergency.workAccident.concept");
 			
 			workAccident.addParameter(new Parameter("onOrAfter", "On Or After", Date.class));
 			workAccident.addParameter(new Parameter("onOrBefore", "On Or Before", Date.class));
@@ -153,7 +153,7 @@ public class EmergenciesReportManager extends ActivatedReportManager {
 		{
 			// Sexual violence
 			CodedObsCohortDefinition sexualViolence = new CodedObsCohortDefinition();
-			Concept svc = inizService.getConceptFromKey("report.emergencies.sexualViolence.concept");
+			Concept svc = inizService.getConceptFromKey("report.emergency.sexualViolence.concept");
 			
 			sexualViolence.addParameter(new Parameter("onOrAfter", "On Or After", Date.class));
 			sexualViolence.addParameter(new Parameter("onOrBefore", "On Or Before", Date.class));
@@ -162,27 +162,27 @@ public class EmergenciesReportManager extends ActivatedReportManager {
 			sexualViolence.setValueList(Arrays.asList(svc));
 			
 			emergencies.addRow(
-			    svc.getDisplayString() + " - " + MessageUtil.translate("commonreports.report.emergencies.boys") + " "
-			            + MessageUtil.translate("commonreports.report.emergencies.0_14years"),
+			    svc.getDisplayString() + " - " + MessageUtil.translate("commonreports.report.emergency.boys") + " "
+			            + MessageUtil.translate("commonreports.report.emergency.0_14years"),
 			    createCohortComposition(sexualViolence, males, _0To14y), parameterMappings);
 			emergencies.addRow(
-			    svc.getDisplayString() + " - " + MessageUtil.translate("commonreports.report.emergencies.girls") + " "
-			            + MessageUtil.translate("commonreports.report.emergencies.0_14years"),
+			    svc.getDisplayString() + " - " + MessageUtil.translate("commonreports.report.emergency.girls") + " "
+			            + MessageUtil.translate("commonreports.report.emergency.0_14years"),
 			    createCohortComposition(sexualViolence, females, _0To14y), parameterMappings);
 			emergencies.addRow(
-			    svc.getDisplayString() + " - " + MessageUtil.translate("commonreports.report.emergencies.women") + " "
-			            + MessageUtil.translate("commonreports.report.emergencies.above14years"),
+			    svc.getDisplayString() + " - " + MessageUtil.translate("commonreports.report.emergency.women") + " "
+			            + MessageUtil.translate("commonreports.report.emergency.above14years"),
 			    createCohortComposition(sexualViolence, males, above14y), parameterMappings);
 			emergencies.addRow(
-			    svc.getDisplayString() + " - " + MessageUtil.translate("commonreports.report.emergencies.women") + " "
-			            + MessageUtil.translate("commonreports.report.emergencies.above14years"),
+			    svc.getDisplayString() + " - " + MessageUtil.translate("commonreports.report.emergency.women") + " "
+			            + MessageUtil.translate("commonreports.report.emergency.above14years"),
 			    createCohortComposition(sexualViolence, females, above14y), parameterMappings);
 		}
 		
 		{
 			// Physical violence
 			CodedObsCohortDefinition physicalViolence = new CodedObsCohortDefinition();
-			Concept pvc = inizService.getConceptFromKey("report.emergencies.physicalViolence.concept");
+			Concept pvc = inizService.getConceptFromKey("report.emergency.physicalViolence.concept");
 			physicalViolence.addParameter(new Parameter("onOrAfter", "On Or After", Date.class));
 			physicalViolence.addParameter(new Parameter("onOrBefore", "On Or Before", Date.class));
 			physicalViolence.setOperator(SetComparator.IN);
@@ -190,16 +190,16 @@ public class EmergenciesReportManager extends ActivatedReportManager {
 			physicalViolence.setValueList(Arrays.asList(pvc));
 			
 			emergencies.addRow(
-			    pvc.getDisplayString() + " - " + MessageUtil.translate("commonreports.report.emergencies.children") + " "
-			            + MessageUtil.translate("commonreports.report.emergencies.0_14years"),
+			    pvc.getDisplayString() + " - " + MessageUtil.translate("commonreports.report.emergency.children") + " "
+			            + MessageUtil.translate("commonreports.report.emergency.0_14years"),
 			    createCohortComposition(physicalViolence, allGender, _0To14y), parameterMappings);
 			emergencies.addRow(
-			    pvc.getDisplayString() + " - " + MessageUtil.translate("commonreports.report.emergencies.men") + " "
-			            + MessageUtil.translate("commonreports.report.emergencies.above14years"),
+			    pvc.getDisplayString() + " - " + MessageUtil.translate("commonreports.report.emergency.men") + " "
+			            + MessageUtil.translate("commonreports.report.emergency.above14years"),
 			    createCohortComposition(physicalViolence, females), parameterMappings);
 			emergencies.addRow(
-			    pvc.getDisplayString() + " - " + MessageUtil.translate("commonreports.report.emergencies.women") + " "
-			            + MessageUtil.translate("commonreports.report.emergencies.above14years"),
+			    pvc.getDisplayString() + " - " + MessageUtil.translate("commonreports.report.emergency.women") + " "
+			            + MessageUtil.translate("commonreports.report.emergency.above14years"),
 			    createCohortComposition(physicalViolence, males), parameterMappings);
 			
 		}
@@ -207,7 +207,7 @@ public class EmergenciesReportManager extends ActivatedReportManager {
 		{
 			// Other types of violence
 			CodedObsCohortDefinition otherViolenceType = new CodedObsCohortDefinition();
-			Concept ovtc = inizService.getConceptFromKey("report.emergencies.otherViolenceType.concept");
+			Concept ovtc = inizService.getConceptFromKey("report.emergency.otherViolenceType.concept");
 			
 			otherViolenceType.addParameter(new Parameter("onOrAfter", "On Or After", Date.class));
 			otherViolenceType.addParameter(new Parameter("onOrBefore", "On Or Before", Date.class));
@@ -216,25 +216,24 @@ public class EmergenciesReportManager extends ActivatedReportManager {
 			otherViolenceType.setValueList(Arrays.asList(ovtc));
 			
 			emergencies.addRow(
-			    ovtc.getDisplayString() + " - " + MessageUtil.translate("commonreports.report.emergencies.children") + " "
-			            + MessageUtil.translate("commonreports.report.emergencies.0_14years"),
+			    ovtc.getDisplayString() + " - " + MessageUtil.translate("commonreports.report.emergency.children") + " "
+			            + MessageUtil.translate("commonreports.report.emergency.0_14years"),
 			    createCohortComposition(otherViolenceType, allGender, _0To14y), parameterMappings);
 			emergencies.addRow(
-			    ovtc.getDisplayString() + " - " + MessageUtil.translate("commonreports.report.emergencies.men") + " "
-			            + MessageUtil.translate("commonreports.report.emergencies.above14years"),
+			    ovtc.getDisplayString() + " - " + MessageUtil.translate("commonreports.report.emergency.men") + " "
+			            + MessageUtil.translate("commonreports.report.emergency.above14years"),
 			    createCohortComposition(otherViolenceType, females), parameterMappings);
 			emergencies.addRow(
-			    ovtc.getDisplayString() + " - " + MessageUtil.translate("commonreports.report.emergencies.women") + " "
-			            + MessageUtil.translate("commonreports.report.emergencies.above14years"),
+			    ovtc.getDisplayString() + " - " + MessageUtil.translate("commonreports.report.emergency.women") + " "
+			            + MessageUtil.translate("commonreports.report.emergency.above14years"),
 			    createCohortComposition(otherViolenceType, males), parameterMappings);
 			
 		}
 		
 		{
 			// Medical and surgical emergencies
-			Concept mseq = inizService.getConceptFromKey("report.emergencies.medicalAndSurgicalEmergenciesQuesion.concept");
-			Concept msecs = inizService
-			        .getConceptFromKey("report.emergencies.medicalAndSurgicalEmergenciesSetOfSets.concept");
+			Concept mseq = inizService.getConceptFromKey("report.emergency.medicalAndSurgicalEmergenciesQuesion.concept");
+			Concept msecs = inizService.getConceptFromKey("report.emergency.medicalAndSurgicalEmergenciesSetOfSets.concept");
 			
 			for (Concept emergency : msecs.getSetMembers()) {
 				
@@ -245,7 +244,7 @@ public class EmergenciesReportManager extends ActivatedReportManager {
 				medicalAndSurgicalEmergencies.setQuestion(mseq);
 				medicalAndSurgicalEmergencies.setValueList(new ArrayList<Concept>(emergency.getSetMembers()));
 				
-				emergencies.addRow(MessageUtil.translate("commonreports.report.emergencies.medicalAndSurgicalEmergencies")
+				emergencies.addRow(MessageUtil.translate("commonreports.report.emergency.medicalAndSurgicalEmergency")
 				        + " - " + emergency.getDisplayString(),
 				    medicalAndSurgicalEmergencies, parameterMappings);
 			}
@@ -254,8 +253,8 @@ public class EmergenciesReportManager extends ActivatedReportManager {
 		{
 			//Other causes of emergencies
 			CodedObsCohortDefinition otherEmergencies = new CodedObsCohortDefinition();
-			Concept oec = inizService.getConceptFromKey("report.emergencies.otherEmergencies.concept");
-			Concept oeq = inizService.getConceptFromKey("report.emergencies.otherEmergenciesQuestion.concept");
+			Concept oec = inizService.getConceptFromKey("report.emergency.otherEmergencies.concept");
+			Concept oeq = inizService.getConceptFromKey("report.emergency.otherEmergenciesQuestion.concept");
 			
 			otherEmergencies.addParameter(new Parameter("onOrAfter", "On Or After", Date.class));
 			otherEmergencies.addParameter(new Parameter("onOrBefore", "On Or Before", Date.class));
@@ -270,32 +269,32 @@ public class EmergenciesReportManager extends ActivatedReportManager {
 		// adding columns
 		{
 			AllPatientsCohortDefinition allPatients = new AllPatientsCohortDefinition();
-			emergencies.addColumn(MessageUtil.translate("commonreports.report.emergencies.totalNumber.label"), allPatients,
+			emergencies.addColumn(MessageUtil.translate("commonreports.report.emergency.totalNumber.label"), allPatients,
 			    null);
 		}
 		
 		{
 			// Referrals
 			CodedObsCohortDefinition referredToCategory = new CodedObsCohortDefinition();
-			Concept referredToConcept = inizService.getConceptFromKey("report.emergencies.referredTo.concept");
+			Concept referredToConcept = inizService.getConceptFromKey("report.emergency.referredTo.concept");
 			
 			referredToCategory.addParameter(new Parameter("onOrAfter", "On Or After", Date.class));
 			referredToCategory.addParameter(new Parameter("onOrBefore", "On Or Before", Date.class));
 			referredToCategory.setOperator(SetComparator.IN);
 			referredToCategory.setQuestion(referredToConcept);
-			emergencies.addColumn(MessageUtil.translate("commonreports.report.emergencies.referredCategory.label"),
+			emergencies.addColumn(MessageUtil.translate("commonreports.report.emergency.referredCategory.label"),
 			    referredToCategory, null);
 			
 			// Deceased
 			BirthAndDeathCohortDefinition deceasedCategory = new BirthAndDeathCohortDefinition();
 			deceasedCategory.setDied(true);
-			emergencies.addColumn(MessageUtil.translate("commonreports.report.emergencies.deceasedCategory.label"),
+			emergencies.addColumn(MessageUtil.translate("commonreports.report.emergency.deceasedCategory.label"),
 			    deceasedCategory, null);
 			
 			// Left without permission
 			CodedObsCohortDefinition leftWithoutPermissionCategory = new CodedObsCohortDefinition();
-			Concept lwpc = inizService.getConceptFromKey("report.emergencies.leftWithoutPermission.concept");
-			Concept yesAns = inizService.getConceptFromKey("report.emergencies.yes.concept");
+			Concept lwpc = inizService.getConceptFromKey("report.emergency.leftWithoutPermission.concept");
+			Concept yesAns = inizService.getConceptFromKey("report.emergency.yes.concept");
 			
 			leftWithoutPermissionCategory.addParameter(new Parameter("onOrAfter", "On Or After", Date.class));
 			leftWithoutPermissionCategory.addParameter(new Parameter("onOrBefore", "On Or Before", Date.class));
@@ -303,7 +302,7 @@ public class EmergenciesReportManager extends ActivatedReportManager {
 			leftWithoutPermissionCategory.setQuestion(lwpc);
 			leftWithoutPermissionCategory.setValueList(Arrays.asList(yesAns));
 			emergencies.addColumn(
-			    MessageUtil.translate("commonreports.report.emergencies.leftWithoutPermissionCategory.label"),
+			    MessageUtil.translate("commonreports.report.emergency.leftWithoutPermissionCategory.label"),
 			    leftWithoutPermissionCategory, null);
 			
 			// Cared for (not in above categories)
@@ -313,8 +312,8 @@ public class EmergenciesReportManager extends ActivatedReportManager {
 			notInCategory.addCohortToCheck(Mapped.mapStraightThrough(deceasedCategory));
 			notInCategory.addCohortToCheck(Mapped.mapStraightThrough(leftWithoutPermissionCategory));
 			notInCategory.setPresentInAtMost(0);
-			emergencies.addColumn(MessageUtil.translate("commonreports.report.emergencies.notInCategory.label"),
-			    notInCategory, null);
+			emergencies.addColumn(MessageUtil.translate("commonreports.report.emergency.notInCategory.label"), notInCategory,
+			    null);
 			
 		}
 		

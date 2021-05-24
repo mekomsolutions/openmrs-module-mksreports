@@ -28,7 +28,7 @@ import org.openmrs.test.BaseModuleContextSensitiveTest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
-public class EmergenciesReportManagerTest extends BaseModuleContextSensitiveTest {
+public class EmergencyReportManagerTest extends BaseModuleContextSensitiveTest {
 	
 	@Autowired
 	private InitializerService iniz;
@@ -44,7 +44,7 @@ public class EmergenciesReportManagerTest extends BaseModuleContextSensitiveTest
 	private ConceptService cs;
 	
 	@Autowired
-	@Qualifier("emergenciesReportManager")
+	@Qualifier("emergencyReportManager")
 	private ActivatedReportManager manager;
 	
 	@Before
@@ -159,21 +159,21 @@ public class EmergenciesReportManagerTest extends BaseModuleContextSensitiveTest
 		map.put("Other Violence Type - Women (15 years and above).Deceased", 1);
 		map.put("Other Violence Type - Women (15 years and above).Left without permission", 0);
 		map.put("Other Violence Type - Women (15 years and above).Cared for", 0);
-		map.put("Medical and surgical emergencies - Digestive.Total number", 2);
-		map.put("Medical and surgical emergencies - Digestive.Referred", 1);
-		map.put("Medical and surgical emergencies - Digestive.Deceased", 1);
-		map.put("Medical and surgical emergencies - Digestive.Left without permission", 1);
-		map.put("Medical and surgical emergencies - Digestive.Cared for", 0);
-		map.put("Medical and surgical emergencies - Cardiovascular.Total number", 0);
-		map.put("Medical and surgical emergencies - Cardiovascular.Referred", 0);
-		map.put("Medical and surgical emergencies - Cardiovascular.Deceased", 0);
-		map.put("Medical and surgical emergencies - Cardiovascular.Left without permission", 0);
-		map.put("Medical and surgical emergencies - Cardiovascular.Cared for", 0);
-		map.put("Medical and surgical emergencies - Respiratory.Total number", 0);
-		map.put("Medical and surgical emergencies - Respiratory.Referred", 0);
-		map.put("Medical and surgical emergencies - Respiratory.Deceased", 0);
-		map.put("Medical and surgical emergencies - Respiratory.Left without permission", 0);
-		map.put("Medical and surgical emergencies - Respiratory.Cared for", 0);
+		map.put("Medical and surgical emergency - Digestive.Total number", 2);
+		map.put("Medical and surgical emergency - Digestive.Referred", 1);
+		map.put("Medical and surgical emergency - Digestive.Deceased", 1);
+		map.put("Medical and surgical emergency - Digestive.Left without permission", 1);
+		map.put("Medical and surgical emergency - Digestive.Cared for", 0);
+		map.put("Medical and surgical emergency - Cardiovascular.Total number", 0);
+		map.put("Medical and surgical emergency - Cardiovascular.Referred", 0);
+		map.put("Medical and surgical emergency - Cardiovascular.Deceased", 0);
+		map.put("Medical and surgical emergency - Cardiovascular.Left without permission", 0);
+		map.put("Medical and surgical emergency - Cardiovascular.Cared for", 0);
+		map.put("Medical and surgical emergency - Respiratory.Total number", 0);
+		map.put("Medical and surgical emergency - Respiratory.Referred", 0);
+		map.put("Medical and surgical emergency - Respiratory.Deceased", 0);
+		map.put("Medical and surgical emergency - Respiratory.Left without permission", 0);
+		map.put("Medical and surgical emergency - Respiratory.Cared for", 0);
 		map.put("Other emergencies.Total number", 1);
 		map.put("Other emergencies.Referred", 0);
 		map.put("Other emergencies.Deceased", 0);
