@@ -1,0 +1,56 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset>
+  <person person_id="97" gender="M" birthdate="2013-06-10" birthdate_estimated="false" dead="false" creator="1" date_created="2021-06-10 06:23:13.0" voided="false" uuid="16fe4da6-f83b-467b-903a-8a1593ce5afe" deathdate_estimated="false"/>
+  <person person_id="98" gender="M" birthdate="2017-06-10" birthdate_estimated="false" dead="false" creator="1" date_created="2021-06-10 06:24:54.0" voided="false" uuid="8887f424-a553-498e-96de-02be673d9dfc" deathdate_estimated="false"/>
+  <person person_id="99" gender="M" birthdate="2007-06-10" birthdate_estimated="false" dead="false" creator="1" date_created="2021-06-10 06:25:48.0" voided="false" uuid="56758655-601c-41ac-9a05-1d23a8d8c4d0" deathdate_estimated="false"/>
+  <person person_id="910" gender="F" birthdate="2010-06-10" birthdate_estimated="false" dead="false" creator="1" date_created="2021-06-10 06:26:58.0" voided="false" uuid="9eee9dc1-c276-4662-9a41-34946d52b5ba" deathdate_estimated="false"/>
+  <person person_id="911" gender="F" birthdate="2004-06-10" birthdate_estimated="false" dead="false" creator="1" date_created="2021-06-10 06:27:44.0" voided="false" uuid="cd691c20-f2b5-4701-9b42-1d3a07667392" deathdate_estimated="false"/>
+  <person person_id="912" gender="M" birthdate="2003-06-10" birthdate_estimated="false" dead="false" creator="1" date_created="2021-06-10 06:28:33.0" voided="false" uuid="4036c3e0-bd24-4682-8aa4-a2a67677dd00" deathdate_estimated="false"/>
+  <person person_id="913" gender="F" birthdate="2000-06-10" birthdate_estimated="false" dead="false" creator="1" date_created="2021-06-10 06:29:22.0" voided="false" uuid="fc77ff44-90d6-4d4d-98b0-267f33daa8ba" deathdate_estimated="false"/>
+  <person person_id="914" gender="M" birthdate="1997-06-10" birthdate_estimated="false" dead="false" creator="1" date_created="2021-06-10 06:30:23.0" voided="false" uuid="a907ce15-c68d-47b7-9e43-04c9848d55a6" deathdate_estimated="false"/>
+  <person person_id="915" gender="F" birthdate="1996-06-10" birthdate_estimated="false" dead="false" creator="1" date_created="2021-06-10 06:31:25.0" voided="false" uuid="91c30afe-4ff7-473b-8b6c-1900b9a46523" deathdate_estimated="false"/>
+  <person person_id="916" gender="M" birthdate="1972-06-10" birthdate_estimated="false" dead="false" creator="1" date_created="2021-06-10 06:32:36.0" voided="false" uuid="6b49fa33-a21f-40af-a02f-7775cf2e90e7" deathdate_estimated="false"/>
+  <person person_id="917" gender="M" birthdate="1971-06-10" birthdate_estimated="false" dead="false" creator="1" date_created="2021-06-10 06:45:51.0" voided="false" uuid="7629f32a-5f33-4a47-915c-9766ddacd95a" deathdate_estimated="false"/>
+  <person person_id="918" gender="F" birthdate="1941-06-10" birthdate_estimated="false" dead="false" creator="1" date_created="2021-06-10 06:48:34.0" voided="false" uuid="904bc161-f75d-4984-8494-bba49d0a4ebe" deathdate_estimated="false"/>
+  
+  <patient patient_id="97" creator="1" date_created="2021-06-10 06:23:13.0" voided="false" allergy_status="Unknown"/>
+  <patient patient_id="98" creator="1" date_created="2021-06-10 06:24:54.0" voided="false" allergy_status="Unknown"/>
+  <patient patient_id="99" creator="1" date_created="2021-06-10 06:25:48.0" voided="false" allergy_status="Unknown"/>
+  <patient patient_id="910" creator="1" date_created="2021-06-10 06:26:58.0" voided="false" allergy_status="Unknown"/>
+  <patient patient_id="911" creator="1" date_created="2021-06-10 06:27:44.0" voided="false" allergy_status="Unknown"/>
+  <patient patient_id="912" creator="1" date_created="2021-06-10 06:28:33.0" voided="false" allergy_status="Unknown"/>
+  <patient patient_id="913" creator="1" date_created="2021-06-10 06:29:22.0" voided="false" allergy_status="Unknown"/>
+  <patient patient_id="914" creator="1" date_created="2021-06-10 06:30:23.0" voided="false" allergy_status="Unknown"/>
+  <patient patient_id="915" creator="1" date_created="2021-06-10 06:31:25.0" voided="false" allergy_status="Unknown"/>
+  <patient patient_id="916" creator="1" date_created="2021-06-10 06:32:36.0" voided="false" allergy_status="Unknown"/>
+  <patient patient_id="917" creator="1" date_created="2021-06-10 06:45:51.0" voided="false" allergy_status="Unknown"/>
+  <patient patient_id="918" creator="1" date_created="2021-06-10 06:48:34.0" voided="false" allergy_status="Unknown"/>
+  
+  <visit_type visit_type_id="93" name="Lab" description="Lab Visit" creator="1" date_created="2021-06-09 00:00:00.0" changed_by="1" date_changed="2021-06-09 06:30:03.0" retired="false" uuid="929fb1a1-d801-4b56-9d15-503685a6c49d"/>
+  <visit_type visit_type_id="94" name="N/A" description="Visit type used to be assigned to legacy visits, imported from the historical database" creator="2" date_created="2021-06-09 06:30:03.0" changed_by="1" date_changed="2021-06-09 06:30:03.0" retired="true" retired_by="2" date_retired="2021-06-09 06:30:03.0" retire_reason="Retired by module Initializer" uuid="e4f9bb8e-8ac5-405f-9baf-21dc8de28a73"/>
+  <visit_type visit_type_id="95" name="Prenatal" description="Prenatal Visit" creator="2" date_created="2021-06-09 06:30:03.0" retired="false" uuid="35ba9aff-901c-49dc-8630-a59385480d18"/>
+  <visit_type visit_type_id="96" name="Family Planning" description="Planification familiale Visit" creator="2" date_created="2021-06-09 06:30:03.0" retired="false" uuid="c4643116-8a61-499f-b62b-ff9375db0b7d"/>
+  <visit_type visit_type_id="97" name="Vaccination infantile" description="Vaccination infantile Visit" creator="2" date_created="2021-06-09 06:30:03.0" retired="false" uuid="91c6bdce-3b92-42a2-9fa8-6ef6b169c4b2"/>
+  <visit_type visit_type_id="98" name="Malnutrition" description="Malnutrition Visit" creator="2" date_created="2021-06-09 06:30:03.0" retired="false" uuid="a631dbbc-daa4-48aa-8fe4-3b5784360ab1"/>
+  <visit_type visit_type_id="99" name="G&#233;n&#233;ral" description="G&#233;n&#233;ral Visit" creator="2" date_created="2021-06-09 06:30:03.0" retired="false" uuid="b9ba7b27-e64b-44d1-b4c5-2ced77f477d0"/>
+  <visit_type visit_type_id="910" name="TB" description="TB Visit" creator="2" date_created="2021-06-09 06:30:03.0" retired="false" uuid="ad29e858-68a1-44eb-ae62-94157a8a52b0"/>
+  
+  <visit visit_id="91" patient_id="97" visit_type_id="99" date_started="2021-06-10 06:23:14.0" date_stopped="2021-06-10 11:23:14.0" location_id="1" creator="1" date_created="2021-06-10 06:23:14.0" voided="false" uuid="2ae0597c-680c-43ad-b235-f146d3bd4b3d"/>
+  <visit visit_id="92" patient_id="98" visit_type_id="99" date_started="2021-06-10 06:24:55.0" date_stopped="2021-06-10 11:24:55.0" location_id="1" creator="1" date_created="2021-06-10 06:24:55.0" voided="false" uuid="88bcdf0a-041e-4beb-beb9-c2f38309ae36"/>
+  <visit visit_id="93" patient_id="99" visit_type_id="99" date_started="2021-06-10 06:25:49.0" date_stopped="2021-06-10 11:25:49.0" location_id="1" creator="1" date_created="2021-06-10 06:25:49.0" voided="false" uuid="58130dfc-950c-4304-a87f-da934fe79fd9"/>
+  <visit visit_id="94" patient_id="910" visit_type_id="99" date_started="2021-06-10 06:26:58.0" date_stopped="2021-06-10 12:26:58.0" location_id="1" creator="1" date_created="2021-06-10 06:26:58.0" voided="false" uuid="421b1d57-1b46-4b23-ac12-b608490e382f"/>
+  <visit visit_id="95" patient_id="911" visit_type_id="99" date_started="2021-06-10 06:27:45.0" date_stopped="2021-06-11 10:49:58.0" location_id="1" creator="1" date_created="2021-06-10 06:27:45.0" changed_by="1" date_changed="2021-06-11 10:49:58.0" voided="false" uuid="9628682d-ffa3-44eb-8fb6-ef131672ee27"/>
+  <visit visit_id="96" patient_id="912" visit_type_id="99" date_started="2021-06-10 06:28:34.0" date_stopped="2021-06-10 10:11:57.0" location_id="1" creator="1" date_created="2021-06-10 06:28:34.0" changed_by="1" date_changed="2021-06-11 12:37:52.0" voided="false" uuid="90fea4bc-966e-4de3-913f-e7417a2e8aea"/>
+  <visit visit_id="97" patient_id="913" visit_type_id="99" date_started="2021-06-10 06:29:24.0" date_stopped="2021-06-10 12:29:24.0" location_id="1" creator="1" date_created="2021-06-10 06:29:24.0" voided="false" uuid="9596f623-eb50-4056-b256-8ff3aecf9688"/>
+  <visit visit_id="98" patient_id="914" visit_type_id="99" date_started="2021-06-10 06:30:24.0" date_stopped="2021-06-11 12:14:05.0" location_id="1" creator="1" date_created="2021-06-10 06:30:24.0" changed_by="1" date_changed="2021-06-11 12:14:05.0" voided="false" uuid="006f0a8f-dc3f-447b-baec-4e4a7218393d"/>
+  <visit visit_id="99" patient_id="915" visit_type_id="99" date_started="2021-06-10 06:31:26.0" date_stopped="2021-06-10 10:31:26.0" location_id="1" creator="1" date_created="2021-06-10 06:31:26.0" voided="false" uuid="fd116965-c5c7-458d-a678-4162af43010c"/>
+  <visit visit_id="910" patient_id="916" visit_type_id="99" date_started="2021-06-10 06:32:36.0" date_stopped="2021-06-10 07:35:12.0" location_id="1" creator="1" date_created="2021-06-10 06:32:36.0" changed_by="1" date_changed="2021-06-11 12:37:52.0" voided="false" uuid="7cb11e36-a749-4ded-aa61-cb9342014885"/>
+  <visit visit_id="911" patient_id="917" visit_type_id="99" date_started="2021-06-10 06:45:52.0" date_stopped="2021-06-10 11:45:52.0" location_id="1" creator="1" date_created="2021-06-10 06:45:52.0" voided="false" uuid="dce55925-90f2-4a4c-a5e0-2e0f67215fd7"/>
+  <visit visit_id="912" patient_id="918" visit_type_id="99" date_started="2021-06-10 06:48:34.0" date_stopped="2021-06-10 12:48:34.0" location_id="1" creator="1" date_created="2021-06-10 06:48:35.0" voided="false" uuid="dffcd8cd-dd2c-4d31-b5e2-fbf060bc2527"/>
+  <visit visit_id="913" patient_id="918" visit_type_id="96" date_started="2021-06-11 10:48:52.0" date_stopped="2021-06-11 10:55:08.0" location_id="1" creator="1" date_created="2021-06-11 10:48:53.0" changed_by="1" date_changed="2021-06-11 10:55:08.0" voided="false" uuid="18de9b23-dc67-426f-a88d-1295c5b36d0d"/>
+  <visit visit_id="914" patient_id="911" visit_type_id="95" date_started="2021-06-11 10:50:18.0" location_id="1" creator="1" date_created="2021-06-11 10:50:18.0" voided="false" uuid="439d247f-45d0-4bd7-b245-f9c74037fb92"/>
+  <visit visit_id="915" patient_id="913" visit_type_id="96" date_started="2021-06-11 10:51:46.0" location_id="1" creator="1" date_created="2021-06-11 10:51:46.0" voided="false" uuid="c295beb9-4bfe-428d-92f0-e2ac0225e7a3"/>
+  <visit visit_id="916" patient_id="915" visit_type_id="95" date_started="2021-06-11 10:52:27.0" date_stopped="2021-06-11 10:56:47.0" location_id="1" creator="1" date_created="2021-06-11 10:52:27.0" changed_by="1" date_changed="2021-06-11 10:56:47.0" voided="false" uuid="352cf748-4deb-466f-b360-76c84df2d5eb"/>
+  <visit visit_id="917" patient_id="918" visit_type_id="95" date_started="2021-06-11 10:55:23.0" location_id="1" creator="1" date_created="2021-06-11 10:55:23.0" voided="false" uuid="813cf3a5-f9ee-4fcc-88b7-005685e1754e"/>
+  <visit visit_id="918" patient_id="914" visit_type_id="99" date_started="2021-06-11 12:14:49.0" location_id="1" creator="1" date_created="2021-06-11 12:14:49.0" voided="false" uuid="0c1d300b-c929-4d4c-bf2e-0f5a2f84090b"/>
+</dataset>
