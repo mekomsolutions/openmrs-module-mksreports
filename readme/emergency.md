@@ -29,7 +29,7 @@ It is setup by setting the following properties in the [initializer](https://git
 
 `report.emergency.question.concept` specifies the question answered by the type of emergency, it could be the Reason for consultation question concept.
 
-`report.emergency.roadAccidents.concept` specifies a concept set defining the types of road accidents to report on. The concepts specified should be answering the concept defined by the `report.emergency.question.concept`.
+`report.emergency.roadAccidents.conceptSet` specifies a concept set defining the types of road accidents to report on. The concepts specified should be answering the concept defined by the `report.emergency.question.concept`.
 
 `report.emergency.workAccident.concept` specifies a concept defining a work accident emergency. It should be answering the concept defined by the `report.emergency.question.concept`.
 
@@ -39,13 +39,23 @@ It is setup by setting the following properties in the [initializer](https://git
 
 `report.emergency.otherViolenceType.concept` specifies a concept defining other violence type emergency. It should be answering the concept defined by the `report.emergency.question.concept` property.
 
-`report.emergency.medicalAndSurgicalEmergenciesQuesion.concept` specifies a coded question answered by the coded answers specified by the `report.emergency.medicalAndSurgicalEmergenciesSetOfSets.concept` property.
+`report.emergency.medicalAndSurgicalEmergenciesQuesion.concept` specifies a coded question answered by the coded report.emergency.medicalAndSurgicalEmergenciesQuesion.concept points to the question answered by the coded answers specified by the report.emergency.medicalAndSurgicalEmergenciesSetOfSets.concept property. Eg, 'Visit Diagnoses'.
 
-`report.emergency.medicalAndSurgicalEmergenciesSetOfSets.concept` specifies a concept set of Medical and Surgical emergency categories. These categories are sets defined with coded set members answering the question defined by `report.emergency.medicalAndSurgicalEmergenciesQuesion.concept`.
+report.emergency.medicalAndSurgicalEmergenciesSetOfSets.concept specifies a concept set that informs of 'Medical and Surgical Emergency' categories. These categories are sets that group all concepts to be reported on report.emergency.medicalAndSurgicalEmergenciesQuesion.concept.
+
+See an example of the concept Set of Sets structure:
+
+- Medical and Surgical Emergency <- report.emergency.medicalAndSurgicalEmergenciesSetOfSets.concept
+    - Digestive
+      - K29.7
+      - K35
+    - Unirary
+      - N10
+      - N20.0
 
 `report.emergency.otherEmergenciesQuestion.concept` specifies a coded question answered by the coded answers specified by the `report.emergency.otherEmergencies.concept` property.
 
-`report.emergency.otherEmergencies.concept` specifies a set of coded set members answering the question defined by `report.emergency.otherEmergenciesQuestion.concept` property.
+`report.emergency.otherEmergencies.conceptSet` specifies a set of coded set members answering the question defined by `report.emergency.otherEmergenciesQuestion.concept` property.
 
 `report.emergency.referredTo.concept` specifies a coded question concept which allows for determining referred outcome cases.
 

@@ -63,12 +63,12 @@ public class EmergencyReportManagerTest extends BaseModuleContextSensitiveTest {
 	}
 	
 	@Test
-	public void setupReport_shouldSetupOPDRecBook() {
+	public void setupReport_shouldSetupEmergencyReport() {
 		
 		// replay
 		ReportManagerUtil.setupReport(manager);
 		
-		// verif
+		// verify
 		Assert.assertNotNull(rs.getReportDesignByUuid("0c67c7f3-b4b3-4920-82b6-830d0a8b83a1"));
 		
 	}
@@ -85,10 +85,9 @@ public class EmergencyReportManagerTest extends BaseModuleContextSensitiveTest {
 		
 		for (Iterator<DataSetRow> itr = data.getDataSets().get(rd.getName()).iterator(); itr.hasNext();) {
 			DataSetRow row = itr.next();
-			System.out.println(row);
 			Map<String, Integer> columnValuePairs = getColumnValues();
 			for (String column : columnValuePairs.keySet()) {
-				assertThat(column,((Cohort) row.getColumnValue(column)).getSize(), is(columnValuePairs.get(column)));
+				assertThat(column, ((Cohort) row.getColumnValue(column)).getSize(), is(columnValuePairs.get(column)));
 			}
 		}
 	}
