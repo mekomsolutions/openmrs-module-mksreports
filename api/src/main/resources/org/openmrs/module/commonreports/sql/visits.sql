@@ -1,6 +1,6 @@
-SELECT tab1.`Category` ':commonreports.report.visits.categories.label',
-                       tab4.`New visits` ':commonreports.report.visits.newVisits.label',
-                                         tab4.`Subsequent visits` ':commonreports.report.visits.subsequentVisits.label'
+SELECT tab1.`Category` 'Categories',
+                       tab4.`New visits` 'New_visits',
+                                         tab4.`Subsequent visits` 'Subsequent_visits'
 FROM
   (SELECT ':commonreports.report.visits.category1.label' AS 'Category'
    UNION ALL SELECT ':commonreports.report.visits.category2.label'

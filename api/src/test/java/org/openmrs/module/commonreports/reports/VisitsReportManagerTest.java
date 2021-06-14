@@ -138,9 +138,9 @@ public class VisitsReportManagerTest extends BaseModuleContextSensitiveMysqlBack
 			
 			assertTrue(entry, expectedValuesMap.containsKey(entry));
 			assertEquals(entry, expectedValuesMap.get(entry).split(":")[0],
-			    String.valueOf(row.getColumnValue("New visits")));
+			    String.valueOf(row.getColumnValue("New_visits")));
 			assertEquals(entry, expectedValuesMap.get(entry).split(":")[1],
-			    String.valueOf(row.getColumnValue("Subsequent visits")));
+			    String.valueOf(row.getColumnValue("Subsequent_visits")));
 		}
 	}
 	
