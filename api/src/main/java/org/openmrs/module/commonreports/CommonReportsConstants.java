@@ -31,6 +31,8 @@ public class CommonReportsConstants {
 	
 	public static final String COMPONENT_REPORTMANAGER_PATIENTHISTORY = MODULE_ARTIFACT_ID + "." + PATIENTHISTORY_ID;
 	
+	public static final String COMPONENT_REPORTMANAGER_LAB = MODULE_ARTIFACT_ID + ".lab";
+	
 	/*
 	 * URIs URLs
 	 */
