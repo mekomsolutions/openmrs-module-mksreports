@@ -33,15 +33,15 @@ import org.openmrs.module.reporting.report.manager.ReportManagerUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-@Component(CommonReportsConstants.COMPONENT_REPORTMANAGER_ANTENATAL2)
-public class Antenatal2ReportManager extends ActivatedReportManager {
+@Component(CommonReportsConstants.COMPONENT_REPORTMANAGER_ANTENATALRISKS)
+public class AntenatalRisksReportManager extends ActivatedReportManager {
 	
 	@Autowired
 	private InitializerService inizService;
 	
 	@Override
 	public boolean isActivated() {
-		return inizService.getBooleanFromKey("report.antenatal2.active", false);
+		return inizService.getBooleanFromKey("report.antenatalRisks.active", false);
 	}
 	
 	@Override
@@ -56,12 +56,12 @@ public class Antenatal2ReportManager extends ActivatedReportManager {
 	
 	@Override
 	public String getName() {
-		return MessageUtil.translate("commonreports.report.antenatal2.reportName");
+		return MessageUtil.translate("commonreports.report.antenatalRisks.reportName");
 	}
 	
 	@Override
 	public String getDescription() {
-		return MessageUtil.translate("commonreports.report.antenatal2.reportDescription");
+		return MessageUtil.translate("commonreports.report.antenatalRisks.reportDescription");
 	}
 	
 	private Parameter getStartDateParameter() {
@@ -92,9 +92,9 @@ public class Antenatal2ReportManager extends ActivatedReportManager {
 		
 		rd.setParameters(getParameters());
 		
-		CohortCrossTabDataSetDefinition antenatal2 = new CohortCrossTabDataSetDefinition();
-		antenatal2.addParameters(getParameters());
-		rd.addDataSetDefinition(getName(), Mapped.mapStraightThrough(antenatal2));
+		CohortCrossTabDataSetDefinition antenatalRisks = new CohortCrossTabDataSetDefinition();
+		antenatalRisks.addParameters(getParameters());
+		rd.addDataSetDefinition(getName(), Mapped.mapStraightThrough(antenatalRisks));
 		
 		Map<String, Object> parameterMappings = new HashMap<String, Object>();
 		parameterMappings.put("onOrAfter", "${startDate}");
@@ -112,7 +112,7 @@ public class Antenatal2ReportManager extends ActivatedReportManager {
 		riskyPregnancy.setOperator(SetComparator.IN);
 		riskyPregnancy.setQuestion(cs.getConcept("Grossesse à risque"));
 		riskyPregnancy.setValueList(Arrays.asList(cs.getConcept("Oui")));
-		antenatal2.addRow(MessageUtil.translate("commonreports.report.antenatal2.riskyPregnancy"), riskyPregnancy,
+		antenatalRisks.addRow(MessageUtil.translate("commonreports.report.antenatalRisks.riskyPregnancy"), riskyPregnancy,
 		    parameterMappings);
 		
 		// Iron def ANC visit Pregnancies
@@ -128,7 +128,8 @@ public class Antenatal2ReportManager extends ActivatedReportManager {
 		    Arrays.asList(Context.getVisitService().getVisitTypeByUuid("35ba9aff-901c-49dc-8630-a59385480d18")));
 		CompositionCohortDefinition ccd = new CompositionCohortDefinition();
 		ccd.initializeFromElements(_prenatal, anemia, female);
-		antenatal2.addRow(MessageUtil.translate("commonreports.report.antenatal2.ironDefANC"), ccd, parameterMappings);
+		antenatalRisks.addRow(MessageUtil.translate("commonreports.report.antenatalRisks.ironDefANC"), ccd,
+		    parameterMappings);
 		
 		// Prenatal visit + Fer Folate Co prescribed 
 		SqlCohortDefinition sqd = new SqlCohortDefinition(
@@ -137,10 +138,12 @@ public class Antenatal2ReportManager extends ActivatedReportManager {
 		sqd.addParameter(new Parameter("onOrBefore", "On Or Before", Date.class));
 		CompositionCohortDefinition ccd1 = new CompositionCohortDefinition();
 		ccd1.initializeFromElements(_prenatal, sqd, female);
-		antenatal2.addRow(MessageUtil.translate("commonreports.report.antenatal2.prenatalIron"), ccd1, parameterMappings);
+		antenatalRisks.addRow(MessageUtil.translate("commonreports.report.antenatalRisks.prenatalIron"), ccd1,
+		    parameterMappings);
 		
 		//Prenatal visit treated for Fe def (Same as above--> Prenatal visit + Fer Folate Co prescribed)
-		antenatal2.addRow(MessageUtil.translate("commonreports.report.antenatal2.prenatalIronDef"), ccd1, parameterMappings);
+		antenatalRisks.addRow(MessageUtil.translate("commonreports.report.antenatalRisks.prenatalIronDef"), ccd1,
+		    parameterMappings);
 		
 		//Mothers with a birth plan
 		SqlCohortDefinition scd = new SqlCohortDefinition();
@@ -148,7 +151,8 @@ public class Antenatal2ReportManager extends ActivatedReportManager {
 		scd.setQuery(st);
 		scd.addParameter(new Parameter("onOrAfter", "On Or After", Date.class));
 		scd.addParameter(new Parameter("onOrBefore", "On Or Before", Date.class));
-		antenatal2.addRow(MessageUtil.translate("commonreports.report.antenatal2.motherBirthPlan"), scd, parameterMappings);
+		antenatalRisks.addRow(MessageUtil.translate("commonreports.report.antenatalRisks.motherBirthPlan"), scd,
+		    parameterMappings);
 		
 		//Prenatal visit + malaria test positive + chloroqine co prescribed 
 		CodedObsCohortDefinition malaria = new CodedObsCohortDefinition();
@@ -172,7 +176,8 @@ public class Antenatal2ReportManager extends ActivatedReportManager {
 		sql.addParameter(new Parameter("onOrBefore", "On Or Before", Date.class));
 		CompositionCohortDefinition ccd2 = new CompositionCohortDefinition();
 		ccd2.initializeFromElements(_prenatal, sql, malaria, female);
-		antenatal2.addRow(MessageUtil.translate("commonreports.report.antenatal2.prenatalMalariaPositiveChloroquine"), ccd2,
+		antenatalRisks.addRow(
+		    MessageUtil.translate("commonreports.report.antenatalRisks.prenatalMalariaPositiveChloroquine"), ccd2,
 		    parameterMappings);
 		
 		//Prental + MUAC =<21cm
@@ -186,7 +191,7 @@ public class Antenatal2ReportManager extends ActivatedReportManager {
 		muac.setValue2(210.0);
 		CompositionCohortDefinition ccd3 = new CompositionCohortDefinition();
 		ccd3.initializeFromElements(_prenatal, muac, female);
-		antenatal2.addRow(MessageUtil.translate("commonreports.report.antenatal2.prenatalMUAC=<21cm"), ccd3,
+		antenatalRisks.addRow(MessageUtil.translate("commonreports.report.antenatalRisks.prenatalMUAC=<21cm"), ccd3,
 		    parameterMappings);
 		
 		//Women + fer folate co prescribed 
@@ -215,7 +220,8 @@ public class Antenatal2ReportManager extends ActivatedReportManager {
 		sqdc.addParameter(new Parameter("onOrBefore", "On Or Before", Date.class));
 		CompositionCohortDefinition ccd5 = new CompositionCohortDefinition();
 		ccd5.initializeFromElements(_other, sqdc, female);
-		antenatal2.addRow(MessageUtil.translate("commonreports.report.antenatal2.womenIron"), ccd5, parameterMappings);
+		antenatalRisks.addRow(MessageUtil.translate("commonreports.report.antenatalRisks.womenIron"), ccd5,
+		    parameterMappings);
 		
 		setColumnNames();
 		
@@ -223,14 +229,14 @@ public class Antenatal2ReportManager extends ActivatedReportManager {
 		GenderCohortDefinition allGender = new GenderCohortDefinition();
 		allGender.setMaleIncluded(true);
 		allGender.setFemaleIncluded(true);
-		antenatal2.addColumn(col1, createCohortComposition(allGender), null);
+		antenatalRisks.addColumn(col1, createCohortComposition(allGender), null);
 		
 		return rd;
 	}
 	
 	private void setColumnNames() {
 		
-		col1 = MessageUtil.translate("commonreports.report.antenatal2.all.label");
+		col1 = MessageUtil.translate("commonreports.report.antenatalRisks.all.label");
 		
 	}
 	

@@ -28,9 +28,9 @@ import org.openmrs.module.reporting.report.service.ReportService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
-public class AntenatalReportManagerTest extends BaseModuleContextSensitiveMysqlBackedTest {
+public class AntenatalRisksReportManagerTest extends BaseModuleContextSensitiveMysqlBackedTest {
 	
-	public AntenatalReportManagerTest() throws SQLException {
+	public AntenatalRisksReportManagerTest() throws SQLException {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -45,7 +45,7 @@ public class AntenatalReportManagerTest extends BaseModuleContextSensitiveMysqlB
 	private ReportDefinitionService rds;
 	
 	@Autowired
-	@Qualifier(CommonReportsConstants.COMPONENT_REPORTMANAGER_ANTENATAL)
+	@Qualifier(CommonReportsConstants.COMPONENT_REPORTMANAGER_ANTENATALRISKS)
 	private ActivatedReportManager manager;
 	
 	@Before
@@ -70,7 +70,7 @@ public class AntenatalReportManagerTest extends BaseModuleContextSensitiveMysqlB
 		ReportManagerUtil.setupReport(manager);
 		
 		// verif
-		Assert.assertNotNull(rs.getReportDesignByUuid("a0ebe3c1-d6a3-4761-bff0-6a03626d2c75"));
+		Assert.assertNotNull(rs.getReportDesignByUuid("c3db03a7-8d69-49b5-94e5-15f9a59f027d"));
 		
 	}
 	
@@ -89,25 +89,44 @@ public class AntenatalReportManagerTest extends BaseModuleContextSensitiveMysqlB
 			
 			// In CrossTabDataSet reports all rows and columns are in fact just columns of
 			// one row
-			Cohort visitTwo = (Cohort) row.getColumnValue("14-27 weeks of pregnancy." + AntenatalReportManager.col2);
-			assertNotNull(visitTwo);
-			assertEquals(1, visitTwo.getSize());
+			Cohort riskyPregnancy = (Cohort) row.getColumnValue("Risky Pregnancy." + AntenatalRisksReportManager.col1);
+			assertNotNull(riskyPregnancy);
+			assertEquals(1, riskyPregnancy.getSize());
 			
-			Cohort visitThree = (Cohort) row.getColumnValue("14-27 weeks of pregnancy." + AntenatalReportManager.col3);
-			assertNotNull(visitThree);
-			assertEquals(0, visitThree.getSize());
+			Cohort prenatalIronDef = (Cohort) row
+			        .getColumnValue("Iron Def and ANC Visit." + AntenatalRisksReportManager.col1);
+			assertNotNull(prenatalIronDef);
+			assertEquals(1, prenatalIronDef.getSize());
 			
-			Cohort visitTwoTotal = (Cohort) row.getColumnValue("14-27 weeks of pregnancy." + AntenatalReportManager.col2);
-			assertNotNull(visitTwoTotal);
-			assertEquals(1, visitTwoTotal.getSize());
+			Cohort prenatalIronFolate = (Cohort) row
+			        .getColumnValue("Prenatal visit + Fer Folate Co." + AntenatalRisksReportManager.col1);
+			assertNotNull(prenatalIronFolate);
+			assertEquals(1, prenatalIronFolate.getSize());
 			
-			Cohort TotalVisitTwo = (Cohort) row.getColumnValue("Total." + AntenatalReportManager.col2);
-			assertNotNull(TotalVisitTwo);
-			assertEquals(1, TotalVisitTwo.getSize());
+			Cohort prenatalIronTreatment = (Cohort) row
+			        .getColumnValue("Prenatal visit + treated for Fe def." + AntenatalRisksReportManager.col1);
+			assertNotNull(prenatalIronTreatment);
+			assertEquals(1, prenatalIronTreatment.getSize());
 			
-			Cohort TotalTotalVisit = (Cohort) row.getColumnValue("Total." + AntenatalReportManager.col6);
-			assertNotNull(TotalTotalVisit);
-			assertEquals(1, TotalTotalVisit.getSize());
+			Cohort motherWithBirthPlan = (Cohort) row
+			        .getColumnValue("Mothers with birth plan." + AntenatalRisksReportManager.col1);
+			assertNotNull(motherWithBirthPlan);
+			assertEquals(1, motherWithBirthPlan.getSize());
+			
+			Cohort prenatalMalariaChloroquine = (Cohort) row.getColumnValue(
+			    "Prenatal visit + malaria test positive + Chloroqine co." + AntenatalRisksReportManager.col1);
+			assertNotNull(prenatalMalariaChloroquine);
+			assertEquals(1, prenatalMalariaChloroquine.getSize());
+			
+			Cohort prenatalMUAC = (Cohort) row.getColumnValue("Prenatal + MUAC =<21cm." + AntenatalRisksReportManager.col1);
+			assertNotNull(prenatalMUAC);
+			assertEquals(1, prenatalMUAC.getSize());
+			
+			Cohort otherWomenIronFolate = (Cohort) row
+			        .getColumnValue("Women + fer folate co prescribed." + AntenatalRisksReportManager.col1);
+			assertNotNull(otherWomenIronFolate);
+			assertEquals(1, otherWomenIronFolate.getSize());
+			
 		}
 	}
 	

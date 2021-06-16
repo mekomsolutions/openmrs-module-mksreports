@@ -26,15 +26,15 @@ import org.openmrs.module.reporting.report.manager.ReportManagerUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-@Component(CommonReportsConstants.COMPONENT_REPORTMANAGER_ANTENATAL)
-public class AntenatalReportManager extends ActivatedReportManager {
+@Component(CommonReportsConstants.COMPONENT_REPORTMANAGER_ANTENATALGESTATION)
+public class AntenatalGestationReportManager extends ActivatedReportManager {
 	
 	@Autowired
 	private InitializerService inizService;
 	
 	@Override
 	public boolean isActivated() {
-		return inizService.getBooleanFromKey("report.antenatal.active", false);
+		return inizService.getBooleanFromKey("report.antenatalGestation.active", false);
 	}
 	
 	@Override
@@ -49,12 +49,12 @@ public class AntenatalReportManager extends ActivatedReportManager {
 	
 	@Override
 	public String getName() {
-		return MessageUtil.translate("commonreports.report.antenatal.reportName");
+		return MessageUtil.translate("commonreports.report.antenatalGestation.reportName");
 	}
 	
 	@Override
 	public String getDescription() {
-		return MessageUtil.translate("commonreports.report.antenatal.reportDescription");
+		return MessageUtil.translate("commonreports.report.antenatalGestation.reportDescription");
 	}
 	
 	private Parameter getStartDateParameter() {
@@ -95,9 +95,9 @@ public class AntenatalReportManager extends ActivatedReportManager {
 		
 		rd.setParameters(getParameters());
 		
-		CohortCrossTabDataSetDefinition antenatal = new CohortCrossTabDataSetDefinition();
-		antenatal.addParameters(getParameters());
-		rd.addDataSetDefinition(getName(), Mapped.mapStraightThrough(antenatal));
+		CohortCrossTabDataSetDefinition antenatalGestation = new CohortCrossTabDataSetDefinition();
+		antenatalGestation.addParameters(getParameters());
+		rd.addDataSetDefinition(getName(), Mapped.mapStraightThrough(antenatalGestation));
 		
 		Map<String, Object> parameterMappings = new HashMap<String, Object>();
 		parameterMappings.put("onOrAfter", "${startDate}");
@@ -115,7 +115,7 @@ public class AntenatalReportManager extends ActivatedReportManager {
 				sqd.setQuery(st);
 				sqd.addParameter(new Parameter("onOrAfter", "On Or After", Date.class));
 				sqd.addParameter(new Parameter("onOrBefore", "On Or Before", Date.class));
-				antenatal.addRow(member, sqd, parameterMappings);
+				antenatalGestation.addRow(member, sqd, parameterMappings);
 			} else {
 				
 				String[] bit = member.split("-");
@@ -129,7 +129,8 @@ public class AntenatalReportManager extends ActivatedReportManager {
 				sqd.setQuery(st);
 				sqd.addParameter(new Parameter("onOrAfter", "On Or After", Date.class));
 				sqd.addParameter(new Parameter("onOrBefore", "On Or Before", Date.class));
-				antenatal.addRow(member + " " + MessageUtil.translate("commonreports.report.antenatal.gestationWeeks"), sqd,
+				antenatalGestation.addRow(
+				    member + " " + MessageUtil.translate("commonreports.report.antenatalGestation.gestationWeeks"), sqd,
 				    parameterMappings);
 				
 			}
@@ -145,7 +146,7 @@ public class AntenatalReportManager extends ActivatedReportManager {
 		firstVisit.setOperator(SetComparator.IN);
 		firstVisit.setQuestion(cs.getConcept("Numéro de la visite"));
 		firstVisit.addValue(cs.getConcept("Une"));
-		antenatal.addColumn(col1, createCohortComposition(firstVisit), null);
+		antenatalGestation.addColumn(col1, createCohortComposition(firstVisit), null);
 		
 		// Second Visit column
 		CodedObsCohortDefinition secondVisit = new CodedObsCohortDefinition();
@@ -154,7 +155,7 @@ public class AntenatalReportManager extends ActivatedReportManager {
 		secondVisit.setOperator(SetComparator.IN);
 		secondVisit.setQuestion(cs.getConcept("Numéro de la visite"));
 		secondVisit.addValue(cs.getConcept("Deux"));
-		antenatal.addColumn(col2, createCohortComposition(secondVisit), null);
+		antenatalGestation.addColumn(col2, createCohortComposition(secondVisit), null);
 		
 		// Third Visit column
 		CodedObsCohortDefinition thirdVisit = new CodedObsCohortDefinition();
@@ -163,7 +164,7 @@ public class AntenatalReportManager extends ActivatedReportManager {
 		thirdVisit.setOperator(SetComparator.IN);
 		thirdVisit.setQuestion(cs.getConcept("Numéro de la visite"));
 		thirdVisit.addValue(cs.getConcept("Trois"));
-		antenatal.addColumn(col3, createCohortComposition(thirdVisit), null);
+		antenatalGestation.addColumn(col3, createCohortComposition(thirdVisit), null);
 		
 		// Fourth Visit column
 		CodedObsCohortDefinition fourthVisit = new CodedObsCohortDefinition();
@@ -172,7 +173,7 @@ public class AntenatalReportManager extends ActivatedReportManager {
 		fourthVisit.setOperator(SetComparator.IN);
 		fourthVisit.setQuestion(cs.getConcept("Numéro de la visite"));
 		fourthVisit.addValue(cs.getConcept("Quatre"));
-		antenatal.addColumn(col4, createCohortComposition(fourthVisit), null);
+		antenatalGestation.addColumn(col4, createCohortComposition(fourthVisit), null);
 		
 		// Fifth Visit column
 		CodedObsCohortDefinition fifthVisit = new CodedObsCohortDefinition();
@@ -181,23 +182,23 @@ public class AntenatalReportManager extends ActivatedReportManager {
 		fifthVisit.setOperator(SetComparator.IN);
 		fifthVisit.setQuestion(cs.getConcept("Numéro de la visite"));
 		fifthVisit.addValue(cs.getConcept("Cinq plus"));
-		antenatal.addColumn(col5, createCohortComposition(fifthVisit), null);
+		antenatalGestation.addColumn(col5, createCohortComposition(fifthVisit), null);
 		
 		// Total Visit column
 		CodedObsCohortDefinition totalVisit = new CodedObsCohortDefinition();
-		antenatal.addColumn(col6, createCohortComposition(totalVisit), null);
+		antenatalGestation.addColumn(col6, createCohortComposition(totalVisit), null);
 		
 		return rd;
 	}
 	
 	private void setColumnNames() {
 		
-		col1 = MessageUtil.translate("commonreports.report.antenatal.firstVisit.label");
-		col2 = MessageUtil.translate("commonreports.report.antenatal.secondVisit.label");
-		col3 = MessageUtil.translate("commonreports.report.antenatal.thirdVisit.label");
-		col4 = MessageUtil.translate("commonreports.report.antenatal.fourthVisit.label");
-		col5 = MessageUtil.translate("commonreports.report.antenatal.fifthVisit.label");
-		col6 = MessageUtil.translate("commonreports.report.antenatal.total.label");
+		col1 = MessageUtil.translate("commonreports.report.antenatalGestation.firstVisit.label");
+		col2 = MessageUtil.translate("commonreports.report.antenatalGestation.secondVisit.label");
+		col3 = MessageUtil.translate("commonreports.report.antenatalGestation.thirdVisit.label");
+		col4 = MessageUtil.translate("commonreports.report.antenatalGestation.fourthVisit.label");
+		col5 = MessageUtil.translate("commonreports.report.antenatalGestation.fifthVisit.label");
+		col6 = MessageUtil.translate("commonreports.report.antenatalGestation.total.label");
 		
 	}
 	
