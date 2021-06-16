@@ -15,4 +15,4 @@ It is setup by setting the following properties in [initializer](https://github.
 ```
 `report.antenatalGestation.active` activates the antenatal gestation report to be usable when the module is loaded.
 `report.antenatalRisks.active` activates the antenatal risks report to be usable when the module is loaded.
-The report template can be found at [Prise en charge de la mere](https://docs.google.com/spreadsheets/d/1ei2HVsgPDNBF4-M2eQilv_GSy3v_fSGwIMW9DrUDXQc/edit#gid=180349304)
+The report template can be found at [MSPP: Prise en charge de la mère](https://docs.google.com/spreadsheets/d/1ei2HVsgPDNBF4-M2eQilv_GSy3v_fSGwIMW9DrUDXQc/edit#gid=180349304)
