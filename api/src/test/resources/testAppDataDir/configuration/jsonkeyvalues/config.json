@@ -27,5 +27,6 @@
     "report.newEpisodesOfDiseases.allDiagnoses.conceptSet" : "dccb05f6-a27b-4331-989c-9a669e84e467",
     "report.newEpisodesOfDiseases.referredCodedanswer.concept" : "d7f6f425-df28-47f4-9474-ba85a462a261",
     "report.newEpisodesOfDiseases.active" : "true",
-    "report.vaccination.active" : "true"
+    "report.vaccination.active" : "true",
+    "report.ecv.active" : "true"
 }
