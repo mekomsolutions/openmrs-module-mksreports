@@ -30,7 +30,9 @@ import org.springframework.stereotype.Component;
 @Component
 public class NewEpisodesOfDiseasesReportManager extends ActivatedReportManager {
 	
-	public static final String REPEATING_SECTION = "sheet:1,row:4,dataset:New Episodes of Diseases";
+	private static final String DATA_SET_NAME = "New Episodes of Diseases";
+	
+	public static final String REPEATING_SECTION = "sheet:1,row:4,dataset:"+DATA_SET_NAME;
 	
 	@Autowired
 	private InitializerService inizService;
@@ -102,7 +104,7 @@ public class NewEpisodesOfDiseasesReportManager extends ActivatedReportManager {
 		rd.setUuid(getUuid());
 		
 		SqlDataSetDefinition sqlDsd = new SqlDataSetDefinition();
-		sqlDsd.setName("New Episodes of Diseases SQL Dataset");
+		sqlDsd.setName(DATA_SET_NAME);
 		sqlDsd.setDescription("New Episodes of Diseases SQL Dataset");
 		
 		String rawSql = getSqlString("org/openmrs/module/commonreports/sql/newEpisodesOfDiseases.sql");
@@ -117,7 +119,7 @@ public class NewEpisodesOfDiseasesReportManager extends ActivatedReportManager {
 		parameterMappings.put("startDate", "${startDate}");
 		parameterMappings.put("endDate", "${endDate}");
 		
-		rd.addDataSetDefinition(getName(), sqlDsd, parameterMappings);
+		rd.addDataSetDefinition(DATA_SET_NAME, sqlDsd, parameterMappings);
 		
 		return rd;
 	}
