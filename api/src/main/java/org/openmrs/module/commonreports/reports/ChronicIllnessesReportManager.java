@@ -81,12 +81,12 @@ public class ChronicIllnessesReportManager extends ActivatedReportManager {
 	
 	@Override
 	public String getName() {
-		return "Chronic Illnesses";
+		return MessageUtil.translate("commonreports.report.chronicIllnesses.reportName");
 	}
 	
 	@Override
 	public String getDescription() {
-		return "";
+		return MessageUtil.translate("commonreports.report.chronicIllnesses.reportDescription");
 	}
 	
 	private Parameter getStartDateParameter() {

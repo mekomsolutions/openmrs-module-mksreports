@@ -19,3 +19,5 @@ It is setup by setting the following properties in [initializer](https://github.
 `report.chronicIllnesses.conceptSet` specifies the diagnoses to filter from. These appear as separate rows for each on the report. Diagnoses can be aggregated to appear as one through a concept set added to this list.
 
 `report.chronicIllnesses.referredTo.concept` specifies a coded question concept which allows for determining referred outcome cases.
+
+Find the report template at [MSPP: Chronic Illnesses](https://docs.google.com/spreadsheets/d/13A3gBRwi45-YwnArNsDgQB4EPVwsTswp/edit#gid=704979704)
