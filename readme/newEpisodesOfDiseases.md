@@ -13,7 +13,7 @@ It is setup by setting the following properties in [initializer](https://github.
     "report.newEpisodesOfDiseases.diagnosisList.conceptSet" : "uuid-to-diagnosis-list-concept-set",
     "report.newEpisodesOfDiseases.questions.conceptSet" : "uuid-to-concept-set-containing-questions",
     "report.newEpisodesOfDiseases.allDiagnoses.conceptSet" : "uuid-to-concept-set-containing-allDiagnoses",
-    "report.newEpisodesOfDiseases.referredCodedanswer.concept" : "uuid-to-coded-answer-for-referred-observation"
+    "report.newEpisodesOfDiseases.referredToConcept.concept" : "uuid-for-referred-to-healthCenter-questionConcept"
 }
 ```
 `report.newEpisodesOfDiseases.active` activates the report to be usable when the module is loaded.
@@ -24,6 +24,6 @@ It is setup by setting the following properties in [initializer](https://github.
 
 `report.newEpisodesOfDiseases.allDiseases.conceptSet` specifies a concept set containing all diseases, from which those diseases not specified in the disease list are aggregated in the report as "All Other Diagnoses" on one row.
 
-`report.newEpisodesOfDiseases.referredCodedanswer.concept` specifies a coded answer concept for reporting on referred patients.
+`report.newEpisodesOfDiseases.referredToConcept.concept` specifies a concept for reporting on referred patients. It could be a coded question which when answered means the patient has been referred to a different health center.
 
 **Note:** Only latest observations are evaluated on a particular disease or chief-complaint on any patients. For example, if more than one observations on say  _Cholora_  was ever recorded on a patient, and  _Cholera_  is among the diseases list, then only the most recent observation is considered in the report.

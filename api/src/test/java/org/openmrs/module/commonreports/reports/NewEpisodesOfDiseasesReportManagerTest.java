@@ -91,7 +91,7 @@ public class NewEpisodesOfDiseasesReportManagerTest extends BaseModuleContextSen
 	public void setUp() throws Exception {
 		updateDatabase("org/openmrs/module/commonreports/liquibase/test-liquibase.xml");
 		executeDataSet("org/openmrs/module/reporting/include/ReportTestDataset-openmrs-2.0.xml");
-		executeDataSet("org/openmrs/module/commonreports/include/NewEpisodesOfDiseasesTestDataset.xml");
+		executeDataSet("org/openmrs/module/commonreports/include/newEpisodesOfDiseasesTestDataset.xml");
 		
 		String path = getClass().getClassLoader().getResource("testAppDataDir").getPath() + File.separator;
 		System.setProperty("OPENMRS_APPLICATION_DATA_DIRECTORY", path);
