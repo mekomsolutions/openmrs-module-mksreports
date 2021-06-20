@@ -8,12 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
-import java.util.Set;
-import java.util.stream.Collectors;
-
-import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.io.IOUtils;
-import org.openmrs.Concept;
 import org.openmrs.api.VisitService;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.commonreports.ActivatedReportManager;
@@ -31,6 +26,10 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class VisitsReportManager extends ActivatedReportManager {
+	
+	private static String TRANSLATION_PREFIX = "commonreports.report.visits.";
+	
+	public static final String REPEATING_SECTION = "sheet:1,row:7,dataset:Visits";
 	
 	@Autowired
 	@Qualifier("visitService")
@@ -56,12 +55,12 @@ public class VisitsReportManager extends ActivatedReportManager {
 	
 	@Override
 	public String getName() {
-		return "Visits";
+		return MessageUtil.translate("commonreports.report.visits.reportName");
 	}
 	
 	@Override
 	public String getDescription() {
-		return "";
+		return MessageUtil.translate("commonreports.report.visits.reportDescription");
 	}
 	
 	@Override
@@ -103,9 +102,21 @@ public class VisitsReportManager extends ActivatedReportManager {
 	
 	@Override
 	public List<ReportDesign> constructReportDesigns(ReportDefinition reportDefinition) {
-		ReportDesign reportDesign = ReportManagerUtil.createExcelDesign("4e1c1f7a-bbfe-44ec-a36a-3005e3fc50bd",
-		    reportDefinition);
-		
+		ReportDesign reportDesign = ReportManagerUtil.createExcelTemplateDesign("4e1c1f7a-bbfe-44ec-a36a-3005e3fc50bd",
+		    reportDefinition, "org/openmrs/module/commonreports/reportTemplates/visitsReportTemplate.xls");
+		Properties designProperties = new Properties();
+		designProperties.put("repeatingSections", REPEATING_SECTION);
+		designProperties.put("columnTranslationLocale", Context.getLocale().toString());
+		designProperties.put("reportName.label", MessageUtil.translate("commonreports.report.visits.reportName"));
+		designProperties.put("date.range.label", MessageUtil.translate("commonreports.report.visits.date.range.label"));
+		designProperties.put("to.label", MessageUtil.translate("commonreports.report.visits.to.label"));
+		designProperties.put("natureOfVisits.label",
+		    MessageUtil.translate("commonreports.report.visits.natureOfVisits.label"));
+		designProperties.put("newVisits.label", MessageUtil.translate("commonreports.report.visits.newVisits.label"));
+		designProperties.put("subsequentVisits.label",
+		    MessageUtil.translate("commonreports.report.visits.subsequentVisits.label"));
+		designProperties.put("categories.label", MessageUtil.translate("commonreports.report.visits.categories.label"));
+		reportDesign.setProperties(designProperties);
 		return Arrays.asList(reportDesign);
 	}
 	
@@ -145,9 +156,7 @@ public class VisitsReportManager extends ActivatedReportManager {
 		Map<String, String> map = new HashMap<String, String>();
 		String prenatalVisitTypeUuid = inizService.getValueFromKey("report.visits.prenatal.visitType.uuid");
 		String familyPlanningVisitTypeUuid = inizService.getValueFromKey("report.visits.familyPlanning.visitType.uuid");
-		String[] properties = { "commonreports.report.visits.newVisits.label",
-		        "commonreports.report.visits.subsequentVisits.label", "commonreports.report.visits.categories.label",
-		        "commonreports.report.visits.category1.label", "commonreports.report.visits.category2.label",
+		String[] properties = { "commonreports.report.visits.category1.label", "commonreports.report.visits.category2.label",
 		        "commonreports.report.visits.category3.label", "commonreports.report.visits.category4.label",
 		        "commonreports.report.visits.category5.label", "commonreports.report.visits.category6.label",
 		        "commonreports.report.visits.category7.label", "commonreports.report.visits.category8.label",
