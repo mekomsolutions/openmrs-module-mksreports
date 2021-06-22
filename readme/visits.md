@@ -22,3 +22,5 @@ It is setup by setting the following properties in [initializer](https://github.
 
 **Note**
 'Prenatal' and 'Family planning' visits are reported on separately and therefore have to be specified in the above properties.
+
+Find the report template at [MSPP Statistics Report - Visits](https://docs.google.com/spreadsheets/d/13A3gBRwi45-YwnArNsDgQB4EPVwsTswp/edit#gid=1723158101).
