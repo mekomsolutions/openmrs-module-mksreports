@@ -64,3 +64,5 @@ See an example of the concept Set of Sets structure:
 `report.emergency.yes.concept` specifies a `Yes`/`True` coded answer concept answering the the questino defined by `report.emergency.leftWithoutPermission.concept` property.
 
 **Note:** “Deceased” outcome cases take precedence over the other outcomes, followed by "Left without permission", "Referred", "Cared for" outcomes respectively.
+
+Find the report template at [MSPP Statistic Report - Emergency](https://docs.google.com/spreadsheets/d/13A3gBRwi45-YwnArNsDgQB4EPVwsTswp/edit#gid=137605556).
