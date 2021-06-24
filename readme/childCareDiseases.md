@@ -1,5 +1,5 @@
 ## Child Care Report
-This report searches children vitals, result of visit and vaccinations on Vitamin-A and Albendazole. It is a MSPP Report requested by the Haitian MoH to any clinic in Haiti.
+This report searches children vitals, their result of visits and vaccinations on Vitamin-A and Albendazole. It is a MSPP Report requested by the Haitian MoH to any clinic in Haiti.
 
 **Setup**
 
