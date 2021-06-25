@@ -32,7 +32,7 @@ public class NewEpisodesOfDiseasesReportManager extends ActivatedReportManager {
 	
 	private static final String DATA_SET_NAME = "New Episodes of Diseases";
 	
-	public static final String REPEATING_SECTION = "sheet:1,row:4,dataset:"+DATA_SET_NAME;
+	public static final String REPEATING_SECTION = "sheet:1,row:4,dataset:" + DATA_SET_NAME;
 	
 	@Autowired
 	private InitializerService inizService;
@@ -161,8 +161,7 @@ public class NewEpisodesOfDiseasesReportManager extends ActivatedReportManager {
 	
 	private String applyMetadataReplacements(String rawSql, Concept conceptSet) {
 		Concept questionsConcept = inizService.getConceptFromKey("report.newEpisodesOfDiseases.questions.conceptSet");
-		Concept referredToConcept = inizService
-		        .getConceptFromKey("report.newEpisodesOfDiseases.referredToConcept.concept");
+		Concept referredToConcept = inizService.getConceptFromKey("report.newEpisodesOfDiseases.referredToConcept.concept");
 		String s = rawSql.replace(":selectStatements", constructSelectUnionAllStatements(conceptSet))
 		        .replace(":whenStatements", constructWhenThenStatements(conceptSet))
 		        .replace(":conceptIds",
@@ -177,7 +176,14 @@ public class NewEpisodesOfDiseasesReportManager extends ActivatedReportManager {
 		List<Concept> allOtherDiagnoses = null;
 		
 		if (allDiagnosesSet != null) {
-			allOtherDiagnoses = new ArrayList<Concept>(allDiagnosesSet.getSetMembers());
+			allOtherDiagnoses = new ArrayList<Concept>();
+			if (allDiagnosesSet.getSetMembers().get(0).getSet()) {
+				for (Concept diagnosesSet : allDiagnosesSet.getSetMembers()) {
+					allOtherDiagnoses.addAll(diagnosesSet.getSetMembers());
+				}
+			} else {
+				allOtherDiagnoses.addAll(allDiagnosesSet.getSetMembers());
+			}
 			
 		}
 		

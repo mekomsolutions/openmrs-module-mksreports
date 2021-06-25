@@ -22,7 +22,7 @@ It is setup by setting the following properties in [initializer](https://github.
 
 `report.newEpisodesOfDiseases.questions.conceptSet` specifies a concept set to the question concepts for which the recorded answer observations are being reported on.
 
-`report.newEpisodesOfDiseases.allDiseases.conceptSet` specifies a concept set containing all diseases, from which those diseases not specified in the disease list are aggregated in the report as "All Other Diagnoses" on one row.
+`report.newEpisodesOfDiseases.allDiseases.conceptSet` specifies a concept set containing all diseases, from which those diseases not specified in the disease list are aggregated in the report as "All Other Diagnoses" on one row. Else it can be a super set of sets of diagnoses, meaning it could contain sets where each has member diagnoses.
 
 `report.newEpisodesOfDiseases.referredToConcept.concept` specifies a concept for reporting on referred patients. It could be a coded question which when answered means the patient has been referred to a different health center.
 
