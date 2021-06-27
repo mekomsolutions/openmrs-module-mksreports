@@ -28,4 +28,4 @@ It is setup by setting the following properties in [initializer](https://github.
 
 **Note:** Only latest observations are evaluated on a particular disease or chief-complaint on any patients. For example, if more than one observations on say  _Cholora_  was ever recorded on a patient, and  _Cholera_  is among the diseases list, then only the most recent observation is considered in the report.
 
-Find the report template at [MSPP: New Episodes of Diseases](https://docs.google.com/spreadsheets/d/1s_scEPSAE6SgdimIPDhogvD881h8B3fLEaAi06N2Eyk/edit?usp=sharing)
+Find the report template at [MSPP: New Episodes of Diseases](https://docs.google.com/spreadsheets/d/13A3gBRwi45-YwnArNsDgQB4EPVwsTswp/edit#gid=704979704)
