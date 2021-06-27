@@ -106,7 +106,7 @@ public class VisitsReportManagerTest extends BaseModuleContextSensitiveMysqlBack
 		// verif
 		ReportDesign design = rs.getReportDesignByUuid("4e1c1f7a-bbfe-44ec-a36a-3005e3fc50bd");
 		
-		Assert.assertEquals(VisitsReportManager.REPEATING_SECTION, design.getProperties().get("repeatingSections"));
+		Assert.assertEquals("sheet:1,row:7,dataset:" + manager.getName(), design.getProperties().get("repeatingSections"));
 		Assert.assertEquals(1, design.getResources().size());
 		
 		ReportDefinition def = design.getReportDefinition();

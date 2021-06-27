@@ -27,10 +27,6 @@ import org.springframework.stereotype.Component;
 @Component
 public class VisitsReportManager extends ActivatedReportManager {
 	
-	private static String TRANSLATION_PREFIX = "commonreports.report.visits.";
-	
-	public static final String REPEATING_SECTION = "sheet:1,row:7,dataset:" + MessageUtil.translate("commonreports.report.visits.reportName");
-	
 	@Autowired
 	@Qualifier("visitService")
 	private VisitService vs;
@@ -82,7 +78,7 @@ public class VisitsReportManager extends ActivatedReportManager {
 		rd.setUuid(getUuid());
 		
 		SqlDataSetDefinition sqlDsd = new SqlDataSetDefinition();
-		sqlDsd.setName("Visits");
+		sqlDsd.setName(getName());
 		sqlDsd.setDescription("");
 		
 		String sql = getSqlString("org/openmrs/module/commonreports/sql/visits.sql");
@@ -105,7 +101,7 @@ public class VisitsReportManager extends ActivatedReportManager {
 		ReportDesign reportDesign = ReportManagerUtil.createExcelTemplateDesign("4e1c1f7a-bbfe-44ec-a36a-3005e3fc50bd",
 		    reportDefinition, "org/openmrs/module/commonreports/reportTemplates/visitsReportTemplate.xls");
 		Properties designProperties = new Properties();
-		designProperties.put("repeatingSections", REPEATING_SECTION);
+		designProperties.put("repeatingSections", "sheet:1,row:7,dataset:" + getName());
 		designProperties.put("columnTranslationLocale", Context.getLocale().toString());
 		designProperties.put("reportName.label", MessageUtil.translate("commonreports.report.visits.reportName"));
 		designProperties.put("date.range.label", MessageUtil.translate("commonreports.report.visits.date.range.label"));
