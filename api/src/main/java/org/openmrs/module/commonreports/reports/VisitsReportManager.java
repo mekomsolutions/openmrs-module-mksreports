@@ -29,7 +29,7 @@ public class VisitsReportManager extends ActivatedReportManager {
 	
 	private static String TRANSLATION_PREFIX = "commonreports.report.visits.";
 	
-	public static final String REPEATING_SECTION = "sheet:1,row:7,dataset:Visits";
+	public static final String REPEATING_SECTION = "sheet:1,row:7,dataset:" + MessageUtil.translate("commonreports.report.visits.reportName");
 	
 	@Autowired
 	@Qualifier("visitService")
