@@ -44,4 +44,4 @@ It is setup by setting the following properties in [initializer](https://github.
 
 `report.childCare.albendazole.concept` specifies Albendazole answer concept answering `report.childCare.vaccinationsQuestion.concept`
 
-Find the report at [MSPP Child Care Report](https://docs.google.com/spreadsheets/d/13A3gBRwi45-YwnArNsDgQB4EPVwsTswp/edit#gid=134070428).
+Find the report template at [MSPP Child Care Report](https://docs.google.com/spreadsheets/d/13A3gBRwi45-YwnArNsDgQB4EPVwsTswp/edit#gid=134070428).

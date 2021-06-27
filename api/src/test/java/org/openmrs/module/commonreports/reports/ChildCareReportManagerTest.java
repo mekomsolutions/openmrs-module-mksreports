@@ -102,7 +102,7 @@ public class ChildCareReportManagerTest extends BaseModuleContextSensitiveMysqlB
 		
 		map.put("Total children seen.Children under 6 months - M", 1);
 		map.put("Total children seen.Children under 6 months - F", 0);
-		map.put("Total children seen.commonreports.report.childCare.ageCategory.label - Total", 1);
+		map.put("Total children seen.Children under 6 months - Total", 1);
 		map.put("Total children seen.Children 6 months to 23 months - M", 1);
 		map.put("Total children seen.Children 6 months to 23 months - F", 1);
 		map.put("Total children seen.Children 6 months to 23 months - Total", 2);
@@ -111,7 +111,7 @@ public class ChildCareReportManagerTest extends BaseModuleContextSensitiveMysqlB
 		map.put("Total children seen.Child from 24 months to 59 months - Total", 3);
 		map.put("Children seen for the first time.Children under 6 months - M", 1);
 		map.put("Children seen for the first time.Children under 6 months - F", 0);
-		map.put("Children seen for the first time.commonreports.report.childCare.ageCategory.label - Total", 1);
+		map.put("Children seen for the first time.Children under 6 months - Total", 1);
 		map.put("Children seen for the first time.Children 6 months to 23 months - M", 1);
 		map.put("Children seen for the first time.Children 6 months to 23 months - F", 1);
 		map.put("Children seen for the first time.Children 6 months to 23 months - Total", 2);
@@ -120,9 +120,7 @@ public class ChildCareReportManagerTest extends BaseModuleContextSensitiveMysqlB
 		map.put("Children seen for the first time.Child from 24 months to 59 months - Total", 2);
 		map.put("Children seen for the first time with MUAC measured.Children under 6 months - M", 0);
 		map.put("Children seen for the first time with MUAC measured.Children under 6 months - F", 0);
-		map.put(
-		    "Children seen for the first time with MUAC measured.commonreports.report.childCare.ageCategory.label - Total",
-		    0);
+		map.put("Children seen for the first time with MUAC measured.Children under 6 months - Total", 0);
 		map.put("Children seen for the first time with MUAC measured.Children 6 months to 23 months - M", 1);
 		map.put("Children seen for the first time with MUAC measured.Children 6 months to 23 months - F", 0);
 		map.put("Children seen for the first time with MUAC measured.Children 6 months to 23 months - Total", 1);
@@ -131,9 +129,7 @@ public class ChildCareReportManagerTest extends BaseModuleContextSensitiveMysqlB
 		map.put("Children seen for the first time with MUAC measured.Child from 24 months to 59 months - Total", 2);
 		map.put("Child seen for the first time with weighed measured.Children under 6 months - M", 1);
 		map.put("Child seen for the first time with weighed measured.Children under 6 months - F", 0);
-		map.put(
-		    "Child seen for the first time with weighed measured.commonreports.report.childCare.ageCategory.label - Total",
-		    1);
+		map.put("Child seen for the first time with weighed measured.Children under 6 months - Total", 1);
 		map.put("Child seen for the first time with weighed measured.Children 6 months to 23 months - M", 1);
 		map.put("Child seen for the first time with weighed measured.Children 6 months to 23 months - F", 0);
 		map.put("Child seen for the first time with weighed measured.Children 6 months to 23 months - Total", 1);
@@ -142,9 +138,7 @@ public class ChildCareReportManagerTest extends BaseModuleContextSensitiveMysqlB
 		map.put("Child seen for the first time with weighed measured.Child from 24 months to 59 months - Total", 1);
 		map.put("Children seen for the first time (115 < MUAC <125).Children under 6 months - M", 0);
 		map.put("Children seen for the first time (115 < MUAC <125).Children under 6 months - F", 0);
-		map.put(
-		    "Children seen for the first time (115 < MUAC <125).commonreports.report.childCare.ageCategory.label - Total",
-		    0);
+		map.put("Children seen for the first time (115 < MUAC <125).Children under 6 months - Total", 0);
 		map.put("Children seen for the first time (115 < MUAC <125).Children 6 months to 23 months - M", 0);
 		map.put("Children seen for the first time (115 < MUAC <125).Children 6 months to 23 months - F", 0);
 		map.put("Children seen for the first time (115 < MUAC <125).Children 6 months to 23 months - Total", 0);
@@ -153,7 +147,7 @@ public class ChildCareReportManagerTest extends BaseModuleContextSensitiveMysqlB
 		map.put("Children seen for the first time (115 < MUAC <125).Child from 24 months to 59 months - Total", 2);
 		map.put("Children seen for the first time (MUAC <115).Children under 6 months - M", 0);
 		map.put("Children seen for the first time (MUAC <115).Children under 6 months - F", 0);
-		map.put("Children seen for the first time (MUAC <115).commonreports.report.childCare.ageCategory.label - Total", 0);
+		map.put("Children seen for the first time (MUAC <115).Children under 6 months - Total", 0);
 		map.put("Children seen for the first time (MUAC <115).Children 6 months to 23 months - M", 0);
 		map.put("Children seen for the first time (MUAC <115).Children 6 months to 23 months - F", 0);
 		map.put("Children seen for the first time (MUAC <115).Children 6 months to 23 months - Total", 0);

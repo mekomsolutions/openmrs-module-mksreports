@@ -107,7 +107,7 @@ public class ChildCareReportManager extends ActivatedReportManager {
 	
 	@Override
 	public String getVersion() {
-		return "1.0.0-SNAPSHORT";
+		return "1.0.0-SNAPSHOT";
 	}
 	
 	private Parameter getStartDateParameter() {
@@ -164,13 +164,10 @@ public class ChildCareReportManager extends ActivatedReportManager {
 		// Creating dataset definitions
 		CohortCrossTabDataSetDefinition characteristicsDatasetDefinition = createCharacteristicsDatasetDefinition(under6m,
 		    _6To23m, _24To59m, parameterMappings);
-		characteristicsDatasetDefinition.addParameters(getParameters());
 		CohortCrossTabDataSetDefinition fateOfChildDatasetDef = createFateOfChildDatasetDefinition(under6m, _6To23m,
 		    _24To59m, parameterMappings);
-		fateOfChildDatasetDef.addParameters(getParameters());
 		CohortCrossTabDataSetDefinition vitaminASupplimentationDatasetDef = createVitaminASupplimentationDatasetDefinition(
 		    under6m, _6To23m, _24To59m, parameterMappings);
-		vitaminASupplimentationDatasetDef.addParameters(getParameters());
 		
 		// Adding datasets to the report
 		reportDef.addDataSetDefinition(MessageUtil.translate("commonreports.report.childCare.characteristics.dataset.name"),
@@ -193,7 +190,7 @@ public class ChildCareReportManager extends ActivatedReportManager {
 	private CohortCrossTabDataSetDefinition createCharacteristicsDatasetDefinition(AgeCohortDefinition under6m,
 	        AgeCohortDefinition _6To23m, AgeCohortDefinition _24To59m, Map<String, Object> parameterMappings) {
 		CohortCrossTabDataSetDefinition characteristicsDatasetDef = new CohortCrossTabDataSetDefinition();
-		characteristicsDatasetDef.setParameters(getParameters());
+		characteristicsDatasetDef.addParameters(getParameters());
 		
 		GenderCohortDefinition males = new GenderCohortDefinition();
 		males.setMaleIncluded(true);
@@ -297,7 +294,7 @@ public class ChildCareReportManager extends ActivatedReportManager {
 	private CohortCrossTabDataSetDefinition createFateOfChildDatasetDefinition(AgeCohortDefinition under6m,
 	        AgeCohortDefinition _6To23m, AgeCohortDefinition _24To59m, Map<String, Object> parameterMappings) {
 		CohortCrossTabDataSetDefinition fateOfChildDatasetDef = new CohortCrossTabDataSetDefinition();
-		fateOfChildDatasetDef.setParameters(getParameters());
+		fateOfChildDatasetDef.addParameters(getParameters());
 		
 		Concept resultOfVisitQuestion = inizService.getConceptFromKey("report.childCare.resultOfVisitQuestion.concept");
 		
@@ -353,7 +350,7 @@ public class ChildCareReportManager extends ActivatedReportManager {
 	private CohortCrossTabDataSetDefinition createVitaminASupplimentationDatasetDefinition(AgeCohortDefinition under6m,
 	        AgeCohortDefinition _6To23m, AgeCohortDefinition _24To59m, Map<String, Object> parameterMappings) {
 		CohortCrossTabDataSetDefinition vitaminASupplimentationDatasetDef = new CohortCrossTabDataSetDefinition();
-		vitaminASupplimentationDatasetDef.setParameters(getParameters());
+		vitaminASupplimentationDatasetDef.addParameters(getParameters());
 		
 		Concept dosageQuestion = inizService.getConceptFromKey("report.childCare.dose.numericQuestion.concept");
 		
