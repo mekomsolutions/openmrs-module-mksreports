@@ -423,7 +423,7 @@ public class ChildCareReportManager extends ActivatedReportManager {
 		        + MessageUtil.translate("commonreports.report.childCare.males.label");
 		aCol2 = MessageUtil.translate("commonreports.report.childCare.ageCategory1.label") + " - "
 		        + MessageUtil.translate("commonreports.report.childCare.females.label");
-		aCol3 = MessageUtil.translate("commonreports.report.childCare.ageCategory.label") + " - "
+		aCol3 = MessageUtil.translate("commonreports.report.childCare.ageCategory1.label") + " - "
 		        + MessageUtil.translate("commonreports.report.childCare.total.label");
 		aCol4 = MessageUtil.translate("commonreports.report.childCare.ageCategory2.label") + " - "
 		        + MessageUtil.translate("commonreports.report.childCare.males.label");
