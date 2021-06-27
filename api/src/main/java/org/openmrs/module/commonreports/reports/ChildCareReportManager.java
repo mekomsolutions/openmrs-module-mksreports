@@ -132,6 +132,7 @@ public class ChildCareReportManager extends ActivatedReportManager {
 		reportDef.setUuid(getUuid());
 		reportDef.setName(getName());
 		reportDef.setDescription(getDescription());
+		reportDef.setParameters(getParameters());
 		
 		// category 1
 		AgeCohortDefinition under6m = new AgeCohortDefinition();
@@ -192,6 +193,8 @@ public class ChildCareReportManager extends ActivatedReportManager {
 	private CohortCrossTabDataSetDefinition createCharacteristicsDatasetDefinition(AgeCohortDefinition under6m,
 	        AgeCohortDefinition _6To23m, AgeCohortDefinition _24To59m, Map<String, Object> parameterMappings) {
 		CohortCrossTabDataSetDefinition characteristicsDatasetDef = new CohortCrossTabDataSetDefinition();
+		characteristicsDatasetDef.setParameters(getParameters());
+		
 		GenderCohortDefinition males = new GenderCohortDefinition();
 		males.setMaleIncluded(true);
 		
@@ -294,6 +297,7 @@ public class ChildCareReportManager extends ActivatedReportManager {
 	private CohortCrossTabDataSetDefinition createFateOfChildDatasetDefinition(AgeCohortDefinition under6m,
 	        AgeCohortDefinition _6To23m, AgeCohortDefinition _24To59m, Map<String, Object> parameterMappings) {
 		CohortCrossTabDataSetDefinition fateOfChildDatasetDef = new CohortCrossTabDataSetDefinition();
+		fateOfChildDatasetDef.setParameters(getParameters());
 		
 		Concept resultOfVisitQuestion = inizService.getConceptFromKey("report.childCare.resultOfVisitQuestion.concept");
 		
@@ -349,6 +353,7 @@ public class ChildCareReportManager extends ActivatedReportManager {
 	private CohortCrossTabDataSetDefinition createVitaminASupplimentationDatasetDefinition(AgeCohortDefinition under6m,
 	        AgeCohortDefinition _6To23m, AgeCohortDefinition _24To59m, Map<String, Object> parameterMappings) {
 		CohortCrossTabDataSetDefinition vitaminASupplimentationDatasetDef = new CohortCrossTabDataSetDefinition();
+		vitaminASupplimentationDatasetDef.setParameters(getParameters());
 		
 		Concept dosageQuestion = inizService.getConceptFromKey("report.childCare.dose.numericQuestion.concept");
 		
