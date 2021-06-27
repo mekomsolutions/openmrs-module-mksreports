@@ -4,7 +4,6 @@ import java.io.File;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Iterator;
-import java.util.List;
 import org.dbunit.DatabaseUnitException;
 import org.dbunit.DatabaseUnitRuntimeException;
 import org.dbunit.database.DatabaseConfig;
@@ -113,8 +112,7 @@ public class NewEpisodesOfDiseasesReportManagerTest extends BaseModuleContextSen
 		// verif
 		ReportDesign design = rs.getReportDesignByUuid("7688966e-fca5-4fde-abab-1b46a87a1185");
 		
-		Assert.assertEquals(NewEpisodesOfDiseasesReportManager.REPEATING_SECTION,
-		    design.getProperties().get("repeatingSections"));
+		Assert.assertEquals("sheet:1,row:4,dataset:" + manager.getName(), design.getProperties().get("repeatingSections"));
 		Assert.assertEquals(1, design.getResources().size());
 		
 		ReportDefinition def = design.getReportDefinition();

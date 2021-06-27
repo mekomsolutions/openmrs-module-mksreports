@@ -8,7 +8,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.apache.commons.collections4.CollectionUtils;
@@ -29,10 +28,6 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class NewEpisodesOfDiseasesReportManager extends ActivatedReportManager {
-	
-	private static final String DATA_SET_NAME = "New Episodes of Diseases";
-	
-	public static final String REPEATING_SECTION = "sheet:1,row:4,dataset:" + DATA_SET_NAME;
 	
 	@Autowired
 	private InitializerService inizService;
@@ -104,8 +99,8 @@ public class NewEpisodesOfDiseasesReportManager extends ActivatedReportManager {
 		rd.setUuid(getUuid());
 		
 		SqlDataSetDefinition sqlDsd = new SqlDataSetDefinition();
-		sqlDsd.setName(DATA_SET_NAME);
-		sqlDsd.setDescription("New Episodes of Diseases SQL Dataset");
+		sqlDsd.setName(getName());
+		sqlDsd.setDescription("");
 		
 		String rawSql = getSqlString("org/openmrs/module/commonreports/sql/newEpisodesOfDiseases.sql");
 		Concept allMaladies = inizService.getConceptFromKey("report.newEpisodesOfDiseases.diagnosisList.conceptSet");
@@ -119,7 +114,7 @@ public class NewEpisodesOfDiseasesReportManager extends ActivatedReportManager {
 		parameterMappings.put("startDate", "${startDate}");
 		parameterMappings.put("endDate", "${endDate}");
 		
-		rd.addDataSetDefinition(DATA_SET_NAME, sqlDsd, parameterMappings);
+		rd.addDataSetDefinition(getName(), sqlDsd, parameterMappings);
 		
 		return rd;
 	}
@@ -130,7 +125,7 @@ public class NewEpisodesOfDiseasesReportManager extends ActivatedReportManager {
 		    reportDefinition, "org/openmrs/module/commonreports/reportTemplates/newEpisodesOfDiseasesReportTemplate.xls");
 		
 		Properties designProperties = new Properties();
-		designProperties.put("repeatingSections", REPEATING_SECTION);
+		designProperties.put("repeatingSections", "sheet:1,row:4,dataset:" + getName());
 		designProperties.put("title.label", MessageUtil.translate("commonreports.report.newEpisodesOfDiseases.title.label"));
 		designProperties.put("maladies.label",
 		    MessageUtil.translate("commonreports.report.newEpisodesOfDiseases.maladies.label"));
