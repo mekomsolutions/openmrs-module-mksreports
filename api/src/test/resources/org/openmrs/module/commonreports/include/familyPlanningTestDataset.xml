@@ -49,48 +49,48 @@
 	<concept_name concept_id="870" name="Jadel" locale="en" creator="1" date_created="2004-08-12 00:00:00.0" concept_name_id="2563" concept_name_type="FULLY_SPECIFIED" locale_preferred="1" voided="false" uuid="5ee2f9c3-a517-46c2-9a93-e8839e5271b2" />
 	<concept_name concept_id="871" name="Condom (unity)" locale="en" creator="1" date_created="2004-08-12 00:00:00.0" concept_name_id="2564" concept_name_type="FULLY_SPECIFIED" locale_preferred="1" voided="false" uuid="59d8f4f5-2454-4db8-bbd2-78f30a742f5a" />
 
-	<!--  //set female <25 -->
+				<!--  Female < 25 years -->
 	<obs obs_id="80" person_id="15" concept_id="863" encounter_id="16" obs_group_id="[NULL]" obs_datetime="2021-06-02 00:00:00.0" location_id="1" value_coded="[NULL]" comments="" creator="1" date_created="2021-06-02 14:09:35.0" voided="false" value_coded_name_id="[NULL]" value_complex="[NULL]" value_text="[NULL]" value_numeric="[NULL]" value_datetime="[NULL]" value_drug="[NULL]" uuid="a2c84a9b-6181-445f-a106-267cc8641976" />
-	<!-- 		 //FP given microlut -->
+				<!--  FP given microlut -->
 	<obs obs_id="4003" person_id="15" concept_id="862" encounter_id="16" obs_group_id="80" obs_datetime="2021-06-02 00:00:00.0" location_id="1" value_coded="868" comments="" creator="1" date_created="2021-06-02 14:09:35.0" voided="false" value_coded_name_id="[NULL]" value_complex="[NULL]" value_text="[NULL]" value_numeric="[NULL]" value_datetime="[NULL]" value_drug="[NULL]" uuid="90b6abe2-eef9-4d03-aba7-5363a591cb1a" />
-	<!-- 		 // existent user -->
+				<!--  Existent user -->
 	<obs obs_id="4004" person_id="15" concept_id="865" encounter_id="16" obs_group_id="80" obs_datetime="2021-06-02 00:00:00.0" location_id="1" value_coded="864" comments="" creator="1" date_created="2021-06-02 14:09:35.0" voided="false" value_coded_name_id="[NULL]" value_complex="[NULL]" value_text="[NULL]" value_numeric="1" value_datetime="[NULL]" value_drug="[NULL]" uuid="c631d811-e764-46d5-8ee4-4cceb406dcf4" />
 
-	<!--  //set female <25 new  -->
+				<!--  Female < 25 years  -->
 	<obs obs_id="81" person_id="15" concept_id="863" encounter_id="16" obs_group_id="[NULL]" obs_datetime="2021-06-02 00:00:00.0" location_id="1" value_coded="[NULL]" comments="" creator="1" date_created="2021-06-02 14:09:35.0" voided="false" value_coded_name_id="[NULL]" value_complex="[NULL]" value_text="[NULL]" value_numeric="[NULL]" value_datetime="[NULL]" value_drug="[NULL]" uuid="61901fb4-24fa-4e8b-8a8f-2b5531975a00" />
-	<!-- 		 //FP given microlut -->
+				<!-- FP given microlut -->
 	<obs obs_id="4005" person_id="15" concept_id="862" encounter_id="16" obs_group_id="81" obs_datetime="2021-06-02 00:00:00.0" location_id="1" value_coded="868" comments="" creator="1" date_created="2021-06-02 14:09:35.0" voided="false" value_coded_name_id="[NULL]" value_complex="[NULL]" value_text="[NULL]" value_numeric="[NULL]" value_datetime="[NULL]" value_drug="[NULL]" uuid="035afcdb-ea8c-49fa-b2de-b54ba4ef7b12" />
-	<!-- 		 // new user -->
+				<!--  New user -->
 	<obs obs_id="4006" person_id="15" concept_id="865" encounter_id="16" obs_group_id="81" obs_datetime="2021-06-02 00:00:00.0" location_id="1" value_coded="866" comments="" creator="1" date_created="2021-06-02 14:09:35.0" voided="false" value_coded_name_id="[NULL]" value_complex="[NULL]" value_text="[NULL]" value_numeric="1" value_datetime="[NULL]" value_drug="[NULL]" uuid="ef133e7f-03d3-44f8-84e2-0016305ceb05" />
 
-	<!--  //set female <25 new  -->
+				<!--  Female < 25 years  -->
 	<obs obs_id="82" person_id="15" concept_id="863" encounter_id="16" obs_group_id="[NULL]" obs_datetime="2019-06-02 00:00:00.0" location_id="1" value_coded="[NULL]" comments="" creator="1" date_created="2019-06-02 14:09:35.0" voided="false" value_coded_name_id="[NULL]" value_complex="[NULL]" value_text="[NULL]" value_numeric="[NULL]" value_datetime="[NULL]" value_drug="[NULL]" uuid="38c6c5ab-2db5-4b67-8111-c39e582d3705" />
-	<!-- 		 //FP given Jadel -->
+				<!-- FP given Jadel -->
 	<obs obs_id="4007" person_id="15" concept_id="862" encounter_id="16" obs_group_id="82" obs_datetime="2019-06-02 00:00:00.0" location_id="1" value_coded="870" comments="" creator="1" date_created="2019-06-02 14:09:35.0" voided="false" value_coded_name_id="[NULL]" value_complex="[NULL]" value_text="[NULL]" value_numeric="[NULL]" value_datetime="[NULL]" value_drug="[NULL]" uuid="b579f642-8610-48ac-87e1-2c1b1df6d9b5" />
-	<!-- 		 // new user -->
+				<!--  New user -->
 	<obs obs_id="4008" person_id="15" concept_id="865" encounter_id="16" obs_group_id="82" obs_datetime="2019-06-02 00:00:00.0" location_id="1" value_coded="866" comments="" creator="1" date_created="2019-06-02 14:09:35.0" voided="false" value_coded_name_id="[NULL]" value_complex="[NULL]" value_text="[NULL]" value_numeric="1" value_datetime="[NULL]" value_drug="[NULL]" uuid="126c8967-c63c-42b8-a8f4-9c02165f45ac" />
 
 
-	<!--  //set female >25 -->
+				<!--  Female > 25 years -->
 	<obs obs_id="83" person_id="16" concept_id="863" encounter_id="17" obs_group_id="[NULL]" obs_datetime="2021-06-02 00:00:00.0" location_id="1" value_coded="[NULL]" comments="" creator="1" date_created="2021-06-02 14:09:35.0" voided="false" value_coded_name_id="[NULL]" value_complex="[NULL]" value_text="[NULL]" value_numeric="[NULL]" value_datetime="[NULL]" value_drug="[NULL]" uuid="02b2f1a1-9485-46dc-85f3-d6687a51de1e" />
-	<!-- 		 //FP given Depo -->
+				<!-- FP given Depo -->
 	<obs obs_id="4009" person_id="16" concept_id="862" encounter_id="17" obs_group_id="83" obs_datetime="2021-06-02 00:00:00.0" location_id="1" value_coded="869" comments="" creator="1" date_created="2021-06-02 14:09:35.0" voided="false" value_coded_name_id="[NULL]" value_complex="[NULL]" value_text="[NULL]" value_numeric="[NULL]" value_datetime="[NULL]" value_drug="[NULL]" uuid="cfa9293b-cfe0-4519-8b4e-194e39451dfc" />
-	<!-- 		 // existent user -->
+				<!--  Existent user -->
 	<obs obs_id="4010" person_id="16" concept_id="865" encounter_id="17" obs_group_id="83" obs_datetime="2021-06-02 00:00:00.0" location_id="1" value_coded="864" comments="" creator="1" date_created="2021-06-02 14:09:35.0" voided="false" value_coded_name_id="[NULL]" value_complex="[NULL]" value_text="[NULL]" value_numeric="1" value_datetime="[NULL]" value_drug="[NULL]" uuid="2d2fdc82-e358-4279-a636-2c1ee683ea8b" />
 
-	<!--  //set female >25 -->
+				<!--  Female > 25 years -->
 	<obs obs_id="84" person_id="16" concept_id="863" encounter_id="17" obs_group_id="[NULL]" obs_datetime="2021-07-02 00:00:00.0" location_id="1" value_coded="[NULL]" comments="" creator="1" date_created="2021-07-02 14:09:35.0" voided="false" value_coded_name_id="[NULL]" value_complex="[NULL]" value_text="[NULL]" value_numeric="[NULL]" value_datetime="[NULL]" value_drug="[NULL]" uuid="34bc72aa-f66f-4604-86ff-fffec1da5c2a" />
-	<!-- 		 //FP given Condom -->
+				<!-- FP given Condoms -->
 	<obs obs_id="4011" person_id="16" concept_id="862" encounter_id="17" obs_group_id="84" obs_datetime="2021-07-02 00:00:00.0" location_id="1" value_coded="871" comments="" creator="1" date_created="2021-07-02 14:09:35.0" voided="false" value_coded_name_id="[NULL]" value_complex="[NULL]" value_text="[NULL]" value_numeric="[NULL]" value_datetime="[NULL]" value_drug="[NULL]" uuid="6377b87e-96da-4d4b-b952-3a4364c4165f" />
-	<!-- 		 // new user -->
+				<!--  New user -->
 	<obs obs_id="4012" person_id="16" concept_id="865" encounter_id="17" obs_group_id="84" obs_datetime="2021-07-02 00:00:00.0" location_id="1" value_coded="866" comments="" creator="1" date_created="2021-07-02 14:09:35.0" voided="false" value_coded_name_id="[NULL]" value_complex="[NULL]" value_text="[NULL]" value_numeric="1" value_datetime="[NULL]" value_drug="[NULL]" uuid="3fbdac4d-064a-49a8-946c-4c89cf30af47" />
 
 
-	<!--  //set Male >25 -->
+				<!--  Female > 25 years -->
 	<obs obs_id="85" person_id="17" concept_id="863" encounter_id="18" obs_group_id="[NULL]" obs_datetime="2021-07-02 00:00:00.0" location_id="1" value_coded="[NULL]" comments="" creator="1" date_created="2021-07-02 14:09:35.0" voided="false" value_coded_name_id="[NULL]" value_complex="[NULL]" value_text="[NULL]" value_numeric="[NULL]" value_datetime="[NULL]" value_drug="[NULL]" uuid="cc1f619b-47ff-4af1-a8f2-59ca6c800ee2" />
-	<!-- 		 //FP given Condom -->
+				<!-- FP given Condoms -->
 	<obs obs_id="4013" person_id="17" concept_id="862" encounter_id="18" obs_group_id="85" obs_datetime="2021-07-02 00:00:00.0" location_id="1" value_coded="871" comments="" creator="1" date_created="2021-07-02 14:09:35.0" voided="false" value_coded_name_id="[NULL]" value_complex="[NULL]" value_text="[NULL]" value_numeric="[NULL]" value_datetime="[NULL]" value_drug="[NULL]" uuid="cc2cbdfe-cb2c-4388-80d6-9eaafe30b0be" />
-	<!-- 		 // new user -->
+				<!--  New user -->
 	<obs obs_id="4014" person_id="17" concept_id="865" encounter_id="18" obs_group_id="85" obs_datetime="2021-07-02 00:00:00.0" location_id="1" value_coded="866" comments="" creator="1" date_created="2021-07-02 14:09:35.0" voided="false" value_coded_name_id="[NULL]" value_complex="[NULL]" value_text="[NULL]" value_numeric="1" value_datetime="[NULL]" value_drug="[NULL]" uuid="c58a6b0c-b7ce-4919-907a-df097cc83c5d" />
 
 </dataset>
