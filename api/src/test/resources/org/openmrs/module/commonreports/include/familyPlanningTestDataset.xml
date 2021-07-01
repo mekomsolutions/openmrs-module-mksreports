@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<dataset>
+
+	<person person_id="15" gender="F" birthdate="2000-04-08 00:00:00.0" birthdate_estimated="0" dead="false" creator="1" date_created="2021-04-10 00:00:00.0" voided="false" uuid="9e6065af-bb72-4950-9cbe-3485ede16a61" />
+	<patient patient_id="15" creator="1" date_created="2005-09-22 00:00:00.0" changed_by="1" date_changed="2021-06-02 12:29:59.0" voided="false" void_reason="" />
+
+	<person person_id="16" gender="F" birthdate="1990-04-08 00:00:00.0" birthdate_estimated="0" dead="false" creator="1" date_created="2021-04-10 00:00:00.0" voided="false" uuid="9e6165af-bb72-4950-9cbe-3485ede16a61" />
+	<patient patient_id="16" creator="1" date_created="2010-09-22 00:00:00.0" changed_by="1" date_changed="2021-06-02 12:29:59.0" voided="false" void_reason="" />
+
+	<person person_id="17" gender="M" birthdate="1990-04-08 00:00:00.0" birthdate_estimated="0" dead="false" creator="1" date_created="2021-04-10 00:00:00.0" voided="false" uuid="aea9855a-5251-46cb-acc7-566775663812" />
+	<patient patient_id="17" creator="1" date_created="2010-09-22 00:00:00.0" changed_by="1" date_changed="2021-06-02 12:29:59.0" voided="false" void_reason="" />
+
+	<visit_type visit_type_id="11" name="General" description="General Visit Description" creator="1" date_created="2021-05-05 00:00:00.0" retired="false" uuid="34b74c43-8beb-4c29-95f3-e9f8d7a11bc4" />
+	<visit visit_id="16" patient_id="15" visit_type_id="11" date_started="2021-05-05 00:00:00.0" location_id="1" indication_concept_id="5497" creator="1" date_created="2005-01-01 00:00:00.0" voided="0" uuid="082a25c6-6fdc-4c33-85c7-e8faded20596" />
+	<encounter encounter_id="16" encounter_type="2" visit_id="16" patient_id="15" location_id="1" form_id="2" encounter_datetime="2021-05-05 00:00:00.0" creator="1" date_created="2021-06-02 14:09:05.0" voided="false" void_reason="" uuid="37ec8a29-dba1-455a-a808-794ec883fcc8" />
+
+	<visit visit_id="17" patient_id="16" visit_type_id="11" date_started="2021-05-05 00:00:00.0" location_id="1" indication_concept_id="5497" creator="1" date_created="2005-01-01 00:00:00.0" voided="0" uuid="e1bf7097-048a-49df-a12b-e1a9ebe7929b" />
+	<encounter encounter_id="17" encounter_type="2" visit_id="17" patient_id="16" location_id="1" form_id="2" encounter_datetime="2021-05-05 00:00:00.0" creator="1" date_created="2021-06-02 14:09:05.0" voided="false" void_reason="" uuid="f2df843b-aa79-45d0-b058-65400662562d" />
+
+	<visit visit_id="18" patient_id="17" visit_type_id="11" date_started="2021-05-05 00:00:00.0" location_id="1" indication_concept_id="5497" creator="1" date_created="2005-01-01 00:00:00.0" voided="0" uuid="59c9e24d-594e-45b8-8368-8f7f23aff5df" />
+	<encounter encounter_id="18" encounter_type="2" visit_id="18" patient_id="17" location_id="1" form_id="2" encounter_datetime="2021-05-05 00:00:00.0" creator="1" date_created="2021-06-02 14:09:05.0" voided="false" void_reason="" uuid="ca8d6bba-2674-4914-901c-982801a300f4" />
+
+	<concept concept_id="862" retired="false" datatype_id="2" class_id="11" is_set="false" creator="1" date_created="2021-06-02 06:17:32.0" version="" uuid="3c25e650-ccfa-48da-b276-a7872796b113" />
+	<concept concept_id="863" retired="false" datatype_id="4" class_id="10" is_set="true" creator="1" date_created="2021-01-02 15:27:51.0" version="" uuid="9199a4c6-b15f-482c-aa0e-c839bd0cf535" />
+	<concept concept_id="865" retired="false" datatype_id="2" class_id="11" is_set="false" creator="1" date_created="2021-01-02 15:27:51.0" version="" uuid="613c8c54-a1f5-435c-a1f0-ec9beaa42d06" />
+
+	<concept concept_id="864" retired="false" datatype_id="4" class_id="11" is_set="false" creator="1" date_created="2021-01-02 15:27:51.0" version="" uuid="39741bfe-36a0-4a5b-9c64-fd4caaadca01" />
+
+	<concept concept_id="866" retired="false" datatype_id="4" class_id="11" is_set="true" creator="1" date_created="2021-01-02 15:27:51.0" version="" uuid="1f4109b3-b201-46df-a341-dcfa5299a187" />
+	<concept concept_id="867" retired="false" datatype_id="4" class_id="11" is_set="true" creator="1" date_created="2021-01-02 15:27:51.0" version="" uuid="2f4109b3-b201-46df-a341-dcfa5299a187" />
+
+	<concept concept_id="868" retired="false" datatype_id="4" class_id="11" is_set="false" creator="1" date_created="2021-01-02 15:27:51.0" version="" uuid="7de60d88-8acc-4c2d-8aff-af1dc6b50196" />
+
+	<concept concept_id="869" retired="false" datatype_id="4" class_id="11" is_set="false" creator="1" date_created="2021-01-02 15:27:51.0" version="" uuid="9d94495d-3b87-4cfd-9b7d-3d297fddce7b" />
+
+	<concept concept_id="870" retired="false" datatype_id="4" class_id="11" is_set="false" creator="1" date_created="2021-01-02 15:27:51.0" version="" uuid="a3ea4adf-9a0d-4688-a693-fc1ffcc8d258" />
+
+	<concept concept_id="871" retired="false" datatype_id="4" class_id="11" is_set="false" creator="1" date_created="2021-01-02 15:27:51.0" version="" uuid="b6a93ac9-5e0e-463a-9162-68e5c7e02938" />
+
+	<concept_name concept_id="862" name="FP administred" locale="en" creator="1" date_created="2004-08-12 00:00:00.0" concept_name_id="9036" concept_name_type="FULLY_SPECIFIED" locale_preferred="1" voided="false" uuid="666947cb-18da-4287-b579-15023917b6b3" />
+	<concept_name concept_id="863" name="Family Planning" locale="en" creator="1" date_created="2004-08-12 00:00:00.0" concept_name_id="9039" concept_name_type="FULLY_SPECIFIED" locale_preferred="1" voided="false" uuid="82ab5510-a5b2-4e91-9875-ea43ce56d942" />
+	<concept_name concept_id="865" name="Type of user" locale="en" creator="1" date_created="2004-08-12 00:00:00.0" concept_name_id="2648" concept_name_type="FULLY_SPECIFIED" locale_preferred="1" voided="false" uuid="83b81397-edaa-45c1-8478-070f6343b1e3" />
+	<concept_name concept_id="866" name="New" locale="en" creator="1" date_created="2004-08-12 00:00:00.0" concept_name_id="2650" concept_name_type="FULLY_SPECIFIED" locale_preferred="1" voided="false" uuid="35014bb5-9208-4997-b608-11272cee6d14" />
+	<concept_name concept_id="864" name="Existent" locale="en" creator="1" date_created="2004-08-12 00:00:00.0" concept_name_id="2545" concept_name_type="FULLY_SPECIFIED" locale_preferred="1" voided="false" uuid="5915efeb-6af7-4bc1-8ada-53e17c20eade" />
+	<concept_name concept_id="867" name="Microgynon (plaquette)" locale="en" creator="1" date_created="2004-08-12 00:00:00.0" concept_name_id="2558" concept_name_type="FULLY_SPECIFIED" locale_preferred="1" voided="false" uuid="c223321e-0a98-4b3f-aeda-e19535b718f8" />
+	<concept_name concept_id="868" name="Microlut (plaquette)" locale="en" creator="1" date_created="2004-08-12 00:00:00.0" concept_name_id="2560" concept_name_type="FULLY_SPECIFIED" locale_preferred="1" voided="false" uuid="2b8f7e77-d700-4bce-91ca-a5be9453fc1e" />
+	<concept_name concept_id="869" name="Depo Provera Injection" locale="en" creator="1" date_created="2004-08-12 00:00:00.0" concept_name_id="2562" concept_name_type="FULLY_SPECIFIED" locale_preferred="1" voided="false" uuid="35364358-66da-4128-b264-f0be5c836e0f" />
+	<concept_name concept_id="870" name="Jadel" locale="en" creator="1" date_created="2004-08-12 00:00:00.0" concept_name_id="2563" concept_name_type="FULLY_SPECIFIED" locale_preferred="1" voided="false" uuid="5ee2f9c3-a517-46c2-9a93-e8839e5271b2" />
+	<concept_name concept_id="871" name="Condom (unity)" locale="en" creator="1" date_created="2004-08-12 00:00:00.0" concept_name_id="2564" concept_name_type="FULLY_SPECIFIED" locale_preferred="1" voided="false" uuid="59d8f4f5-2454-4db8-bbd2-78f30a742f5a" />
+
+				<!--  Female < 25 years -->
+	<obs obs_id="80" person_id="15" concept_id="863" encounter_id="16" obs_group_id="[NULL]" obs_datetime="2021-06-02 00:00:00.0" location_id="1" value_coded="[NULL]" comments="" creator="1" date_created="2021-06-02 14:09:35.0" voided="false" value_coded_name_id="[NULL]" value_complex="[NULL]" value_text="[NULL]" value_numeric="[NULL]" value_datetime="[NULL]" value_drug="[NULL]" uuid="a2c84a9b-6181-445f-a106-267cc8641976" />
+				<!--  FP given microlut -->
+	<obs obs_id="4003" person_id="15" concept_id="862" encounter_id="16" obs_group_id="80" obs_datetime="2021-06-02 00:00:00.0" location_id="1" value_coded="868" comments="" creator="1" date_created="2021-06-02 14:09:35.0" voided="false" value_coded_name_id="[NULL]" value_complex="[NULL]" value_text="[NULL]" value_numeric="[NULL]" value_datetime="[NULL]" value_drug="[NULL]" uuid="90b6abe2-eef9-4d03-aba7-5363a591cb1a" />
+				<!--  Existent user -->
+	<obs obs_id="4004" person_id="15" concept_id="865" encounter_id="16" obs_group_id="80" obs_datetime="2021-06-02 00:00:00.0" location_id="1" value_coded="864" comments="" creator="1" date_created="2021-06-02 14:09:35.0" voided="false" value_coded_name_id="[NULL]" value_complex="[NULL]" value_text="[NULL]" value_numeric="1" value_datetime="[NULL]" value_drug="[NULL]" uuid="c631d811-e764-46d5-8ee4-4cceb406dcf4" />
+
+				<!--  Female < 25 years  -->
+	<obs obs_id="81" person_id="15" concept_id="863" encounter_id="16" obs_group_id="[NULL]" obs_datetime="2021-06-02 00:00:00.0" location_id="1" value_coded="[NULL]" comments="" creator="1" date_created="2021-06-02 14:09:35.0" voided="false" value_coded_name_id="[NULL]" value_complex="[NULL]" value_text="[NULL]" value_numeric="[NULL]" value_datetime="[NULL]" value_drug="[NULL]" uuid="61901fb4-24fa-4e8b-8a8f-2b5531975a00" />
+				<!-- FP given microlut -->
+	<obs obs_id="4005" person_id="15" concept_id="862" encounter_id="16" obs_group_id="81" obs_datetime="2021-06-02 00:00:00.0" location_id="1" value_coded="868" comments="" creator="1" date_created="2021-06-02 14:09:35.0" voided="false" value_coded_name_id="[NULL]" value_complex="[NULL]" value_text="[NULL]" value_numeric="[NULL]" value_datetime="[NULL]" value_drug="[NULL]" uuid="035afcdb-ea8c-49fa-b2de-b54ba4ef7b12" />
+				<!--  New user -->
+	<obs obs_id="4006" person_id="15" concept_id="865" encounter_id="16" obs_group_id="81" obs_datetime="2021-06-02 00:00:00.0" location_id="1" value_coded="866" comments="" creator="1" date_created="2021-06-02 14:09:35.0" voided="false" value_coded_name_id="[NULL]" value_complex="[NULL]" value_text="[NULL]" value_numeric="1" value_datetime="[NULL]" value_drug="[NULL]" uuid="ef133e7f-03d3-44f8-84e2-0016305ceb05" />
+
+				<!--  Female < 25 years  -->
+	<obs obs_id="82" person_id="15" concept_id="863" encounter_id="16" obs_group_id="[NULL]" obs_datetime="2019-06-02 00:00:00.0" location_id="1" value_coded="[NULL]" comments="" creator="1" date_created="2019-06-02 14:09:35.0" voided="false" value_coded_name_id="[NULL]" value_complex="[NULL]" value_text="[NULL]" value_numeric="[NULL]" value_datetime="[NULL]" value_drug="[NULL]" uuid="38c6c5ab-2db5-4b67-8111-c39e582d3705" />
+				<!-- FP given Jadel -->
+	<obs obs_id="4007" person_id="15" concept_id="862" encounter_id="16" obs_group_id="82" obs_datetime="2019-06-02 00:00:00.0" location_id="1" value_coded="870" comments="" creator="1" date_created="2019-06-02 14:09:35.0" voided="false" value_coded_name_id="[NULL]" value_complex="[NULL]" value_text="[NULL]" value_numeric="[NULL]" value_datetime="[NULL]" value_drug="[NULL]" uuid="b579f642-8610-48ac-87e1-2c1b1df6d9b5" />
+				<!--  New user -->
+	<obs obs_id="4008" person_id="15" concept_id="865" encounter_id="16" obs_group_id="82" obs_datetime="2019-06-02 00:00:00.0" location_id="1" value_coded="866" comments="" creator="1" date_created="2019-06-02 14:09:35.0" voided="false" value_coded_name_id="[NULL]" value_complex="[NULL]" value_text="[NULL]" value_numeric="1" value_datetime="[NULL]" value_drug="[NULL]" uuid="126c8967-c63c-42b8-a8f4-9c02165f45ac" />
+
+
+				<!--  Female > 25 years -->
+	<obs obs_id="83" person_id="16" concept_id="863" encounter_id="17" obs_group_id="[NULL]" obs_datetime="2021-06-02 00:00:00.0" location_id="1" value_coded="[NULL]" comments="" creator="1" date_created="2021-06-02 14:09:35.0" voided="false" value_coded_name_id="[NULL]" value_complex="[NULL]" value_text="[NULL]" value_numeric="[NULL]" value_datetime="[NULL]" value_drug="[NULL]" uuid="02b2f1a1-9485-46dc-85f3-d6687a51de1e" />
+				<!-- FP given Depo -->
+	<obs obs_id="4009" person_id="16" concept_id="862" encounter_id="17" obs_group_id="83" obs_datetime="2021-06-02 00:00:00.0" location_id="1" value_coded="869" comments="" creator="1" date_created="2021-06-02 14:09:35.0" voided="false" value_coded_name_id="[NULL]" value_complex="[NULL]" value_text="[NULL]" value_numeric="[NULL]" value_datetime="[NULL]" value_drug="[NULL]" uuid="cfa9293b-cfe0-4519-8b4e-194e39451dfc" />
+				<!--  Existent user -->
+	<obs obs_id="4010" person_id="16" concept_id="865" encounter_id="17" obs_group_id="83" obs_datetime="2021-06-02 00:00:00.0" location_id="1" value_coded="864" comments="" creator="1" date_created="2021-06-02 14:09:35.0" voided="false" value_coded_name_id="[NULL]" value_complex="[NULL]" value_text="[NULL]" value_numeric="1" value_datetime="[NULL]" value_drug="[NULL]" uuid="2d2fdc82-e358-4279-a636-2c1ee683ea8b" />
+
+				<!--  Female > 25 years -->
+	<obs obs_id="84" person_id="16" concept_id="863" encounter_id="17" obs_group_id="[NULL]" obs_datetime="2021-07-02 00:00:00.0" location_id="1" value_coded="[NULL]" comments="" creator="1" date_created="2021-07-02 14:09:35.0" voided="false" value_coded_name_id="[NULL]" value_complex="[NULL]" value_text="[NULL]" value_numeric="[NULL]" value_datetime="[NULL]" value_drug="[NULL]" uuid="34bc72aa-f66f-4604-86ff-fffec1da5c2a" />
+				<!-- FP given Condoms -->
+	<obs obs_id="4011" person_id="16" concept_id="862" encounter_id="17" obs_group_id="84" obs_datetime="2021-07-02 00:00:00.0" location_id="1" value_coded="871" comments="" creator="1" date_created="2021-07-02 14:09:35.0" voided="false" value_coded_name_id="[NULL]" value_complex="[NULL]" value_text="[NULL]" value_numeric="[NULL]" value_datetime="[NULL]" value_drug="[NULL]" uuid="6377b87e-96da-4d4b-b952-3a4364c4165f" />
+				<!--  New user -->
+	<obs obs_id="4012" person_id="16" concept_id="865" encounter_id="17" obs_group_id="84" obs_datetime="2021-07-02 00:00:00.0" location_id="1" value_coded="866" comments="" creator="1" date_created="2021-07-02 14:09:35.0" voided="false" value_coded_name_id="[NULL]" value_complex="[NULL]" value_text="[NULL]" value_numeric="1" value_datetime="[NULL]" value_drug="[NULL]" uuid="3fbdac4d-064a-49a8-946c-4c89cf30af47" />
+
+
+				<!--  Female > 25 years -->
+	<obs obs_id="85" person_id="17" concept_id="863" encounter_id="18" obs_group_id="[NULL]" obs_datetime="2021-07-02 00:00:00.0" location_id="1" value_coded="[NULL]" comments="" creator="1" date_created="2021-07-02 14:09:35.0" voided="false" value_coded_name_id="[NULL]" value_complex="[NULL]" value_text="[NULL]" value_numeric="[NULL]" value_datetime="[NULL]" value_drug="[NULL]" uuid="cc1f619b-47ff-4af1-a8f2-59ca6c800ee2" />
+				<!-- FP given Condoms -->
+	<obs obs_id="4013" person_id="17" concept_id="862" encounter_id="18" obs_group_id="85" obs_datetime="2021-07-02 00:00:00.0" location_id="1" value_coded="871" comments="" creator="1" date_created="2021-07-02 14:09:35.0" voided="false" value_coded_name_id="[NULL]" value_complex="[NULL]" value_text="[NULL]" value_numeric="[NULL]" value_datetime="[NULL]" value_drug="[NULL]" uuid="cc2cbdfe-cb2c-4388-80d6-9eaafe30b0be" />
+				<!--  New user -->
+	<obs obs_id="4014" person_id="17" concept_id="865" encounter_id="18" obs_group_id="85" obs_datetime="2021-07-02 00:00:00.0" location_id="1" value_coded="866" comments="" creator="1" date_created="2021-07-02 14:09:35.0" voided="false" value_coded_name_id="[NULL]" value_complex="[NULL]" value_text="[NULL]" value_numeric="1" value_datetime="[NULL]" value_drug="[NULL]" uuid="c58a6b0c-b7ce-4919-907a-df097cc83c5d" />
+
+</dataset>
