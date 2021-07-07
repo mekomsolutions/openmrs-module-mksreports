@@ -70,14 +70,6 @@ and o.voided = 0
 -- Adding date params
 AND date(o.obs_datetime) BETWEEN :startDate AND :endDate
 
--- Only consider latest obs
-and not exists
-   (select 1 from obs o_prev 
-    where (date(o_prev.obs_datetime) > date(o.obs_datetime) or (date(o_prev.obs_datetime) = date(o.obs_datetime) and o_prev.obs_id > o.obs_id))
-    and o_prev.person_id = o.person_id
-    and o_prev.concept_id = o.concept_id
-    and o_prev.value_coded = o.value_coded
-    )
 ) oo
 where diagnosis is not null
 group by name

@@ -1,6 +1,7 @@
 package org.openmrs.module.commonreports.reports;
 
 import java.io.File;
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Iterator;
@@ -138,11 +139,11 @@ public class NewEpisodesOfDiseasesReportManagerTest extends BaseModuleContextSen
 		for (Iterator<DataSetRow> itr = data.getDataSets().get(rd.getName()).iterator(); itr.hasNext();) {
 			DataSetRow row = itr.next();
 			if (row.getColumnValue("Maladies/Symptomes").equals("MALARIA")) {
-				assertEquals(ONE, row.getColumnValue("F_25-49"));
+				assertEquals(new BigDecimal(2), row.getColumnValue("F_25-49"));
 				assertEquals(ONE, row.getColumnValue("M_1-4"));
 				assertEquals(ONE, row.getColumnValue("M_Total"));
-				assertEquals(ONE, row.getColumnValue("F_Total"));
-				assertEquals(ONE, row.getColumnValue("TotalReferredCases"));
+				assertEquals(new BigDecimal(2), row.getColumnValue("F_Total"));
+				assertEquals(new BigDecimal(2), row.getColumnValue("TotalReferredCases"));
 				malariaVerified = true;
 			}
 			if (row.getColumnValue("Maladies/Symptomes").equals("FEVER")) {
