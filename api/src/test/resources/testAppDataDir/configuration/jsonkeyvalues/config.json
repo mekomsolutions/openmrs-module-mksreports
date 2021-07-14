@@ -25,6 +25,6 @@
     "report.newEpisodesOfDiseases.diagnosisList.conceptSet" : "c1ee4e1a-96d5-4cb1-82d1-95e367cfee20",
     "report.newEpisodesOfDiseases.questions.conceptSet" : "8dcb0dd6-b31f-41d1-b144-d49a2c5340ab",
     "report.newEpisodesOfDiseases.allDiagnoses.conceptSet" : "dccb05f6-a27b-4331-989c-9a669e84e467",
-    "report.newEpisodesOfDiseases.referredToConcept.concept" : "07783b52-01de-488f-9ad5-1973e943e8ec",
+    "report.newEpisodesOfDiseases.referral.concept" : "07783b52-01de-488f-9ad5-1973e943e8ec",
     "report.newEpisodesOfDiseases.active" : "true"
 }
