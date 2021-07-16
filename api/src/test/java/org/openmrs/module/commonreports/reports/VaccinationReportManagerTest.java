@@ -69,7 +69,7 @@ public class VaccinationReportManagerTest extends BaseModuleContextSensitiveMysq
 		// replay
 		ReportManagerUtil.setupReport(manager);
 		
-		// verif
+		// verify
 		Assert.assertNotNull(rs.getReportDesignByUuid("ab8b5d26-8d13-4397-9690-0f107ad50adf"));
 		
 	}
@@ -89,7 +89,6 @@ public class VaccinationReportManagerTest extends BaseModuleContextSensitiveMysq
 			
 			// In CrossTabDataSet reports all rows and columns are in fact just columns of
 			// one row
-			
 			Cohort _0mTo1yFemalesReceivedBCG = (Cohort) row
 			        .getColumnValue("BCG Vaccination." + VaccinationReportManager.col1);
 			assertNotNull(_0mTo1yFemalesReceivedBCG);
@@ -129,10 +128,10 @@ public class VaccinationReportManagerTest extends BaseModuleContextSensitiveMysq
 			assertNotNull(_prenatalFemalesReceivedRota2);
 			assertEquals(1, _prenatalFemalesReceivedRota2.getSize());
 			
-			Cohort _prenatalFemalesReceivedMR = (Cohort) row
-			        .getColumnValue("Measles Rubella Vaccination 1." + VaccinationReportManager.col5);
-			assertNotNull(_prenatalFemalesReceivedMR);
-			assertEquals(1, _prenatalFemalesReceivedMR.getSize());
+			Cohort _prenatalFemalesReceivedDT = (Cohort) row
+			        .getColumnValue("Diphtheria Tetanus Vaccination 1." + VaccinationReportManager.col5);
+			assertNotNull(_prenatalFemalesReceivedDT);
+			assertEquals(1, _prenatalFemalesReceivedDT.getSize());
 		}
 	}
 	

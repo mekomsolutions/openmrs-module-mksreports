@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang3.math.NumberUtils;
-import org.openmrs.api.context.Context;
 import org.openmrs.module.commonreports.ActivatedReportManager;
 import org.openmrs.module.commonreports.CommonReportsConstants;
 import org.openmrs.module.initializer.api.InitializerService;
@@ -16,7 +15,6 @@ import org.openmrs.module.reporting.cohort.definition.AgeCohortDefinition;
 import org.openmrs.module.reporting.cohort.definition.CompositionCohortDefinition;
 import org.openmrs.module.reporting.cohort.definition.GenderCohortDefinition;
 import org.openmrs.module.reporting.cohort.definition.SqlCohortDefinition;
-import org.openmrs.module.reporting.cohort.definition.VisitCohortDefinition;
 import org.openmrs.module.reporting.common.DurationUnit;
 import org.openmrs.module.reporting.common.MessageUtil;
 import org.openmrs.module.reporting.dataset.definition.CohortCrossTabDataSetDefinition;
@@ -71,8 +69,6 @@ public class EcvReportManager extends ActivatedReportManager {
 	
 	public static String col4 = "";
 	
-	public static String col5 = "";
-	
 	@Override
 	public List<Parameter> getParameters() {
 		List<Parameter> params = new ArrayList<Parameter>();
@@ -97,24 +93,25 @@ public class EcvReportManager extends ActivatedReportManager {
 		Map<String, Object> parameterMappings = new HashMap<String, Object>();
 		parameterMappings.put("onOrBefore", "${endDate}");
 		
-		String[] myArray2 = { "BCG Vaccination", "Oral Polio Vaccination 2", "Polio Vaccine-Inactivated Vaccination",
-		        "Pentavalent Vaccination 3", "Rotavirus Vaccination 2", "Measles Rubella Vaccination 1" };
-		
+		String[] ecvList = inizService.getValueFromKey("report.ecvList").split(",");
 		String st = "SELECT DISTINCT person_id FROM obs where 1=1";
 		
-		for (String member : myArray2) {
+		for (String member : ecvList) {
 			String[] bit = member.split(" ");
 			String lastOne = bit[bit.length - 1];
 			if (!NumberUtils.isNumber(lastOne)) {
-				st = st + " AND person_id IN (SELECT person_id FROM obs where obs_group_id IN (SELECT obs_group_id FROM obs where concept_id= (select DISTINCT CONCEPT_ID from concept_name where name='Vaccinations') and value_coded=(select DISTINCT CONCEPT_ID from concept_name where name='"
-				        + member + "')))";
+				st = st + " AND person_id IN (SELECT person_id FROM obs where obs_group_id IN (SELECT obs_group_id FROM obs where concept_id= (select DISTINCT concept_id from concept where uuid='"
+				        + inizService.getValueFromKey("report.vaccinations")
+				        + "') and value_coded=(select DISTINCT concept_id from concept where uuid='" + member + "')))";
 				
 			} else {
 				int lastIndex = Integer.parseInt(lastOne);
 				String vacName = member.substring(0, member.lastIndexOf(" "));
-				st = st + " AND person_id IN (SELECT person_id FROM obs where obs_group_id IN (SELECT obs_group_id FROM obs where concept_id= (select DISTINCT CONCEPT_ID from concept_name where name='Vaccinations') and value_coded=(select DISTINCT CONCEPT_ID from concept_name where name='"
-				        + vacName
-				        + "')) AND concept_id=(select DISTINCT CONCEPT_ID from concept_name where name='Vaccination sequence number') and value_numeric="
+				st = st + " AND person_id IN (SELECT person_id FROM obs where obs_group_id IN (SELECT obs_group_id FROM obs where concept_id= (select DISTINCT concept_id from concept where uuid='"
+				        + inizService.getValueFromKey("report.vaccinations")
+				        + "') and value_coded=(select DISTINCT concept_id from concept where uuid='" + vacName
+				        + "')) AND concept_id=(select DISTINCT concept_id from concept where uuid='"
+				        + inizService.getValueFromKey("report.vaccinationSequenceNumber") + "') and value_numeric="
 				        + lastIndex + ")";
 			}
 			
@@ -145,15 +142,10 @@ public class EcvReportManager extends ActivatedReportManager {
 		_1To2y.setMaxAge(23);
 		_1To2y.setMaxAgeUnit(DurationUnit.MONTHS);
 		
-		VisitCohortDefinition _prenatal = new VisitCohortDefinition();
-		_prenatal.setVisitTypeList(
-		    Arrays.asList(Context.getVisitService().getVisitTypeByUuid("35ba9aff-901c-49dc-8630-a59385480d18")));
-		
 		vaccination.addColumn(col1, createCohortComposition(_0mTo1y, females), null);
 		vaccination.addColumn(col2, createCohortComposition(_1To2y, females), null);
 		vaccination.addColumn(col3, createCohortComposition(_0mTo1y, males), null);
 		vaccination.addColumn(col4, createCohortComposition(_1To2y, males), null);
-		vaccination.addColumn(col5, createCohortComposition(_prenatal, females), null);
 		
 		return rd;
 	}
@@ -167,8 +159,6 @@ public class EcvReportManager extends ActivatedReportManager {
 		        + MessageUtil.translate("commonreports.report.vaccination.males.label");
 		col4 = MessageUtil.translate("commonreports.report.vaccination.ageCategory2.label") + " - "
 		        + MessageUtil.translate("commonreports.report.vaccination.males.label");
-		col5 = MessageUtil.translate("commonreports.report.vaccination.females.label") + " - "
-		        + MessageUtil.translate("commonreports.report.vaccination.prenatal.label");
 		
 	}
 	
