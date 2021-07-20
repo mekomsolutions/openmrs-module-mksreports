@@ -111,7 +111,7 @@ public class VaccinationReportManager extends ActivatedReportManager {
 		
 		for (String member : vaccinationList) {
 			
-			String[] bits = member.split(" ");
+			String[] bits = member.split(":");
 			String lastOne = bits[bits.length - 1];
 			if (!NumberUtils.isNumber(lastOne)) {
 				String sqlQuery = "SELECT person_id FROM obs where obs_group_id IN (SELECT obs_group_id FROM obs where concept_id= (select DISTINCT CONCEPT_ID from concept where uuid='"
@@ -125,7 +125,7 @@ public class VaccinationReportManager extends ActivatedReportManager {
 				
 			} else {
 				int lastIndex = Integer.parseInt(lastOne);
-				String vacName = member.substring(0, member.lastIndexOf(" "));
+				String vacName = member.substring(0, member.lastIndexOf(":"));
 				
 				String sqlQuery = "SELECT person_id FROM obs where obs_group_id IN (SELECT obs_group_id FROM obs where concept_id= (select DISTINCT CONCEPT_ID from concept where uuid='"
 				        + inizService.getValueFromKey("report.vaccinations")

@@ -96,7 +96,7 @@ public class VaccinationReportManagerTest extends BaseModuleContextSensitiveMysq
 			
 			Cohort _0mTo1yMalesReceivedBCG = (Cohort) row.getColumnValue("BCG Vaccination." + VaccinationReportManager.col3);
 			assertNotNull(_0mTo1yMalesReceivedBCG);
-			assertEquals(0, _0mTo1yMalesReceivedBCG.getSize());
+			assertEquals(1, _0mTo1yMalesReceivedBCG.getSize());
 			
 			Cohort _0mTo1yFemalesReceivedPenta3 = (Cohort) row
 			        .getColumnValue("Pentavalent Vaccination 3." + VaccinationReportManager.col1);
@@ -108,25 +108,25 @@ public class VaccinationReportManagerTest extends BaseModuleContextSensitiveMysq
 			assertNotNull(_prenatalFemalesReceivedPenta3);
 			assertEquals(1, _prenatalFemalesReceivedPenta3.getSize());
 			
-			Cohort MalesReceivedPenta3 = (Cohort) row
+			Cohort _malesReceivedPenta3 = (Cohort) row
 			        .getColumnValue("Pentavalent Vaccination 3." + VaccinationReportManager.col4);
-			assertNotNull(MalesReceivedPenta3);
-			assertEquals(0, MalesReceivedPenta3.getSize());
+			assertNotNull(_malesReceivedPenta3);
+			assertEquals(0, _malesReceivedPenta3.getSize());
 			
 			Cohort _prenatalFemalesReceivedOPV2 = (Cohort) row
 			        .getColumnValue("Oral Polio Vaccination 2." + VaccinationReportManager.col5);
 			assertNotNull(_prenatalFemalesReceivedOPV2);
 			assertEquals(1, _prenatalFemalesReceivedOPV2.getSize());
 			
-			Cohort _prenatalFemalesReceivedIPV = (Cohort) row
-			        .getColumnValue("Polio Vaccine-Inactivated Vaccination." + VaccinationReportManager.col5);
-			assertNotNull(_prenatalFemalesReceivedIPV);
-			assertEquals(1, _prenatalFemalesReceivedIPV.getSize());
+			Cohort _femalesReceivedIPV = (Cohort) row
+			        .getColumnValue("Polio Vaccine-Inactivated Vaccination." + VaccinationReportManager.col1);
+			assertNotNull(_femalesReceivedIPV);
+			assertEquals(1, _femalesReceivedIPV.getSize());
 			
-			Cohort _prenatalFemalesReceivedRota2 = (Cohort) row
-			        .getColumnValue("Rotavirus Vaccination 2." + VaccinationReportManager.col5);
-			assertNotNull(_prenatalFemalesReceivedRota2);
-			assertEquals(1, _prenatalFemalesReceivedRota2.getSize());
+			Cohort _femalesReceivedRota2 = (Cohort) row
+			        .getColumnValue("Rotavirus Vaccination 2." + VaccinationReportManager.col1);
+			assertNotNull(_femalesReceivedRota2);
+			assertEquals(1, _femalesReceivedRota2.getSize());
 			
 			Cohort _prenatalFemalesReceivedDT = (Cohort) row
 			        .getColumnValue("Diphtheria Tetanus Vaccination 1." + VaccinationReportManager.col5);

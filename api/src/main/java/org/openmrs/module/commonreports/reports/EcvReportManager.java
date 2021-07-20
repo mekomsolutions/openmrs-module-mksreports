@@ -97,7 +97,7 @@ public class EcvReportManager extends ActivatedReportManager {
 		String st = "SELECT DISTINCT person_id FROM obs where 1=1";
 		
 		for (String member : ecvList) {
-			String[] bit = member.split(" ");
+			String[] bit = member.split(":");
 			String lastOne = bit[bit.length - 1];
 			if (!NumberUtils.isNumber(lastOne)) {
 				st = st + " AND person_id IN (SELECT person_id FROM obs where obs_group_id IN (SELECT obs_group_id FROM obs where concept_id= (select DISTINCT concept_id from concept where uuid='"
@@ -106,7 +106,7 @@ public class EcvReportManager extends ActivatedReportManager {
 				
 			} else {
 				int lastIndex = Integer.parseInt(lastOne);
-				String vacName = member.substring(0, member.lastIndexOf(" "));
+				String vacName = member.substring(0, member.lastIndexOf(":"));
 				st = st + " AND person_id IN (SELECT person_id FROM obs where obs_group_id IN (SELECT obs_group_id FROM obs where concept_id= (select DISTINCT concept_id from concept where uuid='"
 				        + inizService.getValueFromKey("report.vaccinations")
 				        + "') and value_coded=(select DISTINCT concept_id from concept where uuid='" + vacName

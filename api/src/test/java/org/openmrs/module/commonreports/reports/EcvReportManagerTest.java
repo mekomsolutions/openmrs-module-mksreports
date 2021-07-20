@@ -92,7 +92,7 @@ public class EcvReportManagerTest extends BaseModuleContextSensitiveMysqlBackedT
 			
 			Cohort _0mTo1yFemalesECV = (Cohort) row.getColumnValue("ECV." + EcvReportManager.col1);
 			assertNotNull(_0mTo1yFemalesECV);
-			assertEquals(0, _0mTo1yFemalesECV.getSize());
+			assertEquals(1, _0mTo1yFemalesECV.getSize());
 			
 			Cohort _1To2yFemalesECV = (Cohort) row.getColumnValue("ECV." + EcvReportManager.col2);
 			assertNotNull(_1To2yFemalesECV);
