@@ -21,28 +21,28 @@
 
 	<concept concept_id="862" retired="false" datatype_id="2" class_id="28" is_set="false"
 			 creator="1" date_created="2021-06-02 06:17:32.0" version=""
-			 uuid="3c25e650-ccfa-48da-b276-a7872796b113"/>
+			 uuid="508c9da4-56f9-4129-9a0e-766fb8e74f3e"/>
 	<concept concept_id="863" retired="false" datatype_id="2" class_id="28" is_set="false"
 			 creator="1" date_created="2021-01-02 15:27:51.0" version=""
-			 uuid="9199a4c6-b15f-482c-aa0e-c839bd0cf535"/>
+			 uuid="382c9fa6-81d8-48c7-8b45-7866f5473030"/>
 	<concept concept_id="864" retired="false" datatype_id="2" class_id="28" is_set="false"
 			 creator="1" date_created="2021-01-02 15:27:51.0" version=""
-			 uuid="613c8c54-a1f5-435c-a1f0-ec9beaa42d06"/>
+			 uuid="00ce9624-11e3-4015-b695-d7ff7cb3930e"/>
 	<concept concept_id="865" retired="false" datatype_id="2" class_id="28" is_set="false"
 			 creator="1" date_created="2021-01-02 15:27:51.0" version=""
-			 uuid="39741bfe-36a0-4a5b-9c64-fd4caaadca01"/>
+			 uuid="94bea8da-9133-4f8f-bdb4-9118838ef6b0"/>
 	<concept concept_id="866" retired="false" datatype_id="4" class_id="8" is_set="true"
 			 creator="1" date_created="2021-01-02 15:27:51.0" version=""
-			 uuid="1f4109b3-b201-46df-a341-dcfa5299a187"/>
+			 uuid="e1a77dc7-c7d6-41d2-9c4e-93acc1093bcf"/>
 	<concept concept_id="867" retired="false" datatype_id="4" class_id="8" is_set="true"
 			 creator="1" date_created="2021-01-02 15:27:51.0" version=""
-			 uuid="2f4109b3-b201-46df-a341-dcfa5299a187"/>
+			 uuid="c108ee98-5abc-43f3-9653-fc920d79e133"/>
 	<concept concept_id="868" retired="false" datatype_id="4" class_id="11" is_set="false"
 			 creator="1" date_created="2021-01-02 15:27:51.0" version=""
-			 uuid="7de60d88-8acc-4c2d-8aff-af1dc6b50196"/>
+			 uuid="7acfafa4-f19b-485e-97a7-c9e002dbe37a"/>
 	<concept concept_id="869" retired="false" datatype_id="4" class_id="11" is_set="false"
 			 creator="1" date_created="2021-01-02 15:27:51.0" version=""
-			 uuid="9d94495d-3b87-4cfd-9b7d-3d297fddce7b"/>
+			 uuid="e7c0fefc-96e8-4ccb-b24b-92ec2024f579"/>
 
 	<concept_name concept_id="862" name="Malaria" locale="en" creator="1"
 				  date_created="2004-08-12 00:00:00.0" concept_name_id="9036"

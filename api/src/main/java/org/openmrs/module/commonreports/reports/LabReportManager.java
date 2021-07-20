@@ -97,7 +97,8 @@ public class LabReportManager extends ActivatedReportManager {
 		sqlDsd.setName("Lab SQL Dataset");
 		sqlDsd.setDescription("Lab SQL Dataset");
 		
-		String sql = getSqlString("org/openmrs/module/commonreports/sql/lab.sql");
+		String rawSql = getSqlString("org/openmrs/module/commonreports/sql/lab.sql");
+		String sql = applyMetadataReplacements(rawSql);
 		sqlDsd.setSqlQuery(sql);
 		sqlDsd.addParameters(getParameters());
 		
@@ -119,6 +120,27 @@ public class LabReportManager extends ActivatedReportManager {
 		
 		reportDesign.setProperties(designProperties);
 		return Arrays.asList(reportDesign);
+	}
+	
+	private String applyMetadataReplacements(String rawSql) {
+		String s = rawSql
+		        .replace(":serialSputumBacilloscopy",
+		            "'" + inizService.getValueFromKey("report.lab.serialSputumBacilloscopy") + "'")
+		        .replace(":positive", "'" + inizService.getValueFromKey("report.lab.positive") + "'")
+		        .replace(":negative", "'" + inizService.getValueFromKey("report.lab.negative") + "'")
+		        .replace(":indeterminate", "'" + inizService.getValueFromKey("report.lab.indeterminate") + "'")
+		        .replace(":zero", "'" + inizService.getValueFromKey("report.lab.zero") + "'")
+		        .replace(":onePlus", "'" + inizService.getValueFromKey("report.lab.onePlus") + "'")
+		        .replace(":twoPlus", "'" + inizService.getValueFromKey("report.lab.twoPlus") + "'")
+		        .replace(":threePlus", "'" + inizService.getValueFromKey("report.lab.threePlus") + "'")
+		        .replace(":fourPlus", "'" + inizService.getValueFromKey("report.lab.fourPlus") + "'")
+		        .replace(":malaria", "'" + inizService.getValueFromKey("report.lab.malaria") + "'")
+		        .replace(":completeBloodCount", "'" + inizService.getValueFromKey("report.lab.completeBloodCount") + "'")
+		        .replace(":sicklingTest", "'" + inizService.getValueFromKey("report.lab.sicklingTest") + "'")
+		        .replace(":bloodGroup", "'" + inizService.getValueFromKey("report.lab.bloodGroup") + "'")
+		        .replace(":urinalysis", "'" + inizService.getValueFromKey("report.lab.urinalysis") + "'")
+		        .replace(":prenatalVisitType", "'" + inizService.getValueFromKey("report.lab.prenatalVisitType") + "'");
+		return s;
 	}
 	
 }
