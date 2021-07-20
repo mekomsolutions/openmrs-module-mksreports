@@ -26,6 +26,6 @@ It is setup by setting the following properties in [initializer](https://github.
 `report.vaccinationSequenceNumber`specifies uuid of the vaccination sequence number concept.
 `report.boosterSequenceNumber` specifies the uuid of the vaccination booster number concept.
 `report.vaccinationList` specifies the uuids of individual vaccinations with their sequence or booster number separated by a full-colon.
-`report.ecvList` specifies the uuids of individual vaccinations for the full pediatric coverage with their sequence or booster number separated by a full-colon.
+`report.ecvList` specifies the uuids of individual vaccinations for the full pediatric coverage with their sequence or booster number separated by a full-colon. Currently the report expect this to be all children that have received 1 dose of BCG, 1 dose of VPI, 3 doses of Penta, 2 doses of VPO, 2 doses of Rota and 1 dose of RR
 
 The report template can be found at [MSPP: Vaccination](https://docs.google.com/spreadsheets/d/13A3gBRwi45-YwnArNsDgQB4EPVwsTswp/edit#gid=1856133398)
