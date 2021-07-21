@@ -3,7 +3,7 @@ This report searches different lab tests. It is a MSPP Report requested by the H
 
 **Setup**
 
-It is setup by setting the following properties in [initializer](https://github.com/mekomsolutions/openmrs-module-initializer) `jsonkeyvalues`' domain configuration. 
+It is setup by setting the following properties in [Initializer](https://github.com/mekomsolutions/openmrs-module-initializer) `jsonkeyvalues`' domain configuration. 
 
 ```bash
 {
