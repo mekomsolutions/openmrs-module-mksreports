@@ -26,5 +26,8 @@
     "report.newEpisodesOfDiseases.questions.conceptSet" : "8dcb0dd6-b31f-41d1-b144-d49a2c5340ab",
     "report.newEpisodesOfDiseases.allDiagnoses.conceptSet" : "dccb05f6-a27b-4331-989c-9a669e84e467",
     "report.newEpisodesOfDiseases.referredCodedanswer.concept" : "d7f6f425-df28-47f4-9474-ba85a462a261",
-    "report.newEpisodesOfDiseases.active" : "true"
+    "report.newEpisodesOfDiseases.active" : "true",
+    "report.chronicIllnesses.active" : "true",
+    "report.chronicIllnesses.conceptSet" : "e6e533d1-ab5e-4811-87ac-2eb12cf2f839",
+    "report.chronicIllnesses.referral.concept" : "276cccb6-0c0b-4f84-8947-298aceea5e62"
 }

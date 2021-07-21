@@ -1,0 +1,96 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset>
+  <person person_id="97" gender="M" birthdate="2013-06-10" birthdate_estimated="false" dead="false" creator="1" date_created="2021-06-10 06:23:13.0" voided="false" uuid="16fe4da6-f83b-467b-903a-8a1593ce5afe" deathdate_estimated="false"/>
+  <person person_id="98" gender="M" birthdate="2017-06-10" birthdate_estimated="false" dead="false" creator="1" date_created="2021-06-10 06:24:54.0" voided="false" uuid="8887f424-a553-498e-96de-02be673d9dfc" deathdate_estimated="false"/>
+  <person person_id="99" gender="M" birthdate="2007-06-10" birthdate_estimated="false" dead="false" creator="1" date_created="2021-06-10 06:25:48.0" voided="false" uuid="56758655-601c-41ac-9a05-1d23a8d8c4d0" deathdate_estimated="false"/>
+  <person person_id="910" gender="F" birthdate="2010-06-10" birthdate_estimated="false" dead="false" creator="1" date_created="2021-06-10 06:26:58.0" voided="false" uuid="9eee9dc1-c276-4662-9a41-34946d52b5ba" deathdate_estimated="false"/>
+  <person person_id="911" gender="F" birthdate="2004-06-10" birthdate_estimated="false" dead="false" creator="1" date_created="2021-06-10 06:27:44.0" voided="false" uuid="cd691c20-f2b5-4701-9b42-1d3a07667392" deathdate_estimated="false"/>
+  <person person_id="912" gender="M" birthdate="2003-06-10" birthdate_estimated="false" dead="false" creator="1" date_created="2021-06-10 06:28:33.0" voided="false" uuid="4036c3e0-bd24-4682-8aa4-a2a67677dd00" deathdate_estimated="false"/>
+  <person person_id="913" gender="F" birthdate="2000-06-10" birthdate_estimated="false" dead="false" creator="1" date_created="2021-06-10 06:29:22.0" voided="false" uuid="fc77ff44-90d6-4d4d-98b0-267f33daa8ba" deathdate_estimated="false"/>
+  <person person_id="914" gender="M" birthdate="1997-06-10" birthdate_estimated="false" dead="false" creator="1" date_created="2021-06-10 06:30:23.0" voided="false" uuid="a907ce15-c68d-47b7-9e43-04c9848d55a6" deathdate_estimated="false"/>
+  <person person_id="915" gender="F" birthdate="1996-06-10" birthdate_estimated="false" dead="false" creator="1" date_created="2021-06-10 06:31:25.0" voided="false" uuid="91c30afe-4ff7-473b-8b6c-1900b9a46523" deathdate_estimated="false"/>
+  <person person_id="916" gender="M" birthdate="1972-06-10" birthdate_estimated="false" dead="false" creator="1" date_created="2021-06-10 06:32:36.0" voided="false" uuid="6b49fa33-a21f-40af-a02f-7775cf2e90e7" deathdate_estimated="false"/>
+  <person person_id="917" gender="M" birthdate="1971-06-10" birthdate_estimated="false" dead="false" creator="1" date_created="2021-06-10 06:45:51.0" voided="false" uuid="7629f32a-5f33-4a47-915c-9766ddacd95a" deathdate_estimated="false"/>
+  <person person_id="918" gender="F" birthdate="1941-06-10" birthdate_estimated="false" dead="false" creator="1" date_created="2021-06-10 06:48:34.0" voided="false" uuid="904bc161-f75d-4984-8494-bba49d0a4ebe" deathdate_estimated="false"/>
+  
+  <patient patient_id="97" creator="1" date_created="2021-06-10 06:23:13.0" voided="false" allergy_status="Unknown"/>
+  <patient patient_id="98" creator="1" date_created="2021-06-10 06:24:54.0" voided="false" allergy_status="Unknown"/>
+  <patient patient_id="99" creator="1" date_created="2021-06-10 06:25:48.0" voided="false" allergy_status="Unknown"/>
+  <patient patient_id="910" creator="1" date_created="2021-06-10 06:26:58.0" voided="false" allergy_status="Unknown"/>
+  <patient patient_id="911" creator="1" date_created="2021-06-10 06:27:44.0" voided="false" allergy_status="Unknown"/>
+  <patient patient_id="912" creator="1" date_created="2021-06-10 06:28:33.0" voided="false" allergy_status="Unknown"/>
+  <patient patient_id="913" creator="1" date_created="2021-06-10 06:29:22.0" voided="false" allergy_status="Unknown"/>
+  <patient patient_id="914" creator="1" date_created="2021-06-10 06:30:23.0" voided="false" allergy_status="Unknown"/>
+  <patient patient_id="915" creator="1" date_created="2021-06-10 06:31:25.0" voided="false" allergy_status="Unknown"/>
+  <patient patient_id="916" creator="1" date_created="2021-06-10 06:32:36.0" voided="false" allergy_status="Unknown"/>
+  <patient patient_id="917" creator="1" date_created="2021-06-10 06:45:51.0" voided="false" allergy_status="Unknown"/>
+  <patient patient_id="918" creator="1" date_created="2021-06-10 06:48:34.0" voided="false" allergy_status="Unknown"/>
+  
+  <visit_type visit_type_id="9" name="General" description="General visit" creator="1" date_created="2021-05-05 00:00:00.0" retired="false" uuid="35ba9aff-901c-49dc-8630-a59385480d18" />
+  
+  <visit visit_id="1" patient_id="97" visit_type_id="9" date_started="2021-06-10 06:23:14.0" location_id="1" creator="1" date_created="2021-06-10 06:23:14.0" voided="false" uuid="2ae0597c-680c-43ad-b235-f146d3bd4b3d"/>
+  <visit visit_id="2" patient_id="98" visit_type_id="9" date_started="2021-06-10 06:24:55.0" location_id="1" creator="1" date_created="2021-06-10 06:24:55.0" voided="false" uuid="88bcdf0a-041e-4beb-beb9-c2f38309ae36"/>
+  <visit visit_id="3" patient_id="99" visit_type_id="9" date_started="2021-06-10 06:25:49.0" location_id="1" creator="1" date_created="2021-06-10 06:25:49.0" voided="false" uuid="58130dfc-950c-4304-a87f-da934fe79fd9"/>
+  <visit visit_id="4" patient_id="910" visit_type_id="9" date_started="2021-06-10 06:26:58.0" location_id="1" creator="1" date_created="2021-06-10 06:26:58.0" voided="false" uuid="421b1d57-1b46-4b23-ac12-b608490e382f"/>
+  <visit visit_id="5" patient_id="911" visit_type_id="9" date_started="2021-06-10 06:27:45.0" location_id="1" creator="1" date_created="2021-06-10 06:27:45.0" voided="false" uuid="9628682d-ffa3-44eb-8fb6-ef131672ee27"/>
+  <visit visit_id="6" patient_id="912" visit_type_id="9" date_started="2021-06-10 06:28:34.0" location_id="1" creator="1" date_created="2021-06-10 06:28:34.0" voided="false" uuid="90fea4bc-966e-4de3-913f-e7417a2e8aea"/>
+  <visit visit_id="7" patient_id="913" visit_type_id="9" date_started="2021-06-10 06:29:24.0" location_id="1" creator="1" date_created="2021-06-10 06:29:24.0" voided="false" uuid="9596f623-eb50-4056-b256-8ff3aecf9688"/>
+  <visit visit_id="8" patient_id="914" visit_type_id="9" date_started="2021-06-10 06:30:24.0" location_id="1" creator="1" date_created="2021-06-10 06:30:24.0" voided="false" uuid="006f0a8f-dc3f-447b-baec-4e4a7218393d"/>
+  <visit visit_id="9" patient_id="915" visit_type_id="9" date_started="2021-06-10 06:31:26.0" location_id="1" creator="1" date_created="2021-06-10 06:31:26.0" voided="false" uuid="fd116965-c5c7-458d-a678-4162af43010c"/>
+  <visit visit_id="10" patient_id="916" visit_type_id="9" date_started="2021-06-10 06:32:36.0" location_id="1" creator="1" date_created="2021-06-10 06:32:36.0" voided="false" uuid="7cb11e36-a749-4ded-aa61-cb9342014885"/>
+  <visit visit_id="11" patient_id="917" visit_type_id="9" date_started="2021-06-10 06:45:52.0" location_id="1" creator="1" date_created="2021-06-10 06:45:52.0" voided="false" uuid="dce55925-90f2-4a4c-a5e0-2e0f67215fd7"/>
+  <visit visit_id="12" patient_id="918" visit_type_id="9" date_started="2021-06-10 06:48:34.0" location_id="1" creator="1" date_created="2021-06-10 06:48:35.0" voided="false" uuid="dffcd8cd-dd2c-4d31-b5e2-fbf060bc2527"/>
+  
+  <concept concept_id="922" retired="false" datatype_id="2" class_id="7" is_set="false" creator="1" date_created="2021-06-09 06:24:21.0" changed_by="1" date_changed="2021-06-09 06:30:19.0" uuid="a92807d9-bbe9-4874-aa6b-86c531fb6efd"/>
+  <concept concept_id="9161" retired="false" datatype_id="4" class_id="11" is_set="false" creator="1" date_created="2021-06-09 06:30:09.0" changed_by="1" date_changed="2021-06-09 06:30:09.0" uuid="1ff3db17-7a6f-40bf-8062-a912773e905c"/>
+  <concept concept_id="9248" retired="false" datatype_id="2" class_id="11" is_set="false" creator="1" date_created="2021-06-09 06:30:18.0" changed_by="1" date_changed="2021-06-09 06:30:18.0" uuid="276cccb6-0c0b-4f84-8947-298aceea5e62"/>
+  <concept concept_id="9877" retired="false" datatype_id="4" class_id="4" is_set="false" creator="1" date_created="2021-06-09 06:31:01.0" changed_by="1" date_changed="2021-06-09 06:31:01.0" uuid="105903f4-7b6d-496a-b613-37ab9d0f5450"/>
+  <concept concept_id="9988" retired="false" datatype_id="4" class_id="4" is_set="false" creator="1" date_created="2021-06-09 06:31:09.0" changed_by="1" date_changed="2021-06-09 06:31:09.0" uuid="115115AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/>
+  <concept concept_id="92065" retired="false" datatype_id="4" class_id="4" is_set="false" creator="1" date_created="2021-06-09 06:32:13.0" changed_by="1" date_changed="2021-06-09 06:32:13.0" uuid="3cd50188-26fe-102b-80cb-0017a47871b2"/>
+  <concept concept_id="92163" retired="false" datatype_id="4" class_id="4" is_set="false" creator="1" date_created="2021-06-09 06:32:19.0" changed_by="1" date_changed="2021-06-09 06:32:19.0" uuid="8b26ecd3-8726-4c8e-b042-cbe71e44a863"/>
+  <concept concept_id="92668" retired="false" datatype_id="4" class_id="11" is_set="true" creator="1" date_created="2021-06-10 08:16:50.0" changed_by="1" date_changed="2021-06-10 08:16:50.0" uuid="93de4c8b-fcbe-41f3-b641-6c9f7100c18e"/>
+  <concept concept_id="92669" retired="false" datatype_id="4" class_id="11" is_set="true" creator="1" date_created="2021-06-10 08:24:39.0" changed_by="1" date_changed="2021-06-10 08:24:39.0" uuid="e6e533d1-ab5e-4811-87ac-2eb12cf2f839"/>
+  
+  <concept_name concept_name_id="863" concept_id="922" name="Coded Diagnosis" locale="en" locale_preferred="true" creator="1" date_created="2021-06-09 06:30:19.0" concept_name_type="FULLY_SPECIFIED" voided="false" uuid="a2d6a832-78d1-4b60-861d-3da2d32a41d7"/>
+  <concept_name concept_name_id="379" concept_id="9161" name="Good Samaritain Limbe Hospital" locale="en" locale_preferred="true" creator="1" date_created="2021-06-09 06:30:09.0" concept_name_type="FULLY_SPECIFIED" voided="false" uuid="72612049-be65-4693-88ef-007503ec3d49"/>
+  <concept_name concept_name_id="831" concept_id="9248" name="Health Centre" locale="en" locale_preferred="true" creator="1" date_created="2021-06-09 06:30:18.0" concept_name_type="FULLY_SPECIFIED" voided="false" uuid="cb743ba0-355f-48c8-86ea-811ce0ba92bb"/>
+  <concept_name concept_name_id="2695" concept_id="9877" name="Type 1 diabetes (E10)" locale="en" locale_preferred="true" creator="1" date_created="2021-06-09 06:31:01.0" concept_name_type="FULLY_SPECIFIED" voided="false" uuid="d3dfd381-7c49-4e52-ac5b-075c5a5e3703"/>
+  <concept_name concept_name_id="3139" concept_id="9988" name="Obesity (E66.9)" locale="en" locale_preferred="true" creator="1" date_created="2021-06-09 06:31:09.0" concept_name_type="FULLY_SPECIFIED" voided="false" uuid="681d9b26-836a-4b3f-960a-ce095e640d7a"/>
+  <concept_name concept_name_id="7448" concept_id="92065" name="Hypertension (I10)" locale="en" locale_preferred="true" creator="1" date_created="2021-06-09 06:32:13.0" concept_name_type="FULLY_SPECIFIED" voided="false" uuid="3f8cd2c2-a123-4396-8900-34e597ee3c99"/>
+  <concept_name concept_name_id="7841" concept_id="92163" name="Type 2 diabetes (E11)" locale="en" locale_preferred="true" creator="1" date_created="2021-06-09 06:32:19.0" concept_name_type="FULLY_SPECIFIED" voided="false" uuid="7ede1f1b-7692-4cae-9bb9-c035edbde623"/>
+  <concept_name concept_name_id="9904" concept_id="92668" name="Diabetes" locale="en" locale_preferred="true" creator="1" date_created="2021-06-10 08:16:51.0" concept_name_type="FULLY_SPECIFIED" voided="false" uuid="500dbf8d-139d-4bc3-8535-6853002c3888"/>
+  <concept_name concept_name_id="9905" concept_id="92669" name="Chronic Illnesses" locale="en" locale_preferred="true" creator="1" date_created="2021-06-10 08:24:39.0" concept_name_type="FULLY_SPECIFIED" voided="false" uuid="b54cbf43-2c29-4799-83ad-77022cb5e991"/>
+  
+  <concept_set concept_set_id="92400" concept_id="9877" concept_set="92668" sort_weight="0.0" creator="1" date_created="2021-06-10 08:16:51.0" uuid="426a5cde-0747-4d7a-bc4b-3b23ae70e7a3"/>
+  <concept_set concept_set_id="92401" concept_id="92163" concept_set="92668" sort_weight="1.0" creator="1" date_created="2021-06-10 08:16:51.0" uuid="705c0913-3844-4faf-83d1-105b6c1fd702"/>
+  <concept_set concept_set_id="92402" concept_id="92668" concept_set="92669" sort_weight="0.0" creator="1" date_created="2021-06-10 08:24:39.0" uuid="e08b1025-93fd-4dbb-b82a-4ef3d37a9b43"/>
+  <concept_set concept_set_id="92403" concept_id="92065" concept_set="92669" sort_weight="1.0" creator="1" date_created="2021-06-10 08:24:39.0" uuid="741ba815-8879-4a6c-8d10-894c48148961"/>
+  <concept_set concept_set_id="92404" concept_id="9988" concept_set="92669" sort_weight="2.0" creator="1" date_created="2021-06-10 08:24:39.0" uuid="5be5cd67-ef70-4d1b-94cb-5f206beef423"/>
+  
+  <obs obs_id="914" person_id="97" concept_id="922" obs_datetime="2021-06-10 07:20:01.0" location_id="2" value_coded="9988" creator="1" date_created="2021-06-10 07:20:01.0" voided="false" uuid="c3aa5e31-792a-480d-a77b-c2cec6a61da9"/>
+  <obs obs_id="920" person_id="97" concept_id="922" obs_datetime="2021-06-10 07:20:01.0" location_id="2" value_coded="92065" creator="1" date_created="2021-06-10 07:21:31.0" voided="false" uuid="d49177a8-9138-472c-aa74-10f53220d29b"/>
+  <obs obs_id="927" person_id="918" concept_id="922" obs_datetime="2021-06-10 07:32:30.0" location_id="2" value_coded="92065" creator="1" date_created="2021-06-10 07:32:30.0" voided="false" uuid="eed331b8-53dd-49f6-ad76-c287d0aff6c3"/>
+  <obs obs_id="932" person_id="918" concept_id="922" obs_datetime="2021-06-10 07:32:30.0" location_id="2" value_coded="9877" creator="1" date_created="2021-06-10 07:33:05.0" voided="false" uuid="fefe0672-aa63-4134-b57e-1ba3cb3f4c59"/>
+  <obs obs_id="940" person_id="917" concept_id="922" obs_datetime="2021-06-10 07:34:33.0" location_id="2" value_coded="92163" creator="1" date_created="2021-06-10 07:34:33.0" voided="false" uuid="72d0ed6c-066e-4a9c-bcd3-271574e6e0f4"/>
+  <obs obs_id="945" person_id="916" concept_id="922" obs_datetime="2021-06-10 07:35:12.0" location_id="2" value_coded="92065" creator="1" date_created="2021-06-10 07:35:12.0" voided="false" uuid="9757ec16-5542-4c94-b966-c6cbdabbac66"/>
+  <obs obs_id="950" person_id="915" concept_id="922" obs_datetime="2021-06-10 07:36:25.0" location_id="2" value_coded="9988" creator="1" date_created="2021-06-10 07:36:25.0" voided="false" uuid="dd2cd91c-37e0-4942-aeed-727fa8596851"/>
+  <obs obs_id="958" person_id="914" concept_id="922" obs_datetime="2021-06-10 07:39:44.0" location_id="2" value_coded="9988" creator="1" date_created="2021-06-10 07:39:45.0" voided="false" uuid="7a0b5211-4fd7-44f2-a5c2-bda0bbbe5509"/>
+  <obs obs_id="962" person_id="913" concept_id="922" obs_datetime="2021-06-10 07:40:30.0" location_id="2" value_coded="92065" creator="1" date_created="2021-06-10 07:40:31.0" voided="false" uuid="fa9990e2-0b1f-4e6a-b14e-d3efb8c01023"/>
+  <obs obs_id="970" person_id="912" concept_id="922" obs_datetime="2021-06-10 07:41:11.0" location_id="2" value_coded="92163" creator="1" date_created="2021-06-10 07:41:11.0" voided="false" uuid="5c929696-dfa7-4fe7-9797-f0f888769fed"/>
+  <obs obs_id="975" person_id="911" concept_id="922" obs_datetime="2021-06-10 07:42:01.0" location_id="2" value_coded="92163" creator="1" date_created="2021-06-10 07:42:01.0" voided="false" uuid="6e331989-d8a1-45d7-b48e-8e8ea49aa229"/>
+  <obs obs_id="981" person_id="910" concept_id="922" obs_datetime="2021-06-10 07:42:40.0" location_id="2" value_coded="9877" creator="1" date_created="2021-06-10 07:42:40.0" voided="false" uuid="f1c5a916-8483-470d-bb8b-b30e9a931468"/>
+  <obs obs_id="987" person_id="99" concept_id="922" obs_datetime="2021-06-10 07:43:27.0" location_id="2" value_coded="9877" creator="1" date_created="2021-06-10 07:43:27.0" voided="false" uuid="3c4704b3-ba03-47fe-bd82-dd849b2916ee"/>
+  <obs obs_id="993" person_id="98" concept_id="922" obs_datetime="2021-06-10 07:53:06.0" location_id="2" value_coded="9988" creator="1" date_created="2021-06-10 07:53:06.0" voided="false" uuid="6b8e42a5-ffeb-4639-9737-b0e828a8a48c"/>
+  <obs obs_id="98" person_id="97" concept_id="9248" obs_datetime="2021-06-10 10:11:20.0" location_id="1" value_coded="9161" creator="1" date_created="2021-06-10 10:11:20.0" voided="false" uuid="ea60309d-0adc-4719-bf1b-b781a04f7003"/>
+  <obs obs_id="100" person_id="912" concept_id="9248" obs_datetime="2021-06-10 10:11:57.0" location_id="1" value_coded="9161" creator="1" date_created="2021-06-10 10:11:57.0" voided="false" uuid="49a2049e-3fa4-4d98-bcae-966e9ce761da"/>
+  <obs obs_id="102" person_id="911" concept_id="9248" obs_datetime="2021-06-10 10:12:16.0" location_id="1" value_coded="9161" creator="1" date_created="2021-06-10 10:12:16.0" voided="false" uuid="ed53ce74-df5e-4d2d-90b2-ab358bdcc67c"/>
+  <obs obs_id="104" person_id="99" concept_id="9248" obs_datetime="2021-06-10 10:15:06.0" location_id="1" value_coded="9161" creator="1" date_created="2021-06-10 10:15:06.0" voided="false" uuid="9ffaf1c6-cf23-432c-a328-86ab0bfbf970"/>
+  <obs obs_id="106" person_id="917" concept_id="9248" obs_datetime="2021-06-10 10:15:20.0" location_id="1" value_coded="9161" creator="1" date_created="2021-06-10 10:15:20.0" voided="false" uuid="056e88ec-ce23-4771-a6f7-c9e22ae0d4c5"/>
+  
+  <conditions condition_id="1" patient_id="97" status="ACTIVE" concept_id="9988" onset_date="2021-06-09 21:00:00.0" additional_detail="" creator="1" date_created="2021-06-10 07:22:04.0" voided="false" uuid="66d519fd-c4f6-4c7b-8b87-fdeedff5bcc7"/>
+  <conditions condition_id="2" patient_id="918" status="ACTIVE" concept_id="9877" onset_date="2021-06-09 21:00:00.0" additional_detail="" creator="1" date_created="2021-06-10 07:33:18.0" voided="false" uuid="77b4dbc1-e9bb-465c-bebc-55de75131905"/>
+  <conditions condition_id="3" patient_id="916" status="ACTIVE" concept_id="92065" onset_date="2021-06-09 21:00:00.0" additional_detail="" creator="1" date_created="2021-06-10 07:35:19.0" voided="false" uuid="7d32df5d-6646-4bc8-8291-1bb981308ad0"/>
+  <conditions condition_id="4" patient_id="915" status="ACTIVE" concept_id="9988" onset_date="2021-06-09 21:00:00.0" additional_detail="" creator="1" date_created="2021-06-10 07:36:44.0" voided="false" uuid="d8df7aa6-d310-437d-966e-f9baf63cb317"/>
+  <conditions condition_id="5" patient_id="911" status="ACTIVE" concept_id="92163" onset_date="2021-06-09 21:00:00.0" additional_detail="" creator="1" date_created="2021-06-10 07:42:06.0" voided="false" uuid="b96ecfa4-10b1-4f72-87d5-2d35e6db8c0d"/>
+  <conditions condition_id="6" patient_id="910" status="ACTIVE" concept_id="9877" onset_date="2021-06-09 21:00:00.0" additional_detail="" creator="1" date_created="2021-06-10 07:42:47.0" voided="false" uuid="23909066-0b36-4dab-8647-5539fc7a6fa3"/>
+</dataset>
