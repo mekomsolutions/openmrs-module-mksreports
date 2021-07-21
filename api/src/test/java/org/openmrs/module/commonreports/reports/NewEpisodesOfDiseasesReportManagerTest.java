@@ -1,10 +1,10 @@
 package org.openmrs.module.commonreports.reports;
 
 import java.io.File;
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Iterator;
-import java.util.List;
 import org.dbunit.DatabaseUnitException;
 import org.dbunit.DatabaseUnitRuntimeException;
 import org.dbunit.database.DatabaseConfig;
@@ -91,7 +91,7 @@ public class NewEpisodesOfDiseasesReportManagerTest extends BaseModuleContextSen
 	public void setUp() throws Exception {
 		updateDatabase("org/openmrs/module/commonreports/liquibase/test-liquibase.xml");
 		executeDataSet("org/openmrs/module/reporting/include/ReportTestDataset-openmrs-2.0.xml");
-		executeDataSet("org/openmrs/module/commonreports/include/NewEpisodesOfDiseasesTestDataset.xml");
+		executeDataSet("org/openmrs/module/commonreports/include/newEpisodesOfDiseasesTestDataset.xml");
 		
 		String path = getClass().getClassLoader().getResource("testAppDataDir").getPath() + File.separator;
 		System.setProperty("OPENMRS_APPLICATION_DATA_DIRECTORY", path);
@@ -113,8 +113,7 @@ public class NewEpisodesOfDiseasesReportManagerTest extends BaseModuleContextSen
 		// verif
 		ReportDesign design = rs.getReportDesignByUuid("7688966e-fca5-4fde-abab-1b46a87a1185");
 		
-		Assert.assertEquals(NewEpisodesOfDiseasesReportManager.REPEATING_SECTION,
-		    design.getProperties().get("repeatingSections"));
+		Assert.assertEquals("sheet:1,row:4,dataset:" + manager.getName(), design.getProperties().get("repeatingSections"));
 		Assert.assertEquals(1, design.getResources().size());
 		
 		ReportDefinition def = design.getReportDefinition();
@@ -140,11 +139,11 @@ public class NewEpisodesOfDiseasesReportManagerTest extends BaseModuleContextSen
 		for (Iterator<DataSetRow> itr = data.getDataSets().get(rd.getName()).iterator(); itr.hasNext();) {
 			DataSetRow row = itr.next();
 			if (row.getColumnValue("Maladies/Symptomes").equals("MALARIA")) {
-				assertEquals(ONE, row.getColumnValue("F_25-49"));
+				assertEquals(new BigDecimal(2), row.getColumnValue("F_25-49"));
 				assertEquals(ONE, row.getColumnValue("M_1-4"));
 				assertEquals(ONE, row.getColumnValue("M_Total"));
-				assertEquals(ONE, row.getColumnValue("F_Total"));
-				assertEquals(ONE, row.getColumnValue("TotalReferredCases"));
+				assertEquals(new BigDecimal(2), row.getColumnValue("F_Total"));
+				assertEquals(new BigDecimal(2), row.getColumnValue("TotalReferredCases"));
 				malariaVerified = true;
 			}
 			if (row.getColumnValue("Maladies/Symptomes").equals("FEVER")) {

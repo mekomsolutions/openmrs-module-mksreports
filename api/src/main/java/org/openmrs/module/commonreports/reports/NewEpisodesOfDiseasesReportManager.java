@@ -8,7 +8,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.apache.commons.collections4.CollectionUtils;
@@ -29,8 +28,6 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class NewEpisodesOfDiseasesReportManager extends ActivatedReportManager {
-	
-	public static final String REPEATING_SECTION = "sheet:1,row:4,dataset:New Episodes of Diseases";
 	
 	@Autowired
 	private InitializerService inizService;
@@ -102,8 +99,8 @@ public class NewEpisodesOfDiseasesReportManager extends ActivatedReportManager {
 		rd.setUuid(getUuid());
 		
 		SqlDataSetDefinition sqlDsd = new SqlDataSetDefinition();
-		sqlDsd.setName("New Episodes of Diseases SQL Dataset");
-		sqlDsd.setDescription("New Episodes of Diseases SQL Dataset");
+		sqlDsd.setName(getName());
+		sqlDsd.setDescription("");
 		
 		String rawSql = getSqlString("org/openmrs/module/commonreports/sql/newEpisodesOfDiseases.sql");
 		Concept allMaladies = inizService.getConceptFromKey("report.newEpisodesOfDiseases.diagnosisList.conceptSet");
@@ -128,7 +125,7 @@ public class NewEpisodesOfDiseasesReportManager extends ActivatedReportManager {
 		    reportDefinition, "org/openmrs/module/commonreports/reportTemplates/newEpisodesOfDiseasesReportTemplate.xls");
 		
 		Properties designProperties = new Properties();
-		designProperties.put("repeatingSections", REPEATING_SECTION);
+		designProperties.put("repeatingSections", "sheet:1,row:4,dataset:" + getName());
 		designProperties.put("title.label", MessageUtil.translate("commonreports.report.newEpisodesOfDiseases.title.label"));
 		designProperties.put("maladies.label",
 		    MessageUtil.translate("commonreports.report.newEpisodesOfDiseases.maladies.label"));
@@ -159,14 +156,13 @@ public class NewEpisodesOfDiseasesReportManager extends ActivatedReportManager {
 	
 	private String applyMetadataReplacements(String rawSql, Concept conceptSet) {
 		Concept questionsConcept = inizService.getConceptFromKey("report.newEpisodesOfDiseases.questions.conceptSet");
-		Concept referredCodedanswer = inizService
-		        .getConceptFromKey("report.newEpisodesOfDiseases.referredCodedanswer.concept");
+		Concept referralConcept = inizService.getConceptFromKey("report.newEpisodesOfDiseases.referral.concept");
 		String s = rawSql.replace(":selectStatements", constructSelectUnionAllStatements(conceptSet))
 		        .replace(":whenStatements", constructWhenThenStatements(conceptSet))
 		        .replace(":conceptIds",
 		            questionsConcept.getSetMembers().stream().map(Concept::getId).map(Object::toString)
 		                    .collect(Collectors.joining(",")))
-		        .replace(":referredValueCodedId", referredCodedanswer.getId().toString());
+		        .replace(":referralConcept", referralConcept.getId().toString());
 		return s;
 	}
 	
@@ -175,7 +171,14 @@ public class NewEpisodesOfDiseasesReportManager extends ActivatedReportManager {
 		List<Concept> allOtherDiagnoses = null;
 		
 		if (allDiagnosesSet != null) {
-			allOtherDiagnoses = new ArrayList<Concept>(allDiagnosesSet.getSetMembers());
+			allOtherDiagnoses = new ArrayList<Concept>();
+			if (allDiagnosesSet.getSetMembers().get(0).getSet()) {
+				for (Concept diagnosesSet : allDiagnosesSet.getSetMembers()) {
+					allOtherDiagnoses.addAll(diagnosesSet.getSetMembers());
+				}
+			} else {
+				allOtherDiagnoses.addAll(allDiagnosesSet.getSetMembers());
+			}
 			
 		}
 		
