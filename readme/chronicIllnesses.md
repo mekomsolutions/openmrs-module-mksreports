@@ -11,7 +11,7 @@ It is setup by setting the following properties in [Initializer](https://github.
     ...,
     "report.chronicIllnesses.active" : "true",
     "report.chronicIllnesses.conceptSet" : "uuid-to-the-concept-set-of-diagnoses",
-    "report.chronicIllnesses.referral.concept" : "uuid-to-referredTo-concept"
+    "report.chronicIllnesses.referral.concept" : "uuid-to-referral-questionConcept-or-obsGroupingConcept"
 }
 ```
 `report.chronicIllnesses.active` activates the report to be usable when the module is loaded.
@@ -20,6 +20,6 @@ It is setup by setting the following properties in [Initializer](https://github.
 
 `report.chronicIllnesses.referral.concept` specifies a coded question concept which allows for determining referred outcome cases. The answers to this question is not looked at though: any obs saved with this concept will make the visit considered "Referred". This means this property can also point to a concept set (saved as obs group).
 
-`report.chronicIllnesses.referral.concept` specifies a coded question concept which allows for determining referred outcome cases.
+`report.chronicIllnesses.referral.concept` specifies a concept for reporting on referred patients. It could be a coded question which when answered means the patient has been referred or concept that defines a group of observations capturing referral data.
 
 Find the report template at [MSPP: Chronic Illnesses](https://docs.google.com/spreadsheets/d/13A3gBRwi45-YwnArNsDgQB4EPVwsTswp/edit#gid=704979704)
