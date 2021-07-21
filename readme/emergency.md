@@ -20,7 +20,7 @@ It is setup by setting the following properties in the [initializer](https://git
     "report.emergency.medicalAndSurgicalEmergenciesSetOfSets.concept" : "uuid-to-medicalAndSurgicalEmergency-superSet-concept",
     "report.emergency.otherEmergencies.concept" : "uuid-to-otherEmergencies-concept",
     "report.emergency.otherEmergenciesQuestion.concept" : "uuid-to-otherEmergencies-question-concept",
-    "report.emergency.referredTo.concept" : "uuid-to-referredTo-concept",
+    "report.emergency.referral.concept" : "uuid-to-referral-questionConcept-or-obsGroupingConcept",
     "report.emergency.leftWithoutPermission.concept" : "uuid-to-leftWithoutPermission-concept",
     "report.emergency.yes.concept" : "uuid-to-yes-answer-concept"
 }
@@ -57,7 +57,7 @@ See an example of the concept Set of Sets structure:
 
 `report.emergency.otherEmergencies.conceptSet` specifies a set of coded set members answering the question defined by `report.emergency.otherEmergenciesQuestion.concept` property.
 
-`report.emergency.referredTo.concept` specifies a coded question concept which allows for determining referred outcome cases.
+`report.emergency.referral.concept` specifies a concept for reporting on referred patients. It could be a coded question which when answered means the patient has been referred or concept that defines a group of observations capturing referral data.
 
 `report.emergency.leftWithoutPermission.concept` specifies a coded question concept which allows for determining left without permission outcome cases. Trues cases are determined by the coded answer defined by `report.emergency.yes.concept` property. 
 

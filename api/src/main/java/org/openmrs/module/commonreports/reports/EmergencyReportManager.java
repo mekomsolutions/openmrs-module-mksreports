@@ -297,20 +297,20 @@ public class EmergencyReportManager extends ActivatedReportManager {
 			    absentInDceasedCategory);
 			
 			// Referrals
-			CodedObsCohortDefinition referredToCategory = new CodedObsCohortDefinition();
-			Concept referredToConcept = inizService.getConceptFromKey("report.emergency.referredTo.concept");
+			CodedObsCohortDefinition referralCategory = new CodedObsCohortDefinition();
+			Concept referralConcept = inizService.getConceptFromKey("report.emergency.referral.concept");
 			
-			referredToCategory.addParameter(new Parameter("onOrAfter", "On Or After", Date.class));
-			referredToCategory.addParameter(new Parameter("onOrBefore", "On Or Before", Date.class));
-			referredToCategory.setOperator(SetComparator.IN);
-			referredToCategory.setQuestion(referredToConcept);
+			referralCategory.addParameter(new Parameter("onOrAfter", "On Or After", Date.class));
+			referralCategory.addParameter(new Parameter("onOrBefore", "On Or Before", Date.class));
+			referralCategory.setOperator(SetComparator.IN);
+			referralCategory.setQuestion(referralConcept);
 			
 			PresenceOrAbsenceCohortDefinition absentInDceasedLeftAndWithoutPermissionCategories = new PresenceOrAbsenceCohortDefinition();
 			absentInDceasedLeftAndWithoutPermissionCategories.addCohortToCheck(Mapped.mapStraightThrough(deceased));
 			absentInDceasedLeftAndWithoutPermissionCategories
 			        .addCohortToCheck(Mapped.mapStraightThrough(leftWithoutPermission));
 			absentInDceasedLeftAndWithoutPermissionCategories.setPresentInAtMost(0);
-			CompositionCohortDefinition referrals = createCohortComposition(referredToCategory,
+			CompositionCohortDefinition referrals = createCohortComposition(referralCategory,
 			    absentInDceasedLeftAndWithoutPermissionCategories);
 			
 			// Cared for (not in above categories)
