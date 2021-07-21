@@ -233,13 +233,13 @@ public class ChronicIllnessesReportManager extends ActivatedReportManager {
 		chronicIllnessesDsd.addColumn(col12, createCohortComposition(_50yAndAbove, males), null);
 		
 		// Referred To column
-		CodedObsCohortDefinition referredTo = new CodedObsCohortDefinition();
-		referredTo.addParameter(new Parameter("onOrAfter", "On Or After", Date.class));
-		referredTo.addParameter(new Parameter("onOrBefore", "On Or Before", Date.class));
-		referredTo.setOperator(SetComparator.IN);
-		referredTo.setQuestion(inizService.getConceptFromKey("report.chronicIllnesses.referredTo.concept"));
-		chronicIllnessesDsd.addColumn(col13, createCohortComposition(referredTo, females), null);
-		chronicIllnessesDsd.addColumn(col14, createCohortComposition(referredTo, males), null);
+		CodedObsCohortDefinition referral = new CodedObsCohortDefinition();
+		referral.addParameter(new Parameter("onOrAfter", "On Or After", Date.class));
+		referral.addParameter(new Parameter("onOrBefore", "On Or Before", Date.class));
+		referral.setOperator(SetComparator.IN);
+		referral.setQuestion(inizService.getConceptFromKey("report.chronicIllnesses.referral.concept"));
+		chronicIllnessesDsd.addColumn(col13, createCohortComposition(referral, females), null);
+		chronicIllnessesDsd.addColumn(col14, createCohortComposition(referral, males), null);
 		
 		return rd;
 	}

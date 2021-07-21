@@ -29,5 +29,5 @@
     "report.newEpisodesOfDiseases.active" : "true",
     "report.chronicIllnesses.active" : "true",
     "report.chronicIllnesses.conceptSet" : "e6e533d1-ab5e-4811-87ac-2eb12cf2f839",
-    "report.chronicIllnesses.referredTo.concept" : "276cccb6-0c0b-4f84-8947-298aceea5e62"
+    "report.chronicIllnesses.referral.concept" : "276cccb6-0c0b-4f84-8947-298aceea5e62"
 }
